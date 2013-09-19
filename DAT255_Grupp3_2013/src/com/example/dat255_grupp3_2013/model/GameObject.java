@@ -1,5 +1,15 @@
 package com.example.dat255_grupp3_2013.model;
 
-public class GameObject {
+import com.badlogic.gdx.math.Vector2;
 
+public class GameObject {
+	private int x,y;
+	private Vector2 w,h;
+	
+	public GameObject (){
+		/*Set values for the positions & for the dimensions. Unsure whether the
+		constructor should take in information or not*/
+		
+	}
+	
 }
