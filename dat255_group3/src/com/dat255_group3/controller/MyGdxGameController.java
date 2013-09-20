@@ -17,10 +17,14 @@ public class MyGdxGameController extends Game {
 	private SpriteBatch batch;
 	private Texture texture;
 	private Sprite sprite;
+	private PlayerController playerController;
+	private InGameController inGameController;
 	
 	@Override
 	public void create() {	
 		this.myGdxGame = new MyGdxGame();
+		this.playerController = new PlayerController(this);
+		this.inGameController = new InGameController(this);
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
@@ -66,4 +70,14 @@ public class MyGdxGameController extends Game {
 	@Override
 	public void resume() {
 	}
+
+	public PlayerController getPlayerController() {
+		return playerController;
+	}
+
+	public InGameController getInGameController() {
+		return inGameController;
+	}
+	
+	
 }

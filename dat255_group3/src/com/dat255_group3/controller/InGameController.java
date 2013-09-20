@@ -1,9 +1,10 @@
 package com.dat255_group3.controller;
 
+import com.badlogic.gdx.Screen;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.view.InGameView;
 
-public class InGameController {
+public class InGameController implements Screen{
 	
 	private MyGdxGameController myGdxGameController;
 	private InGame inGame;
@@ -14,6 +15,48 @@ public class InGameController {
 		this.inGameView = new InGameView();
 		this.inGame = new InGame();
 	}
+	
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}	
 
 	public InGame getInGame() {
 		return inGame;
@@ -21,6 +64,8 @@ public class InGameController {
 
 	public InGameView getInGameView() {
 		return inGameView;
-	}	
+	}
+
+
 	
 }
