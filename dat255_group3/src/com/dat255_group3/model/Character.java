@@ -7,11 +7,11 @@ public class Character extends GameObject {
 	/*
 	 * Default constructor
 	 */
-	public Character(){
+	public Character() {
 		super();
 	}
 
-	public Character(int weight, int friction){
+	public Character(int weight, int friction) {
 		this.friction = friction;
 		this.weight = weight;
 
