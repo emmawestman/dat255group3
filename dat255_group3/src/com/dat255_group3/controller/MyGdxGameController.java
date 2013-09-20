@@ -17,21 +17,17 @@ public class MyGdxGameController extends Game {
 	private SpriteBatch batch;
 	private Texture texture;
 	private Sprite sprite;
-	private PlayerController playerController;
-	private InGameController inGameController;
 	
 	@Override
 	public void create() {	
 		this.myGdxGame = new MyGdxGame();
-		this.playerController = new PlayerController(this);
-		this.inGameController = new InGameController(this);
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
 		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
+		texture = new Texture(Gdx.files.internal("data/eightbitPC.gif"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
@@ -70,14 +66,4 @@ public class MyGdxGameController extends Game {
 	@Override
 	public void resume() {
 	}
-
-	public PlayerController getPlayerController() {
-		return playerController;
-	}
-
-	public InGameController getInGameController() {
-		return inGameController;
-	}
-	
-	
 }
