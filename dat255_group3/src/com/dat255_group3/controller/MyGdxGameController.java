@@ -11,16 +11,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dat255_group3.model.MyGdxGame;
 
+
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;
+	private InGameController inGameController;
+	private PlayerController playerController;
+	/*
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Texture texture;
 	private Sprite sprite;
+	*/
 	
 	@Override
-	public void create() {	
+	public void create() {
+		//create other the sceenes and the player and the gameModel
 		this.myGdxGame = new MyGdxGame();
+		this.playerController = new PlayerController(this);
+		
+		
+		//go to the first screen
+		setScreen(new InGameController(this));
+		
+		/*
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
@@ -36,23 +49,36 @@ public class MyGdxGameController extends Game {
 		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		*/
 	}
 
 	@Override
 	public void dispose() {
+		/*
 		batch.dispose();
 		texture.dispose();
+		*/
 	}
 
 	@Override
-	public void render() {		
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+	public void render() {	
+		
+		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		sprite.draw(batch);
-		batch.end();
+		if (Gdx.input.justTouched()) {
+			setScreen(new InGameController(this));
+		}
+		
+		
+		//Gdx.gl.glClearColor(1, 1, 1, 1);
+		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
+		//batch.setProjectionMatrix(camera.combined);
+		//batch.begin();
+		//sprite.draw(batch);
+		//batch.end();
+		
 	}
 
 	@Override
