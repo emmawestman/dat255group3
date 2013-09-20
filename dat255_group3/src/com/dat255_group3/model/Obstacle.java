@@ -7,7 +7,7 @@ public class Obstacle extends GameObject {
 	/*
 	 * Default constructor
 	 */
-	public Obstacle(){
+	public Obstacle() {
 		super();
 	}
 
