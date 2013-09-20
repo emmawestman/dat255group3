@@ -4,15 +4,18 @@ public class Obstacle extends GameObject {
 
 	private int friction;
 
-	/*
-	 * Default constructor
-	 */
-	public Obstacle() {
-		super();
-	}
-
 	public Obstacle(int friction) {
 		this.friction = friction;
 	}
+
+	public int getFriction() {
+		return friction;
+	}
+
+	public void setFriction(int friction) {
+		this.friction = friction;
+	}
+	
+	
 
 }

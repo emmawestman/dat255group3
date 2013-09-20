@@ -1,8 +1,16 @@
 package com.dat255_group3.controller;
 
-public class PlayerController {
+import com.dat255_group3.model.Player;
 
-	public PlayerController(){
-		
+public class PlayerController {
+	private Player player;
+
+	public PlayerController(Player player) {
+		this.player = player;
+
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }
