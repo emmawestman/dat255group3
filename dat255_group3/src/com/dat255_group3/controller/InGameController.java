@@ -1,8 +1,10 @@
 package com.dat255_group3.controller;
 
 public class InGameController {
-
-	public InGameController(){
-		
+	
+	private MyGdxGameController myGdxGameController;
+	
+	public InGameController(MyGdxGameController myGdxGameController){
+		this.myGdxGameController = myGdxGameController;
 	}
 }
