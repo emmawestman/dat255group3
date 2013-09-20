@@ -2,9 +2,14 @@ package com.dat255_group3.model;
 
 public class Character extends GameObject {
 	private int weight;
-	private int friction;
+	private double friction;
 
-	public Character(int weight, int friction) {
+	
+	public Character(){
+		this(50,0.5);
+	}
+	
+	public Character(int weight, double friction) {
 		this.friction = friction;
 		this.weight = weight;
 
@@ -18,7 +23,7 @@ public class Character extends GameObject {
 		this.weight = weight;
 	}
 
-	public int getFriction() {
+	public double getFriction() {
 		return friction;
 	}
 
