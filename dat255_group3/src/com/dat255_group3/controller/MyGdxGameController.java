@@ -22,6 +22,7 @@ public class MyGdxGameController extends Game {
 		setScreen(new InGameController(this));
 		
 		
+		
 	}
 
 	@Override
@@ -29,19 +30,7 @@ public class MyGdxGameController extends Game {
 		
 	}
 
-	@Override
-	public void render() {	
-		//show a red screen
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		if (Gdx.input.justTouched()) {
-			setScreen(new InGameController(this));
-		}
-		
-		
-	}
-
+	
 	@Override
 	public void resize(int width, int height) {
 	}
