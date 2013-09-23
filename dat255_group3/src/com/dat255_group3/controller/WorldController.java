@@ -28,6 +28,7 @@ public class WorldController {
 		this.setGravity(new Vector2(0.0f, 9.82f));
 		this.doSleep = true;
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
+		// TODO create the ground
 		
 	}
 	
