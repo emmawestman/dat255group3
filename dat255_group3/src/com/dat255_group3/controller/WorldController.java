@@ -60,6 +60,10 @@ public class WorldController {
 		return worldView;
 	}
 
+	public com.badlogic.gdx.physics.box2d.World getPhysicsWorld() {
+		return physicsWorld;
+	}
+
 	public Vector2 getGravity() {
 		return gravity;
 	}

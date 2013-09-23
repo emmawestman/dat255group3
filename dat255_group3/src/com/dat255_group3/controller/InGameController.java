@@ -17,12 +17,18 @@ public class InGameController implements Screen{
 	private MyGdxGameController myGdxGameController;
 	private InGame inGame;
 	private InGameView inGameView;
+	private WorldController worldController;
+	private float timeStep = 1.0f / 60.0f;
+	private final int velocityIterations = 6;
+	private final int positionIterations = 2;
 	
 	
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
 		this.inGameView = new InGameView();
 		this.inGame = new InGame();
+		this.worldController = new WorldController(this);
+		
 		
 		
 	}
@@ -32,7 +38,11 @@ public class InGameController implements Screen{
 		//show a green screen
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+		//uppdate the physics in the world... belongs in a update method?
+		if(delta > 0) {
+			this.timeStep = (float) delta / 1000f * 4; //4 is for getting a good speed, may change
+		}
+		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 	}
 
 	@Override
