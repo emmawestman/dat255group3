@@ -35,15 +35,25 @@ public class InGameController implements Screen{
 	
 	@Override
 	public void render(float delta) {
-		//show a green screen
-		Gdx.gl.glClearColor(0, 1, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		//Uppdatera vyn
+		inGameView.render();
+		
 		//uppdate the physics in the world... belongs in a update method?
 		if(delta > 0) {
 			this.timeStep = (float) delta / 1000f * 4; //4 is for getting a good speed, may change
 		}
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
+	
+		if(Gdx.input.isTouched()){
+			//here the jumpmethod will be called upon
+			//View: rita ut hoppet av figuren
+			inGameView.drawJump();
+		}
+	
 	}
+	
+	
 
 	@Override
 	public void resize(int width, int height) {
