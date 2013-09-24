@@ -10,6 +10,9 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.dat255_group3.controller.MyGdxGameController;
 
 public class MainActivity extends AndroidApplication {
+	private int width;
+	private int height;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,14 +20,21 @@ public class MainActivity extends AndroidApplication {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        int height = size.y;
+        width = size.x;
+        height = size.y;
         
         Log.d("Viking","Width: "+width+" Height: "+height);
-
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
         initialize(new MyGdxGameController(), cfg);
+    }
+    
+    public int getScreenWidth(){
+    	return width;
+    }
+    
+    public int getScreenHeight(){
+    	return height;
     }
 }
