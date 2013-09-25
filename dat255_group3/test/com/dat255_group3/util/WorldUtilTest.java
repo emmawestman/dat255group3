@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.dat255_group3.utils.WorldUtil;
 
 public class WorldUtilTest {
 	private WorldUtil wu;
