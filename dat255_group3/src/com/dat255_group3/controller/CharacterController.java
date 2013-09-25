@@ -1,7 +1,8 @@
 package com.dat255_group3.controller;
 
-import com.dat255_group3.view.CharacterView;
+import com.badlogic.gdx.math.Vector2;
 import com.dat255_group3.model.Character;
+import com.dat255_group3.view.CharacterView;
 
 public class CharacterController {
 
@@ -11,8 +12,12 @@ public class CharacterController {
 	
 	public CharacterController(WorldController worldController){
 		this.worldController = worldController;
-		this.characterView = new CharacterView();
-		this.character = new Character();
+		
+		/*
+		 * The character and its view will later on be placed in a map/lists as we will have different characters
+		 */
+		this.character = new Character(new Vector2(-25f, -25f), 0.0, 50);
+		this.characterView = new CharacterView(character);
 	}
 
 	public Character getCharacter() {
@@ -21,6 +26,17 @@ public class CharacterController {
 
 	public CharacterView getCharacterView() {
 		return characterView;
+	}
+	
+	
+	/*
+	 * A very basic jump-method (will be changed today) 
+	 * This is only a test
+	 */
+	public void jump(){
+		float x = character.getPosition().x;
+		float y = character.getPosition().y;
+		character.setPosition(new Vector2(x, y+50f));
 	}
 	
 }

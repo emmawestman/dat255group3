@@ -4,4 +4,9 @@ public class WorldView {
 	public WorldView () {
 		
 	}
+	
+	public void render() {
+		//Draws characterview
+		
+	}
 }

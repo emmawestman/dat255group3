@@ -1,18 +1,15 @@
 package com.dat255_group3.model;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Character extends GameObject {
 	private int weight;
 	private double friction;
 
-	
-	public Character(){
-		this(50,0.5);
-	}
-	
-	public Character(int weight, double friction) {
+	public Character(Vector2 position, double friction, int weight){
+		super(position);
 		this.friction = friction;
 		this.weight = weight;
-
 	}
 
 	public int getWeight() {

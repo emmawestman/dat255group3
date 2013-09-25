@@ -1,10 +1,13 @@
 package com.dat255_group3.model;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Obstacle extends GameObject {
 
 	private int friction;
 
-	public Obstacle(int friction) {
+	public Obstacle(Vector2 position, int friction) {
+		super(position);
 		this.friction = friction;
 	}
 

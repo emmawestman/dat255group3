@@ -14,6 +14,7 @@ public class WorldController {
 	private InGameController inGameController;
 	private World world;
 	private WorldView worldView;
+	private CharacterController characterController;
 	private Vector2 gravity;
 	final boolean doSleep;
 	private Body groundBody;
@@ -23,6 +24,7 @@ public class WorldController {
 		this.inGameController = inGameController;
 		this.world = new World();
 		this.worldView = new WorldView();
+		this.characterController = new CharacterController(this);
 		
 		//create the physics world
 		this.setGravity(new Vector2(0.0f, 9.82f));
@@ -59,6 +61,10 @@ public class WorldController {
 
 	public WorldView getWorldView() {
 		return worldView;
+	}
+	
+	public CharacterController getCharacterController(){
+		return characterController;
 	}
 
 	public com.badlogic.gdx.physics.box2d.World getPhysicsWorld() {
