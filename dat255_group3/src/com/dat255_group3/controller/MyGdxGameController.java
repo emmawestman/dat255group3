@@ -1,6 +1,7 @@
 package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.dat255_group3.model.MyGdxGame;
 
 
@@ -39,5 +40,13 @@ public class MyGdxGameController extends Game {
 
 	@Override
 	public void resume() {
+	}
+	
+	public void setHeight(int height){
+		Gdx.app.log("Viking", "Height: "+height);
+	}
+
+	public void setWidth(int width) {
+		Gdx.app.log("Viking", "Width: "+width);
 	}
 }
