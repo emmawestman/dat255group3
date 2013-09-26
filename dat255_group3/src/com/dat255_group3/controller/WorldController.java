@@ -28,7 +28,7 @@ public class WorldController {
 		this.inGameController = inGameController;
 		this.world = new World();
 		//create the physics world
-		this.setGravity(new Vector2(0.0f, 9.82f));
+		this.setGravity(new Vector2(0.0f, -10f));
 		this.doSleep = true;
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
 		// TODO create the ground
@@ -36,7 +36,7 @@ public class WorldController {
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
 		//create character body
-		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 100f), new Vector2(50f, 50f));
+		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 100f), new Vector2(5f, 10f));
 	}
 	
 

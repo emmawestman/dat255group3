@@ -22,8 +22,8 @@ public class PhysBodyFactory {
 		shape.setAsBox(size.x/2, size.y/2);
 
 		fixtureDef.shape = shape;
-		fixtureDef.density = 1f;
-		fixtureDef.friction = 0.8f;
+		fixtureDef.density = 0.5f;
+		fixtureDef.friction = 0.5f;
 		fixtureDef.restitution = 0f;
 
 		bodyDef.type = BodyType.DynamicBody;

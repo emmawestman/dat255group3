@@ -39,7 +39,7 @@ public class InGameController implements Screen{
 		
 		//update the physics in the world... belongs in a update method?
 		if(delta > 0) {
-			this.timeStep = (float) delta / 1000f * 4; //4 is for getting a good speed, may change
+			this.timeStep = 1; //(float) delta / 1000f * 4; //4 is for getting a good speed, may change
 		}
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 	
@@ -55,7 +55,7 @@ public class InGameController implements Screen{
 		//Draw physics bodies
 		renderer.render(worldController.getPhysicsWorld(), matrix);
 		Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
-				worldController.getCharBody().getPosition().y);
+				worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 	
 	}
 	
