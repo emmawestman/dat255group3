@@ -9,6 +9,7 @@ public class MyGdxGameController extends Game {
 	private InGameController inGameController;
 	private PlayerController playerController;
 	
+	
 	@Override
 	public void create() {
 		//create other the scenes and the player and the gameModel
@@ -18,8 +19,6 @@ public class MyGdxGameController extends Game {
 		
 		//go to the first screen
 		setScreen(new InGameController(this));
-		
-		
 		
 	}
 
@@ -39,5 +38,9 @@ public class MyGdxGameController extends Game {
 
 	@Override
 	public void resume() {
+	}
+	
+	public MyGdxGame getMyGdxGame(){
+		return myGdxGame;
 	}
 }

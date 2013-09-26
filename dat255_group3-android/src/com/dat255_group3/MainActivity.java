@@ -10,8 +10,10 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.dat255_group3.controller.MyGdxGameController;
 
 public class MainActivity extends AndroidApplication {
-	private int width;
-	private int height;
+
+	 private MyGdxGameController MGGC;
+	 private int width;
+	 private int height;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,17 +26,20 @@ public class MainActivity extends AndroidApplication {
         height = size.y;
         
         Log.d("Viking","Width: "+width+" Height: "+height);
+       
+        
+        MGGC = new MyGdxGameController();
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
+        initialize(MGGC, cfg);
         
-        initialize(new MyGdxGameController(), cfg);
+        
     }
     
-    public int getScreenWidth(){
-    	return width;
+    public void onStart(){
+    	Log.d("Screen", "NO SWAG");
+    	SettingScreen SS = new SettingScreen(MGGC, width, height);
+    	Log.d("Screen","Width: "+SS.getScreenWidth()+" Height: "+SS.getScreenHeight());
     }
     
-    public int getScreenHeight(){
-    	return height;
-    }
 }
