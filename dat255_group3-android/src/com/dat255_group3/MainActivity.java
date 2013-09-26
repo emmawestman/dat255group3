@@ -27,7 +27,12 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new MyGdxGameController(), cfg);
+        MyGdxGameController gdx = new MyGdxGameController();
+        
+        initialize(gdx, cfg);
+        
+        gdx.setHeight(height);
+        gdx.setWidth(width);
     }
     
     public int getScreenWidth(){
