@@ -37,7 +37,7 @@ public class PhysBodyFactory {
 	}
 	
 	
-	public static void addSolidGround(final Vector2 pos, final Vector2 size, final float friction, final float restitution, World physWorld) {
+	public static Body addSolidGround(final Vector2 pos, final Vector2 size, final float friction, final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		polygonShape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
@@ -53,5 +53,6 @@ public class PhysBodyFactory {
 
 		Body body = physWorld.createBody(bodyDef);
 		body.createFixture(fixtureDef);
+		return body;
 	}
 }

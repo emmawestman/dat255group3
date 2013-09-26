@@ -53,6 +53,9 @@ public class InGameController implements Screen{
 		if(Gdx.input.isTouched()){
 			worldController.getCharacterController().jump(); 	
 		}
+		//Draw ground
+		worldController.getWorldView().render();
+		
 		
 		//Draws the character
 		worldController.getCharacterController().getCharacterView().draw();
