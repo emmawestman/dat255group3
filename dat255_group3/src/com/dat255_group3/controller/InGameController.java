@@ -3,6 +3,9 @@ package com.dat255_group3.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.view.InGameView;
 
@@ -15,21 +18,25 @@ public class InGameController implements Screen{
 	private float timeStep = 1.0f / 60.0f;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
+	private TiledMap map;
 
 	
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
-		this.inGameView = new InGameView();
+		map = new TmxMapLoader().load("worlds/test4.tmx");
+		this.inGameView = new InGameView(map);
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this);	
 	}
+	
 	
 	@Override
 	public void render(float delta) {
 		
 		//Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	
 
 		
 		//update the physics in the world... belongs in a update method?
@@ -40,7 +47,7 @@ public class InGameController implements Screen{
 	
 			
 		//Update the inGameView
-		//inGameView.render();
+		inGameView.render();
 		
 		//Draws the world
 		//worldController.getWorldView().render();
@@ -105,6 +112,10 @@ public class InGameController implements Screen{
 
 	public InGameView getInGameView() {
 		return inGameView;
+	}
+	
+	public TiledMap getMap() {
+		return map;
 	}
 
 

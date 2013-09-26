@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.dat255_group3.model.World;
+import com.dat255_group3.utils.WorldUtil;
 import com.dat255_group3.view.WorldView;
 
 public class WorldController {
@@ -19,12 +20,14 @@ public class WorldController {
 	final boolean doSleep;
 	private Body groundBody;
 	private static com.badlogic.gdx.physics.box2d.World physicsWorld;
+	private WorldUtil worldUtil;
 	
 	public WorldController(InGameController inGameController){
 		this.inGameController = inGameController;
 		this.world = new World();
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
+		this.worldUtil = new WorldUtil(inGameController.getMap());
 		
 		//create the physics world
 		this.setGravity(new Vector2(0.0f, 9.82f));
