@@ -3,6 +3,7 @@ package com.dat255_group3.controller;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.dat255_group3.model.MyGdxGame;
+import com.dat255_group3.utils.CoordinateConverter;
 
 
 public class MyGdxGameController extends Game {
@@ -44,9 +45,11 @@ public class MyGdxGameController extends Game {
 	
 	public void setHeight(int height){
 		Gdx.app.log("Viking", "Height: "+height);
+		CoordinateConverter.setScreenHeight(height);		
 	}
 
 	public void setWidth(int width) {
 		Gdx.app.log("Viking", "Width: "+width);
+		CoordinateConverter.setScreenWidth(width);
 	}
 }
