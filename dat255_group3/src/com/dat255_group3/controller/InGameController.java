@@ -14,7 +14,7 @@ public class InGameController implements Screen{
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
-	private float timeStep = 1.0f / 60.0f;
+	private float timeStep = 1.0f / 45.0f;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
@@ -48,9 +48,9 @@ public class InGameController implements Screen{
 		 * Checks whether the screen has been touched. 
 		 * If so, a method which will make the character jump is invoked.
 		 */
-//		if(Gdx.input.isTouched()){
-//			worldController.getCharacterController().jump(); 	
-//		}
+		if(Gdx.input.isTouched()){
+			worldController.getCharacterController().jump(); 	
+		}
 		
 		//Draw physics bodies
 		renderer.render(worldController.getPhysicsWorld(), matrix);
