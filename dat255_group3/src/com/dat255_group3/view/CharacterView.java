@@ -26,9 +26,9 @@ public class CharacterView {
 	 * The Characters appearance will change with time. This is only to test.
 	 */
 	public void draw(){
-		shape.begin(ShapeType.FilledRectangle);
+		shape.begin(ShapeType.Filled);
 		shape.setColor(Color.CYAN);
-		shape.filledRect(character.getPosition().x + 5, character.getPosition().y + 5, characterRect.width, characterRect.height);
+		shape.rect(character.getPosition().x + 5, character.getPosition().y + 5, characterRect.width, characterRect.height);
 		shape.end();
 		
 	}
