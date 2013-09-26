@@ -3,6 +3,8 @@ package com.dat255_group3.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.view.InGameView;
 
@@ -15,13 +17,16 @@ public class InGameController implements Screen{
 	private float timeStep = 1.0f / 60.0f;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
-
+	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
+	private Matrix4 matrix = new Matrix4();
 	
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
 		this.inGameView = new InGameView();
 		this.inGame = new InGame();
-		this.worldController = new WorldController(this);	
+		this.worldController = new WorldController(this);
+		
+		matrix.setToOrtho2D(0, 0, 480, 320);
 	}
 	
 	@Override
@@ -38,27 +43,19 @@ public class InGameController implements Screen{
 		}
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 	
-			
-		//Update the inGameView
-		//inGameView.render();
-		
-		//Draws the world
-		//worldController.getWorldView().render();
-		
 		
 		/*
 		 * Checks whether the screen has been touched. 
 		 * If so, a method which will make the character jump is invoked.
 		 */
-		if(Gdx.input.isTouched()){
-			worldController.getCharacterController().jump(); 	
-		}
-		//Draw ground
-		worldController.getWorldView().render();
+//		if(Gdx.input.isTouched()){
+//			worldController.getCharacterController().jump(); 	
+//		}
 		
-		
-		//Draws the character
-		worldController.getCharacterController().getCharacterView().draw();
+		//Draw physics bodies
+		renderer.render(worldController.getPhysicsWorld(), matrix);
+		Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
+				worldController.getCharBody().getPosition().y);
 	
 	}
 	

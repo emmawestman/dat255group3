@@ -21,6 +21,7 @@ public class WorldController {
 	private Vector2 gravity;
 	final boolean doSleep;
 	private Body groundBody;
+	private Body charBody;
 	private static com.badlogic.gdx.physics.box2d.World physicsWorld;
 	
 	public WorldController(InGameController inGameController){
@@ -30,13 +31,12 @@ public class WorldController {
 		this.setGravity(new Vector2(0.0f, 9.82f));
 		this.doSleep = true;
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
-		groundBody = PhysBodyFactory.addSolidGround(new Vector2(240f, 0f), new Vector2(240f,10f), 0.8f, 0f, this.physicsWorld);
-		this.worldView = new WorldView(physicsWorld);
-		this.characterController = new CharacterController(this);
-		
 		// TODO create the ground
-		
-		
+		groundBody = PhysBodyFactory.addSolidGround(new Vector2(240f, 0f), new Vector2(240f,10f), 0.8f, 0f, this.physicsWorld);
+		this.worldView = new WorldView();
+		this.characterController = new CharacterController(this);
+		//create character body
+		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 100f), new Vector2(50f, 50f));
 	}
 	
 
@@ -56,6 +56,12 @@ public class WorldController {
 	public com.badlogic.gdx.physics.box2d.World getPhysicsWorld() {
 		return physicsWorld;
 	}
+
+	public Body getCharBody() {
+		return charBody;
+	}
+
+
 
 	public Vector2 getGravity() {
 		return gravity;
