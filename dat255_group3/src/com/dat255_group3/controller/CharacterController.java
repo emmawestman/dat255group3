@@ -30,7 +30,7 @@ public class CharacterController {
 	
 	
 	/*
-	 * A very basic jump-method (will be changed today) 
+	 * A very basic jump-method 
 	 * This is only a test
 	 */
 	public void jump(){
