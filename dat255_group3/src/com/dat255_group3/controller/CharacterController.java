@@ -39,10 +39,10 @@ public class CharacterController {
 	 */
 	public void jump(){
 		if(this.character.getJumpSteps() == 0) {
-			this.character.setJumpSteps(10);
+			this.character.setJumpSteps(50);
 		}
-		Float force = this.worldController.getCharBody().getMass()*100;
-		worldController.getCharBody().applyForce(0.0f, force, 
+		float impulse = this.worldController.getCharBody().getMass()*1000;
+		worldController.getCharBody().applyForce(0.0f, impulse, 
 				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
 	
 		//worldController.getCharBody().getMass()*worldController.getGravity().y*2f

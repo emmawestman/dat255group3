@@ -35,7 +35,7 @@ public class WorldController {
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
 		//create character body
-		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 100f), new Vector2(5f, 10f));
+		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 100f), new Vector2(1f, 2f));
 	}
 	
 

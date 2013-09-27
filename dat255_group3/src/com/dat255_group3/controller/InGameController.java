@@ -17,7 +17,7 @@ public class InGameController implements Screen{
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
-	private float timeStep = 1.0f / 45.0f;
+	private float timeStep = 1.0f / 10.0f;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
 	private TiledMap map;
@@ -42,12 +42,6 @@ public class InGameController implements Screen{
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	
-
-		
-		//update the physics in the world... belongs in a update method?
-		if(delta > 0) {
-			this.timeStep = 1; //(float) delta / 1000f * 4; //4 is for getting a good speed, may change
-		}
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 
 		//Update the inGameView
