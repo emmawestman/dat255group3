@@ -28,7 +28,11 @@ public class CharacterController {
 		return characterView;
 	}
 	
-	
+	public void tryToJump() {
+		if(this.worldController.getCharBody().getLinearVelocity().y == 0) {
+			jump();
+		}
+	}
 	/*
 	 * A very basic jump-method (will be changed today) 
 	 * This is only a test
