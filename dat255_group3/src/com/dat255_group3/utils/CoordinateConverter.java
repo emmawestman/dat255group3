@@ -4,15 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 public class CoordinateConverter {
-	static final float pixelToMeter=0.01f; //TODO change so they depend on screen resolution
-	static final float meterToPixel=100f;
 	private static int ScreenWidth;
 	private static int ScreenHeight;
 	
-	public Vector2 pixelToMeter(Vector2 pos){
-		pos.x = pos.x*pixelToMeter;
-		pos.y = pos.y*pixelToMeter;
-	    return pos;
+	
+	
+	public Vector2 pixelToMeter(Vector2 pixels){
+		float pixelToMeter = 10/this.ScreenWidth;
+		Vector2 meters = new Vector2 ();
+		meters.x = pixels.x*pixelToMeter;
+		meters.y = pixels.y*pixelToMeter;
+	    return meters;
+	}
+	
+	public Vector2  meterToPixel(Vector2 meters){
+		float meterToPixel=this.ScreenWidth/10;
+		Vector2 pixels = new Vector2 ();
+		pixels.x = meters.x*meterToPixel;
+		pixels.y = meters.y*meterToPixel;
+	    return pixels;
 	}
 	
 	public int getScreenWidth() {
@@ -35,9 +45,5 @@ public class CoordinateConverter {
 		Gdx.app.log("Viking", "screenHeight: "+screenHeight);
 	}
 
-	public Vector2  meterToPixel(Vector2 pos){
-		pos.x = pos.x*meterToPixel;
-		pos.y = pos.y*meterToPixel;
-	    return pos;
-	}
+	
 }
