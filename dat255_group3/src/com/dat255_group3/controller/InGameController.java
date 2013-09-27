@@ -61,7 +61,7 @@ public class InGameController implements Screen{
 		 * If so, a method which will make the character jump is invoked.
 		 */
 		if(Gdx.input.isTouched()){
-			worldController.getCharacterController().jump(); 	
+			worldController.getCharacterController().tryToJump(); 	
 		}
 		
 		//Draw physics bodies
@@ -81,9 +81,6 @@ public class InGameController implements Screen{
 
 	@Override
 	public void show() {
-		//show a yellow screen
-		Gdx.gl.glClearColor(1, 1, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 	}
 
