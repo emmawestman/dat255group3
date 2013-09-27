@@ -23,11 +23,17 @@ public class MainActivity extends AndroidApplication {
         width = size.x;
         height = size.y;
         
-        Log.d("Viking","Width: "+width+" Height: "+height);
+       
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new MyGdxGameController(), cfg);
+        MyGdxGameController gdx = new MyGdxGameController();
+        
+        initialize(gdx, cfg);
+        
+        Log.d("Viking","Width: "+width+" Height: "+height);
+        gdx.setHeight(height);
+        gdx.setWidth(width);
     }
     
     public int getScreenWidth(){
