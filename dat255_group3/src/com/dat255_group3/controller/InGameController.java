@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.dat255_group3.model.InGame;
+import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
 
 public class InGameController implements Screen{
@@ -19,14 +21,18 @@ public class InGameController implements Screen{
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
 	private TiledMap map;
+	private OrthographicCameraController cameraController;
 
 	
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
+		this.cameraController = new OrthographicCameraController();
+		CoordinateConverter cc  = new CoordinateConverter();
+		this.cameraController.create(cc.getScreenWidth(), cc.getScreenHeight());
 		map = new TmxMapLoader().load("worlds/test4.tmx");
-		this.inGameView = new InGameView(map);
+		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
-		this.worldController = new WorldController(this);	
+		this.worldController = new WorldController(this);
 	}
 	
 	
@@ -46,6 +52,9 @@ public class InGameController implements Screen{
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 	
 			
+		//Update the position of the camera
+		cameraController.render();
+		
 		//Update the inGameView
 		inGameView.render();
 		

@@ -27,7 +27,7 @@ public class WorldController {
 		this.world = new World();
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
-		this.worldUtil = new WorldUtil(inGameController.getMap());
+		//this.worldUtil = new WorldUtil(inGameController.getMap());
 		
 		//create the physics world
 		this.setGravity(new Vector2(0.0f, 9.82f));

@@ -12,10 +12,10 @@ public class InGameView {
 	private TiledMap map;
 	private OrthographicCamera camera; 
 	
-	public InGameView (TiledMap map) {
+	public InGameView (TiledMap map, OrthographicCamera camera) {
 		this.map = map;
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
-		camera = new OrthographicCamera();
+		this.camera = camera;
 		
 	}
 	
