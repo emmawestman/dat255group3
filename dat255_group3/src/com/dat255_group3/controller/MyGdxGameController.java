@@ -16,10 +16,10 @@ public class MyGdxGameController extends Game {
 		//create other the scenes and the player and the gameModel
 		this.myGdxGame = new MyGdxGame();
 		this.playerController = new PlayerController(this);
-		
+		this.inGameController = new InGameController(this);
 		
 		//go to the first screen
-		setScreen(new InGameController(this));
+		setScreen(new StartScreen(this,inGameController));
 		
 		
 		
