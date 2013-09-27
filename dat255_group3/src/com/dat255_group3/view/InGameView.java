@@ -27,8 +27,8 @@ public class InGameView {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		//Shows selected part of the map
-		mapRenderer.setView(camera);
-		mapRenderer.render();
+		//mapRenderer.setView(camera);
+		//mapRenderer.render();
 		
 		
 		//Skota layouts = lyssnar av olika touch -> 
@@ -37,8 +37,4 @@ public class InGameView {
 	
 	}
 	
-	public void drawJump(){
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	}
 }

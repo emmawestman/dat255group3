@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.view.InGameView;
 
@@ -15,18 +17,21 @@ public class InGameController implements Screen{
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
-	private float timeStep = 1.0f / 60.0f;
+	private float timeStep = 1.0f / 45.0f;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
 	private TiledMap map;
-
+	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
+	private Matrix4 matrix = new Matrix4();
 	
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
 		map = new TmxMapLoader().load("worlds/test4.tmx");
 		this.inGameView = new InGameView(map);
 		this.inGame = new InGame();
-		this.worldController = new WorldController(this);	
+		this.worldController = new WorldController(this);
+		
+		matrix.setToOrtho2D(0, 0, 480, 320);
 	}
 	
 	
@@ -41,17 +46,15 @@ public class InGameController implements Screen{
 		
 		//update the physics in the world... belongs in a update method?
 		if(delta > 0) {
-			this.timeStep = (float) delta / 1000f * 4; //4 is for getting a good speed, may change
+			this.timeStep = 1; //(float) delta / 1000f * 4; //4 is for getting a good speed, may change
 		}
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-	
-			
+
 		//Update the inGameView
-		inGameView.render();
+		//inGameView.render();
 		
 		//Draws the world
 		//worldController.getWorldView().render();
-		
 		
 		/*
 		 * Checks whether the screen has been touched. 
@@ -61,8 +64,10 @@ public class InGameController implements Screen{
 			worldController.getCharacterController().jump(); 	
 		}
 		
-		//Draws the character
-		worldController.getCharacterController().getCharacterView().draw();
+		//Draw physics bodies
+		renderer.render(worldController.getPhysicsWorld(), matrix);
+		Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
+				worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 	
 	}
 	
