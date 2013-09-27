@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
+import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
 
 public class InGameController implements Screen{
@@ -23,6 +24,7 @@ public class InGameController implements Screen{
 	private TiledMap map;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
 	private Matrix4 matrix = new Matrix4();
+	private CoordinateConverter coordinateConverter;
 	
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
@@ -116,6 +118,11 @@ public class InGameController implements Screen{
 	
 	public TiledMap getMap() {
 		return map;
+	}
+
+
+	public CoordinateConverter getCoordinateConverter() {
+		return coordinateConverter;
 	}
 
 

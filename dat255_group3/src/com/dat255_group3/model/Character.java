@@ -12,6 +12,7 @@ public class Character extends GameObject {
 	private int weight;
 	private double friction;
 	private int jumpSteps;
+	private float with, height; //size of character in pixels
 
 	/**
 	 * Constructs a Character with its properties.
@@ -24,9 +25,12 @@ public class Character extends GameObject {
 	 */
 	public Character(Vector2 position, double friction, int weight){
 		super(position);
+		
 		this.friction = friction;
 		this.weight = weight;
 		this.jumpSteps = 0;
+		this.with = 50;
+		this.height = 70;
 	}
 	
 	public void jumpCountdown(){
@@ -57,6 +61,22 @@ public class Character extends GameObject {
 	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	public float getWith() {
+		return with;
+	}
+
+	public void setWith(float with) {
+		this.with = with;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
 	}
 
 	/**
