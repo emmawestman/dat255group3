@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * A class describing a list for maps.
- * @author Grupp 3
+ * @author The Hans-Gunnar Crew
  *
  */
 public class MapList {

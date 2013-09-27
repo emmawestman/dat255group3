@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * A class which represents a Character. 
  * It inherits properties involving the position from its superclass GameObject.
- * @author Grupp 3
+ * @author The Hans-Gunnar Crew
  *
  */
 public class Character extends GameObject {

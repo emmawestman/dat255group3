@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * A class describing the characteristics of a GameObject. 
  * It administers the positions of a GameObject.
- * @author Grupp 3
+ * @author The Hans-Gunnar Crew
  *
  */
 public class GameObject {

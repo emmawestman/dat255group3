@@ -9,7 +9,7 @@ package com.dat255_group3.model;
  * As the discovers the thief he becomes furious and uses all his powers to catch Hans-Gunnar.
 
  * 
- * @author Sara
+ * @author The Hans-Gunnar Crew
  *
  */
 public class MyGdxGame {

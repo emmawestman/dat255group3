@@ -3,7 +3,7 @@ package com.dat255_group3.model;
 /**
  * A class which describes the state of the player being playing a game. 
  * Administers the time and score of the game which is given by each level.
- * @author Grupp 3
+ * @author The Hans-Gunnar Crew
  *
  */
 public class InGame {
