@@ -60,6 +60,10 @@ public class InGameController implements Screen{
 		 * Checks whether the screen has been touched. 
 		 * If so, a method which will make the character jump is invoked.
 		 */
+		if(this.worldController.getCharacterController().getCharacter().getJumpSteps() > 0) {
+			this.worldController.getCharacterController().getCharacter().jumpCountdown();
+		}
+		
 		if(Gdx.input.isTouched()){
 			worldController.getCharacterController().tryToJump(); 	
 		}

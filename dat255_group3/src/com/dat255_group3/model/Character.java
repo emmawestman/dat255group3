@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Character extends GameObject {
 	private int weight;
 	private double friction;
+	private int jumpSteps;
 
 	/**
 	 * Constructs a Character with its properties.
@@ -25,6 +26,19 @@ public class Character extends GameObject {
 		super(position);
 		this.friction = friction;
 		this.weight = weight;
+		this.jumpSteps = 0;
+	}
+	
+	public void jumpCountdown(){
+		this.jumpSteps--;
+	}
+	
+	public int getJumpSteps() {
+		return jumpSteps;
+	}
+
+	public void setJumpSteps(int jumpSteps) {
+		this.jumpSteps = jumpSteps;
 	}
 
 	/**
