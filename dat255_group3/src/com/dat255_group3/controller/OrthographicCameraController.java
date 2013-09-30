@@ -35,9 +35,10 @@ public class OrthographicCameraController implements ApplicationListener {
 		});
 		mesh.setIndices(new short[] {0, 1, 2, 2, 3, 0});
 		camera = new OrthographicCamera(width, height);
-		camera.position.set(0, 0, 0);
+		camera.position.set(width/2, height/2, 0);
+		camera.update();
 		glViewport = new Rectangle(0, 0, width, height);
-		this.speed = 0.1f;
+		this.speed = 0.8f;
 	}
 	
 	public void create(int width, int height) {

@@ -30,13 +30,15 @@ public class CharacterController {
 	
 	
 	/*
-	 * A very basic jump-method (will be changed today) 
+	 * A very basic jump-method 
 	 * This is only a test
 	 */
 	public void jump(){
-		float x = character.getPosition().x;
-		float y = character.getPosition().y;
-		character.setPosition(new Vector2(x, y+50f));
+		worldController.getCharBody().applyLinearImpulse(0.0f, 9000000, 
+				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
+	
+		//worldController.getCharBody().getMass()*worldController.getGravity().y*2f
+	
 	}
 	
 }

@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.dat255_group3.model.Character;
 
+/**  A view class for the character Model. 
+ * @author The Hans-Gunnar Crew
+ * 
+ */
 public class CharacterView {
 	
 	private static final float SIZE = 100f;
@@ -13,6 +17,10 @@ public class CharacterView {
 	private Character character;
 	private ShapeRenderer shape = new ShapeRenderer();
 	
+	/** A constructor that takes a character class.
+	 * 
+	 * @param character
+	 */
 	public CharacterView (Character character) {
 		this.character = character;
 		characterRect = new Rectangle();
@@ -21,7 +29,7 @@ public class CharacterView {
 	}
 	
 	
-	/*
+	/**
 	 * A method which draws the character (which is currently just a turquoise rectangle)
 	 * The Characters appearance will change with time. This is only to test.
 	 */
