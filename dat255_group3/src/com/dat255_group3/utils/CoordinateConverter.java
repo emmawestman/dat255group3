@@ -10,7 +10,7 @@ public class CoordinateConverter {
 	
 	
 	public static Vector2 pixelToMeter(Vector2 pixels){
-		float pixelToMeter = 10/CoordinateConverter.ScreenWidth;
+		float pixelToMeter = 10f/(float)CoordinateConverter.ScreenWidth;
 		Vector2 meters = new Vector2 ();
 		meters.x = pixels.x*pixelToMeter;
 		meters.y = pixels.y*pixelToMeter;
