@@ -24,7 +24,6 @@ public class InGameController implements Screen{
 	private TiledMap map;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
 	private Matrix4 matrix = new Matrix4();
-	private CoordinateConverter coordinateConverter;
 	
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
@@ -120,10 +119,6 @@ public class InGameController implements Screen{
 		return map;
 	}
 
-
-	public CoordinateConverter getCoordinateConverter() {
-		return coordinateConverter;
-	}
 
 
 	

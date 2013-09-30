@@ -9,16 +9,16 @@ public class CoordinateConverter {
 	
 	
 	
-	public Vector2 pixelToMeter(Vector2 pixels){
-		float pixelToMeter = 10/this.ScreenWidth;
+	public static Vector2 pixelToMeter(Vector2 pixels){
+		float pixelToMeter = 10/CoordinateConverter.ScreenWidth;
 		Vector2 meters = new Vector2 ();
 		meters.x = pixels.x*pixelToMeter;
 		meters.y = pixels.y*pixelToMeter;
 	    return meters;
 	}
 	
-	public Vector2  meterToPixel(Vector2 meters){
-		float meterToPixel=this.ScreenWidth/10;
+	public static Vector2  meterToPixel(Vector2 meters){
+		float meterToPixel=CoordinateConverter.ScreenWidth/10;
 		Vector2 pixels = new Vector2 ();
 		pixels.x = meters.x*meterToPixel;
 		pixels.y = meters.y*meterToPixel;

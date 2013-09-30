@@ -3,6 +3,7 @@ package com.dat255_group3.controller;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dat255_group3.model.World;
+import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.PhysBodyFactory;
 import com.dat255_group3.utils.WorldUtil;
 import com.dat255_group3.view.WorldView;
@@ -31,13 +32,13 @@ public class WorldController {
 		this.doSleep = true;
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
 		// TODO create the ground
-		groundBody = PhysBodyFactory.addSolidGround(this.inGameController.getCoordinateConverter().pixelToMeter(new Vector2(240f, 0f)) , 
-				this.inGameController.getCoordinateConverter().pixelToMeter(new Vector2(240f,10f)), 0.8f, 0f, this.physicsWorld);
+		groundBody = PhysBodyFactory.addSolidGround(new Vector2(240f, 0f) ,CoordinateConverter.pixelToMeter(new Vector2(240f,10f)),
+				0.8f, 0f, this.physicsWorld);
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
 		//create character body
-		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, this.inGameController.getCoordinateConverter().pixelToMeter(new Vector2(240f, 100f)), 
-				this.inGameController.getCoordinateConverter().pixelToMeter(new Vector2(this.characterController.getCharacter().getWith(), this.characterController.getCharacter().getHeight())));
+		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, CoordinateConverter.pixelToMeter(new Vector2(240f, 100f)), 
+				CoordinateConverter.pixelToMeter(new Vector2(this.characterController.getCharacter().getWith(), this.characterController.getCharacter().getHeight())));
 	}
 	
 

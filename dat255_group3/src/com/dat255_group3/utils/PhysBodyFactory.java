@@ -18,8 +18,8 @@ public class PhysBodyFactory {
 	/**
 	 * Creates a body for a movable character in the physical world. 
 	 * @param physWorld , The physical world in which the character should exist and be created
-	 * @param pos , the center position of the character body
-	 * @param size , with and height the body
+	 * @param pos , the center position of the character body (pixels)
+	 * @param size , with and height the body (meter)
 	 * @return The physical body of the character that exists in the physWorld with a set density, friction and restitution 
 	 */
 	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size) {
@@ -39,7 +39,7 @@ public class PhysBodyFactory {
 
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.fixedRotation = true;
-		bodyDef.position.set(pos.x, pos.y);
+		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos));
 
 		body = physWorld.createBody(bodyDef);
 		body.createFixture(fixtureDef);
@@ -49,8 +49,8 @@ public class PhysBodyFactory {
 	
 	/**
 	 * Creates a solid ground that is not affected by gravity or other forces
-	 * @param pos , the center position of the ground
-	 * @param size , with and height of the ground
+	 * @param pos , the center position of the ground (pixels)
+	 * @param size , with and height of the ground (meter)
 	 * @param friction , the friction (0f-1f) of the ground surface
 	 * @param restitution , restitution of the ground surface
 	 * @param physWorld , the physical world in which the solid ground is created and exists
@@ -66,7 +66,7 @@ public class PhysBodyFactory {
 		fixtureDef.restitution = restitution;
 
 		BodyDef bodyDef = new BodyDef();
-		bodyDef.position.set(pos);
+		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos));
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.fixedRotation = true;
 
