@@ -11,7 +11,7 @@ public class MapList {
 	private ArrayList<Position> mapList;
 
 	/**
-	 * Construcs a MapList.
+	 * Constructs a MapList.
 	 */
 	public MapList() {
 		mapList = new ArrayList<Position>();		
