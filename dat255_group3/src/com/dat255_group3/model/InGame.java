@@ -11,7 +11,7 @@ public class InGame {
 	private int score;
 
 	/**
-	 * Construcs a InGame
+	 * Constructs a InGame
 	 */
 	public InGame() {
 		

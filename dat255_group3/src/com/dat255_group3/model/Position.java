@@ -62,5 +62,14 @@ public class Position {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public boolean equals(Object o) {
+		if(o != null && o.getClass().equals(this.getClass())) {
+			Position pos = (Position) o;
+			return pos.getX() == this.getX() && pos.getY() == this.getY();
+		}else{
+			return false;
+		}
+	}
 }
 

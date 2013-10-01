@@ -17,13 +17,15 @@ public class InGameView {
 	private TiledMap map;
 	private OrthographicCamera camera; 
 	
+
 	/** A constructor that takes a map. 
 	 * @param map
 	 */
-	public InGameView (TiledMap map) {
+	
+	public InGameView (TiledMap map, OrthographicCamera camera) {
 		this.map = map;
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
-		camera = new OrthographicCamera();
+		this.camera = camera;
 		
 	}
 	
@@ -36,8 +38,8 @@ public class InGameView {
 		worldView.draw(gBody, charBody, charView);
 		
 		//Shows selected part of the map
-		//mapRenderer.setView(camera);
-		//mapRenderer.render();
+		mapRenderer.setView(camera);
+		mapRenderer.render();
 		
 		
 		//Skota layouts = lyssnar av olika touch -> 

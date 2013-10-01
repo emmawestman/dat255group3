@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
@@ -25,17 +26,23 @@ public class InGameController implements Screen{
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
 	private TiledMap map;
+	private OrthographicCameraController cameraController;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
 	private Matrix4 matrix = new Matrix4();
+
 	
 	public InGameController(MyGdxGameController myGdxGameController){
+		matrix.setToOrtho2D(0, 0, 480, 320);
 		this.myGdxGameController = myGdxGameController;
+		this.cameraController = new OrthographicCameraController();
+		CoordinateConverter cc  = new CoordinateConverter();
+		this.cameraController.create(cc.getScreenWidth(), cc.getScreenHeight());
 		map = new TmxMapLoader().load("worlds/test4.tmx");
-		this.inGameView = new InGameView(map);
+		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this);
 		
-		matrix.setToOrtho2D(0, 0, 480, 320);
+
 	}
 	
 	
@@ -52,6 +59,12 @@ public class InGameController implements Screen{
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 		// update the model position for the character
 		this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
+
+		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
+
+		//Update the position of the camera
+		cameraController.render();
+
 		
 		/*
 		 * Checks whether the screen has been touched. 
