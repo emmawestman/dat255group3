@@ -67,7 +67,7 @@ public class Character extends GameObject {
 		return width;
 	}
 
-	public void setWith(float with) {
+	public void setWidth(float with) {
 		this.width = with;
 	}
 
