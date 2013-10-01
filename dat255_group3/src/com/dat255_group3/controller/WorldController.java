@@ -38,7 +38,7 @@ public class WorldController {
 		this.characterController = new CharacterController(this);
 		//create character body
 		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 100f), 
-				CoordinateConverter.pixelToMeter(new Vector2(this.characterController.getCharacter().getWith(), this.characterController.getCharacter().getHeight())));
+				CoordinateConverter.pixelToMeter(new Vector2(this.characterController.getCharacter().getWidth(), this.characterController.getCharacter().getHeight())));
 	}
 	
 
