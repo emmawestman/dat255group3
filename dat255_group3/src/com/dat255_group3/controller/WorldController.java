@@ -2,6 +2,7 @@ package com.dat255_group3.controller;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.dat255_group3.model.Character;
 import com.dat255_group3.model.World;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.PhysBodyFactory;
@@ -41,7 +42,10 @@ public class WorldController {
 				CoordinateConverter.pixelToMeter(new Vector2(this.characterController.getCharacter().getWidth(), this.characterController.getCharacter().getHeight())));
 	}
 	
-
+	public void uppdatePositions(Body body, Character character){
+		Vector2 posInPixels = CoordinateConverter.meterToPixel(body.getPosition());
+		character.setPosition(new Vector2 (posInPixels.x - (character.getWidth()/2), posInPixels.y - (character.getHeight()/2)) );
+	}
 
 	public World getWorld() {
 		return world;

@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 public class Character extends GameObject {
 	private int weight;
 	private double friction;
-	private int jumpSteps;
 	private float width, height; //size of character in pixels
 
 	/**
@@ -28,21 +27,8 @@ public class Character extends GameObject {
 		
 		this.friction = friction;
 		this.weight = weight;
-		this.jumpSteps = 0;
 		this.width = 50;
 		this.height = 70;
-	}
-	
-	public void jumpCountdown(){
-		this.jumpSteps--;
-	}
-	
-	public int getJumpSteps() {
-		return jumpSteps;
-	}
-
-	public void setJumpSteps(int jumpSteps) {
-		this.jumpSteps = jumpSteps;
 	}
 
 	/**
