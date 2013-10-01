@@ -7,54 +7,92 @@ import com.badlogic.gdx.math.Vector2;
 import com.dat255_group3.model.MapList;
 import com.dat255_group3.model.Position;
 
-public class WorldUtil {
 
+/**
+ * A class containing methods to detect positions from the tmx map.
+ * @author group 3
+ *
+ */
+public class WorldUtil {
 	private Vector2 startPos;
 	private TiledMap map;
 	private MapList groundList;
 	private MapList obstacleList;
 	private MapList finishLineList;
 	private Vector2 tileSize;
-
+	
+	
+/**
+ * Class constructor specifying the map and creating lists.
+ * @param tiledMap
+ * 				The tiled map
+ */
 	public WorldUtil(TiledMap tiledMap) {
 		this.map = tiledMap;
 		groundList = new MapList();
 		obstacleList = new MapList();
 		finishLineList = new MapList();
-		setTileSize();
+		findTileSize();
 		addToLists();
 
 	}
 	
-	public void setTileSize() {
+	
+	/**
+	 * A method to find the size of the tiles
+	 */
+	public void findTileSize() {
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
 		tileSize = new Vector2(layer.getTileHeight(), layer.getTileWidth());
 	}
 	
+	/**
+	 * A method to get the size of the tiles
+	 * @return 
+	 * 		The size of the tile
+	 */
 	public Vector2 getTileSize() {
 		return tileSize;
 	}
 
+	/**
+	 * A method to get the start position on the map for the character 
+	 * @return
+	 * 		The start position for the character	
+	 */
 	public Vector2 getStartPos() {
 		return startPos;
 	}
 
+	/**
+	 * A method to get a list containing all the positions of ground tiles in the map.
+	 * @return
+	 * 		A list of positions of the ground tiles
+	 */
 	public MapList getGroundList() {
 		return groundList;
 	}
-
+	/**
+	 * A method to get a list containing all the positions of obstacle tiles in the map.
+	 * @return
+	 * 		A list of positions of the obstacle tiles
+	 */
 	public MapList getObstacleList() {
 		return obstacleList;
 	}
-
+	/**
+	 * A method to get the list of all the positions for the finish line in the map
+	 * @return
+	 * 		A list of all positions of the finish line
+	 */
 	public MapList getFinishLineList() {
 		return finishLineList;
 	}
 	
-	public void placePhysObject() {
-		
-	}
-
+	
+	/**
+	 * A method to loop through the map layers and create lists of different kinds of positions
+	 */
 	private void addToLists() {
 		for(int i=0; i<map.getLayers().getCount(); i++) {
 			TiledMapTileLayer currentLayer = (TiledMapTileLayer)map.getLayers().get(i);
