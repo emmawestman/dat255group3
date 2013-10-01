@@ -69,6 +69,10 @@ public class WorldController {
 
 
 
+	public Body getGroundBody() {
+		return groundBody;
+	}
+
 	public Vector2 getGravity() {
 		return gravity;
 	}

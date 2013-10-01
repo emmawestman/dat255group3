@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.Body;
 
 /** A view class for the InGame model. 
  * @author The Hans-Gunnar Crew
@@ -31,10 +32,8 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void render() {
-		//show a black screen
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	public void draw(WorldView worldView, Body gBody, Body charBody, CharacterView charView) {
+		worldView.draw(gBody, charBody, charView);
 		
 		//Shows selected part of the map
 		//mapRenderer.setView(camera);

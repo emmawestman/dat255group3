@@ -25,7 +25,7 @@ public class CoordinateConverter {
 	    return pixels;
 	}
 	
-	public int getScreenWidth() {
+	public static int getScreenWidth() {
 		return ScreenWidth;
 	}
 
@@ -35,7 +35,7 @@ public class CoordinateConverter {
 		
 	}
 
-	public int getScreenHeight() {
+	public static int getScreenHeight() {
 		return ScreenHeight;
 		
 	}
