@@ -32,12 +32,12 @@ public class WorldController {
 		this.doSleep = true;
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
 		// TODO create the ground
-		groundBody = PhysBodyFactory.addSolidGround(new Vector2(240f, 0f) ,CoordinateConverter.pixelToMeter(new Vector2(240f,10f)),
+		groundBody = PhysBodyFactory.addSolidGround(new Vector2(240f, 0f) ,new Vector2(240f,10f),
 				0.8f, 0f, this.physicsWorld);
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
 		//create character body
-		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, CoordinateConverter.pixelToMeter(new Vector2(240f, 100f)), 
+		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 100f), 
 				CoordinateConverter.pixelToMeter(new Vector2(this.characterController.getCharacter().getWith(), this.characterController.getCharacter().getHeight())));
 	}
 	
