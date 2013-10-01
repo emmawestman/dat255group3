@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.dat255_group3.model.Character;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
@@ -42,28 +45,21 @@ public class InGameController implements Screen{
 		//Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	
-		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-
-		//Update the inGameView
-		//inGameView.render();
 		
-		//Draws the world
-		//worldController.getWorldView().render();
+		// update the physics
+		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
+		// update the model position for the character
+		this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
 		
 		/*
 		 * Checks whether the screen has been touched. 
 		 * If so, a method which will make the character jump is invoked.
 		 */
-		if(this.worldController.getCharacterController().getCharacter().getJumpSteps() > 0) {
-			this.worldController.getCharacterController().getCharacter().jumpCountdown();
-		}
-		
 		if(Gdx.input.isTouched()){
 			worldController.getCharacterController().tryToJump(); 	
 		}
 		
-		//Draw physics bodies
+		//Draw physics bodies, for debugging
 		renderer.render(worldController.getPhysicsWorld(), matrix);
 		Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 				worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
@@ -105,7 +101,13 @@ public class InGameController implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+	/**
+	 * Update so that the character model has the same position (x,y) as the physical body
+	 * @param body , the physical body of the character
+	 * @param character , the character model with the position
+	 */
+	
 
 	public InGame getInGame() {
 		return inGame;
