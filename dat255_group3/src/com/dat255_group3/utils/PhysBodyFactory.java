@@ -57,7 +57,8 @@ public class PhysBodyFactory {
 	 * @param physWorld , the physical world in which the solid ground is created and exists
 	 * @return The body whit the physical properties sent in by the parameters
 	 */
-	public static Body addSolidGround(final Vector2 pos, Vector2 size, final float friction, final float restitution, World physWorld) {
+	public static Body addSolidGround(final Vector2 pos, Vector2 size, final float friction, 
+			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
 		polygonShape.setAsBox(size.x, size.y);

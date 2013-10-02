@@ -1,11 +1,9 @@
 package com.dat255_group3.view;
 
-import com.badlogic.gdx.graphics.Color;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.dat255_group3.utils.CoordinateConverter;
 
 
 
@@ -23,7 +21,7 @@ public class WorldView {
 	/**
 	 * Draws all the graphical elements of the world
 	 */
-	public void draw(Body gBody, Body charBody, CharacterView charView) {
+	public void draw(ArrayList<Body> gBody, Body charBody, CharacterView charView) {
 		
 		charView.draw();
 		

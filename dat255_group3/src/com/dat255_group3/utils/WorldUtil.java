@@ -5,7 +5,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.dat255_group3.model.MapList;
-import com.dat255_group3.model.Position;
 
 
 /**
@@ -17,7 +16,6 @@ public class WorldUtil {
 	private Vector2 startPos;
 	private TiledMap map;
 	private MapList groundList;
-	private MapList obstacleList;
 	private MapList finishLineList;
 	private Vector2 tileSize;
 	
@@ -30,7 +28,6 @@ public class WorldUtil {
 	public WorldUtil(TiledMap tiledMap) {
 		this.map = tiledMap;
 		groundList = new MapList();
-		obstacleList = new MapList();
 		finishLineList = new MapList();
 		findTileSize();
 		addToLists();
@@ -72,14 +69,7 @@ public class WorldUtil {
 	public MapList getGroundList() {
 		return groundList;
 	}
-	/**
-	 * A method to get a list containing all the positions of obstacle tiles in the map.
-	 * @return
-	 * 		A list of positions of the obstacle tiles
-	 */
-	public MapList getObstacleList() {
-		return obstacleList;
-	}
+
 	/**
 	 * A method to get the list of all the positions for the finish line in the map
 	 * @return
@@ -102,9 +92,7 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("Ground")) {
-								groundList.getMapList().add(new Position(x,currentLayer.getHeight()-(y+1)));
-							}else if(tile.getProperties().containsKey("Obstacle")) {
-								obstacleList.getMapList().add(new Position(x,currentLayer.getHeight()-(y+1)));
+								groundList.getMapList().add(new Vector2(x*tileSize.x,(currentLayer.getHeight()-(y+1))*tileSize.y));
 							}
 						}
 					}
@@ -116,9 +104,9 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("FinishLine")) {
-								finishLineList.getMapList().add(new Position(x,currentLayer.getHeight()-(y+1)));
+								finishLineList.getMapList().add(new Vector2(x*tileSize.x,(currentLayer.getHeight()-(y+1))*tileSize.y));
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = new Vector2(x,currentLayer.getHeight()-(y+1));
+								startPos = new Vector2(x*tileSize.x,(currentLayer.getHeight()-(y+1))*tileSize.y);
 							}
 						}
 					}

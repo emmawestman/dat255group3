@@ -1,5 +1,7 @@
 package com.dat255_group3.view;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,7 +36,7 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body gBody, Body charBody, CharacterView charView) {
+	public void draw(WorldView worldView, ArrayList<Body> gBody, Body charBody, CharacterView charView) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();

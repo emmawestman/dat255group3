@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dat255_group3.model.Character;
-import com.dat255_group3.model.MapList;
-import com.dat255_group3.model.Position;
 import com.dat255_group3.model.World;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.PhysBodyFactory;
@@ -21,7 +19,7 @@ public class WorldController {
 	private CharacterController characterController;
 	private Vector2 gravity;
 	final boolean doSleep;
-	private Body groundBody;
+	private ArrayList<Body> solidBodyList;
 	private Body charBody;
 	private static com.badlogic.gdx.physics.box2d.World physicsWorld;
 	private WorldUtil worldUtil;
@@ -48,18 +46,12 @@ public class WorldController {
 				new Vector2(this.characterController.getCharacter().getWidth(), this.characterController.getCharacter().getHeight()));
 
 		
-		//create the ground
-		ArrayList<Position> groundList = worldUtil.getGroundList().getMapList();
-		for(int i=0; i<groundList.size(); i++) {
-			PhysBodyFactory.addSolidGround(new Vector2(groundList.get(i).getX(),groundList.get(i).getY()),
-					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld);
-		}
-		
-		//create obstacles
-		ArrayList<Position> obstacleList = worldUtil.getGroundList().getMapList();
-		for(int i=0; i<obstacleList.size(); i++) {
-			PhysBodyFactory.addSolidGround(new Vector2(obstacleList.get(i).getX(),obstacleList.get(i).getY()),
-					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld);
+		//create the ground & obstacles
+		solidBodyList = new ArrayList<Body>();
+		ArrayList<Vector2> solidList = worldUtil.getGroundList().getMapList();
+		for(int i=0; i<solidList.size(); i++) {
+			solidBodyList.add(PhysBodyFactory.addSolidGround(new Vector2(solidList.get(i).x,solidList.get(i).y),
+					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}
 		
 		
@@ -94,10 +86,8 @@ public class WorldController {
 		return charBody;
 	}
 
-
-
-	public Body getGroundBody() {
-		return groundBody;
+	public ArrayList<Body> getSolidBodyList() {
+		return solidBodyList;
 	}
 
 	public Vector2 getGravity() {

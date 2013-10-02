@@ -53,7 +53,7 @@ public class InGameController implements Screen{
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getGroundBody(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView());
+		this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getSolidBodyList(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView());
 		
 		// update the physics
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
