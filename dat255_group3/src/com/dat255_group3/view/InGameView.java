@@ -36,11 +36,11 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, ArrayList<Body> gBody, Body charBody, CharacterView charView) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();
-		worldView.draw(gBody, charBody, charView);
+		worldView.draw(charBody, charView);
 		
 		//Skota layouts = lyssnar av olika touch -> 
 		

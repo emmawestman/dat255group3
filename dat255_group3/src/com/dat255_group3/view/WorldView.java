@@ -21,7 +21,7 @@ public class WorldView {
 	/**
 	 * Draws all the graphical elements of the world
 	 */
-	public void draw(ArrayList<Body> gBody, Body charBody, CharacterView charView) {
+	public void draw(Body charBody, CharacterView charView) {
 		
 		charView.draw();
 		

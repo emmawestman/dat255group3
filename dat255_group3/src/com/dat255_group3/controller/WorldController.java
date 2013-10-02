@@ -36,13 +36,13 @@ public class WorldController {
 		this.doSleep = true;
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
 
-		// TODO create the ground
-//		groundBody = PhysBodyFactory.addSolidGround(new Vector2(240f, 0f) ,new Vector2(240f,10f),
-//				0.8f, 0f, this.physicsWorld);
+		
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
+
+		CoordinateConverter cc = new CoordinateConverter();
 		//create character body
-		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(240f, 350f), 
+		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(worldUtil.getStartPos().x, cc.getScreenHeight() - worldUtil.getStartPos().y), 
 				new Vector2(this.characterController.getCharacter().getWidth(), this.characterController.getCharacter().getHeight()));
 
 		
@@ -50,15 +50,13 @@ public class WorldController {
 		solidBodyList = new ArrayList<Body>();
 		ArrayList<Vector2> solidList = worldUtil.getGroundList().getMapList();
 		for(int i=0; i<solidList.size(); i++) {
-			solidBodyList.add(PhysBodyFactory.addSolidGround(new Vector2(solidList.get(i).x,solidList.get(i).y),
+			solidBodyList.add(PhysBodyFactory.addSolidGround(new Vector2(solidList.get(i).x, cc.getScreenHeight() - solidList.get(i).y),
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}
 		
 		
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
-		//create character body
-//		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(worldUtil.getStartPos().x, worldUtil.getStartPos().y-worldUtil.getTileSize().y), new Vector2(5f, 10f));
 	}
 	
 	public void uppdatePositions(Body body, Character character){

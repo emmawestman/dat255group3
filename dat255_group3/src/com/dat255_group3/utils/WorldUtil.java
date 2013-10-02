@@ -91,8 +91,8 @@ public class WorldUtil {
 					for(int y=0; y<currentLayer.getHeight(); y++) {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
-							if(tile.getProperties().containsKey("Ground")) {
-								groundList.getMapList().add(new Vector2(x*tileSize.x,(currentLayer.getHeight()-(y+1))*tileSize.y));
+							if(tile.getProperties().containsKey("Ground") || tile.getProperties().containsKey("Obstacle")) {
+								groundList.getMapList().add(new Vector2((x*tileSize.x)/2,(currentLayer.getHeight()-(y+1))*tileSize.y));
 							}
 						}
 					}
@@ -104,9 +104,9 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("FinishLine")) {
-								finishLineList.getMapList().add(new Vector2(x*tileSize.x,(currentLayer.getHeight()-(y+1))*tileSize.y));
+								finishLineList.getMapList().add(new Vector2((x*tileSize.x)/2,(currentLayer.getHeight()-(y+1))*tileSize.y));
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = new Vector2(x*tileSize.x,(currentLayer.getHeight()-(y+1))*tileSize.y);
+								startPos = new Vector2((x*tileSize.x)/2,(currentLayer.getHeight()-(y+1))*tileSize.y);
 							}
 						}
 					}
