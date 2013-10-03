@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.dat255_group3.utils.CoordinateConverter;
 
 /** A view class for the InGame model. 
  * @author The Hans-Gunnar Crew
@@ -17,7 +20,11 @@ public class InGameView {
 	
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private TiledMap map;
-	private OrthographicCamera camera; 
+	private OrthographicCamera camera;
+	private SpriteBatch spriteBatch;
+	private BitmapFont font;
+	private CharSequence str;
+	
 	
 
 	/** A constructor that takes a map. 
@@ -28,6 +35,8 @@ public class InGameView {
 		this.map = map;
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
 		this.camera = camera;
+		this.spriteBatch = new SpriteBatch();
+		this.font = new BitmapFont();
 		
 	}
 	
@@ -36,25 +45,21 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body charBody, CharacterView charView) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, float time) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();
 		worldView.draw(charBody, charView);
 		
-		//Skota layouts = lyssnar av olika touch -> 
+		//Draw time
+		drawTime(time);
 		
-		//If: Vinna -> visa vinna.
+	}
 	
+	public void drawTime(float time) {
+		spriteBatch.begin();
+		str = "Time: "+ time;
+		font.draw(spriteBatch, str, 20f, CoordinateConverter.getScreenHeight()-30f);
+		spriteBatch.end();
 	}
-	/*
-	/** Does nothing right now.
-	 * 
-	 
-	public void drawJump(){
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	}
-	*/
-
 }

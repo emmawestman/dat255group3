@@ -51,13 +51,13 @@ public class InGameController implements Screen{
 	@Override
 	public void render(float delta) {
 		//update the time
-		this.time = time+(delta/1000);
+		this.time = time+delta;
 		Gdx.app.log("time: ", "time gone: "+this.time);
 		
 		//Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-				this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView());
+				this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time);
 
 		
 		// update the physics
