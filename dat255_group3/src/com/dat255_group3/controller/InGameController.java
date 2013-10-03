@@ -29,6 +29,7 @@ public class InGameController implements Screen{
 	private OrthographicCameraController cameraController;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
 	private Matrix4 matrix = new Matrix4();
+	private float time;
 
 	
 	public InGameController(MyGdxGameController myGdxGameController){
@@ -41,6 +42,7 @@ public class InGameController implements Screen{
 		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this);
+		this.time = 0;
 		
 
 	}
@@ -48,6 +50,9 @@ public class InGameController implements Screen{
 	
 	@Override
 	public void render(float delta) {
+		//update the time
+		this.time = time+(delta/1000);
+		Gdx.app.log("time: ", "time gone: "+this.time);
 		
 		//Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
