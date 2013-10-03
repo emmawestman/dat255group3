@@ -33,19 +33,13 @@ public class CharacterController {
 			jump();
 		}
 	}
-	/*
-	 * A very basic jump-method 
-	 * This is only a test
-	 */
+	
 	public void jump(){
-		float impulse = this.worldController.getCharBody().getMass()*1000;
-		worldController.getCharBody().applyForce(0.0f, impulse, 
+		float impulse = this.worldController.getCharBody().getMass()*10;
+		worldController.getCharBody().applyLinearImpulse(0.0f, impulse, 
 				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
 	
-		//worldController.getCharBody().getMass()*worldController.getGravity().y*2f
-	
 	}
-	
 }
 
 
