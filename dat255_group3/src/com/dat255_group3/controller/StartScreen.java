@@ -2,10 +2,9 @@ package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,11 +23,10 @@ public class StartScreen implements Screen{
 	private InGameController inGameController;
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
-	private SpriteBatch batch;
-	private Texture pic;
 	private TextureAtlas atlas;
 	private Skin skin;
 	private Table table;
+	private BitmapFont black;
 	private BitmapFont white;
 	
 
@@ -36,28 +34,17 @@ public class StartScreen implements Screen{
 		this.myGdxGameController = myGdxGameController;
 		this.inGameController = inGameController;
 		this.stage = new Stage(0,0, true);
-		this.batch = new SpriteBatch();
-		//this.pic = new Texture(Gdx.files.internal("start.png"));
-		Gdx.app.log("StartScreen", "end of constructor");
 	}
 	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		/*if(Gdx.input.isTouched()){
-			myGdxGameController.setScreen(inGameController);
-			
-		}*/
 	
 		//Update & draw the stage actors
 		stage.act(delta);
-		//table.drawDebug(stage);
-		//batch.begin();
-		//batch.draw(pic, pic.getWidth(), pic.getHeight());
+		table.drawDebug(stage); //To be removed later on
 		stage.draw();
-		//batch.end();
 	}
 
 	@Override
@@ -73,33 +60,17 @@ public class StartScreen implements Screen{
 		Gdx.input.setInputProcessor(stage);
 		
 		
-		//Setting up the atlas, skin & font
+		//Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
 		skin = new Skin(atlas);
-		white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
+		black = new BitmapFont(Gdx.files.internal("font/black.fnt"),false);
+		white = new BitmapFont(Gdx.files.internal("font/whiteL.fnt"),false);
+		white.scale(1.2f);
 		
 		//Setting up the table
 		table = new Table(skin);
         table.setBounds( 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         
-        //Setting up the characteristics for the button
-        TextButtonStyle textButtonStyle = new TextButtonStyle();
-        textButtonStyle.up = skin.getDrawable("button.up");
-        textButtonStyle.down = skin.getDrawable("button.down");
-        textButtonStyle.pressedOffsetX = 1;
-        textButtonStyle.pressedOffsetY = -1;
-        textButtonStyle.font = white;
-
-        //Instantiating the button
-        TextButton startButton = new TextButton("Start", textButtonStyle);
-        startButton.pad(20);
-        startButton.addListener(new ClickListener(){
-        	@Override
-			public void clicked (InputEvent event, float x, float y){
-				Gdx.app.log("In resize", "Listening");
-				myGdxGameController.setScreen(inGameController);
-			}
-        });
         
         //Setting characteristics for the label
         Gdx.app.log("Startscreen", "label");
@@ -107,30 +78,47 @@ public class StartScreen implements Screen{
         labelStyle.font = white;
         Label label = new Label("CookieGame",labelStyle);
         
+        //Setting up the characteristics for the button
+        TextButtonStyle textButtonStyle = new TextButtonStyle();
+        textButtonStyle.up = skin.getDrawable("button.up");
+        textButtonStyle.down = skin.getDrawable("button.down");
+        textButtonStyle.pressedOffsetX = 1;
+        textButtonStyle.pressedOffsetY = -1;
+        textButtonStyle.font = black;
+
+        //Instantiating the button
+        TextButton startButton = new TextButton("Start", textButtonStyle);
+        startButton.pad(20);
+        startButton.addListener(new ClickListener(){
+        	@Override
+			public void clicked (InputEvent event, float x, float y){
+				myGdxGameController.setScreen(inGameController);
+			}
+        });
+        
+        //Instantiating the button
+        TextButton exitButton = new TextButton("Exit", textButtonStyle);
+        exitButton.pad(20);
+        exitButton.addListener(new ClickListener(){
+        	@Override
+			public void clicked (InputEvent event, float x, float y){
+				Gdx.app.log("screen", "exit");
+				Gdx.app.exit();
+			}
+        });
+        
         //Adding to the table and actors to the stage
         table.add(label);
+        table.getCell(label).spaceBottom(50);
         table.row();
-       // table.debug();
         table.add(startButton);
+        table.getCell(startButton).spaceBottom(50);
+        table.row();
+        table.add(exitButton);
+        table.row();
         stage.addActor(table);
-  
         
-        // creating buttons
-     /*   TextButton buttonPlay = new TextButton("PLAY", skin, "big");
-        buttonPlay.addListener(new ClickListener() {
-
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                        stage.addAction(sequence(moveTo(0, -stage.getHeight(), .5f), run(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                	myGdxGameController.setScreen(inGameController);
-                                }
-                        })));
-                }
-        });
-        buttonPlay.pad(15);*/	
+        table.debug(); //To be removed later on
 	}
 
 	@Override
@@ -154,7 +142,10 @@ public class StartScreen implements Screen{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		//stage.dispose();
+		stage.dispose();
+		skin.dispose();
+		atlas.dispose();
+		black.dispose();
 		
 	}
 
