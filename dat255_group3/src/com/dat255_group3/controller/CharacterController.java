@@ -28,19 +28,18 @@ public class CharacterController {
 		return characterView;
 	}
 	
-	
-	/*
-	 * A very basic jump-method 
-	 * This is only a test
-	 */
-	public void jump(){
-		worldController.getCharBody().applyLinearImpulse(0.0f, 9000000, 
-				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
-	
-		//worldController.getCharBody().getMass()*worldController.getGravity().y*2f
-	
+	public void tryToJump() {
+		if(this.worldController.getCharBody().getLinearVelocity().y == 0) {
+			jump();
+		}
 	}
 	
+	public void jump(){
+		float impulse = this.worldController.getCharBody().getMass()*10;
+		worldController.getCharBody().applyLinearImpulse(0.0f, impulse, 
+				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
+	
+	}
 }
 
 

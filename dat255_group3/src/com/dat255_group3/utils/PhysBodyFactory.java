@@ -18,8 +18,8 @@ public class PhysBodyFactory {
 	/**
 	 * Creates a body for a movable character in the physical world. 
 	 * @param physWorld , The physical world in which the character should exist and be created
-	 * @param pos , the center position of the character body
-	 * @param size , with and height the body
+	 * @param pos , the center position of the character body (pixels)
+	 * @param size , with and height the body (pixels)
 	 * @return The physical body of the character that exists in the physWorld with a set density, friction and restitution 
 	 */
 	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size) {
@@ -30,16 +30,17 @@ public class PhysBodyFactory {
 
 
 		shape = new PolygonShape();
+		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
 		shape.setAsBox(size.x/2, size.y/2);
 
 		fixtureDef.shape = shape;
-		fixtureDef.density = 0.5f;
+		fixtureDef.density = 1f;
 		fixtureDef.friction = 0.5f;
 		fixtureDef.restitution = 0f;
 
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.fixedRotation = true;
-		bodyDef.position.set(pos.x, pos.y);
+		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos)); //set the position in meters
 
 		body = physWorld.createBody(bodyDef);
 		body.createFixture(fixtureDef);
@@ -49,15 +50,17 @@ public class PhysBodyFactory {
 	
 	/**
 	 * Creates a solid ground that is not affected by gravity or other forces
-	 * @param pos , the center position of the ground
-	 * @param size , with and height of the ground
+	 * @param pos , the center position of the ground (pixels)
+	 * @param size , with and height of the ground (pixels)
 	 * @param friction , the friction (0f-1f) of the ground surface
 	 * @param restitution , restitution of the ground surface
 	 * @param physWorld , the physical world in which the solid ground is created and exists
 	 * @return The body whit the physical properties sent in by the parameters
 	 */
-	public static Body addSolidGround(final Vector2 pos, final Vector2 size, final float friction, final float restitution, World physWorld) {
+	public static Body addSolidGround(final Vector2 pos, Vector2 size, final float friction, 
+			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
+		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
 		polygonShape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
@@ -66,7 +69,7 @@ public class PhysBodyFactory {
 		fixtureDef.restitution = restitution;
 
 		BodyDef bodyDef = new BodyDef();
-		bodyDef.position.set(pos);
+		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos)); //set the position in meters
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.fixedRotation = true;
 
@@ -74,4 +77,32 @@ public class PhysBodyFactory {
 		body.createFixture(fixtureDef);
 		return body;
 	}
+	
+	
+	/*
+	 * adds an obstacle
+	 * ... ja jag vet att det är ful dubblering av kod...
+	 */
+	public static Body addObstacle(final Vector2 pos, Vector2 size, final float friction, 
+			final float restitution, World physWorld) {
+		PolygonShape polygonShape = new PolygonShape();
+		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
+		polygonShape.setAsBox(size.x, size.y);
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = polygonShape;
+		fixtureDef.friction = friction;
+		fixtureDef.density = 1f;
+		fixtureDef.restitution = restitution;
+
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos)); //set the position in meters
+		bodyDef.type = BodyType.KinematicBody;
+		bodyDef.fixedRotation = true;
+
+		Body body = physWorld.createBody(bodyDef);
+		body.createFixture(fixtureDef);
+		return body;
+	}
+
+
 }

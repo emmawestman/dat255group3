@@ -12,7 +12,6 @@ import com.dat255_group3.model.Character;
  */
 public class CharacterView {
 	
-	private static final float SIZE = 100f;
 	private Rectangle characterRect;
 	private Character character;
 	private ShapeRenderer shape = new ShapeRenderer();
@@ -24,8 +23,8 @@ public class CharacterView {
 	public CharacterView (Character character) {
 		this.character = character;
 		characterRect = new Rectangle();
-		characterRect.height = SIZE;
-		characterRect.width =  SIZE;
+		characterRect.height = character.getHeight();
+		characterRect.width =  character.getWidth();
 	}
 	
 	
@@ -36,12 +35,7 @@ public class CharacterView {
 	public void draw(){
 		shape.begin(ShapeType.Filled);
 		shape.setColor(Color.CYAN);
-		shape.rect(character.getPosition().x + 5, character.getPosition().y + 5, characterRect.width, characterRect.height);
+		shape.rect(character.getPosition().x, character.getPosition().y, characterRect.width, characterRect.height);
 		shape.end();
-		
 	}
-	
-	
-	
-	
 }
