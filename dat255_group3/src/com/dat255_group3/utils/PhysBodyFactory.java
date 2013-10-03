@@ -77,4 +77,32 @@ public class PhysBodyFactory {
 		body.createFixture(fixtureDef);
 		return body;
 	}
+	
+	
+	/*
+	 * adds an obstacle
+	 * ... ja jag vet att det är ful dubblering av kod...
+	 */
+	public static Body addObstacle(final Vector2 pos, Vector2 size, final float friction, 
+			final float restitution, World physWorld) {
+		PolygonShape polygonShape = new PolygonShape();
+		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
+		polygonShape.setAsBox(size.x, size.y);
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = polygonShape;
+		fixtureDef.friction = friction;
+		fixtureDef.density = 1f;
+		fixtureDef.restitution = restitution;
+
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos)); //set the position in meters
+		bodyDef.type = BodyType.KinematicBody;
+		bodyDef.fixedRotation = true;
+
+		Body body = physWorld.createBody(bodyDef);
+		body.createFixture(fixtureDef);
+		return body;
+	}
+
+
 }
