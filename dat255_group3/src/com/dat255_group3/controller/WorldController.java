@@ -28,7 +28,6 @@ public class WorldController {
 	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
 		this.worldView = new WorldView();
-		this.characterController = new CharacterController(this);
 		this.worldUtil = new WorldUtil(inGameController.getMap());
 		finishLineX = worldUtil.finishLineX();
 
@@ -39,10 +38,10 @@ public class WorldController {
 
 
 		this.worldView = new WorldView();
-		this.characterController = new CharacterController(this);
+		this.characterController = new CharacterController(this, inGameController.getCamera());
 
 		// create character body
-		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(worldUtil.getStartPos().x, worldUtil.getStartPos().y), 
+		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(worldUtil.getStartPos()), 
 				new Vector2(this.characterController.getCharacter().getWidth(), this.characterController.getCharacter().getHeight()));
 
 
@@ -65,7 +64,6 @@ public class WorldController {
 		moveObstacles(speedM/10);
 		
 			this.worldView = new WorldView();
-			this.characterController = new CharacterController(this);
 		
 	}
 	public void uppdatePositions(Body body, Character character){
@@ -116,7 +114,6 @@ public class WorldController {
 	public void moveObstacles(float speedM) {
 		for(int i = 0; i<obstacleBodyList.size(); i++) {
 			obstacleBodyList.get(i).setLinearVelocity(-speedM,0);
-//			Gdx.app.log("Obstacles", "Position hinder: x: " + obstacleBodyList.get(i).getPosition().x);
 		}
 	}
 	
