@@ -81,7 +81,7 @@ public class PausScreen implements Screen {
 		        //Setting characteristics for the label
 		        LabelStyle labelStyle = new LabelStyle();
 		        labelStyle.font = white;
-		        Label label = new Label("Paused",labelStyle);
+		        Label header = new Label("Paused",labelStyle);
 		        
 		        //Setting up the characteristics for the button
 		        TextButtonStyle textButtonStyle = new TextButtonStyle();
@@ -92,9 +92,9 @@ public class PausScreen implements Screen {
 		        textButtonStyle.font = black;
 
 		        //Instantiating the button
-		        TextButton levelOneButton = new TextButton("Resume", textButtonStyle);
-		        levelOneButton.pad(20);
-		        levelOneButton.addListener(new ClickListener(){
+		        TextButton resumeButton = new TextButton("Resume", textButtonStyle);
+		        resumeButton.pad(20);
+		        resumeButton.addListener(new ClickListener(){
 		        	@Override
 					public void clicked (InputEvent event, float x, float y){
 						myGdxGameController.setScreen(myGdxGameController.getInGameController());
@@ -103,11 +103,11 @@ public class PausScreen implements Screen {
 		        
 		        
 		        //Adding to the table and actors to the stage
-		        table.add(label);
-		        table.getCell(label).spaceBottom(50);
+		        table.add(header);
+		        table.getCell(header).spaceBottom(50);
 		        table.row();
-		        table.add(levelOneButton);
-		        table.getCell(levelOneButton).spaceBottom(50);
+		        table.add(resumeButton);
+		        table.getCell(resumeButton).spaceBottom(50);
 		        table.row();
 		        stage.addActor(table);
 		        
