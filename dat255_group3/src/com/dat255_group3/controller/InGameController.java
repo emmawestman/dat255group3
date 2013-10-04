@@ -24,6 +24,7 @@ public class InGameController implements Screen{
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
 	private Matrix4 matrix = new Matrix4();
 	private float time;
+	private boolean gameOver;
 
 
 	public InGameController(MyGdxGameController myGdxGameController){
@@ -35,6 +36,7 @@ public class InGameController implements Screen{
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this, inGame.getSpeedM());
 		this.time = 0;
+		this.gameOver = false;
 		
 
 	}
@@ -51,6 +53,7 @@ public class InGameController implements Screen{
 			
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
 				Gdx.app.log("Game over", "game is over!");
+				this.gameOver = true;
 			}
 			//update the time
 			this.time = time+delta;
@@ -58,7 +61,7 @@ public class InGameController implements Screen{
 			// Shows a white screen
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time);
+			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
 
 			// Updates the speed
 			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
