@@ -1,6 +1,7 @@
 package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,12 +11,14 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
+import com.dat255_group3.view.PausScreen;
 
 public class InGameController implements Screen{
 
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
+	private MyGdxGameController myGdxGameController;
 	private float timeStep = 1.0f / 10.0f;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
@@ -32,6 +35,7 @@ public class InGameController implements Screen{
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
 		map = new TmxMapLoader().load("worlds/test5.tmx");
+		this.myGdxGameController = new MyGdxGameController();
 		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this, inGame.getSpeedM());
@@ -47,13 +51,39 @@ public class InGameController implements Screen{
 		if(delta>0){
 			this.timeStep = delta;
 		}
+		
+		/*
+		 * Checks whether the backbutton has been pressed.
+		 * If so, a pausepop-up-screen will be shown.
+		 */
+		if (Gdx.input.isKeyPressed(Keys.BACK)){
+			Gdx.input.setCatchBackKey(true);
+			Gdx.app.log("omg", "paus");
+			myGdxGameController.setScreen(new PausScreen(myGdxGameController));
+			Gdx.app.log("omg", "paus end");
+			
+			//TODO: Show a popupscreen instead of a new screen
+			/*
+			Stage stage = new Stage();
+			Skin skin = new Skin(Gdx.files.internal("ui/dialog.json"),new TextureAtlas(Gdx.files.internal("ui/button.pack")));
+			
+			Dialog popup = new Dialog("Paus", skin);
+			popup.setPosition(0, 0);
+			popup.fadeDuration = 1;
+			stage.addActor(popup);
+			stage.act(delta);
+			stage.draw();*/
+		}
+		
+		
 		if(!hasWon()) {
 			//for testing
-			Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
+			//Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
 			
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
-				Gdx.app.log("Game over", "game is over!");
+				//Gdx.app.log("Game over", "game is over!");
 				this.gameOver = true;
+
 			}
 			//update the time
 			this.time = time+delta;
@@ -95,11 +125,17 @@ public class InGameController implements Screen{
 //			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 //					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 		}else{
-			Gdx.app.log("FinishLine","At finish line");
+			//Gdx.app.log("FinishLine","At finish line");
 		}
-
+		
+		//Draw physics bodies, for debugging
+		renderer.render(worldController.getPhysicsWorld(), matrix);
+	//	Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
+	//			worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
+	
 	}
 
+	
 
 
 	@Override
@@ -133,7 +169,9 @@ public class InGameController implements Screen{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		map.dispose();
+		cameraController.dispose();
+		renderer.dispose();
 
 	}
 	/**

@@ -31,11 +31,11 @@ public class Character extends GameObject {
 		this.weight = weight;
 		this.width = 50*CoordinateConverter.getScreenWidth()/1024;
 		this.height = 70*CoordinateConverter.getScreenHeight()/512;
-		this.deathLimit = 30;
+		this.deathLimit = 0;
 	}
 	
 	public boolean isDead(){
-		return getPosition().x<deathLimit;
+		return getPosition().x < deathLimit;
 	}
 
 	/**
