@@ -45,12 +45,12 @@ public class MyGdxGameController extends Game {
 	}
 	
 	public void setHeight(int height){
-		Gdx.app.log("Viking", "Height: "+height);
+		Gdx.app.log("Size", "Height: "+height);
 		CoordinateConverter.setScreenHeight(height);		
 	}
 
 	public void setWidth(int width) {
-		Gdx.app.log("Viking", "Width: "+width);
+		Gdx.app.log("Size", "Width: "+width);
 		CoordinateConverter.setScreenWidth(width);
 	}
 	
@@ -59,7 +59,6 @@ public class MyGdxGameController extends Game {
 	}
 	
 	public StartScreen getStartScreen(){
-		Gdx.app.log("controller", "getstartscreen");
 		return startScreen;
 	}
 }

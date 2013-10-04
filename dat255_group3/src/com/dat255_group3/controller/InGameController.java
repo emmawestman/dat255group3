@@ -1,21 +1,17 @@
 package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.dat255_group3.model.Character;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
+import com.dat255_group3.view.PausScreen;
 
 public class InGameController implements Screen{
 	
@@ -81,11 +77,24 @@ public class InGameController implements Screen{
 		}
 		
 		/*
-		 * Checks wheter the backbutton has been pressed.
-		 * If so, a pauspop-up-screen will be shown.
+		 * Checks whether the backbutton has been pressed.
+		 * If so, a pausepop-up-screen will be shown.
 		 */
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			//TODO: Show a popupscreen.
+			//TODO: Show a popupscreen instead of a new screen
+			/*
+			Stage stage = new Stage();
+			Skin skin = new Skin(Gdx.files.internal("ui/dialog.json"),new TextureAtlas(Gdx.files.internal("ui/button.pack")));
+			
+			Dialog popup = new Dialog("Paus", skin);
+			popup.setPosition(0, 0);
+			popup.fadeDuration = 1;
+			stage.addActor(popup);
+			stage.act(delta);
+			stage.draw();*/
+			Gdx.input.setCatchBackKey(true);
+			myGdxGameController.setScreen(new PausScreen(myGdxGameController));
+			
 		}
 		
 		
