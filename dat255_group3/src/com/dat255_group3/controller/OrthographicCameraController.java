@@ -33,28 +33,27 @@ public class OrthographicCameraController implements ApplicationListener {
 		// Sets the size and form of the whole map
 		this.mesh = new Mesh(VertexDataType.VertexArray, false, 4, 6, 
 				new VertexAttribute(VertexAttributes.Usage.Position, 3, "attr_position"));
-		float heightConverter = CoordinateConverter.getScreenHeight()/512;
-		float widthConverter = CoordinateConverter.getScreenWidth()/1024;
+
 		mesh.setVertices(new float[] {
-				-1024f*widthConverter, -512f*heightConverter, 0,
-				1024f*widthConverter, -512f*heightConverter, 0,
-				1024f*widthConverter, 512f*heightConverter, 0,
-				-1024f*widthConverter, 512f*heightConverter, 0
+				-2048f, -512f, 0,
+				2048f, -512f, 0,
+				2048f, 512f, 0,
+				-2048f, 512f, 0
 		});
 		mesh.setIndices(new short[] {0, 1, 2, 2, 3, 0});
 
 		// creates the camera
 //		camera = new OrthographicCamera(CoordinateConverter.getScreenWidth(), CoordinateConverter.getScreenHeight());
-		camera = new OrthographicCamera(800, 512);
+		camera = new OrthographicCamera(1024, 512);
 
 		// Sets the positions of the camera
 //		camera.position.set(CoordinateConverter.getScreenWidth()/2, CoordinateConverter.getScreenHeight()/2, 0);
-		camera.position.set(800/2, 512/2, 0);
+		camera.position.set(1024/2, 512/2, 0);
 		camera.update();
 
 		// Sets how much of the map that is shown on the screen
 //		glViewport = new Rectangle(0, 0, CoordinateConverter.getScreenWidth(), CoordinateConverter.getScreenHeight());
-		glViewport = new Rectangle(0, 0, 800, 512);
+		glViewport = new Rectangle(0, 0, 1024, 512);
 
 	}
 
