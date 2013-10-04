@@ -42,7 +42,9 @@ public class InGameController implements Screen{
 	
 	@Override
 	public void render(float delta) {
-		
+		if(delta>0){
+			this.timeStep = delta;
+		}
 		if(!hasWon()) {
 			
 			Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
