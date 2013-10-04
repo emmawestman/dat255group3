@@ -35,7 +35,7 @@ public class Character extends GameObject {
 	}
 	
 	public boolean isDead(){
-		return getPosition().x<deathLimit;
+		return getPosition().x < deathLimit;
 	}
 
 	/**

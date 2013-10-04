@@ -19,6 +19,7 @@ public class CharacterController {
 		 */
 		this.character = new Character(new Vector2(-25f, -25f), 0.0, 50);
 		this.characterView = new CharacterView(character, camera);
+
 	}
 
 	public Character getCharacter() {
