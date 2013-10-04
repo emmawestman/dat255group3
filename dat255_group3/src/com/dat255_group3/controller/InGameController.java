@@ -30,7 +30,7 @@ public class InGameController implements Screen{
 		matrix.setToOrtho2D(0, 0, 480, 320);
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
-		map = new TmxMapLoader().load("worlds/test4.tmx");
+		map = new TmxMapLoader().load("worlds/test5.tmx");
 		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this);
@@ -46,7 +46,6 @@ public class InGameController implements Screen{
 		if(!hasWon()) {
 			//update the time
 			this.time = time+delta;
-			Gdx.app.log("time: ", "time gone: "+this.time);
 			
 			// Shows a white screen
 			Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -86,7 +85,7 @@ public class InGameController implements Screen{
 //			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 //					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 		}else{
-			Gdx.app.log("BP","At finish line");
+			Gdx.app.log("FinishLine","At finish line");
 		}
 
 	}
@@ -147,7 +146,7 @@ public class InGameController implements Screen{
 	}
 
 	public boolean hasWon() {
-		Gdx.app.log("BP", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
+//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
 			if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
 				return true;
 			}else{

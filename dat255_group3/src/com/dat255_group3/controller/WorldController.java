@@ -58,7 +58,7 @@ public class WorldController {
 		obstacleBodyList = new ArrayList<Body>();
 		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
 		for(int i=0; i<obstacleList.size(); i++) {
-			solidBodyList.add(PhysBodyFactory.addSolidGround(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
+			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 
 		}
@@ -114,7 +114,8 @@ public class WorldController {
 
 	public void moveObstacles(float speedM) {
 		for(int i = 0; i<obstacleBodyList.size(); i++) {
-			obstacleBodyList.get(i).setLinearVelocity(-speedM, 0);
+			obstacleBodyList.get(i).setLinearVelocity(-speedM,0);
+//			Gdx.app.log("Obstacles", "Position hinder: x: " + obstacleBodyList.get(i).getPosition().x);
 		}
 	}
 	
