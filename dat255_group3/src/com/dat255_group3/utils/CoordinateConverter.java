@@ -73,7 +73,7 @@ public class CoordinateConverter {
 
 	public static void setScreenWidth(int screenWidth) {
 		ScreenWidth = screenWidth;
-		Gdx.app.log("Viking", "screenWidth: "+screenWidth);
+		//Gdx.app.log("Viking", "screenWidth: "+screenWidth);
 		
 	}
 
@@ -84,7 +84,7 @@ public class CoordinateConverter {
 
 	public static void setScreenHeight(int screenHeight) {
 		ScreenHeight = screenHeight;
-		Gdx.app.log("Viking", "screenHeight: "+screenHeight);
+		//Gdx.app.log("Viking", "screenHeight: "+screenHeight);
 	}
 
 	
