@@ -44,6 +44,11 @@ public class InGameController implements Screen{
 	public void render(float delta) {
 		
 		if(!hasWon()) {
+			
+			Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
+			if(this.worldController.getCharacterController().getCharacter().getPosition().x < 60){
+				Gdx.app.log("Game over", "game is over!");
+			}
 			//update the time
 			this.time = time+delta;
 			
