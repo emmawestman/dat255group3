@@ -27,6 +27,7 @@ public class InGameController implements Screen{
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
 	private Matrix4 matrix = new Matrix4();
 	private float time;
+	private boolean gameOver;
 
 
 	public InGameController(MyGdxGameController myGdxGameController){
@@ -34,14 +35,12 @@ public class InGameController implements Screen{
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
 		map = new TmxMapLoader().load("worlds/test5.tmx");
-<<<<<<< HEAD
 		this.myGdxGameController = new MyGdxGameController();
-=======
->>>>>>> d88b1cb005260727b8d5ae76b18158a420b8e5dd
 		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this, inGame.getSpeedM());
 		this.time = 0;
+		this.gameOver = false;
 		
 
 	}
@@ -52,7 +51,6 @@ public class InGameController implements Screen{
 		if(delta>0){
 			this.timeStep = delta;
 		}
-<<<<<<< HEAD
 		
 		/*
 		 * Checks whether the backbutton has been pressed.
@@ -84,14 +82,8 @@ public class InGameController implements Screen{
 			
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
 				//Gdx.app.log("Game over", "game is over!");
-=======
-		if(!hasWon()) {
-			//for testing
-			Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
-			
-			if(this.worldController.getCharacterController().getCharacter().isDead()){
-				Gdx.app.log("Game over", "game is over!");
->>>>>>> d88b1cb005260727b8d5ae76b18158a420b8e5dd
+				this.gameOver = true;
+
 			}
 			//update the time
 			this.time = time+delta;
@@ -99,7 +91,7 @@ public class InGameController implements Screen{
 			// Shows a white screen
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time);
+			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
 
 			// Updates the speed
 			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
@@ -119,11 +111,7 @@ public class InGameController implements Screen{
 
 			// Update the position of the finish line
 			worldController.moveFinishLine(inGame.getSpeedP());
-<<<<<<< HEAD
-			
-=======
 
->>>>>>> d88b1cb005260727b8d5ae76b18158a420b8e5dd
 			/*
 			 * Checks whether the screen has been touched. 
 			 * If so, a method which will make the character jump is invoked.
@@ -137,9 +125,8 @@ public class InGameController implements Screen{
 //			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 //					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 		}else{
-			Gdx.app.log("FinishLine","At finish line");
+			//Gdx.app.log("FinishLine","At finish line");
 		}
-<<<<<<< HEAD
 		
 		//Draw physics bodies, for debugging
 		renderer.render(worldController.getPhysicsWorld(), matrix);
@@ -147,12 +134,9 @@ public class InGameController implements Screen{
 	//			worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 	
 	}
-=======
 
-	}
+	
 
-
->>>>>>> d88b1cb005260727b8d5ae76b18158a420b8e5dd
 
 	@Override
 	public void resize(int width, int height) {
@@ -185,13 +169,9 @@ public class InGameController implements Screen{
 
 	@Override
 	public void dispose() {
-<<<<<<< HEAD
 		map.dispose();
 		cameraController.dispose();
 		renderer.dispose();
-=======
-		// TODO Auto-generated method stub
->>>>>>> d88b1cb005260727b8d5ae76b18158a420b8e5dd
 
 	}
 	/**
