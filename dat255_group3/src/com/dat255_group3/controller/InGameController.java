@@ -3,6 +3,7 @@ package com.dat255_group3.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
@@ -35,11 +36,11 @@ public class InGameController implements Screen{
 		this.inGame = new InGame();
 		this.worldController = new WorldController(this, inGame.getSpeedM());
 		this.time = 0;
-		
+
 
 	}
-	
-	
+
+
 	@Override
 	public void render(float delta) {
 		if(delta>0){
@@ -47,14 +48,14 @@ public class InGameController implements Screen{
 		}
 		if(!hasWon()) {
 			//for testing
-			Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
-			
+			//			Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
+
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
 				Gdx.app.log("Game over", "game is over!");
 			}
 			//update the time
 			this.time = time+delta;
-			
+
 			// Shows a white screen
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -63,8 +64,13 @@ public class InGameController implements Screen{
 			// Updates the speed
 			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
 			cameraController.setSpeedP(inGame.getSpeedP());
-		
-			
+
+			//Testing
+			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
+			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
+				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
+			}
+
 			// update the physics
 			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 
@@ -89,8 +95,8 @@ public class InGameController implements Screen{
 
 			//Draw physics bodies, for debugging
 			renderer.render(worldController.getPhysicsWorld(), matrix);
-//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
-//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
+			//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
+			//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 		}else{
 			Gdx.app.log("FinishLine","At finish line");
 		}
@@ -151,14 +157,18 @@ public class InGameController implements Screen{
 	public TiledMap getMap() {
 		return map;
 	}
+	
+	public OrthographicCamera getCamera() {
+		return cameraController.getCamera();
+	}
 
 	public boolean hasWon() {
-//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
-			if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
-				return true;
-			}else{
-				return false;
-			}
+		//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
+		if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 

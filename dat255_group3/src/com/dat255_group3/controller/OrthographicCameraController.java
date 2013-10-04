@@ -43,16 +43,13 @@ public class OrthographicCameraController implements ApplicationListener {
 		mesh.setIndices(new short[] {0, 1, 2, 2, 3, 0});
 
 		// creates the camera
-//		camera = new OrthographicCamera(CoordinateConverter.getScreenWidth(), CoordinateConverter.getScreenHeight());
 		camera = new OrthographicCamera(1024, 512);
 
 		// Sets the positions of the camera
-//		camera.position.set(CoordinateConverter.getScreenWidth()/2, CoordinateConverter.getScreenHeight()/2, 0);
 		camera.position.set(1024/2, 512/2, 0);
 		camera.update();
 
 		// Sets how much of the map that is shown on the screen
-//		glViewport = new Rectangle(0, 0, CoordinateConverter.getScreenWidth(), CoordinateConverter.getScreenHeight());
 		glViewport = new Rectangle(0, 0, 1024, 512);
 
 	}

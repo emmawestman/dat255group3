@@ -103,9 +103,9 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("Ground")) {
-								groundList.getMapList().add(CoordinateConverter.positionConverter(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y + tileSize.y/2)));
+								groundList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y + tileSize.y/2));
 							}else if(tile.getProperties().containsKey("Obstacle")) {
-								obstacleList.getMapList().add(CoordinateConverter.positionConverter(new Vector2((x*tileSize.x)/2 + tileSize.x/2, (y*tileSize.y + tileSize.y/2))));
+								obstacleList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2, y*tileSize.y + tileSize.y/2));
 							}
 						}
 					}
@@ -119,7 +119,7 @@ public class WorldUtil {
 							if(tile.getProperties().containsKey("FinishLine")) {
 								finishLineX = x*tileSize.x/2;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = CoordinateConverter.positionConverter(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y + tileSize.y/2));
+								startPos = new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y + tileSize.y/2);
 							}
 						}
 					}
