@@ -13,6 +13,7 @@ public class Character extends GameObject {
 	private int weight;
 	private double friction;
 	private float width, height; //size of character in pixels
+	private float deathLimit;
 
 	/**
 	 * Constructs a Character with its properties.
@@ -25,11 +26,16 @@ public class Character extends GameObject {
 	 */
 	public Character(Vector2 position, double friction, int weight){
 		super(position);
-		
+		//TODO no position in constructor! physics and render will handle it later!
 		this.friction = friction;
 		this.weight = weight;
 		this.width = 50*CoordinateConverter.getScreenWidth()/1024;
 		this.height = 70*CoordinateConverter.getScreenHeight()/512;
+		this.deathLimit = 30;
+	}
+	
+	public boolean isDead(){
+		return getPosition().x<deathLimit;
 	}
 
 	/**

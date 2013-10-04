@@ -46,9 +46,10 @@ public class InGameController implements Screen{
 			this.timeStep = delta;
 		}
 		if(!hasWon()) {
-			
+			//for testing
 			Gdx.app.log("position", "character position: "+this.worldController.getCharacterController().getCharacter().getPosition());
-			if(this.worldController.getCharacterController().getCharacter().getPosition().x < 60){
+			
+			if(this.worldController.getCharacterController().getCharacter().isDead()){
 				Gdx.app.log("Game over", "game is over!");
 			}
 			//update the time
