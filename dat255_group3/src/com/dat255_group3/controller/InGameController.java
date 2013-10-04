@@ -84,6 +84,10 @@ public class InGameController implements Screen{
 		Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 				worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 	
+		//Check if dead
+		if(worldController.isDead()) {
+			Gdx.app.log("Lose", "Game Over!");
+		}
 	}
 	
 	

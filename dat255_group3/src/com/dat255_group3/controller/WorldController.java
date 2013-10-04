@@ -67,6 +67,10 @@ public class WorldController {
 		Vector2 posInPixels = CoordinateConverter.meterToPixel(body.getPosition());
 		character.setPosition(new Vector2 (posInPixels.x - (character.getWidth()/2), posInPixels.y - (character.getHeight()/2)) );
 	}
+	
+	public boolean isDead() {
+		return worldView.getDeathRect().overlaps(characterController.getCharacterView().getRect());
+	}
 
 	public World getWorld() {
 		return world;

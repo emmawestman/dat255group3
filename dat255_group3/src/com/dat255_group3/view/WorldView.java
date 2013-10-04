@@ -32,7 +32,7 @@ public class WorldView {
 	public void draw(Body charBody, CharacterView charView) {
 		shape.begin(ShapeType.Filled);
 		shape.setColor(Color.RED);
-		shape.rect(0, CoordinateConverter.getScreenHeight(), deathRect.width, deathRect.height);
+		shape.rect(0, 0, deathRect.width, deathRect.height);
 		shape.end();
 		
 		charView.draw();

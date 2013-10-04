@@ -38,4 +38,9 @@ public class CharacterView {
 		shape.rect(character.getPosition().x, character.getPosition().y, characterRect.width, characterRect.height);
 		shape.end();
 	}
+
+
+	public Rectangle getRect() {
+		return characterRect;
+	}
 }
