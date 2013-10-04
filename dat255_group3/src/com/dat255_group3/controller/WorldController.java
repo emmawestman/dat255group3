@@ -58,7 +58,11 @@ public class WorldController {
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
 	}
-	
+	/**
+	 * Uppdates the model position of the character to the top left corner of the physical body
+	 * @param body , physical body 
+	 * @param character , character model
+	 */
 	public void uppdatePositions(Body body, Character character){
 		Vector2 posInPixels = CoordinateConverter.meterToPixel(body.getPosition());
 		character.setPosition(new Vector2 (posInPixels.x - (character.getWidth()/2), posInPixels.y - (character.getHeight()/2)) );
