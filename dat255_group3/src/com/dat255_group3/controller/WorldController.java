@@ -25,7 +25,7 @@ public class WorldController {
 	private com.badlogic.gdx.physics.box2d.World physicsWorld;
 	private WorldUtil worldUtil;
 
-	public WorldController(InGameController inGameController){
+	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
 		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this);
@@ -60,9 +60,10 @@ public class WorldController {
 		for(int i=0; i<obstacleList.size(); i++) {
 			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
-
 		}
-
+		//set velocity of the obstacles
+		moveObstacles(speedM/10);
+		
 			this.worldView = new WorldView();
 			this.characterController = new CharacterController(this);
 		

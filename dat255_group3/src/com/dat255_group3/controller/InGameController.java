@@ -33,7 +33,7 @@ public class InGameController implements Screen{
 		map = new TmxMapLoader().load("worlds/test5.tmx");
 		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
-		this.worldController = new WorldController(this);
+		this.worldController = new WorldController(this, inGame.getSpeedM());
 		this.time = 0;
 		
 
@@ -67,7 +67,6 @@ public class InGameController implements Screen{
 			
 			// update the physics
 			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-			worldController.moveObstacles(inGame.getSpeedM());
 
 			// update the model position for the character
 			this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
