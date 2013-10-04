@@ -2,6 +2,7 @@ package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -78,6 +79,15 @@ public class InGameController implements Screen{
 		if(Gdx.input.isTouched()){
 			worldController.getCharacterController().tryToJump(); 	
 		}
+		
+		/*
+		 * Checks wheter the backbutton has been pressed.
+		 * If so, a pauspop-up-screen will be shown.
+		 */
+		if (Gdx.input.isKeyPressed(Keys.BACK)){
+			//TODO: Show a popupscreen.
+		}
+		
 		
 		//Draw physics bodies, for debugging
 		renderer.render(worldController.getPhysicsWorld(), matrix);

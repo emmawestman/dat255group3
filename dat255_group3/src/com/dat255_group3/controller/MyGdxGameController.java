@@ -2,12 +2,15 @@ package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.dat255_group3.model.MyGdxGame;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.view.StartScreen;
 
 
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;
+	private StartScreen startScreen;
 	private InGameController inGameController;
 	private PlayerController playerController;
 	
@@ -17,12 +20,10 @@ public class MyGdxGameController extends Game {
 		this.myGdxGame = new MyGdxGame();
 		this.playerController = new PlayerController(this);
 		this.inGameController = new InGameController(this);
+		this.startScreen = new StartScreen(this);
 		
 		//go to the first screen
-		setScreen(new StartScreen(this,inGameController));
-		
-		
-		
+		setScreen(startScreen);
 	}
 
 	@Override
@@ -51,5 +52,14 @@ public class MyGdxGameController extends Game {
 	public void setWidth(int width) {
 		Gdx.app.log("Viking", "Width: "+width);
 		CoordinateConverter.setScreenWidth(width);
+	}
+	
+	public InGameController getInGameController(){
+		return inGameController;
+	}
+	
+	public StartScreen getStartScreen(){
+		Gdx.app.log("controller", "getstartscreen");
+		return startScreen;
 	}
 }

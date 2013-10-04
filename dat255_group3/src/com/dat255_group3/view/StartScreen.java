@@ -1,8 +1,7 @@
-package com.dat255_group3.controller;
+package com.dat255_group3.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,12 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.dat255_group3.controller.MyGdxGameController;
 
 
-
+/**
+ * A class which represents the startmenu of the game. The user is given the options of choosing a character,
+ * starting the game or to exit.
+ * @author The Hans-Gunnar Crew
+ *
+ */
 public class StartScreen implements Screen{
 
-	private InGameController inGameController;
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
 	private TextureAtlas atlas;
@@ -28,11 +32,12 @@ public class StartScreen implements Screen{
 	private Table table;
 	private BitmapFont black;
 	private BitmapFont white;
+//	import aurelienribon.tweenengine.TweenManager;
+//	private TweenManager tweenmanager;
 	
 
-	public StartScreen(MyGdxGameController myGdxGameController, InGameController inGameController){
+	public StartScreen(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
-		this.inGameController = inGameController;
 		this.stage = new Stage(0,0, true);
 	}
 	
@@ -43,18 +48,20 @@ public class StartScreen implements Screen{
 	
 		//Update & draw the stage actors
 		stage.act(delta);
-		table.drawDebug(stage); //To be removed later on
+		//table.drawDebug(stage); //To be removed later on
 		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		//In order to make it look good not depending on the screensize.
+		stage.setViewport(width, height, true);
+		table.invalidateHierarchy();
+		table.setSize(width,height);
 	}
 
 	@Override
 	public void show() {
-		Gdx.app.log("StartScreen", "showMethod");
-		
 		//Setting up the stage
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -73,7 +80,6 @@ public class StartScreen implements Screen{
         
         
         //Setting characteristics for the label
-        Gdx.app.log("Startscreen", "label");
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = white;
         Label label = new Label("CookieGame",labelStyle);
@@ -92,7 +98,7 @@ public class StartScreen implements Screen{
         startButton.addListener(new ClickListener(){
         	@Override
 			public void clicked (InputEvent event, float x, float y){
-				myGdxGameController.setScreen(inGameController);
+				myGdxGameController.setScreen(new LevelScreen(myGdxGameController));
 			}
         });
         
@@ -118,30 +124,27 @@ public class StartScreen implements Screen{
         table.row();
         stage.addActor(table);
         
-        table.debug(); //To be removed later on
+       // table.debug(); //To be removed later on
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		Gdx.app.log("Start", "dispose");
 		stage.dispose();
 		skin.dispose();
 		atlas.dispose();
