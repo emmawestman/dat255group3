@@ -2,23 +2,17 @@ package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.dat255_group3.model.Character;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
 
 public class InGameController implements Screen{
-	
-	private MyGdxGameController myGdxGameController;
+
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
@@ -31,13 +25,11 @@ public class InGameController implements Screen{
 	private Matrix4 matrix = new Matrix4();
 	private float time;
 
-	
+
 	public InGameController(MyGdxGameController myGdxGameController){
 		matrix.setToOrtho2D(0, 0, 480, 320);
-		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
-		CoordinateConverter cc  = new CoordinateConverter();
-		this.cameraController.create(cc.getScreenWidth(), cc.getScreenHeight());
+		this.cameraController.create();
 		map = new TmxMapLoader().load("worlds/test4.tmx");
 		this.inGameView = new InGameView(map, cameraController.getCamera());
 		this.inGame = new InGame();
@@ -50,84 +42,97 @@ public class InGameController implements Screen{
 	
 	@Override
 	public void render(float delta) {
-		//update the time
-		this.time = time+delta;
-		Gdx.app.log("time: ", "time gone: "+this.time);
 		
-		//Shows a white screen
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-				this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time);
+		if(!hasWon()) {
+			//update the time
+			this.time = time+delta;
+			Gdx.app.log("time: ", "time gone: "+this.time);
+			
+			// Shows a white screen
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time);
 
+			// Updates the speed
+			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
+			cameraController.setSpeedP(inGame.getSpeedP());
 		
-		// update the physics
-		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-		// update the model position for the character
-		this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
+			
+			// update the physics
+			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
+			worldController.moveObstacles(inGame.getSpeedM());
 
-		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
+			// update the model position for the character
+			this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
 
-		//Update the position of the camera
-		cameraController.render();
+			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 
-		
-		/*
-		 * Checks whether the screen has been touched. 
-		 * If so, a method which will make the character jump is invoked.
-		 */
-		if(Gdx.input.isTouched()){
-			worldController.getCharacterController().tryToJump(); 	
+			// Update the position of the camera
+			cameraController.render();
+
+			// Update the position of the finish line
+			worldController.moveFinishLine(inGame.getSpeedP());
+
+			/*
+			 * Checks whether the screen has been touched. 
+			 * If so, a method which will make the character jump is invoked.
+			 */
+			if(Gdx.input.isTouched()){
+				worldController.getCharacterController().tryToJump(); 	
+			}
+
+			//Draw physics bodies, for debugging
+			renderer.render(worldController.getPhysicsWorld(), matrix);
+//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
+//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
+		}else{
+			Gdx.app.log("BP","At finish line");
 		}
-		
-		//Draw physics bodies, for debugging
-		renderer.render(worldController.getPhysicsWorld(), matrix);
-		Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
-				worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
-	
+
 	}
-	
-	
+
+
 
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void show() {
-		
+
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	/**
 	 * Update so that the character model has the same position (x,y) as the physical body
 	 * @param body , the physical body of the character
 	 * @param character , the character model with the position
 	 */
-	
+
 
 	public InGame getInGame() {
 		return inGame;
@@ -136,12 +141,19 @@ public class InGameController implements Screen{
 	public InGameView getInGameView() {
 		return inGameView;
 	}
-	
+
 	public TiledMap getMap() {
 		return map;
 	}
 
+	public boolean hasWon() {
+		Gdx.app.log("BP", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
+			if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
+				return true;
+			}else{
+				return false;
+			}
+	}
 
 
-	
 }

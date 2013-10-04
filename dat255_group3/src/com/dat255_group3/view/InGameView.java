@@ -1,9 +1,5 @@
 package com.dat255_group3.view;
 
-import java.util.ArrayList;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,20 +15,16 @@ import com.dat255_group3.utils.CoordinateConverter;
 public class InGameView {
 	
 	private OrthogonalTiledMapRenderer mapRenderer;
-	private TiledMap map;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 	private BitmapFont font;
 	private CharSequence str;
 	
-	
-
 	/** A constructor that takes a map. 
 	 * @param map
 	 */
 	
 	public InGameView (TiledMap map, OrthographicCamera camera) {
-		this.map = map;
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
 		this.camera = camera;
 		this.spriteBatch = new SpriteBatch();
