@@ -1,9 +1,5 @@
 package com.dat255_group3.view;
 
-import java.util.ArrayList;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 public class InGameView {
 	
 	private OrthogonalTiledMapRenderer mapRenderer;
-	private TiledMap map;
 	private OrthographicCamera camera; 
 	
 
@@ -25,7 +20,6 @@ public class InGameView {
 	 */
 	
 	public InGameView (TiledMap map, OrthographicCamera camera) {
-		this.map = map;
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
 		this.camera = camera;
 		
