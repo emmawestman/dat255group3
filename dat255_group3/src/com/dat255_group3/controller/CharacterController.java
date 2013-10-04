@@ -1,5 +1,6 @@
 package com.dat255_group3.controller;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.dat255_group3.model.Character;
 import com.dat255_group3.view.CharacterView;
@@ -10,14 +11,15 @@ public class CharacterController {
 	private Character character;
 	private CharacterView characterView;
 	
-	public CharacterController(WorldController worldController){
+	public CharacterController(WorldController worldController, OrthographicCamera camera){
 		this.worldController = worldController;
 		
 		/*
 		 * The character and its view will later on be placed in a map/lists as we will have different characters
 		 */
 		this.character = new Character(new Vector2(-25f, -25f), 0.0, 50);
-		this.characterView = new CharacterView(character);
+		this.characterView = new CharacterView(character, camera);
+
 	}
 
 	public Character getCharacter() {
@@ -28,19 +30,18 @@ public class CharacterController {
 		return characterView;
 	}
 	
-	
-	/*
-	 * A very basic jump-method 
-	 * This is only a test
-	 */
-	public void jump(){
-		worldController.getCharBody().applyLinearImpulse(0.0f, 9000000, 
-				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
-	
-		//worldController.getCharBody().getMass()*worldController.getGravity().y*2f
-	
+	public void tryToJump() {
+		if(this.worldController.getCharBody().getLinearVelocity().y == 0) {
+			jump();
+		}
 	}
 	
+	public void jump(){
+		float impulse = this.worldController.getCharBody().getMass()*10;
+		worldController.getCharBody().applyLinearImpulse(0.0f, impulse, 
+				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
+	
+	}
 }
 
 

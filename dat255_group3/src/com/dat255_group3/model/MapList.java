@@ -2,19 +2,21 @@ package com.dat255_group3.model;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
+
 /**
  * A class describing a list for maps.
  * @author The Hans-Gunnar Crew
  *
  */
 public class MapList {
-	private ArrayList<Position> mapList;
+	private ArrayList<Vector2> mapList;
 
 	/**
-	 * Construcs a MapList.
+	 * Constructs a MapList.
 	 */
 	public MapList() {
-		mapList = new ArrayList<Position>();		
+		mapList = new ArrayList<Vector2>();		
 	}
 
 	/**
@@ -22,7 +24,7 @@ public class MapList {
 	 * @return
 	 * 		The maplist
 	 */
-	public ArrayList<Position> getMapList() {
+	public ArrayList<Vector2> getMapList() {
 		return mapList;
 	}
 

@@ -1,5 +1,7 @@
 package com.dat255_group3.view;
 
+import com.badlogic.gdx.physics.box2d.Body;
+
 
 
 /** 
@@ -13,9 +15,11 @@ public class WorldView {
 	}
 	
 	/**
-	 * 
+	 * Draws all the graphical elements of the world
 	 */
-	public void render() {
-		//Draws characterview
+	public void draw(Body charBody, CharacterView charView) {
+		
+		charView.draw();
+		
 	}
 }

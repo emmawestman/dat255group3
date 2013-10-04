@@ -1,6 +1,7 @@
 package com.dat255_group3.model;
 
 import com.badlogic.gdx.math.Vector2;
+import com.dat255_group3.utils.CoordinateConverter;
 
 /**
  * A class which represents a Character. 
@@ -11,6 +12,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Character extends GameObject {
 	private int weight;
 	private double friction;
+	private float width, height; //size of character in pixels
+	private float deathLimit;
 
 	/**
 	 * Constructs a Character with its properties.
@@ -23,8 +26,16 @@ public class Character extends GameObject {
 	 */
 	public Character(Vector2 position, double friction, int weight){
 		super(position);
+		//TODO no position in constructor! physics and render will handle it later!
 		this.friction = friction;
 		this.weight = weight;
+		this.width = 50;
+		this.height = 70;
+		this.deathLimit = 30;
+	}
+	
+	public boolean isDead(){
+		return getPosition().x < deathLimit;
 	}
 
 	/**
@@ -43,6 +54,22 @@ public class Character extends GameObject {
 	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float with) {
+		this.width = with;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
 	}
 
 	/**

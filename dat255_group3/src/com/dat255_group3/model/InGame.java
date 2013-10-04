@@ -9,12 +9,14 @@ package com.dat255_group3.model;
 public class InGame {
 	private int time;
 	private int score;
+	private float speedM;
+	private float speedP;
 
 	/**
-	 * Construcs a InGame
+	 * Constructs a InGame
 	 */
 	public InGame() {
-		
+		speedM = 2.5f;
 	}
 
 	/**
@@ -52,6 +54,42 @@ public class InGame {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
+	
+	/**
+	 *  Sets the speed in meters
+	 * @param speedM
+	 * 			The speed in meters.
+	 */
+	public void setSpeedM(float speedM) {
+		this.speedM = speedM;
+	}
+	
+	/**
+	 *  A method which gives the speed in meters of the current game.
+	 * @return
+	 * 		The speed in meters of the current game.
+	 */
+	public float getSpeedM() {
+		return speedM;
+	}
+	
+	/**
+	 *  A method which gives the speed in pixels of the current game.
+	 * @return
+	 * 		The speed in pixels of the current game.
+	 */
+	public float getSpeedP() {
+		return speedP;
+	}
+	
+	/**
+	 *  Sets the speed in pixels.
+	 * @param speedP
+	 * 			The speed in pixels.
+	 */
+	public void setSpeedP(float speedP) {
+		this.speedP = speedP;
+	}
+	
 	
 }

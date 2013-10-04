@@ -1,10 +1,13 @@
 package com.dat255_group3.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.dat255_group3.utils.CoordinateConverter;
 
 /** A view class for the InGame model. 
  * @author The Hans-Gunnar Crew
@@ -13,16 +16,20 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 public class InGameView {
 	
 	private OrthogonalTiledMapRenderer mapRenderer;
-	private TiledMap map;
-	private OrthographicCamera camera; 
+	private OrthographicCamera camera;
+	private SpriteBatch spriteBatch;
+	private BitmapFont font;
+	private CharSequence str;
 	
 	/** A constructor that takes a map. 
 	 * @param map
 	 */
-	public InGameView (TiledMap map) {
-		this.map = map;
+	
+	public InGameView (TiledMap map, OrthographicCamera camera) {
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
-		camera = new OrthographicCamera();
+		this.camera = camera;
+		this.spriteBatch = new SpriteBatch();
+		this.font = new BitmapFont();
 		
 	}
 	
@@ -31,29 +38,31 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void render() {
-		//show a black screen
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, float time, boolean gameOver) {
 		//Shows selected part of the map
-		//mapRenderer.setView(camera);
-		//mapRenderer.render();
+		mapRenderer.setView(camera);
+		mapRenderer.render();
+		worldView.draw(charBody, charView);
+		//draw game over text
+		if(gameOver) drawGameOver();
+		//Draw time
+		drawTime(time);
 		
-		
-		//Skota layouts = lyssnar av olika touch -> 
-		
-		//If: Vinna -> visa vinna.
+	}
 	
+	public void drawGameOver(){
+		spriteBatch.begin();
+		str = "GAME OVER";
+		font.setColor(Color.RED);
+		font.draw(spriteBatch, str, (CoordinateConverter.getScreenWidth()/2)-20f, CoordinateConverter.getScreenHeight()/2);
+		spriteBatch.end();
 	}
-	/*
-	/** Does nothing right now.
-	 * 
-	 
-	public void drawJump(){
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	
+	public void drawTime(float time) {
+		spriteBatch.begin();
+		str = "Time: "+ time;
+		font.setColor(Color.BLACK);
+		font.draw(spriteBatch, str, 20f, CoordinateConverter.getScreenHeight()-30f);
+		spriteBatch.end();
 	}
-	*/
-
 }
