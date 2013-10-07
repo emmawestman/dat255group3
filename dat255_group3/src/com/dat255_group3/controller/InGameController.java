@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
-import com.dat255_group3.view.PausScreen;
+import com.dat255_group3.view.PauseScreen;
 
 public class InGameController implements Screen{
 	
@@ -93,7 +93,7 @@ public class InGameController implements Screen{
 			stage.act(delta);
 			stage.draw();*/
 			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(new PausScreen(myGdxGameController));
+			myGdxGameController.setScreen(new PauseScreen(myGdxGameController));
 			
 		}
 		

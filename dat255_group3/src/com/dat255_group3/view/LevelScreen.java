@@ -115,13 +115,14 @@ public class LevelScreen implements Screen {
 				}
 	        });
 	   
-	        TextButton pausButton = new TextButton("Paus", textButtonStyle);
+	        TextButton pausButton = new TextButton("Pause", textButtonStyle);
 	        pausButton.pad(20);
 	        pausButton.addListener(new ClickListener(){
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
-	        		//To be implemented.
-	    			Skin dialogSkin = new Skin(new TextureAtlas(Gdx.files.internal("ui/window.pack")));
+	        		myGdxGameController.setScreen(new PauseScreen(myGdxGameController));
+	        		//Pause pop-up
+	    			/*Skin dialogSkin = new Skin(new TextureAtlas(Gdx.files.internal("ui/window.pack")));
 	    			//Skin dialogSkin = new Skin(Gdx.files.internal("ui/dialog.json"),new TextureAtlas(Gdx.files.internal("ui/button.pack")));
 	    			
 	    			WindowStyle wstyle = new WindowStyle();
@@ -135,7 +136,7 @@ public class LevelScreen implements Screen {
 	    			//popup.fadeDuration = 1;
 	    			//popup.scale(4f);
 	    			//popup.center();
-	    			stage.addActor(popup);
+	    			stage.addActor(popup);*/
 				}
 	        });
 	        

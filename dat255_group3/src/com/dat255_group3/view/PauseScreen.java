@@ -21,18 +21,16 @@ import com.dat255_group3.controller.MyGdxGameController;
  * A class which represents the screen being shown when the game is paused.
  * @author The Hans-Gunnar Crew
  */
-public class PausScreen implements Screen {
+public class PauseScreen implements Screen {
 
 			private MyGdxGameController myGdxGameController;
 			private Stage stage;
 			private TextureAtlas atlas;
 			private Skin skin;
 			private Table table;
-			private BitmapFont black;
-			private BitmapFont white;
 			
 
-			public PausScreen(MyGdxGameController myGdxGameController){
+			public PauseScreen(MyGdxGameController myGdxGameController){
 				this.myGdxGameController = myGdxGameController;
 				this.stage = new Stage(0,0, true);
 			}
@@ -70,9 +68,6 @@ public class PausScreen implements Screen {
 				//Setting up the atlas, skin & fonts
 				atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
 				skin = new Skin(atlas);
-				black = new BitmapFont(Gdx.files.internal("font/black.fnt"),false);
-				white = new BitmapFont(Gdx.files.internal("font/whiteL.fnt"),false);
-				white.scale(1.2f);
 				
 				//Setting up the table
 				table = new Table(skin);
@@ -80,7 +75,8 @@ public class PausScreen implements Screen {
 		        
 		        //Setting characteristics for the label
 		        LabelStyle labelStyle = new LabelStyle();
-		        labelStyle.font = white;
+		        labelStyle.font = new BitmapFont(Gdx.files.internal("font/whiteL.fnt"),false);
+		        labelStyle.font.scale(1.2f);
 		        Label header = new Label("Paused",labelStyle);
 		        
 		        //Setting up the characteristics for the button
@@ -89,7 +85,7 @@ public class PausScreen implements Screen {
 		        textButtonStyle.down = skin.getDrawable("button.down");
 		        textButtonStyle.pressedOffsetX = 1;
 		        textButtonStyle.pressedOffsetY = -1;
-		        textButtonStyle.font = black;
+		        textButtonStyle.font =  new BitmapFont(Gdx.files.internal("font/black.fnt"),false);
 
 		        //Instantiating the button
 		        TextButton resumeButton = new TextButton("Resume", textButtonStyle);
@@ -101,6 +97,15 @@ public class PausScreen implements Screen {
 					}
 		        });
 		        
+		        TextButton mainMenuButton = new TextButton("Main Menu", textButtonStyle);
+		        mainMenuButton.pad(20);
+		        mainMenuButton.addListener(new ClickListener(){
+		        	@Override
+					public void clicked (InputEvent event, float x, float y){
+						myGdxGameController.setScreen(new StartScreen(myGdxGameController));
+					}
+		        });
+		        
 		        
 		        //Adding to the table and actors to the stage
 		        table.add(header);
@@ -108,6 +113,9 @@ public class PausScreen implements Screen {
 		        table.row();
 		        table.add(resumeButton);
 		        table.getCell(resumeButton).spaceBottom(50);
+		        table.row();
+		        table.add(mainMenuButton);
+		        table.getCell(mainMenuButton).spaceBottom(50);
 		        table.row();
 		        stage.addActor(table);
 		        
@@ -138,8 +146,6 @@ public class PausScreen implements Screen {
 				stage.dispose();
 				skin.dispose();
 				atlas.dispose();
-				black.dispose();
-				
 			}
 
 		}
