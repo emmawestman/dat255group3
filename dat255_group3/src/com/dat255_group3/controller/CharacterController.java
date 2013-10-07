@@ -1,5 +1,6 @@
 package com.dat255_group3.controller;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.dat255_group3.model.Character;
 import com.dat255_group3.view.CharacterView;
@@ -10,14 +11,15 @@ public class CharacterController {
 	private Character character;
 	private CharacterView characterView;
 	
-	public CharacterController(WorldController worldController){
+	public CharacterController(WorldController worldController, OrthographicCamera camera){
 		this.worldController = worldController;
 		
 		/*
 		 * The character and its view will later on be placed in a map/lists as we will have different characters
 		 */
 		this.character = new Character(new Vector2(-25f, -25f), 0.0, 50);
-		this.characterView = new CharacterView(character);
+		this.characterView = new CharacterView(character, camera);
+
 	}
 
 	public Character getCharacter() {

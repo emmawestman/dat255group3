@@ -2,11 +2,14 @@ package com.dat255_group3.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -43,12 +46,12 @@ public class StartScreen implements Screen{
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	
 		//Update & draw the stage actors
 		stage.act(delta);
-		//table.drawDebug(stage); //To be removed later on
+		table.drawDebug(stage); //To be removed later on
 		stage.draw();
 	}
 
@@ -88,11 +91,13 @@ public class StartScreen implements Screen{
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.up = skin.getDrawable("button.up");
         textButtonStyle.down = skin.getDrawable("button.down");
+        textButtonStyle.checked = skin.getDrawable("button.down");
         textButtonStyle.pressedOffsetX = 1;
         textButtonStyle.pressedOffsetY = -1;
         textButtonStyle.font = black;
+        textButtonStyle.checkedFontColor = Color.RED;
 
-        //Instantiating the button
+        //Instantiating the buttons
         TextButton startButton = new TextButton("Start", textButtonStyle);
         startButton.pad(20);
         startButton.addListener(new ClickListener(){
@@ -101,8 +106,7 @@ public class StartScreen implements Screen{
 				myGdxGameController.setScreen(new LevelScreen(myGdxGameController));
 			}
         });
-        
-        //Instantiating the button
+
         TextButton exitButton = new TextButton("Exit", textButtonStyle);
         exitButton.pad(20);
         exitButton.addListener(new ClickListener(){
@@ -113,6 +117,45 @@ public class StartScreen implements Screen{
 			}
         });
         
+        
+        ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
+       	TextureAtlas soundAtlas = new TextureAtlas(Gdx.files.internal("ui/music/sound.pack"));
+		Skin soundSkin = new Skin(soundAtlas);
+		soundButtonStyle.up = soundSkin.getDrawable("sound.up");
+		soundButtonStyle.down = soundSkin.getDrawable("sound.down");
+		soundButtonStyle.checked = soundSkin.getDrawable("sound.down");
+        
+        ImageButton soundEButton = new ImageButton(soundButtonStyle);
+        soundEButton.pad(20);
+        soundEButton.toggle();
+        soundEButton.addListener(new ClickListener(){
+        	@Override
+			public void clicked (InputEvent event, float x, float y){
+        		 //TODO: To be implemented
+			}
+        });
+        
+        ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
+       	TextureAtlas musicAtlas = new TextureAtlas(Gdx.files.internal("ui/music/music.pack"));
+		Skin musicSkin = new Skin(musicAtlas);
+        musicButtonStyle.up = musicSkin.getDrawable("music.up");
+        musicButtonStyle.down = musicSkin.getDrawable("music.down");
+        musicButtonStyle.checked = musicSkin.getDrawable("music.down");
+        
+        ImageButton musicButton = new ImageButton(musicButtonStyle);
+        musicButton.pad(20);
+        musicButton.toggle();
+        musicButton.addListener(new ClickListener(){
+        	@Override
+			public void clicked (InputEvent event, float x, float y){
+        		 //TODO: To be implemented
+			}
+        });
+        
+        
+       Table table2 = new Table(musicSkin);
+        table2.setSize(300, 150);
+        
         //Adding to the table and actors to the stage
         table.add(label);
         table.getCell(label).spaceBottom(50);
@@ -121,10 +164,15 @@ public class StartScreen implements Screen{
         table.getCell(startButton).spaceBottom(50);
         table.row();
         table.add(exitButton);
+        table.getCell(exitButton).spaceBottom(100);
         table.row();
+        table2.center();
+        table2.add(soundEButton).right();
+        table2.add(musicButton);
+        table.add(table2);
         stage.addActor(table);
         
-       // table.debug(); //To be removed later on
+       table.debug(); //To be removed later on
 	}
 
 	@Override

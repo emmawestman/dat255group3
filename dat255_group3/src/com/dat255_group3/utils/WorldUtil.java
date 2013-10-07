@@ -16,25 +16,26 @@ public class WorldUtil {
 	private Vector2 startPos;
 	private TiledMap map;
 	private MapList groundList;
-	private MapList finishLineList;
+	private float finishLineX;
+	private MapList obstacleList;
 	private Vector2 tileSize;
-	
-	
-/**
- * Class constructor specifying the map and creating lists.
- * @param tiledMap
- * 				The tiled map
- */
+
+
+	/**
+	 * Class constructor specifying the map and creating lists.
+	 * @param tiledMap
+	 * 				The tiled map
+	 */
 	public WorldUtil(TiledMap tiledMap) {
 		this.map = tiledMap;
 		groundList = new MapList();
-		finishLineList = new MapList();
+		obstacleList = new MapList();
 		findTileSize();
 		addToLists();
 
 	}
-	
-	
+
+
 	/**
 	 * A method to find the size of the tiles
 	 */
@@ -42,7 +43,7 @@ public class WorldUtil {
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
 		tileSize = new Vector2(layer.getTileHeight(), layer.getTileWidth());
 	}
-	
+
 	/**
 	 * A method to get the size of the tiles
 	 * @return 
@@ -51,6 +52,16 @@ public class WorldUtil {
 	public Vector2 getTileSize() {
 		return tileSize;
 	}
+
+	/**
+	 * A method to get the list containing the positions of the obstacles
+	 * @return
+	 * 		The list with the obstacles positions
+	 */
+	public MapList getObstacleList() {
+		return obstacleList;
+	}
+
 
 	/**
 	 * A method to get the start position on the map for the character 
@@ -75,11 +86,11 @@ public class WorldUtil {
 	 * @return
 	 * 		A list of all positions of the finish line
 	 */
-	public MapList getFinishLineList() {
-		return finishLineList;
+	public float finishLineX() {
+		return finishLineX;
 	}
-	
-	
+
+
 	/**
 	 * A method to loop through the map layers and create lists of different kinds of positions
 	 */
@@ -91,8 +102,10 @@ public class WorldUtil {
 					for(int y=0; y<currentLayer.getHeight(); y++) {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
-							if(tile.getProperties().containsKey("Ground") || tile.getProperties().containsKey("Obstacle")) {
-								groundList.getMapList().add(new Vector2((x*tileSize.x)/2,(currentLayer.getHeight()-(y+1))*tileSize.y));
+							if(tile.getProperties().containsKey("Ground")) {
+								groundList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y));
+							}else if(tile.getProperties().containsKey("Obstacle")) {
+								obstacleList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2, y*tileSize.y));
 							}
 						}
 					}
@@ -104,9 +117,9 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("FinishLine")) {
-								finishLineList.getMapList().add(new Vector2((x*tileSize.x)/2,(currentLayer.getHeight()-(y+1))*tileSize.y));
+								finishLineX = x*tileSize.x/2;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = new Vector2((x*tileSize.x)/2,(currentLayer.getHeight()-(y+1))*tileSize.y);
+								startPos = new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y);
 							}
 						}
 					}

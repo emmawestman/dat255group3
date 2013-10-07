@@ -39,11 +39,11 @@ public class GameOverScreen implements Screen{
 //	private TweenManager tweenmanager;
 	
 	
-	public GameOverScreen(MyGdxGameController myGdxGameController, boolean hasWon, int score, int time){
+	public GameOverScreen(MyGdxGameController myGdxGameController, int score, int time, boolean hasWon){
 		this.myGdxGameController = myGdxGameController;
-		this.hasWon = hasWon;
 		this.score = score;
 		this.time = time;
+		this.hasWon = hasWon;
 		this.stage = new Stage(0,0, true);
 	}
 	
@@ -130,6 +130,7 @@ public class GameOverScreen implements Screen{
         			//Next level
         		} else {
         			//This level
+        			//myGdxGameController.setScreen(myGdxGameController.getInGameController());
         		}
         		
 			}

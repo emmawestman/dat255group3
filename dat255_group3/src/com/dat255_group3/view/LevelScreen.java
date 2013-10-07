@@ -148,7 +148,7 @@ public class LevelScreen implements Screen {
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
 	        		//To be implemented.
-	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,true, 10,10));
+	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,true));
 				}
 	        });
 	        
@@ -159,7 +159,7 @@ public class LevelScreen implements Screen {
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
 	        		//To be implemented.
-	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,false, 10,10));
+	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,false));
 				}
 	        });
 	        
