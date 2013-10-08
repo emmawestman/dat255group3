@@ -19,6 +19,7 @@ public class WorldUtil {
 	private float finishLineX;
 	private MapList obstacleList;
 	private Vector2 tileSize;
+	private MapList cookieList;
 
 
 	/**
@@ -30,6 +31,7 @@ public class WorldUtil {
 		this.map = tiledMap;
 		groundList = new MapList();
 		obstacleList = new MapList();
+		cookieList = new MapList();
 		findTileSize();
 		addToLists();
 
@@ -90,6 +92,9 @@ public class WorldUtil {
 		return finishLineX;
 	}
 
+	public MapList getCookieList() {
+		return cookieList;
+	}
 
 	/**
 	 * A method to loop through the map layers and create lists of different kinds of positions
@@ -120,6 +125,8 @@ public class WorldUtil {
 								finishLineX = x*tileSize.x/2;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
 								startPos = new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y);
+							}else if(tile.getProperties().containsKey("Cookie")) {
+								cookieList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y));
 							}
 						}
 					}

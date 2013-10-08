@@ -38,11 +38,11 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body charBody, CharacterView charView, float time, boolean gameOver) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, float time, boolean gameOver) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();
-		worldView.draw(charBody, charView);
+		worldView.draw(charView, cookieView);
 		//draw game over text
 		if(gameOver) drawGameOver();
 		//Draw time
