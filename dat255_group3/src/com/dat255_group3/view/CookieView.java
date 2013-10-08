@@ -38,7 +38,7 @@ public class CookieView {
 		spriteBatch = new SpriteBatch();
 		texture = new Texture(Gdx.files.internal("ui/cookie.png"));
 		sprite = new Sprite(texture);
-		sprite.setSize(20f, 20f);
+		sprite.setSize(32f, 32f);
 	}
 	
 	/**
