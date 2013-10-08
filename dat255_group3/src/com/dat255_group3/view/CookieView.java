@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.dat255_group3.model.Cookie;
@@ -17,6 +20,9 @@ public class CookieView {
 	private OrthographicCamera camera;
 	private ShapeRenderer renderer = new ShapeRenderer();
 	private ArrayList<Cookie> cookieList;
+	private SpriteBatch spriteBatch;
+	private Sprite sprite;
+	private Texture texture;
 	
 	/**
 	 * A constructor that takes a camera and a list of cookies.
@@ -28,6 +34,9 @@ public class CookieView {
 	public CookieView(OrthographicCamera camera, ArrayList<Cookie> cookieList) {
 		this.camera = camera;
 		this.cookieList = cookieList;
+		spriteBatch = new SpriteBatch();
+//		texture = new Texture();
+		sprite = new Sprite();
 	}
 	
 	/**
