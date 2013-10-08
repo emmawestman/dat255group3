@@ -83,7 +83,6 @@ public class LevelScreen implements Screen {
 	        table.setBounds( 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	        
 	        //Setting characteristics for the label
-	        Gdx.app.log("Levelscreen", "label");
 	        LabelStyle labelStyle = new LabelStyle();
 	        labelStyle.font = white;
 	        Label label = new Label("Levels",labelStyle);
@@ -148,7 +147,7 @@ public class LevelScreen implements Screen {
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
 	        		//To be implemented.
-	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,true));
+	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,false));
 				}
 	        });
 	        
@@ -159,7 +158,7 @@ public class LevelScreen implements Screen {
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
 	        		//To be implemented.
-	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,false));
+	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,true));
 				}
 	        });
 	        

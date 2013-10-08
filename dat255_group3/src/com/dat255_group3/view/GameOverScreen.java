@@ -33,17 +33,17 @@ public class GameOverScreen implements Screen{
 	private Table table;
 	private int score;
 	private int time;
-	private boolean hasWon;
+	private boolean gameOver;
 	
 //	import aurelienribon.tweenengine.TweenManager;
 //	private TweenManager tweenmanager;
 	
 	
-	public GameOverScreen(MyGdxGameController myGdxGameController, int score, int time, boolean hasWon){
+	public GameOverScreen(MyGdxGameController myGdxGameController, int score, int time, boolean gameOver){
 		this.myGdxGameController = myGdxGameController;
 		this.score = score;
 		this.time = time;
-		this.hasWon = hasWon;
+		this.gameOver = gameOver;
 		this.stage = new Stage(0,0, true);
 	}
 	
@@ -102,11 +102,13 @@ public class GameOverScreen implements Screen{
         
         
         //Setting the texts of the labels depending on whether the game was won or lost
-        if(hasWon){
+        if(!gameOver){
         	header.setText("Congratulations, you have won!");
+        	Gdx.app.log("GameOverScreen", "Won!");
         	buttonLabel.setText("Would you like to proceed to the next level?");
         } else {
         	header.setText("Game over");
+        	Gdx.app.log("GameOverScreen", "Lost!");
         	buttonLabel.setText("Would you like to retry?");
         }
         
@@ -126,7 +128,7 @@ public class GameOverScreen implements Screen{
 			public void clicked (InputEvent event, float x, float y){
         		//To be implemented.
         		
-        		if(hasWon){
+        		if(!gameOver){
         			//Next level
         		} else {
         			//This level

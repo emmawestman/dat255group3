@@ -80,32 +80,31 @@ public class InGameController implements Screen{
 		
 		
 		if(!hasWon()) {
-			//for testing
-
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
-				//Gdx.app.log("Game over", "game is over!");
+				Gdx.app.log("Game over", "game is over!");
 				this.gameOver = true;
+				//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
+				
 				int timeint = (int) (time);
 				//Change to gameover-screen
-				//myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, false));
-
-			}
+				myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, gameOver));
+			} else {
 			//update the time
 			this.time = time+delta;
 
 			// Shows a white screen
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
+			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time);
 
 			// Updates the speed
 			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
 			cameraController.setSpeedP(inGame.getSpeedP());
 
 			//Testing
-			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
+			//Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
 			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
-				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
+				//Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
 			}
 
 			// update the physics
@@ -134,18 +133,13 @@ public class InGameController implements Screen{
 			renderer.render(worldController.getPhysicsWorld(), matrix);
 			//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 			//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
+			}
 		}else{
 			//Change to gamewon-screen
 			int timeint = (int) (time);
 			//myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, true));
 			//Gdx.app.log("FinishLine","At finish line");
 		}
-		
-		//Draw physics bodies, for debugging
-		renderer.render(worldController.getPhysicsWorld(), matrix);
-	//	Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
-	//			worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
-	
 	}
 
 	
@@ -185,7 +179,6 @@ public class InGameController implements Screen{
 		map.dispose();
 		cameraController.dispose();
 		renderer.dispose();
-
 	}
 	/**
 	 * Update so that the character model has the same position (x,y) as the physical body

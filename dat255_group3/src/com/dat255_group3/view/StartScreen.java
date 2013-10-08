@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.utils.CoordinateConverter;
 
 
 /**
@@ -46,7 +47,7 @@ public class StartScreen implements Screen{
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	
 		//Update & draw the stage actors
@@ -58,9 +59,9 @@ public class StartScreen implements Screen{
 	@Override
 	public void resize(int width, int height) {
 		//In order to make it look good not depending on the screensize.
-		stage.setViewport(width, height, true);
-		table.invalidateHierarchy();
-		table.setSize(width,height);
+		//stage.setViewport(width, height, true);
+		//table.invalidateHierarchy();
+		//table.setSize(width,height);
 	}
 
 	@Override
@@ -139,7 +140,7 @@ public class StartScreen implements Screen{
        	TextureAtlas musicAtlas = new TextureAtlas(Gdx.files.internal("ui/music/music.pack"));
 		Skin musicSkin = new Skin(musicAtlas);
         musicButtonStyle.up = musicSkin.getDrawable("music.up");
-        musicButtonStyle.down = musicSkin.getDrawable("music.down");
+        musicButtonStyle.down = musicSkin.getDrawable("music.pressed");
         musicButtonStyle.checked = musicSkin.getDrawable("music.down");
         
         ImageButton musicButton = new ImageButton(musicButtonStyle);
@@ -153,8 +154,8 @@ public class StartScreen implements Screen{
         });
         
         
-       Table table2 = new Table(musicSkin);
-        table2.setSize(300, 150);
+       Table table2 = new Table(skin);
+        table2.setBounds(0, 0, 100, 50);
         
         //Adding to the table and actors to the stage
         table.add(label);
@@ -170,6 +171,7 @@ public class StartScreen implements Screen{
         table2.add(soundEButton).right();
         table2.add(musicButton);
         table.add(table2);
+        table.row();
         stage.addActor(table);
         
        table.debug(); //To be removed later on

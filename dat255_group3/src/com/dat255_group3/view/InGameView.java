@@ -34,6 +34,18 @@ public class InGameView {
 	}
 	
 	
+	/** Renders the HUD and background of the game. 
+	 * 
+	 */
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, float time) {
+		//Shows selected part of the map
+		mapRenderer.setView(camera);
+		mapRenderer.render();
+		worldView.draw(charBody, charView);
+		//Draw time
+		drawTime(time);
+		
+	}
 	
 	/** Renders the HUD and background of the game. 
 	 * 
