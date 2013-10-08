@@ -8,16 +8,31 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.dat255_group3.model.Cookie;
 
+/**
+ * A View for all cookies in the game.
+ * @author The Hans-Gunnar Crew
+ *
+ */
 public class CookieView {
 	private OrthographicCamera camera;
 	private ShapeRenderer renderer = new ShapeRenderer();
 	private ArrayList<Cookie> cookieList;
 	
+	/**
+	 * A constructor that takes a camera and a list of cookies.
+	 * @param camera
+	 * 			The camera that will show the cookies.
+	 * @param cookieList
+	 * 			The list of cookies to be drawn.
+	 */
 	public CookieView(OrthographicCamera camera, ArrayList<Cookie> cookieList) {
 		this.camera = camera;
 		this.cookieList = cookieList;
 	}
 	
+	/**
+	 * A method which draws all the cookies.
+	 */
 	public void draw() {
 		camera.update();
 		renderer.setProjectionMatrix(camera.combined);
