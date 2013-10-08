@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.dat255_group3.model.Character;
+import com.dat255_group3.utils.WorldUtil;
 
 /**  A view class for the character Model. 
  * @author The Hans-Gunnar Crew
@@ -42,5 +43,13 @@ public class CharacterView {
 		shape.setColor(Color.CYAN);
 		shape.rect(character.getPosition().x, character.getPosition().y, characterRect.width, characterRect.height);
 		shape.end();
+		
+		//fullösning
+		shape.setProjectionMatrix(camera.combined);
+		shape.begin(ShapeType.Filled);
+		shape.setColor(Color.RED);
+		shape.rect(WorldUtil.getObstacleList().getMapList().get(0).x+16, WorldUtil.getObstacleList().getMapList().get(0).y-16, 32, 32);
+		shape.end();
+
 	}
 }

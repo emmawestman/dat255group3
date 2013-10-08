@@ -12,7 +12,7 @@ import com.dat255_group3.utils.CoordinateConverter;
 public class Character {
 	private int weight;
 	private double friction;
-	private float width, height; //size of character in pixels
+	private static float width, height; //size of character in pixels
 	private float deathLimit;
 	private Vector2 position;
 
@@ -55,7 +55,7 @@ public class Character {
 		this.weight = weight;
 	}
 
-	public float getWidth() {
+	public static float getWidth() {
 		return width;
 	}
 
@@ -63,7 +63,7 @@ public class Character {
 		this.width = with;
 	}
 
-	public float getHeight() {
+	public static float getHeight() {
 		return height;
 	}
 

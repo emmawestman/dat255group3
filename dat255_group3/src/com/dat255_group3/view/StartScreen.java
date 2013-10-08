@@ -159,18 +159,18 @@ public class StartScreen implements Screen{
         
         //Adding to the table and actors to the stage
         table.add(label);
-        table.getCell(label).spaceBottom(50);
+       // table.getCell(label).spaceBottom(50);
         table.row();
         table.add(startButton);
-        table.getCell(startButton).spaceBottom(50);
+       // table.getCell(startButton).spaceBottom(50);
         table.row();
         table.add(exitButton);
-        table.getCell(exitButton).spaceBottom(100);
+       // table.getCell(exitButton).spaceBottom(100);
         table.row();
-        table2.center();
-        table2.add(soundEButton).right();
-        table2.add(musicButton);
-        table.add(table2);
+      //  table2.center();
+       // table2.add(soundEButton).right();
+       // table2.add(musicButton);
+       // table.add(table2);
         table.row();
         stage.addActor(table);
         
