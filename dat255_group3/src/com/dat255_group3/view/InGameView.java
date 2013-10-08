@@ -33,8 +33,6 @@ public class InGameView {
 		
 	}
 	
-	
-	
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
