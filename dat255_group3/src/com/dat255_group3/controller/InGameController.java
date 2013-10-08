@@ -138,6 +138,7 @@ public class InGameController implements Screen{
 	//	Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 	//			worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 	
+		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
 	}
 
 	
