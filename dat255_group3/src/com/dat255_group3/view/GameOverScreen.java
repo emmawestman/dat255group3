@@ -45,13 +45,15 @@ public class GameOverScreen implements Screen{
 		this.time = time;
 		this.gameOver = gameOver;
 		this.stage = new Stage(0,0, true);
+		//Setting up the stage
+		Gdx.input.setInputProcessor(stage);
 	}
 	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	
+
 		//Update & draw the stage actors
 		stage.act(delta);
 		//table.drawDebug(stage); //To be removed later on
@@ -67,12 +69,7 @@ public class GameOverScreen implements Screen{
 	}
 
 	@Override
-	public void show() {
-		//Setting up the stage
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		
-		
+	public void show() {		
 		//Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
 		skin = new Skin(atlas);
@@ -132,7 +129,7 @@ public class GameOverScreen implements Screen{
         			//Next level
         		} else {
         			//This level
-        			//myGdxGameController.setScreen(myGdxGameController.getInGameController());
+        			myGdxGameController.setScreen(myGdxGameController.getInGameController());
         		}
         		
 			}
