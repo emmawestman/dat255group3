@@ -2,6 +2,7 @@ package com.dat255_group3.view;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,8 +36,9 @@ public class CookieView {
 		this.camera = camera;
 		this.cookieList = cookieList;
 		spriteBatch = new SpriteBatch();
-//		texture = new Texture();
-		sprite = new Sprite();
+		texture = new Texture(Gdx.files.internal("ui/cookie.png"));
+		sprite = new Sprite(texture);
+		sprite.setSize(20f, 20f);
 	}
 	
 	/**
@@ -44,13 +46,13 @@ public class CookieView {
 	 */
 	public void draw() {
 		camera.update();
-		renderer.setProjectionMatrix(camera.combined);
-		renderer.begin(ShapeType.Filled);
-		renderer.setColor(Color.ORANGE);
+		spriteBatch.begin();
+		spriteBatch.setProjectionMatrix(camera.combined);
 		for(int i = 0; i<cookieList.size(); i++) {
-			renderer.circle(cookieList.get(i).getPosition().x, cookieList.get(i).getPosition().y, 10);
+			sprite.setPosition(cookieList.get(i).getPosition().x, cookieList.get(i).getPosition().y);
+			sprite.draw(spriteBatch);
 		}
-		renderer.end();
+		spriteBatch.end();
 	}
 	
 }
