@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.math.Rectangle;
-import com.dat255_group3.utils.CoordinateConverter;
 
 /**
  * A controller class for the camera

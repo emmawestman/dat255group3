@@ -1,7 +1,6 @@
 package com.dat255_group3.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.dat255_group3.utils.CoordinateConverter;
 
 /**
  * A class which represents a Character. 

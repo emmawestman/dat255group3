@@ -3,13 +3,10 @@ package com.dat255_group3.view;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.dat255_group3.model.Cookie;
 
 /**
@@ -19,7 +16,6 @@ import com.dat255_group3.model.Cookie;
  */
 public class CookieView {
 	private OrthographicCamera camera;
-	private ShapeRenderer renderer = new ShapeRenderer();
 	private ArrayList<Cookie> cookieList;
 	private SpriteBatch spriteBatch;
 	private Sprite sprite;
