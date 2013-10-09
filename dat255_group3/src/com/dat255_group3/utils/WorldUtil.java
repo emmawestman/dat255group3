@@ -1,9 +1,11 @@
 package com.dat255_group3.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.dat255_group3.model.Character;
 import com.dat255_group3.model.MapList;
 
 
@@ -17,7 +19,7 @@ public class WorldUtil {
 	private TiledMap map;
 	private MapList groundList;
 	private float finishLineX;
-	private MapList obstacleList;
+	private static MapList obstacleList;
 	private Vector2 tileSize;
 
 
@@ -58,7 +60,7 @@ public class WorldUtil {
 	 * @return
 	 * 		The list with the obstacles positions
 	 */
-	public MapList getObstacleList() {
+	public static MapList getObstacleList() {
 		return obstacleList;
 	}
 
@@ -103,9 +105,11 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("Ground")) {
-								groundList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y));
+								groundList.getMapList().add(new Vector2((x*tileSize.x) - tileSize.x/2, y*tileSize.y + tileSize.y/2));
+								Gdx.app.log("from map", "Ground found at: "+ x + ","+y);
 							}else if(tile.getProperties().containsKey("Obstacle")) {
-								obstacleList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2, y*tileSize.y));
+								obstacleList.getMapList().add(new Vector2((x*tileSize.x) - tileSize.x/2, y*tileSize.y + tileSize.y/2));
+								Gdx.app.log("from map", "obstacle found at: "+ x + ","+y);
 							}
 						}
 					}
@@ -117,9 +121,10 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("FinishLine")) {
-								finishLineX = x*tileSize.x/2;
+								finishLineX = x*tileSize.x;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y);
+								startPos = new Vector2((x*tileSize.x) - Character.getWidth()/2,y*tileSize.y + Character.getHeight()/2 + 30);
+								Gdx.app.log("from map", "StartPos found at: "+ x + ","+y);
 							}
 						}
 					}

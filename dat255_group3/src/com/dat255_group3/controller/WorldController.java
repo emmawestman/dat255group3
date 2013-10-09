@@ -2,6 +2,7 @@ package com.dat255_group3.controller;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dat255_group3.model.Character;
@@ -56,7 +57,9 @@ public class WorldController {
 		// create the obstacles
 		obstacleBodyList = new ArrayList<Body>();
 		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
+		Gdx.app.log("sizes", "tileSize: "+worldUtil.getTileSize());
 		for(int i=0; i<obstacleList.size(); i++) {
+			Gdx.app.log("sizes", "pos of obstacle: "+ i + " : "+obstacleList.get(i));
 			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}

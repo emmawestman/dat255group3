@@ -9,29 +9,28 @@ import com.dat255_group3.utils.CoordinateConverter;
  * @author The Hans-Gunnar Crew
  *
  */
-public class Character extends GameObject {
+public class Character {
 	private int weight;
 	private double friction;
-	private float width, height; //size of character in pixels
+	private static float width, height; //size of character in pixels
 	private float deathLimit;
+	private Vector2 position;
 
 	/**
 	 * Constructs a Character with its properties.
-	 * @param position
-	 * 			The position of the Character in the world
 	 * @param friction
 	 * 			The friction of the Character in the world
 	 * @param weight
 	 * 			The weight of the Character
 	 */
-	public Character(Vector2 position, double friction, int weight){
-		super(position);
+	public Character(double friction, int weight){
 		//TODO no position in constructor! physics and render will handle it later!
 		this.friction = friction;
 		this.weight = weight;
 		this.width = 50;
 		this.height = 70;
-		this.deathLimit = 30;
+		this.position = new Vector2(0,0);
+		this.deathLimit = position.x;
 	}
 	
 	public boolean isDead(){
@@ -56,7 +55,7 @@ public class Character extends GameObject {
 		this.weight = weight;
 	}
 
-	public float getWidth() {
+	public static float getWidth() {
 		return width;
 	}
 
@@ -64,7 +63,7 @@ public class Character extends GameObject {
 		this.width = with;
 	}
 
-	public float getHeight() {
+	public static float getHeight() {
 		return height;
 	}
 
@@ -90,6 +89,23 @@ public class Character extends GameObject {
 		this.friction = friction;
 	}
 	
+	/**
+	 *  A method which gives the position of the GameObject.
+	 * @return
+	 * 		The position of the GameObject
+	 */
+	public Vector2 getPosition() {
+		return position;
+	}
+
+	/**
+	 * Sets the position of the GameObject
+	 * @param position
+	 * 		The position which the GameObject is to be set to.
+	 */
+	public void setPosition(Vector2 position) {
+		this.position = position;
+	}
 	
 
 }
