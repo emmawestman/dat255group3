@@ -27,6 +27,7 @@ public class WorldController {
 	private com.badlogic.gdx.physics.box2d.World physicsWorld;
 	private WorldUtil worldUtil;
 	private CookieController cookieController;
+	private int cookieIndex;
 
 	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
@@ -56,13 +57,13 @@ public class WorldController {
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}
 
-		// create the obstacles
-		obstacleBodyList = new ArrayList<Body>();
-		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
-		for(int i=0; i<obstacleList.size(); i++) {
-			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
-					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
-		}
+//		// create the obstacles
+//		obstacleBodyList = new ArrayList<Body>();
+//		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
+//		for(int i=0; i<obstacleList.size(); i++) {
+//			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
+//					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
+//		}
 		
 		// create cookies
 		cookieList = new ArrayList<Cookie>();
@@ -70,12 +71,13 @@ public class WorldController {
 		for(int i=0; i<cookiePosList.size(); i++) {
 			cookieList.add(new Cookie(new Vector2(cookiePosList.get(i).x, cookiePosList.get(i).y)));
 		}
+		cookieIndex = 0;
 		
 		// create cookieController
 		cookieController = new CookieController(cookieList, inGameController.getCamera());
 		
-		//set velocity of the obstacles
-		moveObstacles(speedM/10);
+//		//set velocity of the obstacles
+//		moveObstacles(speedM/10);
 		
 			this.worldView = new WorldView();
 		
@@ -145,6 +147,28 @@ public class WorldController {
 	
 	public Vector2 getStartPos() {
 		return worldUtil.getStartPos();
+	}
+	
+	public void checkNextCookie() {
+		if(cookieList.get(cookieIndex).getPosition().x > characterController.getCharacter().getPosition().x) {
+			checkCookieCollision();
+		}else{
+			cookieIndex++;
+		}
+	}
+	
+	public void checkCookieCollision() {
+		if(cookieList.get(cookieIndex).getPosition().x + 32 - characterController.getCharacter().getPosition().x 
+				< characterController.getCharacter().getWidth()) {
+			if(cookieList.get(cookieIndex).getPosition().y + 32 - characterController.getCharacter().getPosition().y
+					< characterController.getCharacter().getHeight()) {
+				Collision();
+			}
+		}
+	}
+	
+	public void Collision() {
+		cookieList.remove(cookieIndex);
 	}
 
 }
