@@ -2,6 +2,7 @@ package com.dat255_group3.model;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.WorldUtil;
 
 /**
  * A class which represents a Character. 
@@ -14,7 +15,7 @@ public class Character {
 	private double friction;
 	private static float width, height; //size of character in pixels
 	private float deathLimit;
-	private Vector2 position;
+	private Vector2 position = WorldUtil.getStartPos(); 
 
 	/**
 	 * Constructs a Character with its properties.
@@ -29,8 +30,7 @@ public class Character {
 		this.weight = weight;
 		this.width = 50;
 		this.height = 70;
-		this.position = new Vector2(0,0);
-		this.deathLimit = position.x;
+		this.deathLimit = 0f;
 	}
 	
 	public boolean isDead(){

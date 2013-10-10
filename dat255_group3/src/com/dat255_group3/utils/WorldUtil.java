@@ -15,7 +15,7 @@ import com.dat255_group3.model.MapList;
  *
  */
 public class WorldUtil {
-	private Vector2 startPos;
+	private static Vector2 startPos;
 	private TiledMap map;
 	private static MapList groundList;
 	private float finishLineX;
@@ -71,7 +71,7 @@ public class WorldUtil {
 	 * @return
 	 * 		The start position for the character	
 	 */
-	public Vector2 getStartPos() {
+	public static Vector2 getStartPos() {
 		return startPos;
 	}
 
