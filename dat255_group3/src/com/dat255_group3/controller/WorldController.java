@@ -46,8 +46,9 @@ public class WorldController {
 		this.characterController = new CharacterController(this, inGameController.getCamera());
 
 		// create character body
-		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(WorldUtil.getStartPos()), 
-				new Vector2(Character.getWidth(), Character.getHeight()), speedM);
+		this.charBody = PhysBodyFactory.createRoundCharacter(this.characterController.getCharacter(), this.physicsWorld);
+		//this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(WorldUtil.getStartPos()), 
+				//new Vector2(Character.getWidth(), Character.getHeight()));
 
 
 		// create the ground

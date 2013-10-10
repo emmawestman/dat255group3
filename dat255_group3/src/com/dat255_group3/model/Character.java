@@ -14,7 +14,7 @@ public class Character {
 	private double friction;
 	private static float width, height; //size of character in pixels
 	private float deathLimit;
-	private static Vector2 position = WorldUtil.getStartPos(); 
+	private static  Vector2 position; 
 
 	/**
 	 * Constructs a Character with its properties.
@@ -30,6 +30,7 @@ public class Character {
 		Character.width = 50;
 		Character.height = 70;
 		this.deathLimit = 0f;
+		this.position = WorldUtil.getStartPos();
 	}
 	
 	public boolean isDead(){

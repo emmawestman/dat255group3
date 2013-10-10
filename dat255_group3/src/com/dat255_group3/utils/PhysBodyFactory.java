@@ -24,7 +24,7 @@ public class PhysBodyFactory {
 	 * @param size , with and height the body (pixels)
 	 * @return The physical body of the character that exists in the physWorld with a set density, friction and restitution 
 	 */
-	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size, float speedM) {
+	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size) {
 		PolygonShape shape;
 		FixtureDef fixtureDef = new FixtureDef();
 		BodyDef bodyDef = new BodyDef();
