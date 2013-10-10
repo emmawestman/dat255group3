@@ -1,23 +1,32 @@
 package com.dat255_group3.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Orientation;
 import com.badlogic.gdx.input.*;
 
 public class GyroUtils {
+	private static Orientation orientation;
 	
-	public float GetRotation(){
-		int rotation = Gdx.input.getRotation();
+	public static float getRotation(){
+
+		//float pitch = Gdx.input.getPitch();
+		float roll = Gdx.input.getRoll();
+		//float azimuth = Gdx.input.getAzimuth();
 		
-		float x = Gdx.input.getAccelerometerX();
-		float y = Gdx.input.getAccelerometerY();
-		float z = Gdx.input.getAccelerometerZ();
+		//Gdx.app.log("Viking","Rotation: "+Gdx.input.getRotation()+" | Orienation: "+Gdx.input.getNativeOrientation());
+		return roll;
 		
-		Gdx.app.log("Viking","Rotation: "+rotation);
-		Gdx.app.log("Viking","X: "+x);
-		Gdx.app.log("Viking","Y: "+y);
-		Gdx.app.log("Viking","Z: "+z);
-		return 0;
-		
+	}
+	
+	public void gyroSteering(){
+		if (orientation == Input.Orientation.valueOf("Portrait")){
+			
+		}else if(orientation == Input.Orientation.valueOf("Landscape")){
+			
+		}else{
+			orientation = Gdx.input.getNativeOrientation();
+		}
 	}
 	
 }
