@@ -108,9 +108,9 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("Ground")) {
-								groundList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y));
+								groundList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
 							}else if(tile.getProperties().containsKey("Obstacle")) {
-								obstacleList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2, y*tileSize.y));
+								obstacleList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
 							}
 						}
 					}
@@ -122,11 +122,11 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("FinishLine")) {
-								finishLineX = x*tileSize.x/2;
+								finishLineX = x*tileSize.x;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y);
+								startPos = new Vector2((x*tileSize.x), y*tileSize.y);
 							}else if(tile.getProperties().containsKey("Cookie")) {
-								cookieList.getMapList().add(new Vector2((x*tileSize.x)/2 + tileSize.x/2,y*tileSize.y));
+								cookieList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
 							}
 						}
 					}
