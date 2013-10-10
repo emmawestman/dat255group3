@@ -28,6 +28,7 @@ public class WorldController {
 	private WorldUtil worldUtil;
 	private CookieController cookieController;
 	private int cookieIndex;
+	private int cookieCounter;
 
 	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
@@ -72,6 +73,7 @@ public class WorldController {
 			cookieList.add(new Cookie(new Vector2(cookiePosList.get(i).x, cookiePosList.get(i).y)));
 		}
 		cookieIndex = 0;
+		cookieCounter = 0;
 		
 		// create cookieController
 		cookieController = new CookieController(cookieList, inGameController.getCamera());
@@ -150,7 +152,7 @@ public class WorldController {
 	}
 	
 	public void checkNextCookie() {
-		if(cookieList.get(cookieIndex).getPosition().x > characterController.getCharacter().getPosition().x) {
+		if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
 			checkCookieCollision();
 		}else{
 			cookieIndex++;
@@ -158,17 +160,21 @@ public class WorldController {
 	}
 	
 	public void checkCookieCollision() {
-		if(cookieList.get(cookieIndex).getPosition().x + 32 - characterController.getCharacter().getPosition().x 
+		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
 				< characterController.getCharacter().getWidth()) {
 			if(cookieList.get(cookieIndex).getPosition().y + 32 - characterController.getCharacter().getPosition().y
 					< characterController.getCharacter().getHeight()) {
-				Collision();
+				collision();
 			}
 		}
 	}
 	
-	public void Collision() {
+	public void collision() {
 		cookieList.remove(cookieIndex);
+		cookieCounter++;
+	}
+	public int getCookieCounter() {
+		return cookieCounter;
 	}
 
 }

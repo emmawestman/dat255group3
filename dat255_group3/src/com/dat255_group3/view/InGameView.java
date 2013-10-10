@@ -38,7 +38,7 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, float time, boolean gameOver) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, float time, int cookieCounter, boolean gameOver) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();
@@ -47,6 +47,7 @@ public class InGameView {
 		if(gameOver) drawGameOver();
 		//Draw time
 		drawTime(time);
+		drawCookieCounter(cookieCounter);
 		
 	}
 	
@@ -63,6 +64,14 @@ public class InGameView {
 		str = "Time: "+ time;
 		font.setColor(Color.BLACK);
 		font.draw(spriteBatch, str, 20f, CoordinateConverter.getScreenHeight()-30f);
+		spriteBatch.end();
+	}
+	
+	public void drawCookieCounter(int cookieCounter) {
+		spriteBatch.begin();
+		str = "Cookies: "+ cookieCounter;
+		font.setColor(Color.BLACK);
+		font.draw(spriteBatch, str, CoordinateConverter.getScreenWidth() - 80f, CoordinateConverter.getScreenHeight()-30f);
 		spriteBatch.end();
 	}
 }
