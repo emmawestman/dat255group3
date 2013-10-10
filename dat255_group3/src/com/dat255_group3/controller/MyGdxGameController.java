@@ -61,4 +61,10 @@ public class MyGdxGameController extends Game {
 	public StartScreen getStartScreen(){
 		return startScreen;
 	}
+	
+	
+	public void save(){
+		inGameController.save();
+		Gdx.app.log("MyGdx", "Save");
+	}
 }

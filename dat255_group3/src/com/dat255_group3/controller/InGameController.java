@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.GameOverScreen;
@@ -50,6 +51,7 @@ public class InGameController implements Screen{
 
 	@Override
 	public void render(float delta) {
+		if(!gameOver){
 		if(delta>0){
 			this.timeStep = delta;
 		}
@@ -79,11 +81,12 @@ public class InGameController implements Screen{
 		
 		if(!hasWon()) {
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
-				Gdx.app.log("Game over", "game is over!");
+				//Gdx.app.log("Game over", "game is over!");
 				this.gameOver = true;
 				//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
 				
 				int timeint = (int) (time);
+				//save();
 				//Change to gameover-screen
 				myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, gameOver));
 			} else {
@@ -100,9 +103,9 @@ public class InGameController implements Screen{
 			cameraController.setSpeedP(inGame.getSpeedP());
 
 			//Testing
-			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
+			//Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
 			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
-				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
+				//Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
 			}
 
 			// update the physics
@@ -137,6 +140,7 @@ public class InGameController implements Screen{
 			int timeint = (int) (time);
 			//myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, true));
 			//Gdx.app.log("FinishLine","At finish line");
+		}
 		}
 	}
 
@@ -206,6 +210,13 @@ public class InGameController implements Screen{
 		}else{
 			return false;
 		}
+	}
+	
+	public void save(){
+		inGame.setTime((int)(time));
+		IOHandler.saveScoreNTime(10, 10, "Level 1");
+		Gdx.app.log("Save", "IO");
+		//score
 	}
 
 

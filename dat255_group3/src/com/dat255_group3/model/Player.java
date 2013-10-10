@@ -12,8 +12,11 @@ public class Player {
 	/** The player's current score.*/
 	private int score;
 	
+	/** The player's current score.*/
+	private int bestTime;
+	
 	/** The player's high score.*/
-	private int highscore;
+	private int highScore;
 	
 	/**
 	 * Class constructor.
@@ -31,12 +34,32 @@ public class Player {
 		return score;
 	}
 	
+
+	
 	/**
 	 * Returns and int representing the player's high score.
 	 * 
 	 * @return the player's high score
 	 */
 	public int getHighscore(){
-		return highscore;
+		return highScore;
 	}
+	
+	public void setHighScore (int score){
+		this.highScore = score;
+	}
+	
+	/**
+	 * Returns and int representing the player's high score.
+	 * 
+	 * @return the player's high score
+	 */
+	public int getBestTime(){
+		return bestTime;
+	}
+	
+	public void setBestTime (int time){
+		this.bestTime = time;
+	}
+
 }
