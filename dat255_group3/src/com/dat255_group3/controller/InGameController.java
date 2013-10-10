@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.GyroUtils;
 import com.dat255_group3.view.InGameView;
 import com.dat255_group3.view.PausScreen;
 
@@ -52,6 +53,13 @@ public class InGameController implements Screen{
 		if(delta>0){
 			this.timeStep = delta;
 		}
+		
+		/*
+		 * Check the rotation of the device.
+		 * And changes the speed of the game according to it.
+		 */
+		
+		GyroUtils.gyroSteering();
 		
 		/*
 		 * Checks whether the backbutton has been pressed.
