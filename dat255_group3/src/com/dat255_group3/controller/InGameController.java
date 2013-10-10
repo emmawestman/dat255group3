@@ -98,20 +98,23 @@ public class InGameController implements Screen{
 			// Updates the speed
 			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
 			cameraController.setSpeedP(inGame.getSpeedP());
-
-			//Testing
-			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
-			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
-				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
-			}
+			
+//			//Testing
+//			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
+//			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
+//				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
+//			}
 
 			// update the physics
 			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-
+			//Move the physic body of the character
+			//worldController.getCharBody().applyForceToCenter(0.3f, 0, true);
+			
 			// update the model position for the character
 			this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
+			Gdx.app.log("Charecter grafic posX: ", "" + this.worldController.getCharacterController().getCharacter().getPosition().x);
+			Gdx.app.log("Charecter physics posX: ", "" + this.worldController.getCharBody().getPosition().x);
 
-			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 
 			// Update the position of the camera
 			cameraController.render();
@@ -140,7 +143,7 @@ public class InGameController implements Screen{
 		}
 		
 		
-		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
+//		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
 
 	}
 

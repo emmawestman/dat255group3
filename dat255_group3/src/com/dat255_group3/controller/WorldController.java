@@ -43,8 +43,8 @@ public class WorldController {
 
 		// create character body
 		this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(worldUtil.getStartPos()), 
-				new Vector2(this.characterController.getCharacter().getWidth(), this.characterController.getCharacter().getHeight()));
-
+				new Vector2(this.characterController.getCharacter().getWidth(), this.characterController.getCharacter().getHeight()), speedM);
+			
 
 		// create the ground
 		solidBodyList = new ArrayList<Body>();
@@ -54,17 +54,17 @@ public class WorldController {
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}
 
-		// create the obstacles
-		obstacleBodyList = new ArrayList<Body>();
-		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
-		Gdx.app.log("sizes", "tileSize: "+worldUtil.getTileSize());
-		for(int i=0; i<obstacleList.size(); i++) {
-			Gdx.app.log("sizes", "pos of obstacle: "+ i + " : "+obstacleList.get(i));
-			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
-					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
-		}
-		//set velocity of the obstacles
-		moveObstacles(speedM/10);
+//		// create the obstacles
+//		obstacleBodyList = new ArrayList<Body>();
+//		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
+//		Gdx.app.log("sizes", "tileSize: "+worldUtil.getTileSize());
+//		for(int i=0; i<obstacleList.size(); i++) {
+//			Gdx.app.log("sizes", "pos of obstacle: "+ i + " : "+obstacleList.get(i));
+//			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
+//					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
+//		}
+//		//set velocity of the obstacles
+//		moveObstacles(speedM/20);
 		
 			this.worldView = new WorldView();
 		

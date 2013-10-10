@@ -44,12 +44,19 @@ public class CharacterView {
 		shape.rect(character.getPosition().x, character.getPosition().y, characterRect.width, characterRect.height);
 		shape.end();
 		
-		//fullösning
+		//fullosning ritar ut forsta hindret
 		shape.setProjectionMatrix(camera.combined);
 		shape.begin(ShapeType.Filled);
 		shape.setColor(Color.RED);
 		shape.rect(WorldUtil.getObstacleList().getMapList().get(0).x+16, WorldUtil.getObstacleList().getMapList().get(0).y-16, 32, 32);
 		shape.end();
+		
+		//fullosning ritar ut en marktile
+				shape.setProjectionMatrix(camera.combined);
+				shape.begin(ShapeType.Filled);
+				shape.setColor(Color.GREEN);
+				shape.rect(WorldUtil.getGroundList().getMapList().get(10).x+16, WorldUtil.getGroundList().getMapList().get(0).y-16, 32, 32);
+				shape.end();
 
 	}
 }

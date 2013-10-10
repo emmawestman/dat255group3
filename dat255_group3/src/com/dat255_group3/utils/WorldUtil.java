@@ -17,7 +17,7 @@ import com.dat255_group3.model.MapList;
 public class WorldUtil {
 	private Vector2 startPos;
 	private TiledMap map;
-	private MapList groundList;
+	private static MapList groundList;
 	private float finishLineX;
 	private static MapList obstacleList;
 	private Vector2 tileSize;
@@ -60,6 +60,7 @@ public class WorldUtil {
 	 * @return
 	 * 		The list with the obstacles positions
 	 */
+	//only static temporarily to help test
 	public static MapList getObstacleList() {
 		return obstacleList;
 	}
@@ -79,7 +80,8 @@ public class WorldUtil {
 	 * @return
 	 * 		A list of positions of the ground tiles
 	 */
-	public MapList getGroundList() {
+	//only static temporarily to help test
+	public static MapList getGroundList() {
 		return groundList;
 	}
 
