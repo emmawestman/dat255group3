@@ -19,7 +19,7 @@ public class GyroUtils {
 		
 	}
 	
-	public void gyroSteering(){
+	public static void gyroSteering(){
 		if (orientation == Input.Orientation.valueOf("Portrait")){
 			
 		}else if(orientation == Input.Orientation.valueOf("Landscape")){
