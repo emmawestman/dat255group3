@@ -5,9 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dat255_group3.model.Character;
 /**
  * A class containing methods to create physical bodies in an physics-world
  * @author Group 3
@@ -49,6 +51,33 @@ public class PhysBodyFactory {
 		return body;
 	}
 	
+	//TODO javadoc
+	public static Body createRoundCharacter(Character character, World world){
+		
+		FixtureDef fixtureDef = new FixtureDef();
+		BodyDef bodyDef = new BodyDef();
+		Body body = null;
+		
+		CircleShape shape = new CircleShape();
+		shape.setRadius(CoordinateConverter.pixelToMeter(25)); //TODO get radius from characterModel
+		
+		
+		fixtureDef.shape = shape;
+		fixtureDef.density = 1f;
+		fixtureDef.friction = 0.8f;
+		fixtureDef.restitution = 0f;
+
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.fixedRotation = true;
+		bodyDef.position.set(Character.getPosition());
+
+		body = world.createBody(bodyDef);
+		body.createFixture(fixtureDef);
+		
+		return body;
+
+	}
+
 	/**
 	 * Creates a solid ground that is not affected by gravity or other forces
 	 * @param pos , the center position of the ground (pixels)

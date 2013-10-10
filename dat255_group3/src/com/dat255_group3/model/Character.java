@@ -14,7 +14,7 @@ public class Character {
 	private double friction;
 	private static float width, height; //size of character in pixels
 	private float deathLimit;
-	private Vector2 position = WorldUtil.getStartPos(); 
+	private static Vector2 position = WorldUtil.getStartPos(); 
 
 	/**
 	 * Constructs a Character with its properties.
@@ -93,7 +93,7 @@ public class Character {
 	 * @return
 	 * 		The position of the GameObject
 	 */
-	public Vector2 getPosition() {
+	public static Vector2 getPosition() {
 		return position;
 	}
 
