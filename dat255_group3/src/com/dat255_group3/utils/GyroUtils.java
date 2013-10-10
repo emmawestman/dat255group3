@@ -7,27 +7,46 @@ import com.badlogic.gdx.input.*;
 
 public class GyroUtils {
 	private static Orientation orientation;
-	private static float roll;
+	private static float pitchPrevious;
 
 	/*
 	public static float getRotation(){
 		//float pitch = Gdx.input.getPitch();
-		float roll = Gdx.input.getRoll();
+		float pitch = Gdx.input.getpitch();
 		//float azimuth = Gdx.input.getAzimuth();
 		
 		//Gdx.app.log("Viking","Rotation: "+Gdx.input.getRotation()+" | Orienation: "+Gdx.input.getNativeOrientation());
-		return roll;
+		return pitch;
 	}
 	*/ 
+	
 	public static void gyroSteering(){
-		float roll = Gdx.input.getRoll();
+		float pitch = Gdx.input.getPitch();
+		float pitchDelta = Math.abs(pitch-pitchPrevious);
+		float upHill = 30;
+		float downHill = -30;
+		
 		if (orientation == Input.Orientation.valueOf("Portrait")){
-			
+			upHill = 30;
+			downHill = -30;
 		}else if(orientation == Input.Orientation.valueOf("Landscape")){
-			
+			//These values are untested, and intended to be used for tablet devices.
+			upHill = 120;
+			downHill = 60;
 		}else{
 			orientation = Gdx.input.getNativeOrientation();
 		}
+		
+		//if (pitchDelta>10.0f){
+			if (pitch>upHill){
+				Gdx.app.log("Viking","Going up hill: "+pitch);
+			}else if(pitch<downHill){
+				Gdx.app.log("Viking","Going down hill: "+pitch);
+			}else{
+				Gdx.app.log("Viking","Staying on level "+pitch);
+			}
+		//}
+		pitchPrevious = pitch;
 	}
 	
 }
