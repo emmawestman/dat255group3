@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
@@ -89,7 +90,11 @@ public class InGameController implements Screen{
 			} else {
 			//update the time
 			this.time = time+delta;
-
+			
+			if(this.worldController.getCharBody().getLinearVelocity().x < 2.5){
+				this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
+			}
+			
 			// Shows a white screen
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
