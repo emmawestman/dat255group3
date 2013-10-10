@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.InGameController;
 
 
 /**
@@ -129,7 +130,7 @@ public class GameOverScreen implements Screen{
         			//Next level
         		} else {
         			//This level
-        			myGdxGameController.setScreen(myGdxGameController.getInGameController());
+        			myGdxGameController.setScreen(new InGameController(myGdxGameController));
         		}
         		
 			}
