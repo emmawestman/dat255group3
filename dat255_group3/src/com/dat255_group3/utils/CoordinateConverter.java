@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 public class CoordinateConverter {
 	private static float ScreenWidth;
 	private static float ScreenHeight;
+	private static float cameraWidth = 1024f;
+	private static float CameraHeight = 512f;
 	
 	/**
 	 * converts a pixels into meters, 10 meter = long side of the screen
@@ -56,14 +58,14 @@ public class CoordinateConverter {
 	 * @return amount
 	 */
 	public static float getPixelToMeter(){
-		return 10f/(float)CoordinateConverter.ScreenWidth;
+		return 10f/(float)CoordinateConverter.cameraWidth;
 	}
 	/**
 	 * get the number of pixels in 1 meter
 	 * @return amount
 	 */
 	public static float getMeterToPixel(){
-		return (float)CoordinateConverter.ScreenWidth/10f;
+		return (float)CoordinateConverter.cameraWidth/10f;
 	}
 	
 	public static float getScreenWidth() {
@@ -86,6 +88,18 @@ public class CoordinateConverter {
 		//Gdx.app.log("Viking", "screenHeight: "+screenHeight);
 	}
 
+	public static float getCameraHeight() {
+		return CameraHeight;
+	}
+	public static void setCameraHeight(float cameraHeight) {
+		CameraHeight = cameraHeight;
+	}
+	public static float getCameraWidth() {
+		return cameraWidth;
+	}
+	public static void setCameraWidth(float cameraWidth) {
+		CoordinateConverter.cameraWidth = cameraWidth;
+	}
 	/**
 	 * Converts the position according to the height and width of the screen.
 	 * @param pos

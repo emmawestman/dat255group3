@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.dat255_group3.utils.CoordinateConverter;
 
 /** A view class for the InGame model. 
  * @author The Hans-Gunnar Crew
@@ -33,8 +32,6 @@ public class InGameView {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		
 	}
-	
-	
 	
 	/** Renders the HUD and background of the game. 
 	 * 

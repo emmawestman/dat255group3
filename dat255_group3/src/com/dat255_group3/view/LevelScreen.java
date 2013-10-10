@@ -80,7 +80,6 @@ public class LevelScreen implements Screen {
 	        table.setBounds( 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	        
 	        //Setting characteristics for the label
-	        Gdx.app.log("Levelscreen", "label");
 	        LabelStyle labelStyle = new LabelStyle();
 	        labelStyle.font = white;
 	        Label label = new Label("Levels",labelStyle);
@@ -93,7 +92,7 @@ public class LevelScreen implements Screen {
 	        textButtonStyle.pressedOffsetY = -1;
 	        textButtonStyle.font = black;
 
-	        //Instantiating the button
+	        //Instantiating the buttons & setting listeners
 	        TextButton levelOneButton = new TextButton("Level 1", textButtonStyle);
 	        levelOneButton.pad(20);
 	        levelOneButton.addListener(new ClickListener(){
@@ -103,13 +102,60 @@ public class LevelScreen implements Screen {
 				}
 	        });
 	        
-	        //Instantiating the button
 	        TextButton levelTwoButton = new TextButton("Level 2", textButtonStyle);
 	        levelTwoButton.pad(20);
 	        levelTwoButton.addListener(new ClickListener(){
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
+					//To be implemented
+				}
+	        });
+	   
+	        TextButton pausButton = new TextButton("Pause", textButtonStyle);
+	        pausButton.pad(20);
+	        pausButton.addListener(new ClickListener(){
+	        	@Override
+				public void clicked (InputEvent event, float x, float y){
+	        		myGdxGameController.setScreen(new PauseScreen(myGdxGameController));
+	        		//Pause pop-up
+	    			/*Skin dialogSkin = new Skin(new TextureAtlas(Gdx.files.internal("ui/window.pack")));
+	    			//Skin dialogSkin = new Skin(Gdx.files.internal("ui/dialog.json"),new TextureAtlas(Gdx.files.internal("ui/button.pack")));
+	    			
+	    			WindowStyle wstyle = new WindowStyle();
+	    			wstyle.background = dialogSkin.getDrawable("window");
+	    			wstyle.titleFont = black;
+	    			wstyle.titleFontColor = Color.BLACK;
+	    			
+	    			Dialog popup = new Dialog("Paus", wstyle);
+	    			popup.setPosition(0, 0);
+	    			popup.size(wstyle.background.getRightWidth(), wstyle.background.getTopHeight());
+	    			//popup.fadeDuration = 1;
+	    			//popup.scale(4f);
+	    			//popup.center();
+	    			stage.addActor(popup);*/
+				}
+	        });
+	        
+	        
+	        //Instantiating the button
+	        TextButton gameWonButton = new TextButton("Game Won", textButtonStyle);
+	        gameWonButton.pad(20);
+	        gameWonButton.addListener(new ClickListener(){
+	        	@Override
+				public void clicked (InputEvent event, float x, float y){
 	        		//To be implemented.
+	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,false));
+				}
+	        });
+	        
+	        //Instantiating the button
+	        TextButton gameOverButton = new TextButton("Game over", textButtonStyle);
+	        gameOverButton.pad(20);
+	        gameOverButton.addListener(new ClickListener(){
+	        	@Override
+				public void clicked (InputEvent event, float x, float y){
+	        		//To be implemented.
+	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,true));
 				}
 	        });
 	        
@@ -121,6 +167,16 @@ public class LevelScreen implements Screen {
 	        table.getCell(levelOneButton).spaceBottom(50);
 	        table.row();
 	        table.add(levelTwoButton);
+	        table.getCell(levelTwoButton).spaceBottom(50);
+	        table.row();
+	        table.add(pausButton);
+	        table.getCell(pausButton).spaceBottom(50);
+	        table.row();
+	        table.add(gameWonButton);
+	        table.getCell(gameWonButton).spaceBottom(50);
+	        table.row();
+	        table.add(gameOverButton);
+	        table.getCell(gameOverButton).spaceBottom(50);
 	        table.row();
 	        stage.addActor(table);
 	        

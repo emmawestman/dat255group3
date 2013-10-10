@@ -11,8 +11,9 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.view.GameOverScreen;
 import com.dat255_group3.view.InGameView;
-import com.dat255_group3.view.PausScreen;
+import com.dat255_group3.view.PauseScreen;
 
 public class InGameController implements Screen{
 
@@ -59,9 +60,8 @@ public class InGameController implements Screen{
 		 */
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			Gdx.input.setCatchBackKey(true);
-			Gdx.app.log("omg", "paus");
-			myGdxGameController.setScreen(new PausScreen(myGdxGameController));
-			Gdx.app.log("omg", "paus end");
+			myGdxGameController.setScreen(new PauseScreen(myGdxGameController));
+
 			
 			//TODO: Show a popupscreen instead of a new screen
 			/*
@@ -78,13 +78,15 @@ public class InGameController implements Screen{
 		
 		
 		if(!hasWon()) {
-			//for testing
-
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
-				//Gdx.app.log("Game over", "game is over!");
+				Gdx.app.log("Game over", "game is over!");
 				this.gameOver = true;
-
-			}
+				//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
+				
+				int timeint = (int) (time);
+				//Change to gameover-screen
+				myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, gameOver));
+			} else {
 			//update the time
 			this.time = time+delta;
 
@@ -111,11 +113,14 @@ public class InGameController implements Screen{
 			
 			// update the physics
 			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-
+			//Move the physic body of the character
+			//worldController.getCharBody().applyForceToCenter(0.3f, 0, true);
+			
 			// update the model position for the character
 			this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
+			Gdx.app.log("Charecter grafic posX: ", "" + this.worldController.getCharacterController().getCharacter().getPosition().x);
+			Gdx.app.log("Charecter physics posX: ", "" + this.worldController.getCharBody().getPosition().x);
 
-			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 
 			// Update the position of the camera
 			cameraController.render();
@@ -135,18 +140,18 @@ public class InGameController implements Screen{
 			renderer.render(worldController.getPhysicsWorld(), matrix);
 			//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 			//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
+			}
 		}else{
+			//Change to gamewon-screen
+//			int timeint = (int) (time);
+			//myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, true));
 			//Gdx.app.log("FinishLine","At finish line");
 		}
 		
-		//Draw physics bodies, for debugging
-		renderer.render(worldController.getPhysicsWorld(), matrix);
-	//	Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
-	//			worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
-	
-	}
+		
+//		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
 
-	
+	}
 
 
 	@Override
@@ -157,7 +162,7 @@ public class InGameController implements Screen{
 
 	@Override
 	public void show() {
-
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -183,7 +188,6 @@ public class InGameController implements Screen{
 		map.dispose();
 		cameraController.dispose();
 		renderer.dispose();
-
 	}
 	/**
 	 * Update so that the character model has the same position (x,y) as the physical body

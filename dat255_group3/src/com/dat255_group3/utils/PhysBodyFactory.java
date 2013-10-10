@@ -22,7 +22,7 @@ public class PhysBodyFactory {
 	 * @param size , with and height the body (pixels)
 	 * @return The physical body of the character that exists in the physWorld with a set density, friction and restitution 
 	 */
-	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size) {
+	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size, float speedM) {
 		PolygonShape shape;
 		FixtureDef fixtureDef = new FixtureDef();
 		BodyDef bodyDef = new BodyDef();
@@ -44,6 +44,7 @@ public class PhysBodyFactory {
 
 		body = physWorld.createBody(bodyDef);
 		body.createFixture(fixtureDef);
+		
 
 		return body;
 	}
@@ -81,7 +82,7 @@ public class PhysBodyFactory {
 	
 	/*
 	 * adds an obstacle
-	 * ... ja jag vet att det är ful dubblering av kod...
+	 * ... ja jag vet att det r ful dubblering av kod...
 	 */
 	public static Body addObstacle(final Vector2 pos, Vector2 size, final float friction, 
 			final float restitution, World physWorld) {

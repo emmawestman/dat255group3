@@ -1,9 +1,11 @@
 package com.dat255_group3.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.dat255_group3.model.Character;
 import com.dat255_group3.model.MapList;
 
 
@@ -13,11 +15,11 @@ import com.dat255_group3.model.MapList;
  *
  */
 public class WorldUtil {
-	private Vector2 startPos;
+	private static Vector2 startPos;
 	private TiledMap map;
-	private MapList groundList;
+	private static MapList groundList;
 	private float finishLineX;
-	private MapList obstacleList;
+	private static MapList obstacleList;
 	private Vector2 tileSize;
 	private MapList cookieList;
 
@@ -60,7 +62,8 @@ public class WorldUtil {
 	 * @return
 	 * 		The list with the obstacles positions
 	 */
-	public MapList getObstacleList() {
+	//only static temporarily to help test
+	public static MapList getObstacleList() {
 		return obstacleList;
 	}
 
@@ -70,7 +73,7 @@ public class WorldUtil {
 	 * @return
 	 * 		The start position for the character	
 	 */
-	public Vector2 getStartPos() {
+	public static Vector2 getStartPos() {
 		return startPos;
 	}
 
@@ -79,7 +82,8 @@ public class WorldUtil {
 	 * @return
 	 * 		A list of positions of the ground tiles
 	 */
-	public MapList getGroundList() {
+	//only static temporarily to help test
+	public static MapList getGroundList() {
 		return groundList;
 	}
 
@@ -124,7 +128,8 @@ public class WorldUtil {
 							if(tile.getProperties().containsKey("FinishLine")) {
 								finishLineX = x*tileSize.x;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = new Vector2((x*tileSize.x), y*tileSize.y);
+								startPos = new Vector2((x*tileSize.x) - Character.getWidth()/2,y*tileSize.y + Character.getHeight()/2 + 30);
+								Gdx.app.log("from map", "StartPos found at: "+ x + ","+y);
 							}else if(tile.getProperties().containsKey("Cookie")) {
 								cookieList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
 							}

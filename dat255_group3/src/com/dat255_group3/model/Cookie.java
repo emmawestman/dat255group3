@@ -8,7 +8,9 @@ import com.badlogic.gdx.math.Vector2;
  * @author The Hans-Gunnar Crew
  *
  */
-public class Cookie extends GameObject {
+public class Cookie {
+	
+	private Vector2 position;
 
 	/**
 	 * A constructor that takes a position for the cookie
@@ -16,7 +18,11 @@ public class Cookie extends GameObject {
 	 * 			The position of the cookie
 	 */
 	public Cookie(Vector2 position) {
-		super(position);
+		this.position = position;
+	}
+	
+	public Vector2 getPosition() {
+		return position;
 	}
 
 }
