@@ -51,6 +51,9 @@ public class InGameController implements Screen{
 
 	@Override
 	public void render(float delta) {
+		// Shows a white screen
+					Gdx.gl.glClearColor(1, 1, 1, 1);
+					Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if(delta>0){
 			this.timeStep = delta;
 		}
@@ -61,7 +64,7 @@ public class InGameController implements Screen{
 		 */
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(new PauseScreen(myGdxGameController));
+			myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
 
 			
 			//TODO: Show a popupscreen instead of a new screen
@@ -84,9 +87,15 @@ public class InGameController implements Screen{
 				this.gameOver = true;
 				//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
 				
+				// Update the position of the camera
+				cameraController.render();
+				
 				int timeint = (int) (time);
+				int score = 10;
 				//Change to gameover-screen
-				myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, gameOver));
+				myGdxGameController.getGameOverScreen().gameOver(score, timeint, gameOver);
+				myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
+				
 			} else {
 			//update the time
 			this.time = time+delta;
@@ -95,9 +104,7 @@ public class InGameController implements Screen{
 				this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
 			}
 			
-			// Shows a white screen
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			
 			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), 
 					this.worldController.getCharacterController().getCharacterView(), 
 					this.worldController.getCookieController().getCookieView(), time, 
@@ -106,7 +113,8 @@ public class InGameController implements Screen{
 			// Updates the speed
 			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
 			cameraController.setSpeedP(inGame.getSpeedP());
-
+			Gdx.app.log("InGameCOntroller", "render part2");
+			
 //			//Testing
 //			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
 //			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
@@ -127,8 +135,7 @@ public class InGameController implements Screen{
 			Gdx.app.log("Charecter physics posX: ", "" + this.worldController.getCharBody().getPosition().x);
 
 
-			// Update the position of the camera
-			cameraController.render();
+			
 
 			// Update the position of the finish line
 			worldController.moveFinishLine(inGame.getSpeedP());
@@ -149,7 +156,8 @@ public class InGameController implements Screen{
 		}else{
 			//Change to gamewon-screen
 //			int timeint = (int) (time);
-			//myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, true));
+			//myGdxGameController.getGameOverScreen().gameOver(score, timeint, gameOver);
+			//myGdxGameController.setScreen(myGdxGameController.getGameOverScreen));
 			//Gdx.app.log("FinishLine","At finish line");
 		}
 		
@@ -224,6 +232,10 @@ public class InGameController implements Screen{
 		}else{
 			return false;
 		}
+	}
+	
+	public void reset() {
+		//reset
 	}
 
 

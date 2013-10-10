@@ -116,7 +116,7 @@ public class LevelScreen implements Screen {
 	        pausButton.addListener(new ClickListener(){
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
-	        		myGdxGameController.setScreen(new PauseScreen(myGdxGameController));
+	        		
 	        		//Pause pop-up
 	    			/*Skin dialogSkin = new Skin(new TextureAtlas(Gdx.files.internal("ui/window.pack")));
 	    			//Skin dialogSkin = new Skin(Gdx.files.internal("ui/dialog.json"),new TextureAtlas(Gdx.files.internal("ui/button.pack")));
@@ -144,7 +144,7 @@ public class LevelScreen implements Screen {
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
 	        		//To be implemented.
-	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,false));
+	        		
 				}
 	        });
 	        
@@ -155,7 +155,7 @@ public class LevelScreen implements Screen {
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
 	        		//To be implemented.
-	        		myGdxGameController.setScreen(new GameOverScreen(myGdxGameController,10, 10,true));
+	        		
 				}
 	        });
 	        

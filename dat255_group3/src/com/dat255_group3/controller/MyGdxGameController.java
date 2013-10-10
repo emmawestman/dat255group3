@@ -5,13 +5,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.dat255_group3.model.MyGdxGame;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.view.GameOverScreen;
+import com.dat255_group3.view.LevelScreen;
+import com.dat255_group3.view.PauseScreen;
 import com.dat255_group3.view.StartScreen;
 
 
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;
-	private StartScreen startScreen;
 	private InGameController inGameController;
+	private LevelScreen levelScreen;
+	private GameOverScreen gameOverScreen;
+	private PauseScreen pauseScreen;
+	private StartScreen startScreen;
 	private PlayerController playerController;
 	
 	@Override
@@ -21,6 +27,9 @@ public class MyGdxGameController extends Game {
 		this.playerController = new PlayerController(this);
 		this.inGameController = new InGameController(this);
 		this.startScreen = new StartScreen(this);
+		this.levelScreen = new LevelScreen(this);
+		this.gameOverScreen = new GameOverScreen(this);
+		this.pauseScreen = new PauseScreen(this);
 		
 		//go to the first screen
 		setScreen(startScreen);
@@ -28,7 +37,8 @@ public class MyGdxGameController extends Game {
 
 	@Override
 	public void dispose() {
-		
+		super.dispose();
+		inGameController.dispose();
 	}
 
 	
@@ -60,5 +70,17 @@ public class MyGdxGameController extends Game {
 	
 	public StartScreen getStartScreen(){
 		return startScreen;
+	}
+	
+	public LevelScreen getLevelScreen() {
+		return this.levelScreen;
+	}
+	
+	public PauseScreen getPauseScreen() {
+		return this.pauseScreen;
+	}
+	
+	public GameOverScreen getGameOverScreen() {
+		return this.gameOverScreen;
 	}
 }
