@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dat255_group3.model.Character;
+import com.dat255_group3.model.Cookie;
 import com.dat255_group3.model.World;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.PhysBodyFactory;
@@ -20,10 +21,14 @@ public class WorldController {
 	final boolean doSleep;
 	private ArrayList<Body> solidBodyList;
 	private ArrayList<Body> obstacleBodyList;
+	private ArrayList<Cookie> cookieList;
 	private float finishLineX;
 	private Body charBody;
 	private com.badlogic.gdx.physics.box2d.World physicsWorld;
 	private WorldUtil worldUtil;
+	private CookieController cookieController;
+	private int cookieIndex;
+	private int cookieCounter;
 
 	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
@@ -53,15 +58,28 @@ public class WorldController {
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}
 
-		// create the obstacles
-		obstacleBodyList = new ArrayList<Body>();
-		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
-		for(int i=0; i<obstacleList.size(); i++) {
-			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
-					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
+//		// create the obstacles
+//		obstacleBodyList = new ArrayList<Body>();
+//		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
+//		for(int i=0; i<obstacleList.size(); i++) {
+//			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
+//					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
+//		}
+		
+		// create cookies
+		cookieList = new ArrayList<Cookie>();
+		ArrayList<Vector2> cookiePosList = worldUtil.getCookieList().getMapList();
+		for(int i=0; i<cookiePosList.size(); i++) {
+			cookieList.add(new Cookie(new Vector2(cookiePosList.get(i).x, cookiePosList.get(i).y)));
 		}
-		//set velocity of the obstacles
-		moveObstacles(speedM/10);
+		cookieIndex = 0;
+		cookieCounter = 0;
+		
+		// create cookieController
+		cookieController = new CookieController(cookieList, inGameController.getCamera());
+		
+//		//set velocity of the obstacles
+//		moveObstacles(speedM/10);
 		
 			this.worldView = new WorldView();
 		
@@ -83,6 +101,10 @@ public class WorldController {
 		return characterController;
 	}
 
+	public CookieController getCookieController() {
+		return cookieController;
+	}
+	
 	public com.badlogic.gdx.physics.box2d.World getPhysicsWorld() {
 		return physicsWorld;
 	}
@@ -97,6 +119,10 @@ public class WorldController {
 	
 	public ArrayList<Body> getObstacleBodyList() {
 		return obstacleBodyList;
+	}
+	
+	public ArrayList<Cookie> getCookieList() {
+		return cookieList;
 	}
 	
 	public float getFinishLineX() {
@@ -123,6 +149,32 @@ public class WorldController {
 	
 	public Vector2 getStartPos() {
 		return worldUtil.getStartPos();
+	}
+	
+	public void checkNextCookie() {
+		if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
+			checkCookieCollision();
+		}else{
+			cookieIndex++;
+		}
+	}
+	
+	public void checkCookieCollision() {
+		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
+				< characterController.getCharacter().getWidth()) {
+			if(cookieList.get(cookieIndex).getPosition().y + 32 - characterController.getCharacter().getPosition().y
+					< characterController.getCharacter().getHeight()) {
+				collision();
+			}
+		}
+	}
+	
+	public void collision() {
+		cookieList.remove(cookieIndex);
+		cookieCounter++;
+	}
+	public int getCookieCounter() {
+		return cookieCounter;
 	}
 
 }

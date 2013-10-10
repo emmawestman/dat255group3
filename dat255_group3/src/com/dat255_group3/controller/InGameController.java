@@ -91,18 +91,24 @@ public class InGameController implements Screen{
 			// Shows a white screen
 			Gdx.gl.glClearColor(1, 1, 1, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
-
+			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), 
+					this.worldController.getCharacterController().getCharacterView(), 
+					this.worldController.getCookieController().getCookieView(), time, 
+					worldController.getCookieCounter(), gameOver);
+			
 			// Updates the speed
 			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
 			cameraController.setSpeedP(inGame.getSpeedP());
 
-			//Testing
-			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
-			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
-				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
-			}
+//			//Testing
+//			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
+//			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
+//				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
+//			}
 
+			// check collision with the closest cookie
+			worldController.checkNextCookie();
+			
 			// update the physics
 			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
 

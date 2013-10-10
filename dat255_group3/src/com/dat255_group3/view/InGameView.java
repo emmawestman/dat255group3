@@ -30,6 +30,7 @@ public class InGameView {
 		this.camera = camera;
 		this.spriteBatch = new SpriteBatch();
 		this.font = new BitmapFont();
+		spriteBatch.setProjectionMatrix(camera.combined);
 		
 	}
 	
@@ -38,15 +39,16 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body charBody, CharacterView charView, float time, boolean gameOver) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, float time, int cookieCounter, boolean gameOver) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();
-		worldView.draw(charBody, charView);
+		worldView.draw(charView, cookieView);
 		//draw game over text
 		if(gameOver) drawGameOver();
 		//Draw time
 		drawTime(time);
+		drawCookieCounter(cookieCounter);
 		
 	}
 	
@@ -54,15 +56,23 @@ public class InGameView {
 		spriteBatch.begin();
 		str = "GAME OVER";
 		font.setColor(Color.RED);
-		font.draw(spriteBatch, str, (CoordinateConverter.getScreenWidth()/2)-20f, CoordinateConverter.getScreenHeight()/2);
+		font.draw(spriteBatch, str, camera.viewportWidth/2 -40f, camera.viewportHeight/2);
 		spriteBatch.end();
 	}
 	
 	public void drawTime(float time) {
 		spriteBatch.begin();
-		str = "Time: "+ time;
+		str = "Time: "+ (int)time;
 		font.setColor(Color.BLACK);
-		font.draw(spriteBatch, str, 20f, CoordinateConverter.getScreenHeight()-30f);
+		font.draw(spriteBatch, str, 20f, camera.viewportHeight-30f);
+		spriteBatch.end();
+	}
+	
+	public void drawCookieCounter(int cookieCounter) {
+		spriteBatch.begin();
+		str = "Cookies: "+ cookieCounter;
+		font.setColor(Color.BLACK);
+		font.draw(spriteBatch, str, 100f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
 }
