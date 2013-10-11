@@ -87,7 +87,7 @@ public class InGameController implements Screen{
 					worldController.getCookieCounter(), gameOver);
 
 			// check collision with the closest cookie
-			worldController.checkNextCookie();
+			//worldController.checkNextCookie();
 
 			/*
 			 * Checks whether the screen has been touched. 
