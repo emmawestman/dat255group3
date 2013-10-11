@@ -53,9 +53,7 @@ public class InGameController implements Screen{
 		 * If so, a pausepop-up-screen will be shown.
 		 */
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-
+			this.pause();
 		}
 
 		if (hasWon()) {
@@ -114,8 +112,6 @@ public void show() {
 	this.time = 0;
 	this.gameOver = false;
 	worldController.getSoundController().playBackgroundMusic();
-
-	// TODO Auto-generated method stub
 }
 
 @Override
@@ -126,13 +122,15 @@ public void hide() {
 
 @Override
 public void pause() {
-	// TODO Auto-generated method stub
-
+	Gdx.input.setCatchBackKey(true);
+	myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
+	worldController.getSoundController().pauseBackgroundMusic();
+	cameraController.pause();
 }
 
 @Override
 public void resume() {
-	// TODO Auto-generated method stub
+	cameraController.resume();
 
 }
 
