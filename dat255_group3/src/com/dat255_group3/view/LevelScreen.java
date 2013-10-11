@@ -98,6 +98,7 @@ public class LevelScreen implements Screen {
 	        levelOneButton.addListener(new ClickListener(){
 	        	@Override
 				public void clicked (InputEvent event, float x, float y){
+	        		myGdxGameController.setIsGameStarted(true);
 	        		myGdxGameController.setCurrentLevel(1);
 	        		myGdxGameController.getInGameController().loadMap();
 					myGdxGameController.setScreen(myGdxGameController.getInGameController());

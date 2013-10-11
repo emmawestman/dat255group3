@@ -175,7 +175,7 @@ public class WorldController {
 
 	public void collision() {
 		cookieList.remove(cookieIndex);
-		world.increaseCoockieCounter();
+		world.increaseCookieCounter();
 		soundController.playCookieSound();
 	}
 	

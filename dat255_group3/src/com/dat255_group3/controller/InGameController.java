@@ -91,14 +91,17 @@ public class InGameController implements Screen{
 
 	@Override
 	public void show() {
-		this.cameraController = new OrthographicCameraController();
-		this.cameraController.create();
-		loadMap();
-		this.inGameView = new InGameView(map, cameraController.getCamera());
-		this.inGame = new InGame();
-		this.worldController = new WorldController(this, inGame.getSpeedM());
-		this.gameOver = false;
-		worldController.getSoundController().playBackgroundMusic();
+		//if(!myGdxGameController.getIsGameStarted()){
+			this.cameraController = new OrthographicCameraController();
+			this.cameraController.create();
+			loadMap();
+			this.inGameView = new InGameView(map, cameraController.getCamera());
+			this.inGame = new InGame();
+			this.worldController = new WorldController(this, inGame.getSpeedM());
+			this.gameOver = false;
+			worldController.getSoundController().playBackgroundMusic();
+		//}
+	//	myGdxGameController.setIsGameStarted(true);
 	}
 
 
@@ -197,8 +200,11 @@ public class InGameController implements Screen{
 
 	public void gameOver() {
 		Gdx.app.log("Game over:", gameOver + "");
-
+		myGdxGameController.setIsGameStarted(false);
 		//Change to gameover-screen
+		
+		this.myGdxGameController.getPlayerController().getPlayer().calculateScore(
+				worldController.getWorld().getTime(), worldController.getWorld().getCookieCounter(), gameOver);
 		myGdxGameController.getGameOverScreen().gameOver(this.myGdxGameController.getPlayerController().getPlayer().getScore(), 
 				worldController.getWorld().getTime(), gameOver);
 		myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());

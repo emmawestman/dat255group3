@@ -35,7 +35,7 @@ public class World {
 		this.time = time;
 	}
 	
-	public void increaseCoockieCounter() {
+	public void increaseCookieCounter() {
 		this.cookieCounter++;
 	}
 }

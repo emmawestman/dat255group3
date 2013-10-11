@@ -25,6 +25,7 @@ public class MyGdxGameController extends Game {
 	@Override
 	public void create() {
 		//create other the scenes and the player and the gameModel
+		isGameStarted = false;
 		this.startScreen = new StartScreen(this);
 		this.levelScreen = new LevelScreen(this);
 		this.myGdxGame = new MyGdxGame();
@@ -98,6 +99,15 @@ public class MyGdxGameController extends Game {
 	public void setCurrentLevel(int level){
 		this.currentLevel = level;
 	}
+	
+	public boolean getIsGameStarted(){
+		return this.isGameStarted;
+	}
+	
+	public void setIsGameStarted(boolean isGameStarted){
+		this.isGameStarted = isGameStarted;
+	}
+	
 	
 	public void save(){
 		inGameController.save();
