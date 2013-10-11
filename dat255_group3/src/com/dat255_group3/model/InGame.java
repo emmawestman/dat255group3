@@ -16,7 +16,7 @@ public class InGame {
 	 * Constructs a InGame
 	 */
 	public InGame() {
-		speedM = 1.5f;
+		speedM = 0.5f;
 	}
 
 	/**

@@ -49,8 +49,6 @@ public class WorldController {
 
 		// create character body
 		this.charBody = PhysBodyFactory.createRoundCharacter(this.characterController.getCharacter(), this.physicsWorld);
-		//this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(WorldUtil.getStartPos()), 
-		//new Vector2(Character.getWidth(), Character.getHeight()));
 
 
 		// create the ground
@@ -61,17 +59,15 @@ public class WorldController {
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}
 
-		//		// create the obstacles
-		//		obstacleBodyList = new ArrayList<Body>();
-		//		ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
-		//		for(int i=0; i<obstacleList.size(); i++) {
-		//			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
-		//					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
-		//		}
-		//		//set velocity of the obstacles
-		//		moveObstacles(speedM/10);
+				//create the obstacles
+				obstacleBodyList = new ArrayList<Body>();
+				ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
+				for(int i=0; i<obstacleList.size(); i++) {
+					obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
+							worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
+				}
+				
 
-		//		Gdx.app.log("sizes", "tileSize: "+worldUtil.getTileSize());
 
 		// create cookies
 		cookieList = new ArrayList<Cookie>();
@@ -92,7 +88,7 @@ public class WorldController {
 	}
 	public void uppdatePositions(Body body, Character character){
 		Vector2 posInPixels = CoordinateConverter.meterToPixel(body.getPosition());
-		character.setPosition(new Vector2 (posInPixels.x - (Character.getRadius()/2), posInPixels.y - (Character.getRadius()/2)) );
+		character.setPosition(new Vector2 (posInPixels.x, posInPixels.y) );
 	}
 
 	public World getWorld() {
@@ -147,11 +143,6 @@ public class WorldController {
 		this.gravity = gravity;
 	}
 
-	public void moveObstacles(float speedM) {
-		for(int i = 0; i<obstacleBodyList.size(); i++) {
-			obstacleBodyList.get(i).setLinearVelocity(-speedM,0);
-		}
-	}
 
 	public void moveFinishLine(float speedP) {
 		finishLineX = finishLineX - speedP/10;

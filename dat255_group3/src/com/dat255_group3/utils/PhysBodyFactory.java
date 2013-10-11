@@ -63,7 +63,7 @@ public class PhysBodyFactory {
 			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		polygonShape.setAsBox(size.x, size.y);
+		polygonShape.setAsBox(size.x/2, size.y/2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.friction = friction;
@@ -89,7 +89,7 @@ public class PhysBodyFactory {
 			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		polygonShape.setAsBox(size.x, size.y);
+		polygonShape.setAsBox(size.x/2, size.y/2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.friction = friction;
