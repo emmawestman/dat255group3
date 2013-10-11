@@ -93,10 +93,14 @@ public class MyGdxGameController extends Game {
 
 	public int getCurrentLevel(){
 		return this.currentLevel;
-		
 	}
 	
 	public void setCurrentLevel(int level){
 		this.currentLevel = level;
+	}
+	
+	public void save(){
+		inGameController.save();
+		Gdx.app.log("MyGdx", "Save");
 	}
 }

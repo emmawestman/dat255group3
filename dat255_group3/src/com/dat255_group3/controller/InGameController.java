@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.GyroUtils;
@@ -40,9 +41,7 @@ public class InGameController implements Screen{
 		// Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-
+		
 		/*
 		 * Checks whether the backbutton has been pressed.
 		 * If so, a pausepop-up-screen will be shown.
@@ -54,13 +53,13 @@ public class InGameController implements Screen{
 		}
 
 		if (hasWon()) {
-			//			Change to gamewon-screen
+			//Change to gamewon-screen
 			//			worldController.getSoundController().playVictorySound();
 			//			worldController.getSoundController().pauseBackgroundMusic();
 			this.gameOver = false;
 			gameOver();
 		}
-
+		
 		if(this.worldController.getCharacterController().getCharacter().isDead()){
 			this.gameOver = true;
 			//			worldController.getSoundController().playGameOverSound();
@@ -79,8 +78,7 @@ public class InGameController implements Screen{
 				this.worldController.getCharacterController().getCharacterView(), 
 				this.worldController.getCookieController().getCookieView(), worldController.getWorld().getTime(), 
 				worldController.getWorld().getCookieCounter(), gameOver);
-
-
+		
 		/*
 		 * Checks whether the screen has been touched. 
 		 * If so, a method which will make the character jump is invoked.
@@ -89,6 +87,7 @@ public class InGameController implements Screen{
 			worldController.getCharacterController().tryToJump(); 	
 		}
 	}
+	
 
 	@Override
 	public void show() {
@@ -134,11 +133,6 @@ public class InGameController implements Screen{
 		cameraController.dispose();
 		renderer.dispose();
 	}
-	/**
-	 * Update so that the character model has the same position (x,y) as the physical body
-	 * @param body , the physical body of the character
-	 * @param character , the character model with the position
-	 */
 
 
 	public InGame getInGame() {
@@ -153,17 +147,20 @@ public class InGameController implements Screen{
 		return map;
 	}
 
-
 	public OrthographicCamera getCamera() {
 		return cameraController.getCamera();
 	}
 
 	public boolean hasWon() {
-		if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
-			return true;
-		}else{
-			return false;
-		}
+		return worldController.getCharacterController().getCharacter().getPosition().x 
+				>= worldController.getFinishLineX(); 	
+	}
+	
+	public void save(){
+		IOHandler.saveScoreNTime(this.myGdxGameController.getPlayerController().getPlayer().getScore(),
+				this.worldController.getWorld().getTime(), "Level 1");
+		Gdx.app.log("Save", "IO");
+		//score
 	}
 
 	public void update(float delta) {
@@ -172,9 +169,6 @@ public class InGameController implements Screen{
 
 		// update the physics
 		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-		//Move the physic body of the character
-		//worldController.getCharBody().applyForceToCenter(0.3f, 0, true);
-
 
 		// Update the position of the camera
 		cameraController.render();
@@ -193,6 +187,7 @@ public class InGameController implements Screen{
 		if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
 			this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
 		}
+		
 		// update the model position for the character
 		this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
 
@@ -202,9 +197,6 @@ public class InGameController implements Screen{
 
 	public void gameOver() {
 		Gdx.app.log("Game over:", gameOver + "");
-
-		this.myGdxGameController.getPlayerController().getPlayer().calculateScore(
-				worldController.getWorld().getTime(), worldController.getWorld().getCookieCounter(), gameOver);
 
 		//Change to gameover-screen
 		myGdxGameController.getGameOverScreen().gameOver(this.myGdxGameController.getPlayerController().getPlayer().getScore(), 
