@@ -51,87 +51,43 @@ public class InGameController implements Screen{
 
 	@Override
 	public void render(float delta) {
-		if(delta>0){
-			this.timeStep = delta;
-		}
+		// Shows a white screen
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+
 		/*
 		 * Checks whether the backbutton has been pressed.
 		 * If so, a pausepop-up-screen will be shown.
 		 */
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(new PauseScreen(myGdxGameController));
+			myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
 
-			
-			//TODO: Show a popupscreen instead of a new screen
-			/*
-			Stage stage = new Stage();
-			Skin skin = new Skin(Gdx.files.internal("ui/dialog.json"),new TextureAtlas(Gdx.files.internal("ui/button.pack")));
-			
-			Dialog popup = new Dialog("Paus", skin);
-			popup.setPosition(0, 0);
-			popup.fadeDuration = 1;
-			stage.addActor(popup);
-			stage.act(delta);
-			stage.draw();*/
+		}
+
+		if (hasWon()) {
+			//Change to gamewon-screen
+			//			int timeint = (int) (time);
+			//myGdxGameController.getGameOverScreen().gameOver(score, timeint, gameOver);
+			//myGdxGameController.setScreen(myGdxGameController.getGameOverScreen));
+			//Gdx.app.log("FinishLine","At finish line");
 		}
 		
-		
-		if(!hasWon()) {
 			if(this.worldController.getCharacterController().getCharacter().isDead()){
-				Gdx.app.log("Game over", "game is over!");
-				this.gameOver = true;
-				//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
-				
-				int timeint = (int) (time);
-				//Change to gameover-screen
-				myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, gameOver));
-			} else {
-			//update the time
-			this.time = time+delta;
+				gameOver();
+			} 
+
+			update(delta);
 			
-			if(this.worldController.getCharBody().getLinearVelocity().x < 2.5){
-				this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
-			}
-			
-			// Shows a white screen
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			// draws the world and its components
 			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), 
 					this.worldController.getCharacterController().getCharacterView(), 
 					this.worldController.getCookieController().getCookieView(), time, 
 					worldController.getCookieCounter(), gameOver);
-			
-			// Updates the speed
-			inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
-			cameraController.setSpeedP(inGame.getSpeedP());
-
-//			//Testing
-//			Gdx.app.log("Obstacles", "Position character: x: " + worldController.getCharBody().getPosition().x);
-//			for(int i = 0; i<worldController.getObstacleBodyList().size(); i++) {
-//				Gdx.app.log("Obstacles", "Position obstacle: x: " + worldController.getObstacleBodyList().get(i).getPosition().x);
-//			}
 
 			// check collision with the closest cookie
-			worldController.checkNextCookie();
-			
-			// update the physics
-			this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-			//Move the physic body of the character
-			//worldController.getCharBody().applyForceToCenter(0.3f, 0, true);
-			
-			// update the model position for the character
-			this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
-			Gdx.app.log("Charecter grafic posX: ", "" + this.worldController.getCharacterController().getCharacter().getPosition().x);
-			Gdx.app.log("Charecter physics posX: ", "" + this.worldController.getCharBody().getPosition().x);
-
-
-			// Update the position of the camera
-			cameraController.render();
-
-			// Update the position of the finish line
-			worldController.moveFinishLine(inGame.getSpeedP());
+			//worldController.checkNextCookie();
 
 			/*
 			 * Checks whether the screen has been touched. 
@@ -145,86 +101,129 @@ public class InGameController implements Screen{
 			renderer.render(worldController.getPhysicsWorld(), matrix);
 			//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
 			//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
-			}
-		}else{
-			//Change to gamewon-screen
-//			int timeint = (int) (time);
-			//myGdxGameController.setScreen(new GameOverScreen(myGdxGameController, 10, timeint, true));
-			//Gdx.app.log("FinishLine","At finish line");
-		}
 		
-		
-//		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
 
+
+	//		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
+
+}
+
+
+@Override
+public void resize(int width, int height) {
+	// TODO Auto-generated method stub
+
+}
+
+@Override
+public void show() {
+	// TODO Auto-generated method stub
+}
+
+@Override
+public void hide() {
+	// TODO Auto-generated method stub
+
+}
+
+@Override
+public void pause() {
+	// TODO Auto-generated method stub
+
+}
+
+@Override
+public void resume() {
+	// TODO Auto-generated method stub
+
+}
+
+@Override
+public void dispose() {
+	map.dispose();
+	cameraController.dispose();
+	renderer.dispose();
+}
+/**
+ * Update so that the character model has the same position (x,y) as the physical body
+ * @param body , the physical body of the character
+ * @param character , the character model with the position
+ */
+
+
+public InGame getInGame() {
+	return inGame;
+}
+
+public InGameView getInGameView() {
+	return inGameView;
+}
+
+public TiledMap getMap() {
+	return map;
+}
+
+public OrthographicCamera getCamera() {
+	return cameraController.getCamera();
+}
+
+public boolean hasWon() {
+	//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
+	if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
+		return true;
+	}else{
+		return false;
 	}
+}
 
+public void reset() {
+	//reset
+}
 
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose() {
-		map.dispose();
-		cameraController.dispose();
-		renderer.dispose();
-	}
-	/**
-	 * Update so that the character model has the same position (x,y) as the physical body
-	 * @param body , the physical body of the character
-	 * @param character , the character model with the position
-	 */
-
-
-	public InGame getInGame() {
-		return inGame;
-	}
-
-	public InGameView getInGameView() {
-		return inGameView;
-	}
-
-	public TiledMap getMap() {
-		return map;
-	}
+public void update(float delta) {
 	
-	public OrthographicCamera getCamera() {
-		return cameraController.getCamera();
-	}
+	this.timeStep = delta;
+	
+	// update the physics
+	this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
+	//Move the physic body of the character
+	//worldController.getCharBody().applyForceToCenter(0.3f, 0, true);
 
-	public boolean hasWon() {
-		//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
-		if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
-			return true;
-		}else{
-			return false;
-		}
-	}
 
+	// Update the position of the camera
+	cameraController.render();
+
+	//update the time
+	this.time = time+delta;
+
+	// Updates the speed
+	inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
+	cameraController.setSpeedP(inGame.getSpeedP());
+	Gdx.app.log("InGameCOntroller", "render part2");
+
+	//give character speed
+	if(this.worldController.getCharBody().getLinearVelocity().x < 2.5){
+		this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
+	}
+	// update the model position for the character
+	this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
+	Gdx.app.log("Charecter grafic posX: ", "" + this.worldController.getCharacterController().getCharacter().getPosition().x);
+	Gdx.app.log("Charecter physics posX: ", "" + this.worldController.getCharBody().getPosition().x);
+
+	// Update the position of the finish line
+	worldController.moveFinishLine(inGame.getSpeedP());
+
+}
+public void gameOver() {
+	Gdx.app.log("Game over", "game is over!");
+	this.gameOver = true;
+	//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
+
+	int timeint = (int) (time);
+	int score = 10;
+	//Change to gameover-screen
+	myGdxGameController.getGameOverScreen().gameOver(score, timeint, gameOver);
+	myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
+}
 
 }

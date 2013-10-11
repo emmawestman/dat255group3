@@ -14,7 +14,7 @@ public class Character {
 	private double friction;
 	private static float width, height; //size of character in pixels
 	private float deathLimit;
-	private static  Vector2 position; 
+	private  Vector2 position; 
 
 	/**
 	 * Constructs a Character with its properties.
@@ -94,7 +94,7 @@ public class Character {
 	 * @return
 	 * 		The position of the GameObject
 	 */
-	public static Vector2 getPosition() {
+	public Vector2 getPosition() {
 		return position;
 	}
 

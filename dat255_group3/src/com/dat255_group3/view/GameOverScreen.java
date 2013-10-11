@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.InGameController;
 
 
 /**
@@ -39,11 +40,8 @@ public class GameOverScreen implements Screen{
 //	private TweenManager tweenmanager;
 	
 	
-	public GameOverScreen(MyGdxGameController myGdxGameController, int score, int time, boolean gameOver){
+	public GameOverScreen(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
-		this.score = score;
-		this.time = time;
-		this.gameOver = gameOver;
 		this.stage = new Stage(0,0, true);
 		//Setting up the stage
 		Gdx.input.setInputProcessor(stage);
@@ -129,6 +127,7 @@ public class GameOverScreen implements Screen{
         			//Next level
         		} else {
         			//This level
+        			myGdxGameController.getInGameController().reset();
         			myGdxGameController.setScreen(myGdxGameController.getInGameController());
         		}
         		
@@ -140,7 +139,7 @@ public class GameOverScreen implements Screen{
         mainMenuButton.addListener(new ClickListener(){
         	@Override
 			public void clicked (InputEvent event, float x, float y){
-        		myGdxGameController.setScreen(new StartScreen(myGdxGameController));
+        		myGdxGameController.setScreen(myGdxGameController.getStartScreen());
 			}
         });
         
@@ -189,6 +188,11 @@ public class GameOverScreen implements Screen{
 		skin.dispose();
 		atlas.dispose();
 		
+	}
+	public void gameOver(int score, int time, boolean gameOver) {
+		this.score = score;
+		this.time = time;
+		this.gameOver = gameOver;
 	}
 
 }
