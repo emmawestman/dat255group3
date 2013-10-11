@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.InGameView;
@@ -32,18 +33,9 @@ public class InGameController implements Screen{
 
 
 	public InGameController(MyGdxGameController myGdxGameController){
-		matrix.setToOrtho2D(0, 0, 480, 320);
+		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
-		map = new TmxMapLoader().load("worlds/test5.tmx");
-		this.myGdxGameController = new MyGdxGameController();
-		this.inGameView = new InGameView(map, cameraController.getCamera());
-		this.inGame = new InGame();
-		this.worldController = new WorldController(this, inGame.getSpeedM());
-		this.time = 0;
-		this.gameOver = false;
-
-
 	}
 
 
@@ -117,6 +109,13 @@ public void resize(int width, int height) {
 
 @Override
 public void show() {
+	loadMap();
+	this.inGameView = new InGameView(map, cameraController.getCamera());
+	this.inGame = new InGame();
+	this.worldController = new WorldController(this, inGame.getSpeedM());
+	this.time = 0;
+	this.gameOver = false;
+
 	// TODO Auto-generated method stub
 }
 
@@ -225,4 +224,11 @@ public void gameOver() {
 	myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
 }
 
+	public void loadMap(){
+		try{
+			map = new TmxMapLoader().load("worlds/map" +myGdxGameController.getCurrentLevel()+ ".tmx");
+		}catch(GdxRuntimeException e){
+			Gdx.app.log("InGameController", "loadMap()", e);
+		}
+	}
 }
