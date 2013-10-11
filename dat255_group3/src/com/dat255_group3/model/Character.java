@@ -99,6 +99,12 @@ public class Character {
 		this.position = position;
 	}
 
+	public float getDeahLimit() {
+		return deathLimit;
+	}
 	
+	public void moveDeathLimit(float speedP) {
+		this.deathLimit = deathLimit + speedP;
+	}
 
 }

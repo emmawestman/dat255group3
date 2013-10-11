@@ -33,7 +33,7 @@ public class GameOverScreen implements Screen{
 	private Skin skin;
 	private Table table;
 	private int score;
-	private int time;
+	private float time;
 	private boolean gameOver;
 	
 //	import aurelienribon.tweenengine.TweenManager;
@@ -195,7 +195,7 @@ public class GameOverScreen implements Screen{
 		atlas.dispose();
 		
 	}
-	public void gameOver(int score, int time, boolean gameOver) {
+	public void gameOver(int score, float time, boolean gameOver) {
 		this.score = score;
 		this.time = time;
 		this.gameOver = gameOver;

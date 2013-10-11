@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -28,7 +27,6 @@ public class InGameController implements Screen{
 	private TiledMap map;
 	private OrthographicCameraController cameraController;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
-	private Matrix4 matrix = new Matrix4();
 	private float time;
 	private boolean gameOver;
 
@@ -45,7 +43,7 @@ public class InGameController implements Screen{
 		// Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 
 
 		/*
@@ -53,176 +51,178 @@ public class InGameController implements Screen{
 		 * If so, a pausepop-up-screen will be shown.
 		 */
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-
+			this.pause();
 		}
 
 		if (hasWon()) {
-//			//Change to gamewon-screen
-//			worldController.getSoundController().playVictorySound();
-//			worldController.getSoundController().pauseBackgroundMusic();
-			//this.gameOver = false;
-			//gameOver();
+			//			Change to gamewon-screen
+			//			worldController.getSoundController().playVictorySound();
+			//			worldController.getSoundController().pauseBackgroundMusic();
+			this.myGdxGameController.getPlayerController().getPlayer().calculateScore(
+					worldController.getWorld().getTime(), worldController.getWorld().getCookieCounter());
+			this.gameOver = false;
+			gameOver();
 		}
-		
+
 		if(this.worldController.getCharacterController().getCharacter().isDead()){
 			this.gameOver = true;
-//			worldController.getSoundController().playGameOverSound();
-//			worldController.getSoundController().pauseBackgroundMusic();
+			//			worldController.getSoundController().playGameOverSound();
+			//			worldController.getSoundController().pauseBackgroundMusic();
 			gameOver();
 		} 
 
-			update(delta);
-			
-			// check collision with the closest cookie
-			worldController.checkNextCookie();
+		update(delta);
 
-			
-			// draws the world and its components
-			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), 
-					this.worldController.getCharacterController().getCharacterView(), 
-					this.worldController.getCookieController().getCookieView(), time, 
-					worldController.getCookieCounter(), gameOver);
-
-			/*
-			 * Checks whether the screen has been touched. 
-			 * If so, a method which will make the character jump is invoked.
-			 */
-			if(Gdx.input.isTouched()){
-				worldController.getCharacterController().tryToJump(); 	
-			}
-
-			//Draw physics bodies, for debugging
-			renderer.render(worldController.getPhysicsWorld(), matrix);
-		
-}
+		// check collision with the closest cookie
+		worldController.checkNextCookie();
 
 
-@Override
-public void resize(int width, int height) {
-	// TODO Auto-generated method stub
-
-}
-
-@Override
-public void show() {
-	loadMap();
-	this.inGameView = new InGameView(map, cameraController.getCamera());
-	this.inGame = new InGame();
-	this.worldController = new WorldController(this, inGame.getSpeedM());
-	this.time = 0;
-	this.gameOver = false;
-	worldController.getSoundController().playBackgroundMusic();
-
-	// TODO Auto-generated method stub
-}
-
-@Override
-public void hide() {
-	// TODO Auto-generated method stub
-
-}
-
-@Override
-public void pause() {
-	// TODO Auto-generated method stub
-
-}
-
-@Override
-public void resume() {
-	// TODO Auto-generated method stub
-
-}
-
-@Override
-public void dispose() {
-	map.dispose();
-	cameraController.dispose();
-	renderer.dispose();
-}
-/**
- * Update so that the character model has the same position (x,y) as the physical body
- * @param body , the physical body of the character
- * @param character , the character model with the position
- */
+		// draws the world and its components
+		this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), 
+				this.worldController.getCharacterController().getCharacterView(), 
+				this.worldController.getCookieController().getCookieView(), time, 
+				worldController.getWorld().getCookieCounter(), gameOver);
 
 
-public InGame getInGame() {
-	return inGame;
-}
-
-public InGameView getInGameView() {
-	return inGameView;
-}
-
-public TiledMap getMap() {
-	return map;
-}
-
-public OrthographicCamera getCamera() {
-	return cameraController.getCamera();
-}
-
-
-public boolean hasWon() {
-	//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
-	if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
-		return true;
-	}else{
-		return false;
+		/*
+		 * Checks whether the screen has been touched. 
+		 * If so, a method which will make the character jump is invoked.
+		 */
+		if(Gdx.input.isTouched()){
+			worldController.getCharacterController().tryToJump(); 	
+		}
 	}
-}
 
-public void reset() {
-	//reset
-}
-
-public void update(float delta) {
-	
-	this.timeStep = delta;
-	
-	// update the physics
-	this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
-	//Move the physic body of the character
-	//worldController.getCharBody().applyForceToCenter(0.3f, 0, true);
-
-
-	// Update the position of the camera
-	cameraController.render();
-
-	//update the time
-	this.time = time+delta;
-	
-	//Check the pitch of the device and changes the speed
-	inGame.setSpeedM(0.5f*GyroUtils.gyroSteering());
-	
-	// Updates the speed
-	inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()*delta));
-	cameraController.setSpeedP(inGame.getSpeedP());
-
-	//give character speed
-	if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
-		this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
+	@Override
+	public void show() {
+		loadMap();
+		this.inGameView = new InGameView(map, cameraController.getCamera());
+		this.inGame = new InGame();
+		this.worldController = new WorldController(this, inGame.getSpeedM());
+		this.time = 0;
+		this.gameOver = false;
+		worldController.getSoundController().playBackgroundMusic();
 	}
-	// update the model position for the character
-	this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
 
-	// Update the position of the finish line
-	worldController.moveFinishLine(inGame.getSpeedP());
 
-}
-public void gameOver() {
-	Gdx.app.log("Game over:", gameOver + "");
-	//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+	}
 
-	int timeint = 10;
-	int score = 10;
-	//Change to gameover-screen
-	myGdxGameController.getGameOverScreen().gameOver(score, timeint, gameOver);
-	myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
-}
+	@Override
+	public void pause() {
+		Gdx.input.setCatchBackKey(true);
+		myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
+		worldController.getSoundController().pauseBackgroundMusic();
+		cameraController.pause();
+	}
+
+	@Override
+	public void resume() {
+		cameraController.resume();
+	}
+
+
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+
+	@Override
+	public void dispose() {
+		map.dispose();
+		cameraController.dispose();
+		renderer.dispose();
+	}
+	/**
+	 * Update so that the character model has the same position (x,y) as the physical body
+	 * @param body , the physical body of the character
+	 * @param character , the character model with the position
+	 */
+
+
+	public InGame getInGame() {
+		return inGame;
+	}
+
+	public InGameView getInGameView() {
+		return inGameView;
+	}
+
+	public TiledMap getMap() {
+		return map;
+	}
+
+
+	public OrthographicCamera getCamera() {
+		return cameraController.getCamera();
+	}
+
+
+
+
+
+	public boolean hasWon() {
+		if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public void reset() {
+		//reset
+	}
+
+	public void update(float delta) {
+
+		this.timeStep = delta;
+
+		// update the physics
+		this.worldController.getPhysicsWorld().step(this.timeStep, this.velocityIterations, this.positionIterations);
+		//Move the physic body of the character
+		//worldController.getCharBody().applyForceToCenter(0.3f, 0, true);
+
+
+		// Update the position of the camera
+		cameraController.render();
+
+		//update the time
+		this.time = time+delta;
+
+		//Check the pitch of the device and changes the speed
+		inGame.setSpeedM(0.5f*GyroUtils.gyroSteering());
+
+		// Updates the speed
+		inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()*delta));
+		cameraController.setSpeedP(inGame.getSpeedP());
+
+		//give character speed
+		if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
+			this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
+		}
+		// update the model position for the character
+		this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
+
+		// Update the position of the death limit
+		worldController.getCharacterController().getCharacter().moveDeathLimit(inGame.getSpeedP());
+	}
+
+	public void gameOver() {
+		Gdx.app.log("Game over:", gameOver + "");
+
+
+
+		//Change to gameover-screen
+		myGdxGameController.getGameOverScreen().gameOver(this.myGdxGameController.getPlayerController().getPlayer().getScore(), 
+				worldController.getWorld().getTime(), gameOver);
+		myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
+	}
 
 	public void loadMap(){
 		try{

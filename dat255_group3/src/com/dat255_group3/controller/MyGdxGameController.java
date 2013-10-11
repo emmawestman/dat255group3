@@ -85,6 +85,11 @@ public class MyGdxGameController extends Game {
 		return this.gameOverScreen;
 	}
 	
+
+	public PlayerController getPlayerController() {
+		return this.playerController;
+	}
+
 	public int getCurrentLevel(){
 		return this.currentLevel;
 		

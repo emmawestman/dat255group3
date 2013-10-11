@@ -76,7 +76,7 @@ public class WorldController {
 			cookieList.add(new Cookie(new Vector2(cookiePosList.get(i).x, cookiePosList.get(i).y)));
 		}
 		cookieIndex = 0;
-		cookieCounter = 0;
+		world.setCookieCounter(0);
 
 		// create cookieController
 		cookieController = new CookieController(cookieList, inGameController.getCamera());
@@ -175,12 +175,10 @@ public class WorldController {
 
 	public void collision() {
 		cookieList.remove(cookieIndex);
-		cookieCounter++;
+		world.increaseCoockieCounter();
 		soundController.playCookieSound();
 	}
 	
-	public int getCookieCounter() {
-		return cookieCounter;
-	}
+	
 
 }
