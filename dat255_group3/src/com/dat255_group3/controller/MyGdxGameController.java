@@ -20,6 +20,7 @@ public class MyGdxGameController extends Game {
 	private StartScreen startScreen;
 	private PlayerController playerController;
 	private int currentLevel;
+	private boolean isGameStarted;
 	
 	@Override
 	public void create() {

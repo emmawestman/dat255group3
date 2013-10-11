@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.controller.InGameController;
+import com.dat255_group3.utils.CoordinateConverter;
 
 
 /**
@@ -33,7 +34,7 @@ public class GameOverScreen implements Screen{
 	private Skin skin;
 	private Table table;
 	private int score;
-	private float time;
+	private double time;
 	private boolean gameOver;
 	
 //	import aurelienribon.tweenengine.TweenManager;
@@ -42,9 +43,8 @@ public class GameOverScreen implements Screen{
 	
 	public GameOverScreen(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
-		this.stage = new Stage(0,0, true);
+		this.stage = new Stage(CoordinateConverter.getCameraWidth(),CoordinateConverter.getCameraWidth(), true);
 		//Setting up the stage
-		Gdx.input.setInputProcessor(stage);
 	}
 	
 	@Override
@@ -52,6 +52,7 @@ public class GameOverScreen implements Screen{
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		
 		//Update & draw the stage actors
 		stage.act(delta);
 		//table.drawDebug(stage); //To be removed later on
@@ -68,6 +69,7 @@ public class GameOverScreen implements Screen{
 
 	@Override
 	public void show() {		
+		Gdx.input.setInputProcessor(stage);
 		//Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
 		skin = new Skin(atlas);
@@ -127,13 +129,11 @@ public class GameOverScreen implements Screen{
         			int currentLevel = myGdxGameController.getCurrentLevel();
         			myGdxGameController.setCurrentLevel(currentLevel++);
         			myGdxGameController.getInGameController().loadMap();
-        			myGdxGameController.getInGameController().reset();
         			myGdxGameController.setScreen(myGdxGameController.getInGameController());
         			
         			//Next level
         		} else {
         			//This level
-        			myGdxGameController.getInGameController().reset();
         			myGdxGameController.setScreen(myGdxGameController.getInGameController());
         		}
         		
@@ -195,9 +195,9 @@ public class GameOverScreen implements Screen{
 		atlas.dispose();
 		
 	}
-	public void gameOver(int score, float time, boolean gameOver) {
+	public void gameOver(int score, double time, boolean gameOver) {
 		this.score = score;
-		this.time = time;
+		this.time = (double)((int)(time*100))/100;
 		this.gameOver = gameOver;
 	}
 

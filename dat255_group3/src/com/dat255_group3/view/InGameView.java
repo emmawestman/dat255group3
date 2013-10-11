@@ -36,7 +36,7 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, float time, int cookieCounter, boolean gameOver) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, double time, int cookieCounter, boolean gameOver) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();
@@ -57,9 +57,9 @@ public class InGameView {
 		spriteBatch.end();
 	}
 	
-	public void drawTime(float time) {
+	public void drawTime(double time) {
 		spriteBatch.begin();
-		str = "Time: "+ (double)time;
+		str = "Time: "+ (double)((int)(time*100))/100;
 		font.setColor(Color.BLACK);
 		font.draw(spriteBatch, str, 20f, camera.viewportHeight-30f);
 		spriteBatch.end();

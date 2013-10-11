@@ -40,8 +40,11 @@ public class Player {
 		return highscore;
 	}
 	
-	public void calculateScore(float time, int cookies) {
-		this.score = (int) ((60/time)*1000 + cookies*100);
-		
+	public void calculateScore(double time, int cookies, boolean gameLost) {
+		if(gameLost){
+			this.score = cookies*100;
+		}else {
+			this.score = (int) ((60/time)*1000 + cookies*100);
+		}
 	}
 }

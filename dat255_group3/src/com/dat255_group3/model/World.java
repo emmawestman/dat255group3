@@ -10,7 +10,7 @@ package com.dat255_group3.model;
 public class World {
 	
 	private int cookieCounter;
-	private float time;
+	private double time;
 
 	/**
 	 * Class constructor.
@@ -27,11 +27,11 @@ public class World {
 		this.cookieCounter = cookieCounter;
 	}
 
-	public float getTime() {
+	public double getTime() {
 		return time;
 	}
 
-	public void setTime(float time) {
+	public void setTime(double time) {
 		this.time = time;
 	}
 	
