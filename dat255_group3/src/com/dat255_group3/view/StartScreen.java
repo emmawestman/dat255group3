@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.SoundController;
 
 
 /**
@@ -121,9 +122,9 @@ public class StartScreen implements Screen{
         ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
        	TextureAtlas soundAtlas = new TextureAtlas(Gdx.files.internal("ui/music/sound.pack"));
 		Skin soundSkin = new Skin(soundAtlas);
-		soundButtonStyle.up = soundSkin.getDrawable("sound.up");
+		soundButtonStyle.up = soundSkin.getDrawable("sound.down");
 		soundButtonStyle.down = soundSkin.getDrawable("sound.down");
-		soundButtonStyle.checked = soundSkin.getDrawable("sound.down");
+		soundButtonStyle.checked = soundSkin.getDrawable("sound.up");
         
         ImageButton soundEButton = new ImageButton(soundButtonStyle);
         soundEButton.pad(20);
@@ -131,16 +132,20 @@ public class StartScreen implements Screen{
         soundEButton.addListener(new ClickListener(){
         	@Override
 			public void clicked (InputEvent event, float x, float y){
-        		 //TODO: To be implemented
+       		 if(MyGdxGameController.soundEffectsOn()) {
+    			 myGdxGameController.soundEffectsOn(false);
+    		 }else{
+    			 myGdxGameController.soundEffectsOn(true);
+    		 }
 			}
         });
         
         ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
        	TextureAtlas musicAtlas = new TextureAtlas(Gdx.files.internal("ui/music/music.pack"));
 		Skin musicSkin = new Skin(musicAtlas);
-        musicButtonStyle.up = musicSkin.getDrawable("music.up");
+        musicButtonStyle.up = musicSkin.getDrawable("music.down");
         musicButtonStyle.down = musicSkin.getDrawable("music.pressed");
-        musicButtonStyle.checked = musicSkin.getDrawable("music.down");
+        musicButtonStyle.checked = musicSkin.getDrawable("music.up");
         
         ImageButton musicButton = new ImageButton(musicButtonStyle);
         musicButton.pad(20);
@@ -148,7 +153,11 @@ public class StartScreen implements Screen{
         musicButton.addListener(new ClickListener(){
         	@Override
 			public void clicked (InputEvent event, float x, float y){
-        		 //TODO: To be implemented
+        		 if(SoundController.backgroundMusicIsPlaying()) {
+        			 SoundController.pauseBackgroundMusic();
+        		 }else{
+        			 SoundController.playBackgroundMusic();
+        		 }
 			}
         });
         
@@ -166,10 +175,10 @@ public class StartScreen implements Screen{
         table.add(exitButton);
        // table.getCell(exitButton).spaceBottom(100);
         table.row();
-      //  table2.center();
-       // table2.add(soundEButton).right();
-       // table2.add(musicButton);
-       // table.add(table2);
+        table2.center();
+        table2.add(soundEButton).right();
+        table2.add(musicButton);
+        table.add(table2);
         table.row();
         stage.addActor(table);
         
