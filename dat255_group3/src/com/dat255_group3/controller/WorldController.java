@@ -156,7 +156,7 @@ public class WorldController {
 	public void checkNextCookie() {
 		if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
 			checkCookieCollision();
-		}else{
+		}else if(cookieIndex < cookieList.size()){
 			cookieIndex++;
 		}
 	}

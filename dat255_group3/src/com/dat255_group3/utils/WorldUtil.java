@@ -112,9 +112,9 @@ public class WorldUtil {
 						if(currentLayer.getCell(x, y) != null) {
 							TiledMapTile tile = currentLayer.getCell(x, y).getTile();
 							if(tile.getProperties().containsKey("Ground")) {
-								groundList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
+								groundList.getMapList().add(new Vector2((x*tileSize.x - tileSize.x/2), y*tileSize.y + tileSize.y/2));
 							}else if(tile.getProperties().containsKey("Obstacle")) {
-								obstacleList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
+								obstacleList.getMapList().add(new Vector2((x*tileSize.x - tileSize.x/2), y*tileSize.y + tileSize.y/2));
 							}
 						}
 					}
