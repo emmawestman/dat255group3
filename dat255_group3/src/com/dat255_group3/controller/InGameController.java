@@ -194,7 +194,10 @@ public void update(float delta) {
 
 	//update the time
 	this.time = time+delta;
-
+	
+	//Check the pitch of the device
+	inGame.setSpeedM(0.5f*GyroUtils.gyroSteering());
+	
 	// Updates the speed
 	inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()*delta));
 	cameraController.setSpeedP(inGame.getSpeedP());
