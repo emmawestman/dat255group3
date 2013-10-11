@@ -30,6 +30,7 @@ public class WorldController {
 	private CookieController cookieController;
 	private int cookieIndex;
 	private int cookieCounter;
+	private SoundController soundController;
 
 	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
@@ -84,6 +85,8 @@ public class WorldController {
 		// create cookieController
 		cookieController = new CookieController(cookieList, inGameController.getCamera());
 
+		// create soundController
+		soundController = new SoundController();
 		this.worldView = new WorldView();
 
 	}
@@ -131,6 +134,10 @@ public class WorldController {
 	public float getFinishLineX() {
 		return finishLineX;
 	}
+	
+	public SoundController getSoundController() {
+		return soundController;
+	}
 
 	public Vector2 getGravity() {
 		return gravity;
@@ -155,7 +162,7 @@ public class WorldController {
 	}
 
 	public void checkNextCookie() {
-		if(cookieList.size() > 0) {
+		if(cookieList.size() > 0 && cookieList.size() > cookieIndex) {
 			if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
 				checkCookieCollision();
 			}else if(cookieIndex < cookieList.size()-1){
@@ -178,6 +185,7 @@ public class WorldController {
 	public void collision() {
 		cookieList.remove(cookieIndex);
 		cookieCounter++;
+		soundController.playCookieSound();
 	}
 	
 	public int getCookieCounter() {

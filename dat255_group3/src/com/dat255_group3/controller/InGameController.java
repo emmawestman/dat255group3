@@ -42,7 +42,7 @@ public class InGameController implements Screen{
 		this.worldController = new WorldController(this, inGame.getSpeedM());
 		this.time = 0;
 		this.gameOver = false;
-
+		worldController.getSoundController().playBackgroundMusic();
 
 	}
 
@@ -67,13 +67,17 @@ public class InGameController implements Screen{
 		}
 
 		if (hasWon()) {
-			//Change to gamewon-screen
+//			//Change to gamewon-screen
+//			worldController.getSoundController().playVictorySound();
+//			worldController.getSoundController().pauseBackgroundMusic();
 			//this.gameOver = false;
 			//gameOver();
 		}
 		
 		if(this.worldController.getCharacterController().getCharacter().isDead()){
 			this.gameOver = true;
+//			worldController.getSoundController().playGameOverSound();
+//			worldController.getSoundController().pauseBackgroundMusic();
 			gameOver();
 		} 
 
@@ -166,6 +170,7 @@ public TiledMap getMap() {
 public OrthographicCamera getCamera() {
 	return cameraController.getCamera();
 }
+
 
 public boolean hasWon() {
 	//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
