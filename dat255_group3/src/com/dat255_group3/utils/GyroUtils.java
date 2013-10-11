@@ -9,22 +9,25 @@ import com.badlogic.gdx.Input.Orientation;
  * A utility class that handles methods to do with the accelerometer
  */
 public class GyroUtils {
-	private static float upHill = 30;
-	private static float downHill = -30;
+	private static float upHill = 25;
+	private static float downHill = -25;
 		
 	/**
-	 * Checks the pitch of the device and 
-	 * updates game speed according to it. 
+	 * Checks the pitch of the device and returns speed in as a percentage. 
+	 * @return speed as a percentage
 	 */
-	public static void gyroSteering(){
+	public static float gyroSteering(){
 		float pitch = Gdx.input.getPitch();
 				
 		if (pitch>upHill){
 			Gdx.app.log("Viking","Going up hill: "+pitch);
+			return 0.5f;
 		}else if(pitch<downHill){
 			Gdx.app.log("Viking","Going down hill: "+pitch);
+			return 2.0f;
 		}else{
 			Gdx.app.log("Viking","Staying on level "+pitch);
+			return 1.0f;
 		}
 	}
 
@@ -47,4 +50,4 @@ public class GyroUtils {
 		}
 	
 	}
-}
+}	
