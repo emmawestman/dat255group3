@@ -53,7 +53,6 @@ public class InGameController implements Screen{
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		Gdx.app.log("InGameController", "Rendering");
 
 
 		/*
@@ -99,13 +98,7 @@ public class InGameController implements Screen{
 
 			//Draw physics bodies, for debugging
 			renderer.render(worldController.getPhysicsWorld(), matrix);
-			//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
-			//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 		
-
-
-	//		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
-
 }
 
 
@@ -199,7 +192,6 @@ public void update(float delta) {
 	// Updates the speed
 	inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()*delta));
 	cameraController.setSpeedP(inGame.getSpeedP());
-	Gdx.app.log("InGameController", "render part2");
 
 	//give character speed
 	if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
@@ -207,8 +199,6 @@ public void update(float delta) {
 	}
 	// update the model position for the character
 	this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
-	Gdx.app.log("Charecter grafic posX: ", "" + this.worldController.getCharacterController().getCharacter().getPosition().x);
-	Gdx.app.log("Charecter physics posX: ", "" + this.worldController.getCharBody().getPosition().x);
 
 	// Update the position of the finish line
 	worldController.moveFinishLine(inGame.getSpeedP());
