@@ -36,7 +36,8 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, float time, int cookieCounter, boolean gameOver) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, 
+			float time, int cookieCounter, boolean gameOver) {
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render();

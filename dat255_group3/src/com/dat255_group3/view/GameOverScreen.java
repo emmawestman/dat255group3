@@ -133,6 +133,7 @@ public class GameOverScreen implements Screen{
         			//Next level
         		} else {
         			//This level
+
         			myGdxGameController.getInGameController().reset();
         			myGdxGameController.setScreen(myGdxGameController.getInGameController());
         		}
