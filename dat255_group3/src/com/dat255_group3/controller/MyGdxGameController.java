@@ -19,15 +19,16 @@ public class MyGdxGameController extends Game {
 	private PauseScreen pauseScreen;
 	private StartScreen startScreen;
 	private PlayerController playerController;
+	private int currentLevel;
 	
 	@Override
 	public void create() {
 		//create other the scenes and the player and the gameModel
+		this.startScreen = new StartScreen(this);
+		this.levelScreen = new LevelScreen(this);
 		this.myGdxGame = new MyGdxGame();
 		this.playerController = new PlayerController(this);
 		this.inGameController = new InGameController(this);
-		this.startScreen = new StartScreen(this);
-		this.levelScreen = new LevelScreen(this);
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
 		
@@ -84,7 +85,17 @@ public class MyGdxGameController extends Game {
 		return this.gameOverScreen;
 	}
 	
+
 	public PlayerController getPlayerController() {
 		return this.playerController;
+	}
+
+	public int getCurrentLevel(){
+		return this.currentLevel;
+		
+	}
+	
+	public void setCurrentLevel(int level){
+		this.currentLevel = level;
 	}
 }

@@ -124,6 +124,12 @@ public class GameOverScreen implements Screen{
         		//To be implemented.
         		
         		if(!gameOver){
+        			int currentLevel = myGdxGameController.getCurrentLevel();
+        			myGdxGameController.setCurrentLevel(currentLevel++);
+        			myGdxGameController.getInGameController().loadMap();
+        			myGdxGameController.getInGameController().reset();
+        			myGdxGameController.setScreen(myGdxGameController.getInGameController());
+        			
         			//Next level
         		} else {
         			//This level
