@@ -5,10 +5,18 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Orientation;
 import com.badlogic.gdx.input.*;
 
+/**
+ * @author TheHansGunnarCrew
+ * A utility class that handles methods to do with the accelerometer
+ */
 public class GyroUtils {
 	private static float upHill = 30;
 	private static float downHill = -30;
 		
+	/**
+	 * Checks the pitch of the device and 
+	 * updates game speed according to it. 
+	 */
 	public static void gyroSteering(){
 		float pitch = Gdx.input.getPitch();
 				
@@ -21,6 +29,10 @@ public class GyroUtils {
 		}
 	}
 
+	/**
+	 * Checks the native orientation of the device
+	 * and updates the steering according to it.
+	 */
 	public void checkDeviceOrientation(){
 
 		Orientation orientation = Gdx.input.getNativeOrientation();
@@ -29,7 +41,8 @@ public class GyroUtils {
 			upHill = 30;
 			downHill = -30;
 		}else if(orientation == Input.Orientation.valueOf("Landscape")){
-			//These values are untested, and intended to be used for tablet devices.
+			//These values are untested, 
+			//and are intended to be used for tablet devices.
 			upHill = 120;
 			downHill = 60;
 		}
