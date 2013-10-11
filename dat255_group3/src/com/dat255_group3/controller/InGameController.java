@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.GyroUtils;
 import com.dat255_group3.view.InGameView;
 
 public class InGameController implements Screen{
