@@ -154,19 +154,17 @@ public class WorldController {
 	}
 
 	public void checkNextCookie() {
-		if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
+		if(cookieList.get(cookieIndex).getPosition().x + 32 > Character.getPosition().x) {
 			checkCookieCollision();
-		}else{
+		}else if(cookieIndex < cookieList.size()){
 			cookieIndex++;
 		}
 	}
 
 	public void checkCookieCollision() {
-		characterController.getCharacter();
-		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
+		if(cookieList.get(cookieIndex).getPosition().x - Character.getPosition().x 
 				< Character.getWidth()) {
-			characterController.getCharacter();
-			if(cookieList.get(cookieIndex).getPosition().y + 32 - characterController.getCharacter().getPosition().y
+			if(cookieList.get(cookieIndex).getPosition().y - Character.getPosition().y
 					< Character.getHeight()) {
 				collision();
 			}
