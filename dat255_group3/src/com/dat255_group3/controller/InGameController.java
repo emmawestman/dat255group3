@@ -197,12 +197,12 @@ public void update(float delta) {
 	this.time = time+delta;
 
 	// Updates the speed
-	inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
+	inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()*delta));
 	cameraController.setSpeedP(inGame.getSpeedP());
 	Gdx.app.log("InGameController", "render part2");
 
 	//give character speed
-	if(this.worldController.getCharBody().getLinearVelocity().x < 2.5){
+	if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
 		this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
 	}
 	// update the model position for the character
