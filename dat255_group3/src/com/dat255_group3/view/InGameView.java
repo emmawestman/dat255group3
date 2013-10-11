@@ -59,7 +59,7 @@ public class InGameView {
 	
 	public void drawTime(float time) {
 		spriteBatch.begin();
-		str = "Time: "+ (int)time;
+		str = "Time: "+ (double)time;
 		font.setColor(Color.BLACK);
 		font.draw(spriteBatch, str, 20f, camera.viewportHeight-30f);
 		spriteBatch.end();

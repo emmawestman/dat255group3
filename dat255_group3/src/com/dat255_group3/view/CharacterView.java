@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.dat255_group3.model.Character;
 import com.dat255_group3.utils.WorldUtil;
@@ -14,7 +15,7 @@ import com.dat255_group3.utils.WorldUtil;
  */
 public class CharacterView {
 	
-	private Rectangle characterRect;
+	private Circle characterCircle;
 	private Character character;
 	private ShapeRenderer shape = new ShapeRenderer();
 	private OrthographicCamera camera;
@@ -25,9 +26,8 @@ public class CharacterView {
 	 */
 	public CharacterView (Character character, OrthographicCamera camera) {
 		this.character = character;
-		characterRect = new Rectangle();
-		characterRect.height = Character.getHeight();
-		characterRect.width =  Character.getWidth();
+		characterCircle = new Circle();
+		characterCircle.radius =  Character.getRadius();
 		this.camera = camera;
 	}
 	
@@ -41,7 +41,7 @@ public class CharacterView {
 		shape.setProjectionMatrix(camera.combined);
 		shape.begin(ShapeType.Filled);
 		shape.setColor(Color.CYAN);
-		shape.rect(character.getPosition().x, character.getPosition().y, characterRect.width, characterRect.height);
+		shape.circle(character.getPosition().x, character.getPosition().y, characterCircle.radius);
 		shape.end();
 		
 		//fullosning ritar ut forsta hindret

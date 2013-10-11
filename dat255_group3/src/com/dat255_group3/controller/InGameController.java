@@ -12,9 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
-import com.dat255_group3.view.GameOverScreen;
 import com.dat255_group3.view.InGameView;
-import com.dat255_group3.view.PauseScreen;
 
 public class InGameController implements Screen{
 
@@ -55,6 +53,8 @@ public class InGameController implements Screen{
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		Gdx.app.log("InGameController", "Rendering");
+
 
 		/*
 		 * Checks whether the backbutton has been pressed.
@@ -68,26 +68,26 @@ public class InGameController implements Screen{
 
 		if (hasWon()) {
 			//Change to gamewon-screen
-			//			int timeint = (int) (time);
-			//myGdxGameController.getGameOverScreen().gameOver(score, timeint, gameOver);
-			//myGdxGameController.setScreen(myGdxGameController.getGameOverScreen));
-			//Gdx.app.log("FinishLine","At finish line");
+			//this.gameOver = false;
+			//gameOver();
 		}
 		
-			if(this.worldController.getCharacterController().getCharacter().isDead()){
-				gameOver();
-			} 
+		if(this.worldController.getCharacterController().getCharacter().isDead()){
+			this.gameOver = true;
+			gameOver();
+		} 
 
 			update(delta);
+			
+			// check collision with the closest cookie
+			//worldController.checkNextCookie();
+
 			
 			// draws the world and its components
 			this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), 
 					this.worldController.getCharacterController().getCharacterView(), 
 					this.worldController.getCookieController().getCookieView(), time, 
 					worldController.getCookieCounter(), gameOver);
-
-			// check collision with the closest cookie
-			worldController.checkNextCookie();
 
 			/*
 			 * Checks whether the screen has been touched. 
@@ -199,7 +199,7 @@ public void update(float delta) {
 	// Updates the speed
 	inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
 	cameraController.setSpeedP(inGame.getSpeedP());
-	Gdx.app.log("InGameCOntroller", "render part2");
+	Gdx.app.log("InGameController", "render part2");
 
 	//give character speed
 	if(this.worldController.getCharBody().getLinearVelocity().x < 2.5){
@@ -215,11 +215,10 @@ public void update(float delta) {
 
 }
 public void gameOver() {
-	Gdx.app.log("Game over", "game is over!");
-	this.gameOver = true;
+	Gdx.app.log("Game over:", gameOver + "");
 	//this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacterView(), time, gameOver);
 
-	int timeint = (int) (time);
+	int timeint = 10;
 	int score = 10;
 	//Change to gameover-screen
 	myGdxGameController.getGameOverScreen().gameOver(score, timeint, gameOver);

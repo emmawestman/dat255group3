@@ -12,9 +12,9 @@ import com.dat255_group3.utils.WorldUtil;
 public class Character {
 	private int weight;
 	private double friction;
-	private static float width, height; //size of character in pixels
+	private static float radius; //size of character in pixels
 	private float deathLimit;
-	private static  Vector2 position; 
+	private static Vector2 position; 
 
 	/**
 	 * Constructs a Character with its properties.
@@ -27,8 +27,7 @@ public class Character {
 		//TODO no position in constructor! physics and render will handle it later!
 		this.friction = friction;
 		this.weight = weight;
-		Character.width = 50;
-		Character.height = 70;
+		Character.radius = 25;
 		this.deathLimit = 0f;
 		this.position = WorldUtil.getStartPos();
 	}
@@ -55,20 +54,12 @@ public class Character {
 		this.weight = weight;
 	}
 
-	public static float getWidth() {
-		return width;
+	public static float getRadius() {
+		return radius;
 	}
 
-	public void setWidth(float with) {
-		Character.width = with;
-	}
-
-	public static float getHeight() {
-		return height;
-	}
-
-	public void setHeight(float height) {
-		Character.height = height;
+	public void setRadius(float with) {
+		Character.radius = with;
 	}
 
 	/**
@@ -94,7 +85,7 @@ public class Character {
 	 * @return
 	 * 		The position of the GameObject
 	 */
-	public static Vector2 getPosition() {
+	public Vector2 getPosition() {
 		return position;
 	}
 
