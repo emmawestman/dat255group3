@@ -80,7 +80,7 @@ public class InGameController implements Screen{
 			update(delta);
 			
 			// check collision with the closest cookie
-			//worldController.checkNextCookie();
+			worldController.checkNextCookie();
 
 			
 			// draws the world and its components
