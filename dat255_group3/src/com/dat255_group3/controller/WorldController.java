@@ -2,6 +2,7 @@ package com.dat255_group3.controller;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dat255_group3.model.Character;
@@ -48,7 +49,7 @@ public class WorldController {
 		// create character body
 		this.charBody = PhysBodyFactory.createRoundCharacter(this.characterController.getCharacter(), this.physicsWorld);
 		//this.charBody = PhysBodyFactory.createCharacter(physicsWorld, new Vector2(WorldUtil.getStartPos()), 
-				//new Vector2(Character.getWidth(), Character.getHeight()));
+		//new Vector2(Character.getWidth(), Character.getHeight()));
 
 
 		// create the ground
@@ -154,20 +155,21 @@ public class WorldController {
 	}
 
 	public void checkNextCookie() {
-		if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
-			checkCookieCollision();
-		}else if(cookieIndex < cookieList.size()){
-			cookieIndex++;
+		if(cookieList.size() > 0) {
+			if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
+				checkCookieCollision();
+			}else if(cookieIndex < cookieList.size()-1){
+				cookieIndex++;
+			}
 		}
 	}
 
 	public void checkCookieCollision() {
-		characterController.getCharacter();
 		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
 				< Character.getRadius()) {
-			characterController.getCharacter();
-			if(cookieList.get(cookieIndex).getPosition().y + 32 - characterController.getCharacter().getPosition().y
-					< Character.getRadius()) {
+			if(characterController.getCharacter().getPosition().y - cookieList.get(cookieIndex).getPosition().y
+					 < Character.getRadius()*2 && characterController.getCharacter().getPosition().y - 
+					 cookieList.get(cookieIndex).getPosition().y > 0) {
 				collision();
 			}
 		}
@@ -177,6 +179,7 @@ public class WorldController {
 		cookieList.remove(cookieIndex);
 		cookieCounter++;
 	}
+	
 	public int getCookieCounter() {
 		return cookieCounter;
 	}
