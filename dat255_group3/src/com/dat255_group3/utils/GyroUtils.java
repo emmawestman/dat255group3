@@ -3,7 +3,6 @@ package com.dat255_group3.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Orientation;
-import com.badlogic.gdx.input.*;
 
 /**
  * @author TheHansGunnarCrew
