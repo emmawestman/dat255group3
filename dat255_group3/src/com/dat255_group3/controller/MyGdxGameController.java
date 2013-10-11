@@ -21,6 +21,7 @@ public class MyGdxGameController extends Game {
 	private PlayerController playerController;
 	private int currentLevel;
 	private boolean isGameStarted;
+	private static boolean soundEffectsOn = true;
 	
 	@Override
 	public void create() {
@@ -33,6 +34,8 @@ public class MyGdxGameController extends Game {
 		this.inGameController = new InGameController(this);
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
+
+		SoundController.playBackgroundMusic();
 		
 		//go to the first screen
 		setScreen(startScreen);
@@ -99,7 +102,12 @@ public class MyGdxGameController extends Game {
 	public void setCurrentLevel(int level){
 		this.currentLevel = level;
 	}
+
 	
+	public void soundEffectsOn(boolean soundOn) {
+		soundEffectsOn = soundOn;
+	}
+
 	public boolean getIsGameStarted(){
 		return this.isGameStarted;
 	}
@@ -107,10 +115,13 @@ public class MyGdxGameController extends Game {
 	public void setIsGameStarted(boolean isGameStarted){
 		this.isGameStarted = isGameStarted;
 	}
-	
-	
+	public static boolean soundEffectsOn() {
+		return soundEffectsOn;
+	}
+
 	public void save(){
 		inGameController.save();
 		Gdx.app.log("MyGdx", "Save");
 	}
 }
+

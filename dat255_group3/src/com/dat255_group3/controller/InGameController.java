@@ -41,7 +41,7 @@ public class InGameController implements Screen{
 		// Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		/*
 		 * Checks whether the backbutton has been pressed.
 		 * If so, a pausepop-up-screen will be shown.
@@ -59,7 +59,7 @@ public class InGameController implements Screen{
 			this.gameOver = false;
 			gameOver();
 		}
-		
+
 		if(this.worldController.getCharacterController().getCharacter().isDead()){
 			this.gameOver = true;
 			//			worldController.getSoundController().playGameOverSound();
@@ -78,7 +78,7 @@ public class InGameController implements Screen{
 				this.worldController.getCharacterController().getCharacterView(), 
 				this.worldController.getCookieController().getCookieView(), worldController.getWorld().getTime(), 
 				worldController.getWorld().getCookieCounter(), gameOver);
-		
+
 		/*
 		 * Checks whether the screen has been touched. 
 		 * If so, a method which will make the character jump is invoked.
@@ -86,8 +86,8 @@ public class InGameController implements Screen{
 		if(Gdx.input.isTouched()){
 			worldController.getCharacterController().tryToJump(); 	
 		}
+
 	}
-	
 
 	@Override
 	public void show() {
@@ -99,7 +99,6 @@ public class InGameController implements Screen{
 			this.inGame = new InGame();
 			this.worldController = new WorldController(this, inGame.getSpeedM());
 			this.gameOver = false;
-			worldController.getSoundController().playBackgroundMusic();
 		//}
 	//	myGdxGameController.setIsGameStarted(true);
 	}
@@ -109,26 +108,24 @@ public class InGameController implements Screen{
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 	}
-
+	
 	@Override
 	public void pause() {
 		cameraController.pause();
-		worldController.getSoundController().pauseBackgroundMusic();
+		SoundController.pauseBackgroundMusic();
 		myGdxGameController.pause();
 	}
 
 	@Override
 	public void resume() {
+
 	}
 
 
 	@Override
 	public void hide() {
 		this.pause();
-
 	}
-
-
 
 	@Override
 	public void dispose() {
@@ -136,7 +133,6 @@ public class InGameController implements Screen{
 		cameraController.dispose();
 		renderer.dispose();
 	}
-
 
 	public InGame getInGame() {
 		return inGame;

@@ -59,14 +59,14 @@ public class WorldController {
 					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
 		}
 
-				//create the obstacles
-				obstacleBodyList = new ArrayList<Body>();
-				ArrayList<Vector2> obstacleList = worldUtil.getObstacleList().getMapList();
-				for(int i=0; i<obstacleList.size(); i++) {
-					obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
-							worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
-				}
-				
+		//create the obstacles
+		obstacleBodyList = new ArrayList<Body>();
+		ArrayList<Vector2> obstacleList = WorldUtil.getObstacleList().getMapList();
+		for(int i=0; i<obstacleList.size(); i++) {
+			obstacleBodyList.add(PhysBodyFactory.addObstacle(new Vector2(obstacleList.get(i).x, obstacleList.get(i).y),
+					worldUtil.getTileSize(), 0.8f, 0f, this.physicsWorld));
+		}
+
 
 
 		// create cookies
@@ -130,7 +130,7 @@ public class WorldController {
 	public float getFinishLineX() {
 		return finishLineX;
 	}
-	
+
 	public SoundController getSoundController() {
 		return soundController;
 	}
@@ -166,8 +166,8 @@ public class WorldController {
 		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
 				< Character.getRadius()) {
 			if(characterController.getCharacter().getPosition().y - cookieList.get(cookieIndex).getPosition().y
-					 < Character.getRadius()*2 && characterController.getCharacter().getPosition().y - 
-					 cookieList.get(cookieIndex).getPosition().y > 0) {
+					< Character.getRadius()*2 && characterController.getCharacter().getPosition().y - 
+					cookieList.get(cookieIndex).getPosition().y > 0) {
 				collision();
 			}
 		}
@@ -176,9 +176,9 @@ public class WorldController {
 	public void collision() {
 		cookieList.remove(cookieIndex);
 		world.increaseCookieCounter();
-		soundController.playCookieSound();
+		if(MyGdxGameController.soundEffectsOn()) {
+			soundController.playCookieSound();
+		}
 	}
-	
-	
 
 }
