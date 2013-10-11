@@ -128,7 +128,7 @@ public class WorldUtil {
 							if(tile.getProperties().containsKey("FinishLine")) {
 								finishLineX = x*tileSize.x;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
-								startPos = new Vector2((x*tileSize.x) - Character.getWidth()/2,y*tileSize.y + Character.getHeight()/2 + 30);
+								startPos = new Vector2((x*tileSize.x) - Character.getRadius()/2,y*tileSize.y + Character.getRadius()/2 + 30);
 								Gdx.app.log("from map", "StartPos found at: "+ x + ","+y);
 							}else if(tile.getProperties().containsKey("Cookie")) {
 								cookieList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));

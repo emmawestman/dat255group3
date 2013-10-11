@@ -88,7 +88,7 @@ public class WorldController {
 	}
 	public void uppdatePositions(Body body, Character character){
 		Vector2 posInPixels = CoordinateConverter.meterToPixel(body.getPosition());
-		character.setPosition(new Vector2 (posInPixels.x - (Character.getWidth()/2), posInPixels.y - (Character.getHeight()/2)) );
+		character.setPosition(new Vector2 (posInPixels.x - (Character.getRadius()/2), posInPixels.y - (Character.getRadius()/2)) );
 	}
 
 	public World getWorld() {
@@ -164,10 +164,10 @@ public class WorldController {
 	public void checkCookieCollision() {
 		characterController.getCharacter();
 		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
-				< Character.getWidth()) {
+				< Character.getRadius()) {
 			characterController.getCharacter();
 			if(cookieList.get(cookieIndex).getPosition().y + 32 - characterController.getCharacter().getPosition().y
-					< Character.getHeight()) {
+					< Character.getRadius()) {
 				collision();
 			}
 		}
