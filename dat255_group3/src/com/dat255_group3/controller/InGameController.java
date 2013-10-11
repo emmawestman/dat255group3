@@ -195,7 +195,7 @@ public void update(float delta) {
 	//update the time
 	this.time = time+delta;
 	
-	//Check the pitch of the device
+	//Check the pitch of the device and changes the speed
 	inGame.setSpeedM(0.5f*GyroUtils.gyroSteering());
 	
 	// Updates the speed
