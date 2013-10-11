@@ -55,13 +55,6 @@ public class InGameController implements Screen{
 		}
 		
 		/*
-		 * Check the rotation of the device.
-		 * And changes the speed of the game according to it.
-		 */
-		
-		GyroUtils.gyroSteering();
-		
-		/*
 		 * Checks whether the backbutton has been pressed.
 		 * If so, a pausepop-up-screen will be shown.
 		 */
