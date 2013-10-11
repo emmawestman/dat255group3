@@ -17,41 +17,13 @@ import com.dat255_group3.model.Character;
  */
 public class PhysBodyFactory {
 
-	/**
-	 * Creates a body for a movable character in the physical world. 
-	 * @param physWorld , The physical world in which the character should exist and be created
-	 * @param pos , the center position of the character body (pixels)
-	 * @param size , with and height the body (pixels)
-	 * @return The physical body of the character that exists in the physWorld with a set density, friction and restitution 
-	 */
-	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size) {
-		PolygonShape shape;
-		FixtureDef fixtureDef = new FixtureDef();
-		BodyDef bodyDef = new BodyDef();
-		Body body = null;
-
-
-		shape = new PolygonShape();
-		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		shape.setAsBox(size.x/2, size.y/2);
-
-		fixtureDef.shape = shape;
-		fixtureDef.density = 1f;
-		fixtureDef.friction = 0.5f;
-		fixtureDef.restitution = 0f;
-
-		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.fixedRotation = true;
-		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos)); //set the position in meters
-
-		body = physWorld.createBody(bodyDef);
-		body.createFixture(fixtureDef);
-		
-
-		return body;
-	}
 	
-	//TODO javadoc
+	/**
+	 * Create a circle shaped body for the character
+	 * @param character , the characterModel with position and radius
+	 * @param world , the physics world where the body should be created
+	 * @return
+	 */
 	public static Body createRoundCharacter(Character character, World world){
 		
 		FixtureDef fixtureDef = new FixtureDef();
@@ -59,7 +31,7 @@ public class PhysBodyFactory {
 		Body body = null;
 		
 		CircleShape shape = new CircleShape();
-		shape.setRadius(CoordinateConverter.pixelToMeter(25)); //TODO get radius from characterModel
+		shape.setRadius(CoordinateConverter.pixelToMeter(character.getRadius()));
 		
 		
 		fixtureDef.shape = shape;
@@ -91,7 +63,7 @@ public class PhysBodyFactory {
 			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		polygonShape.setAsBox(size.x, size.y);
+		polygonShape.setAsBox(size.x/2, size.y/2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.friction = friction;
@@ -117,7 +89,7 @@ public class PhysBodyFactory {
 			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		polygonShape.setAsBox(size.x, size.y);
+		polygonShape.setAsBox(size.x/2, size.y/2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.friction = friction;

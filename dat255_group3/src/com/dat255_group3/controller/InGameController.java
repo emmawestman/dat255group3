@@ -36,6 +36,7 @@ public class InGameController implements Screen{
 		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
+		worldController.getSoundController().playBackgroundMusic();
 	}
 
 
@@ -45,7 +46,6 @@ public class InGameController implements Screen{
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		Gdx.app.log("InGameController", "Rendering");
 
 
 		/*
@@ -59,20 +59,24 @@ public class InGameController implements Screen{
 		}
 
 		if (hasWon()) {
-			//Change to gamewon-screen
+//			//Change to gamewon-screen
+//			worldController.getSoundController().playVictorySound();
+//			worldController.getSoundController().pauseBackgroundMusic();
 			//this.gameOver = false;
 			//gameOver();
 		}
 		
 		if(this.worldController.getCharacterController().getCharacter().isDead()){
 			this.gameOver = true;
+//			worldController.getSoundController().playGameOverSound();
+//			worldController.getSoundController().pauseBackgroundMusic();
 			gameOver();
 		} 
 
 			update(delta);
 			
 			// check collision with the closest cookie
-			//worldController.checkNextCookie();
+			worldController.checkNextCookie();
 
 			
 			// draws the world and its components
@@ -91,13 +95,7 @@ public class InGameController implements Screen{
 
 			//Draw physics bodies, for debugging
 			renderer.render(worldController.getPhysicsWorld(), matrix);
-			//			Gdx.app.log("Physics", "x: "+worldController.getCharBody().getPosition().x+ "y: "+
-			//					worldController.getCharBody().getPosition().y + " massa: "+ worldController.getCharBody().getMass());
 		
-
-
-	//		Gdx.app.log("obstacle", "pos of first: "+ CoordinateConverter.meterToPixel(this.worldController.getObstacleBodyList().get(0).getPosition()));
-
 }
 
 
@@ -166,6 +164,7 @@ public OrthographicCamera getCamera() {
 	return cameraController.getCamera();
 }
 
+
 public boolean hasWon() {
 	//		Gdx.app.log("FinishLine", "Finish line: x: " + worldController.getFinishLineX() + "Start: x: " + worldController.getStartPos().x);
 	if(worldController.getCharacterController().getCharacter().getPosition().x >= worldController.getFinishLineX()) {
@@ -196,18 +195,15 @@ public void update(float delta) {
 	this.time = time+delta;
 
 	// Updates the speed
-	inGame.setSpeedP(CoordinateConverter.pixelToMeter(inGame.getSpeedM()*delta*1000));
+	inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()*delta));
 	cameraController.setSpeedP(inGame.getSpeedP());
-	Gdx.app.log("InGameController", "render part2");
 
 	//give character speed
-	if(this.worldController.getCharBody().getLinearVelocity().x < 2.5){
+	if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
 		this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
 	}
 	// update the model position for the character
 	this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
-	Gdx.app.log("Charecter grafic posX: ", "" + this.worldController.getCharacterController().getCharacter().getPosition().x);
-	Gdx.app.log("Charecter physics posX: ", "" + this.worldController.getCharBody().getPosition().x);
 
 	// Update the position of the finish line
 	worldController.moveFinishLine(inGame.getSpeedP());
