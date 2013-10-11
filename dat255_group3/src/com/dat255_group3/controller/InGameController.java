@@ -37,7 +37,6 @@ public class InGameController implements Screen{
 		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
-		worldController.getSoundController().playBackgroundMusic();
 	}
 
 
@@ -114,6 +113,7 @@ public void show() {
 	this.worldController = new WorldController(this, inGame.getSpeedM());
 	this.time = 0;
 	this.gameOver = false;
+	worldController.getSoundController().playBackgroundMusic();
 
 	// TODO Auto-generated method stub
 }
