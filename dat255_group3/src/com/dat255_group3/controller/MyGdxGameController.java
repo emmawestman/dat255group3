@@ -88,15 +88,19 @@ public class MyGdxGameController extends Game {
 		return this.gameOverScreen;
 	}
 	
+
+	public PlayerController getPlayerController() {
+		return this.playerController;
+	}
+
 	public int getCurrentLevel(){
 		return this.currentLevel;
-		
 	}
 	
 	public void setCurrentLevel(int level){
 		this.currentLevel = level;
 	}
-	
+
 	
 	public void soundEffectsOn(boolean soundOn) {
 		soundEffectsOn = soundOn;
@@ -104,6 +108,11 @@ public class MyGdxGameController extends Game {
 	
 	public static boolean soundEffectsOn() {
 		return soundEffectsOn;
+	}
+
+	public void save(){
+		inGameController.save();
+		Gdx.app.log("MyGdx", "Save");
 	}
 }
 

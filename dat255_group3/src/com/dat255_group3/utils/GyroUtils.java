@@ -11,6 +11,8 @@ import com.badlogic.gdx.Input.Orientation;
 public class GyroUtils {
 	private static float upHill = 25;
 	private static float downHill = -25;
+	private static float maxPitch = 45;
+	private static float minPitch = -45;
 		
 	/**
 	 * Checks the pitch of the device and returns speed in as a percentage. 
@@ -18,35 +20,31 @@ public class GyroUtils {
 	 */
 	public static float gyroSteering(){
 		float pitch = Gdx.input.getPitch();
-				
-		if (pitch>upHill){
-			Gdx.app.log("Viking","Going up hill: "+pitch);
-			return 0.5f;
-		}else if(pitch<downHill){
-			Gdx.app.log("Viking","Going down hill: "+pitch);
-			return 2.0f;
-		}else{
-			Gdx.app.log("Viking","Staying on level "+pitch);
-			return 1.0f;
-		}
+		// Updates the device according to orientation
+		pitch = checkDeviceOrientation(pitch);
+
+		// Makes sure the screen doesn't move backwards
+		if (pitch > maxPitch) pitch = maxPitch;
+		if (pitch < minPitch)  pitch = minPitch;
+		return 1.0f-(2*pitch*0.01f);
 	}
 
 	/**
-	 * Checks the native orientation of the device
-	 * and updates the steering according to it.
+	 * Takes a pitch and updates it depending on the orientation
+	 * of the device. 
+	 * @param pitch
+	 * @return pitch
 	 */
-	public void checkDeviceOrientation(){
+	public static float checkDeviceOrientation(float pitch){
 
 		Orientation orientation = Gdx.input.getNativeOrientation();
 	
-		if (orientation == Input.Orientation.valueOf("Portrait")){
-			upHill = 30;
-			downHill = -30;
-		}else if(orientation == Input.Orientation.valueOf("Landscape")){
+		if(orientation == Input.Orientation.valueOf("Landscape")){
 			//These values are untested, 
 			//and are intended to be used for tablet devices.
-			upHill = 120;
-			downHill = 60;
+			return pitch - 90;
+		}else{
+			return pitch;
 		}
 	
 	}
