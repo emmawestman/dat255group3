@@ -39,4 +39,9 @@ public class Player {
 	public int getHighscore(){
 		return highscore;
 	}
+	
+	public void calculateScore(float time, int cookies) {
+		this.score = (int) ((60/time)*1000 + cookies*100);
+		
+	}
 }

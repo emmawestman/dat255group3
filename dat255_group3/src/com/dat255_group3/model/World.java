@@ -8,11 +8,34 @@ package com.dat255_group3.model;
  */
 
 public class World {
+	
+	private int cookieCounter;
+	private float time;
 
 	/**
 	 * Class constructor.
 	 */
 	public World() {
 		
+	}
+
+	public int getCookieCounter() {
+		return cookieCounter;
+	}
+
+	public void setCookieCounter(int cookieCounter) {
+		this.cookieCounter = cookieCounter;
+	}
+
+	public float getTime() {
+		return time;
+	}
+
+	public void setTime(float time) {
+		this.time = time;
+	}
+	
+	public void increaseCoockieCounter() {
+		this.cookieCounter++;
 	}
 }

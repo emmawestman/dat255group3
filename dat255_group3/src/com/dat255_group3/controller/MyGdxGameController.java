@@ -83,4 +83,8 @@ public class MyGdxGameController extends Game {
 	public GameOverScreen getGameOverScreen() {
 		return this.gameOverScreen;
 	}
+	
+	public PlayerController getPlayerController() {
+		return this.playerController;
+	}
 }
