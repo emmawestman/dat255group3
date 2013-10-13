@@ -103,6 +103,7 @@ public class StartScreen implements Screen {
 		startButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				myGdxGameController.getMyGdxGame().setIsGameStarted(false);
 				myGdxGameController.setScreen(new LevelScreen(
 						myGdxGameController));
 			}

@@ -9,34 +9,30 @@ import com.dat255_group3.view.LevelScreen;
 import com.dat255_group3.view.PauseScreen;
 import com.dat255_group3.view.StartScreen;
 
-
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;
 	private InGameController inGameController;
+	private PlayerController playerController;
+	private StartScreen startScreen;
 	private LevelScreen levelScreen;
 	private GameOverScreen gameOverScreen;
 	private PauseScreen pauseScreen;
-	private StartScreen startScreen;
-	private PlayerController playerController;
-	private int currentLevel;
-	private boolean isGameStarted = false;
 	private static boolean soundEffectsOn = true;
-	
+
 	@Override
 	public void create() {
-		//create other the scenes and the player and the gameModel
-		isGameStarted = false;
+		// create other the scenes and the player and the gameModel
+		this.myGdxGame = new MyGdxGame();
 		this.startScreen = new StartScreen(this);
 		this.levelScreen = new LevelScreen(this);
-		this.myGdxGame = new MyGdxGame();
 		this.playerController = new PlayerController(this);
 		this.inGameController = new InGameController(this);
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
 
 		SoundController.playBackgroundMusic();
-		
-		//go to the first screen
+
+		// go to the first screen
 		setScreen(startScreen);
 	}
 
@@ -46,7 +42,6 @@ public class MyGdxGameController extends Game {
 		inGameController.dispose();
 	}
 
-	
 	@Override
 	public void resize(int width, int height) {
 	}
@@ -58,69 +53,55 @@ public class MyGdxGameController extends Game {
 	@Override
 	public void resume() {
 	}
-	
-	public void setHeight(int height){
-		Gdx.app.log("Size", "Height: "+height);
-		CoordinateConverter.setScreenHeight(height);		
+
+	public void setHeight(int height) {
+		Gdx.app.log("Size", "Height: " + height);
+		CoordinateConverter.setScreenHeight(height);
 	}
 
 	public void setWidth(int width) {
-		Gdx.app.log("Size", "Width: "+width);
+		Gdx.app.log("Size", "Width: " + width);
 		CoordinateConverter.setScreenWidth(width);
 	}
-	
-	public InGameController getInGameController(){
+
+	public InGameController getInGameController() {
 		return inGameController;
 	}
-	
-	public StartScreen getStartScreen(){
+
+	public StartScreen getStartScreen() {
 		return startScreen;
 	}
-	
+
 	public LevelScreen getLevelScreen() {
 		return this.levelScreen;
 	}
-	
+
 	public PauseScreen getPauseScreen() {
 		return this.pauseScreen;
 	}
-	
+
 	public GameOverScreen getGameOverScreen() {
 		return this.gameOverScreen;
 	}
-	
+
+	public MyGdxGame getMyGdxGame() {
+		return this.myGdxGame;
+	}
 
 	public PlayerController getPlayerController() {
 		return this.playerController;
 	}
 
-	public int getCurrentLevel(){
-		return this.currentLevel;
-	}
-	
-	public void setCurrentLevel(int level){
-		this.currentLevel = level;
-	}
-
-	
 	public void soundEffectsOn(boolean soundOn) {
 		soundEffectsOn = soundOn;
 	}
 
-	public boolean getIsGameStarted(){
-		return this.isGameStarted;
-	}
-	
-	public void setIsGameStarted(boolean isGameStarted){
-		this.isGameStarted = isGameStarted;
-	}
 	public static boolean soundEffectsOn() {
 		return soundEffectsOn;
 	}
 
-	public void save(){
+	public void save() {
 		inGameController.save();
 		Gdx.app.log("MyGdx", "Save");
 	}
 }
-

@@ -98,7 +98,7 @@ public class LevelScreen implements Screen {
 		levelOneButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setCurrentLevel(1);
+				myGdxGameController.getMyGdxGame().setCurrentLevel(1);
 				myGdxGameController.getInGameController().loadMap();
 				myGdxGameController.setScreen(myGdxGameController
 						.getInGameController());
@@ -110,7 +110,7 @@ public class LevelScreen implements Screen {
 		levelTwoButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setCurrentLevel(2);
+				myGdxGameController.getMyGdxGame().setCurrentLevel(2);
 				myGdxGameController.getInGameController().loadMap();
 				myGdxGameController.setScreen(myGdxGameController
 						.getInGameController());
