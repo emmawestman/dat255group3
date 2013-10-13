@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
-import com.dat255_group3.controller.InGameController;
 import com.dat255_group3.utils.CoordinateConverter;
 
 
@@ -94,18 +93,16 @@ public class GameOverScreen implements Screen{
         LabelStyle scoreNTimeStyle = new LabelStyle();
         scoreNTimeStyle.font = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
         scoreNTimeStyle.font.setScale(1.8f);
-        Label score = new Label("Score: " + this.score, scoreNTimeStyle);
-        Label time = new Label("Time: " + this.time, scoreNTimeStyle);
+        Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
+        Label timeLabel = new Label("Time: " + this.time, scoreNTimeStyle);
         
         
         //Setting the texts of the labels depending on whether the game was won or lost
         if(!gameOver){
         	header.setText("Congratulations, you have won!");
-        	Gdx.app.log("GameOverScreen", "Won!");
         	buttonLabel.setText("Would you like to proceed to the next level?");
         } else {
         	header.setText("Game over");
-        	Gdx.app.log("GameOverScreen", "Lost!");
         	buttonLabel.setText("Would you like to retry?");
         }
         
@@ -153,11 +150,11 @@ public class GameOverScreen implements Screen{
         table.add(header);
         table.getCell(header).spaceBottom(50);
         table.row();
-        table.add(score);
-        table.getCell(score).spaceBottom(50);
+        table.add(scoreLabel);
+        table.getCell(scoreLabel).spaceBottom(50);
         table.row();
-        table.add(time);
-        table.getCell(time).spaceBottom(50);
+        table.add(timeLabel);
+        table.getCell(timeLabel).spaceBottom(50);
         table.row();
         table.add(buttonLabel);
         table.getCell(buttonLabel).spaceBottom(50);
@@ -174,7 +171,7 @@ public class GameOverScreen implements Screen{
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
+		table.clear();
 	}
 
 	@Override
@@ -189,7 +186,6 @@ public class GameOverScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		Gdx.app.log("Start", "dispose");
 		stage.dispose();
 		skin.dispose();
 		atlas.dispose();
