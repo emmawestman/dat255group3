@@ -1,5 +1,7 @@
 package com.dat255_group3.model;
 
+import com.dat255_group3.io.IOHandler;
+
 /**
  * A class which describes the state of the player being playing a game. 
  * Administers the time and score of the game which is given by each level.
@@ -89,6 +91,10 @@ public class InGame {
 	 */
 	public void setSpeedP(float speedP) {
 		this.speedP = speedP;
+	}
+	
+	public boolean isNewHighScore(String levelName, int currentScore) {
+		return (IOHandler.getScore(levelName) < currentScore);
 	}
 	
 	

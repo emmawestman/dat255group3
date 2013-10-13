@@ -1,4 +1,4 @@
-package com.dat255_group3.view;
+package com.dat255_group3.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -122,16 +122,20 @@ public class GameOverScreen implements Screen {
 		levelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// To be implemented.
-
+				// Go to next level
 				if (!gameOver) {
-					int currentLevel = myGdxGameController.getCurrentLevel();
-					myGdxGameController.setCurrentLevel(currentLevel++);
-					myGdxGameController.getInGameController().loadMap();
-					myGdxGameController.setScreen(myGdxGameController
-							.getInGameController());
-
-					// Next level
+					int nextLevel = myGdxGameController.getMyGdxGame()
+							.getCurrentLevel() + 1;
+					if (nextLevel < 3) {
+						myGdxGameController.getMyGdxGame().setCurrentLevel(
+								nextLevel);
+						myGdxGameController.getInGameController().loadMap();
+						myGdxGameController.setScreen(myGdxGameController
+								.getInGameController());
+					} else {
+						myGdxGameController.setScreen(myGdxGameController
+								.getUnlockedScreen());
+					}
 				} else {
 					// This level
 					myGdxGameController.setScreen(myGdxGameController

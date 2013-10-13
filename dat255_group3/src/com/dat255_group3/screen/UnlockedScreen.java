@@ -1,4 +1,4 @@
-package com.dat255_group3.view;
+package com.dat255_group3.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -17,11 +17,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
 
 /**
- * A class which represents the screen being shown when the game is paused.
+ * A class which represents the screen being shown when a yet unlocked level is
+ * chosen.
  * 
  * @author The Hans-Gunnar Crew
  */
-public class PauseScreen implements Screen {
+public class UnlockedScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
@@ -29,7 +30,7 @@ public class PauseScreen implements Screen {
 	private Skin skin;
 	private Table table;
 
-	public PauseScreen(MyGdxGameController myGdxGameController) {
+	public UnlockedScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(0, 0, true);
 	}
@@ -67,11 +68,21 @@ public class PauseScreen implements Screen {
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		// Setting characteristics for the label
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = new BitmapFont(Gdx.files.internal("font/whiteL.fnt"),
-				false);
-		labelStyle.font.scale(1.2f);
-		Label header = new Label("Paused", labelStyle);
+		LabelStyle headerStyle = new LabelStyle();
+		headerStyle.font = new BitmapFont(
+				Gdx.files.internal("font/whiteL.fnt"), false);
+		headerStyle.font.scale(1.2f);
+		Label header = new Label("Unlocked!", headerStyle);
+
+		LabelStyle buttonLabelStyle = new LabelStyle();
+		buttonLabelStyle.font = new BitmapFont(
+				Gdx.files.internal("font/white.fnt"), false);
+		buttonLabelStyle.font.scale(1.1f);
+		Label textLabel = new Label("The next level is not locked up yet",
+				buttonLabelStyle);
+
+		Label optionsLabel = new Label("Would you like to play level 2 again?",
+				buttonLabelStyle);
 
 		// Setting up the characteristics for the button
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
@@ -82,11 +93,11 @@ public class PauseScreen implements Screen {
 		textButtonStyle.font = new BitmapFont(
 				Gdx.files.internal("font/black.fnt"), false);
 
-		// Setting buttons & listeners with options of continuing to play or to
+		// Setting buttons & listeners with options of replaying the previous level or to
 		// return to the main-menu
-		TextButton resumeButton = new TextButton("Resume", textButtonStyle);
-		resumeButton.pad(20);
-		resumeButton.addListener(new ClickListener() {
+		TextButton yesButton = new TextButton("Yes", textButtonStyle);
+		yesButton.pad(20);
+		yesButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				myGdxGameController.setScreen(myGdxGameController
@@ -94,7 +105,7 @@ public class PauseScreen implements Screen {
 			}
 		});
 
-		TextButton mainMenuButton = new TextButton("Main Menu", textButtonStyle);
+		TextButton mainMenuButton = new TextButton("No", textButtonStyle);
 		mainMenuButton.pad(20);
 		mainMenuButton.addListener(new ClickListener() {
 			@Override
@@ -108,8 +119,14 @@ public class PauseScreen implements Screen {
 		table.add(header);
 		table.getCell(header).spaceBottom(50);
 		table.row();
-		table.add(resumeButton);
-		table.getCell(resumeButton).spaceBottom(50);
+		table.add(textLabel);
+		table.getCell(textLabel).spaceBottom(50);
+		table.row();
+		table.add(optionsLabel);
+		table.getCell(optionsLabel).spaceBottom(50);
+		table.row();
+		table.add(yesButton);
+		table.getCell(yesButton).spaceBottom(50);
 		table.row();
 		table.add(mainMenuButton);
 		table.getCell(mainMenuButton).spaceBottom(50);
