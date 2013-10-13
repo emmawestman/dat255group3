@@ -28,11 +28,15 @@ public class InGameController implements Screen{
 	private TiledMap map;
 	private OrthographicCameraController cameraController;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
+	private float time;
 	private boolean gameOver;
 
 
 	public InGameController(MyGdxGameController myGdxGameController){
 		this.myGdxGameController = myGdxGameController;
+		this.cameraController = new OrthographicCameraController();
+		this.cameraController.create();
+		IOHandler.readScore();
 	}
 
 
@@ -47,15 +51,19 @@ public class InGameController implements Screen{
 		 * If so, a pausepop-up-screen will be shown.
 		 */
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-			
+			this.pause();
 		}
 
 		if (hasWon()) {
 			//Change to gamewon-screen
 			//			worldController.getSoundController().playVictorySound();
 			//			worldController.getSoundController().pauseBackgroundMusic();
+			worldController.getWorld().setTime(time);
+			//calculate the score
+			this.myGdxGameController.getPlayerController().getPlayer().calculateScore(
+					worldController.getWorld().getTime(), worldController.getWorld().getCookieCounter(), gameOver);
+			save();
+
 			this.gameOver = false;
 			gameOver();
 		}
@@ -76,7 +84,7 @@ public class InGameController implements Screen{
 		// draws the world and its components
 		this.inGameView.draw(this.worldController.getWorldView(), this.worldController.getCharBody(), 
 				this.worldController.getCharacterController().getCharacterView(), 
-				this.worldController.getCookieController().getCookieView(), worldController.getWorld().getTime(), 
+				this.worldController.getCookieController().getCookieView(), time, 
 				worldController.getWorld().getCookieCounter(), gameOver);
 
 		/*
@@ -86,21 +94,18 @@ public class InGameController implements Screen{
 		if(Gdx.input.isTouched()){
 			worldController.getCharacterController().tryToJump(); 	
 		}
-
 	}
+
 
 	@Override
 	public void show() {
-		//if(!myGdxGameController.getIsGameStarted()){
-			this.cameraController = new OrthographicCameraController();
-			this.cameraController.create();
-			loadMap();
-			this.inGameView = new InGameView(map, cameraController.getCamera());
-			this.inGame = new InGame();
-			this.worldController = new WorldController(this, inGame.getSpeedM());
-			this.gameOver = false;
-		//}
-	//	myGdxGameController.setIsGameStarted(true);
+		loadMap();
+		this.inGameView = new InGameView(map, cameraController.getCamera());
+		this.inGame = new InGame();
+		this.worldController = new WorldController(this, inGame.getSpeedM());
+		this.time = 0;
+		this.gameOver = false;
+		worldController.getSoundController().playBackgroundMusic();
 	}
 
 
@@ -108,24 +113,29 @@ public class InGameController implements Screen{
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	@Override
 	public void pause() {
+		Gdx.input.setCatchBackKey(true);
+		myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
+		worldController.getSoundController().pauseBackgroundMusic();
 		cameraController.pause();
-		SoundController.pauseBackgroundMusic();
-		myGdxGameController.pause();
 	}
 
 	@Override
 	public void resume() {
-
+		cameraController.resume();
 	}
+
 
 
 	@Override
 	public void hide() {
-		this.pause();
+		// TODO Auto-generated method stub
+
 	}
+
+
 
 	@Override
 	public void dispose() {
@@ -133,6 +143,7 @@ public class InGameController implements Screen{
 		cameraController.dispose();
 		renderer.dispose();
 	}
+
 
 	public InGame getInGame() {
 		return inGame;
@@ -154,12 +165,22 @@ public class InGameController implements Screen{
 		return worldController.getCharacterController().getCharacter().getPosition().x 
 				>= worldController.getFinishLineX(); 	
 	}
-	
+
 	public void save(){
-		IOHandler.saveScoreNTime(this.myGdxGameController.getPlayerController().getPlayer().getScore(),
-				this.worldController.getWorld().getTime(), "Level 1");
-		Gdx.app.log("Save", "IO");
-		//score
+		if (this.inGame.isNewHighScore("level1", this.myGdxGameController.getPlayerController().getPlayer().getScore())) {
+			IOHandler.saveNewHigscore("Level1", this.myGdxGameController.getPlayerController().getPlayer().getScore());
+			Gdx.app.log("save new hs InGameController", "");
+		}
+		if ( ! (IOHandler.contains("level1"))) {
+			IOHandler.saveScore("Level1", this.myGdxGameController.getPlayerController().getPlayer().getScore());
+			Gdx.app.log("Save in GameController", "Score:" + 
+					this.myGdxGameController.getPlayerController().getPlayer().getScore() );
+		}
+
+	}
+
+	public void reset() {
+		//reset
 	}
 
 	public void update(float delta) {
@@ -173,7 +194,7 @@ public class InGameController implements Screen{
 		cameraController.render();
 
 		//update the time
-		worldController.getWorld().setTime(worldController.getWorld().getTime()+delta);
+		this.time = time+delta;
 
 		//Check the pitch of the device and changes the speed
 		inGame.setSpeedM(0.5f*GyroUtils.gyroSteering());
@@ -186,7 +207,7 @@ public class InGameController implements Screen{
 		if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
 			this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
 		}
-		
+
 		// update the model position for the character
 		this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
 
@@ -196,11 +217,8 @@ public class InGameController implements Screen{
 
 	public void gameOver() {
 		Gdx.app.log("Game over:", gameOver + "");
-		myGdxGameController.setIsGameStarted(false);
+
 		//Change to gameover-screen
-		
-		this.myGdxGameController.getPlayerController().getPlayer().calculateScore(
-				worldController.getWorld().getTime(), worldController.getWorld().getCookieCounter(), gameOver);
 		myGdxGameController.getGameOverScreen().gameOver(this.myGdxGameController.getPlayerController().getPlayer().getScore(), 
 				worldController.getWorld().getTime(), gameOver);
 		myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
@@ -208,6 +226,7 @@ public class InGameController implements Screen{
 
 	public void loadMap(){
 		try{
+			//map = new TmxMapLoader().load("worlds/map1.tmx");
 			map = new TmxMapLoader().load("worlds/map" +myGdxGameController.getCurrentLevel()+ ".tmx");
 		}catch(GdxRuntimeException e){
 			Gdx.app.log("InGameController", "loadMap()", e);
