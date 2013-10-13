@@ -1,4 +1,4 @@
-package com.dat255_group3.view;
+package com.dat255_group3.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

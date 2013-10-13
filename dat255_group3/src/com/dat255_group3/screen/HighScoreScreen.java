@@ -1,4 +1,4 @@
-		package com.dat255_group3.view;
+		package com.dat255_group3.screen;
 
 	import java.util.List;
 
