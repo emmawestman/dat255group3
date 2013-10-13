@@ -49,7 +49,7 @@ public class InGameController implements Screen{
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			Gdx.input.setCatchBackKey(true);
 			myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-			
+
 		}
 
 		if (hasWon()) {
@@ -109,7 +109,7 @@ public class InGameController implements Screen{
 	@Override
 	public void resize(int width, int height) {
 	}
-	
+
 	@Override
 	public void pause() {
 		cameraController.pause();
@@ -154,7 +154,7 @@ public class InGameController implements Screen{
 		return worldController.getCharacterController().getCharacter().getPosition().x 
 				>= worldController.getFinishLineX(); 	
 	}
-	
+
 	public void save(){
 		IOHandler.saveScoreNTime(this.myGdxGameController.getPlayerController().getPlayer().getScore(),
 				this.worldController.getWorld().getTime(), "Level 1");
@@ -186,7 +186,7 @@ public class InGameController implements Screen{
 		if(this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM()){
 			this.worldController.getCharBody().applyForceToCenter(new Vector2 (5, 0), true);
 		}
-		
+
 		// update the model position for the character
 		this.worldController.uppdatePositions(this.worldController.getCharBody(), this.worldController.getCharacterController().getCharacter());
 
@@ -198,12 +198,19 @@ public class InGameController implements Screen{
 		Gdx.app.log("Game over:", gameOver + "");
 		myGdxGameController.setIsGameStarted(false);
 		//Change to gameover-screen
-		
+
 		this.myGdxGameController.getPlayerController().getPlayer().calculateScore(
 				worldController.getWorld().getTime(), worldController.getWorld().getCookieCounter(), gameOver);
 		myGdxGameController.getGameOverScreen().gameOver(this.myGdxGameController.getPlayerController().getPlayer().getScore(), 
 				worldController.getWorld().getTime(), gameOver);
 		myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
+		if(MyGdxGameController.soundEffectsOn()) {
+			if(!gameOver) {
+				worldController.getSoundController().playVictorySound();
+			}else{
+				worldController.getSoundController().playGameOverSound();
+			}
+		}
 	}
 
 	public void loadMap(){
