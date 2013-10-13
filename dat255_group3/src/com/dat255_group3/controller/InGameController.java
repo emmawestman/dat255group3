@@ -28,7 +28,6 @@ public class InGameController implements Screen {
 	private TiledMap map;
 	private OrthographicCameraController cameraController;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
-	private float time;
 	private boolean gameOver;
 
 	public InGameController(MyGdxGameController myGdxGameController) {
@@ -116,7 +115,6 @@ public class InGameController implements Screen {
 
 	@Override
 	public void pause() {
-		Gdx.input.setCatchBackKey(true);
 		myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
 		worldController.getSoundController().pauseBackgroundMusic();
 		cameraController.pause();
@@ -129,7 +127,6 @@ public class InGameController implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override

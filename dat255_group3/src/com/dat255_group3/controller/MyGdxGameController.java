@@ -14,24 +14,21 @@ import com.dat255_group3.view.StartScreen;
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;
 	private InGameController inGameController;
+	private PlayerController playerController;
+	private StartScreen startScreen;
 	private LevelScreen levelScreen;
 	private GameOverScreen gameOverScreen;
 	private PauseScreen pauseScreen;
-	private StartScreen startScreen;
-	private PlayerController playerController;
-	private int currentLevel;
-	private boolean isGameStarted;
 	private static boolean soundEffectsOn = true;
 	
 	@Override
 	public void create() {
 		//create other the scenes and the player and the gameModel
-		isGameStarted = false;
-		this.startScreen = new StartScreen(this);
-		this.levelScreen = new LevelScreen(this);
 		this.myGdxGame = new MyGdxGame();
 		this.playerController = new PlayerController(this);
 		this.inGameController = new InGameController(this);
+		this.startScreen = new StartScreen(this);
+		this.levelScreen = new LevelScreen(this);
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
 
@@ -70,6 +67,10 @@ public class MyGdxGameController extends Game {
 		CoordinateConverter.setScreenWidth(width);
 	}
 	
+	public MyGdxGame getMyGdxGame() {
+		return myGdxGame;
+	}
+	
 	public InGameController getInGameController(){
 		return inGameController;
 	}
@@ -94,27 +95,11 @@ public class MyGdxGameController extends Game {
 	public PlayerController getPlayerController() {
 		return this.playerController;
 	}
-
-	public int getCurrentLevel(){
-		return this.currentLevel;
-	}
-	
-	public void setCurrentLevel(int level){
-		this.currentLevel = level;
-	}
-
 	
 	public void soundEffectsOn(boolean soundOn) {
 		soundEffectsOn = soundOn;
 	}
 
-	public boolean getIsGameStarted(){
-		return this.isGameStarted;
-	}
-	
-	public void setIsGameStarted(boolean isGameStarted){
-		this.isGameStarted = isGameStarted;
-	}
 	public static boolean soundEffectsOn() {
 		return soundEffectsOn;
 	}
@@ -123,5 +108,6 @@ public class MyGdxGameController extends Game {
 		inGameController.save();
 		Gdx.app.log("MyGdx", "Save");
 	}
+
 }
 
