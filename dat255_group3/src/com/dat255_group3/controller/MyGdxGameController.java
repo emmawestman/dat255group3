@@ -2,7 +2,6 @@ package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.dat255_group3.model.MyGdxGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.view.GameOverScreen;
@@ -20,7 +19,7 @@ public class MyGdxGameController extends Game {
 	private StartScreen startScreen;
 	private PlayerController playerController;
 	private int currentLevel;
-	private boolean isGameStarted;
+	private boolean isGameStarted = false;
 	private static boolean soundEffectsOn = true;
 	
 	@Override

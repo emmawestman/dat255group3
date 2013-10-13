@@ -91,7 +91,8 @@ public class InGameController implements Screen{
 
 	@Override
 	public void show() {
-		//if(!myGdxGameController.getIsGameStarted()){
+		Gdx.app.log("IGController", myGdxGameController.getIsGameStarted() + " in IGController" );
+		if(myGdxGameController.getIsGameStarted() == false){
 			this.cameraController = new OrthographicCameraController();
 			this.cameraController.create();
 			loadMap();
@@ -99,14 +100,14 @@ public class InGameController implements Screen{
 			this.inGame = new InGame();
 			this.worldController = new WorldController(this, inGame.getSpeedM());
 			this.gameOver = false;
-		//}
-	//	myGdxGameController.setIsGameStarted(true);
+			myGdxGameController.setIsGameStarted(true);
+		} 
+		this.cameraController.resume();
 	}
 
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 	}
 	
 	@Override
@@ -118,7 +119,6 @@ public class InGameController implements Screen{
 
 	@Override
 	public void resume() {
-
 	}
 
 
