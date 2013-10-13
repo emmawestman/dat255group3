@@ -1,56 +1,78 @@
 package com.dat255_group3.io;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class IOHandler {
-	
-	private static FileHandle handle;
+
+	private static FileHandle handle = Gdx.files.local("io/io.txt");
 	private static String [] levelData;
-	
+
 	public IOHandler() {
-		handle = Gdx.files.local("io/io.txt");
 	}
-	
-	public static void saveScoreNTime(int score, double time, String level){
+
+	public static void saveScore(String level, int score){
 		try{
-			handle.writeString(level + "; Score:" + score + "; Time:" + time + '\n', true);
+			handle.writeString(level + ":" + score + ":", true);
 			Gdx.app.log("IOHandler", "Name: " + handle.name());
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("IOHandler", "Exception", e);
 		}
 	}
-	
-	public static void readScoreNTime(){
+
+	public static void saveNewHigscore(String level, int score) {
+		for(int i = 0; i<levelData.length; i=i+2) { //only every second string will contain a level name therefore increase i by two
+			if (levelData[i].contains(level)) {
+				levelData[i]= level + ":";
+				levelData[i+1] = score + ":";
+			}
+		}
+		String text = "";
+		for (int i=0; i<levelData.length; i++) {
+			text = text + levelData[i];
+		}
+		try{
+			handle.writeString(text, false);
+		} catch (GdxRuntimeException e){
+
+		}
+	}
+
+	public static void readScore(){
 		try{
 			String text = handle.readString();
-			levelData = text.split(";");		
+			levelData = text.split(":");		
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("IOHandler", "Exception", e);
 		}
 	}
-	
+
 	public static int getScore(String level) {
-		for(int i = 0; i<levelData.length; i++) {
-			if (levelData[i].contains(level)) {
-				String score[] = levelData[i+1].split(":");
-				return Integer.parseInt(score[1].trim());
+		try {
+			for(int i = 0; i<levelData.length; i=i+2) { //only every second string will contain a level name therefore increase i by two
+				if (levelData[i].contains(level)) {
+					return Integer.parseInt(levelData[i+1].trim());
+				}
 			}
+		}
+		catch (Exception e) {
+			// No old high score
 		}
 		return 0;
 	}
 	
-	public static float getTime(String level) {
-		for(int i = 0; i<levelData.length; i++) {
+	public static boolean contains(String level) {
+		boolean foundMatch = false;
+		for (int i=0; i<levelData.length; i++) {
 			if (levelData[i].contains(level)) {
-				String time[] = levelData[i+2].split(":");
-				return Float.parseFloat(time[1].trim());
+				foundMatch = true;
 			}
 		}
-		return 0;
+		return foundMatch;
+	}
+	
+	public static String[] getLevelData(){
+		return levelData;
 	}
 }
