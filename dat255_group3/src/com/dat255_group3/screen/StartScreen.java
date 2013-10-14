@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,7 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.OrthographicCameraController;
 import com.dat255_group3.controller.SoundController;
+import com.dat255_group3.utils.CameraFactory;
+import com.dat255_group3.utils.CoordinateConverter;
 
 /**
  * A class which represents the startmenu of the game. The user is given the
@@ -36,13 +40,19 @@ public class StartScreen implements Screen {
 	private Table table;
 	private BitmapFont black;
 	private BitmapFont white;
+	private OrthographicCamera camera;
 
 	// import aurelienribon.tweenengine.TweenManager;
 	// private TweenManager tweenmanager;
 
 	public StartScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
-		this.stage = new Stage(0, 0, true);
+		this.stage = new Stage(CoordinateConverter.getCameraWidth(), 
+								CoordinateConverter.getCameraHeight(), true);
+		this.camera = CameraFactory.Create();
+		stage.setCamera(camera);
+		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		stage.getCamera().update();
 	}
 
 	@Override
@@ -59,17 +69,19 @@ public class StartScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// In order to make it look good not depending on the screensize.
-		stage.setViewport(width, height, true);
+		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 		table.invalidateHierarchy();
-		table.setSize(width, height);
+		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
 	}
 
 	@Override
 	public void show() {
 		// Setting up the stage
-		stage = new Stage();
+		this.stage = new Stage(CoordinateConverter.getCameraWidth(), 
+				CoordinateConverter.getCameraHeight(), true);
 		Gdx.input.setInputProcessor(stage);
-
+		stage.setCamera(camera);
+		
 		// Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
 		skin = new Skin(atlas);
@@ -79,7 +91,8 @@ public class StartScreen implements Screen {
 
 		// Setting up the table
 		table = new Table(skin);
-		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(),
+							CoordinateConverter.getCameraHeight());
 
 		// Setting characteristics for the label
 		LabelStyle labelStyle = new LabelStyle();
