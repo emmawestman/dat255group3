@@ -5,9 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dat255_group3.model.Character;
 /**
  * A class containing methods to create physical bodies in an physics-world
  * @author Group 3
@@ -15,39 +17,39 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class PhysBodyFactory {
 
+	
 	/**
-	 * Creates a body for a movable character in the physical world. 
-	 * @param physWorld , The physical world in which the character should exist and be created
-	 * @param pos , the center position of the character body (pixels)
-	 * @param size , with and height the body (pixels)
-	 * @return The physical body of the character that exists in the physWorld with a set density, friction and restitution 
+	 * Create a circle shaped body for the character
+	 * @param character , the characterModel with position and radius
+	 * @param world , the physics world where the body should be created
+	 * @return
 	 */
-	public static Body createCharacter(World physWorld, Vector2 pos, Vector2 size) {
-		PolygonShape shape;
+	public static Body createRoundCharacter(Character character, World world){
+		
 		FixtureDef fixtureDef = new FixtureDef();
 		BodyDef bodyDef = new BodyDef();
 		Body body = null;
-
-
-		shape = new PolygonShape();
-		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		shape.setAsBox(size.x/2, size.y/2);
-
+		
+		CircleShape shape = new CircleShape();
+		shape.setRadius(CoordinateConverter.pixelToMeter(character.getRadius()));
+		
+		
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
-		fixtureDef.friction = 0.5f;
+		fixtureDef.friction = 0.8f;
 		fixtureDef.restitution = 0f;
 
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.fixedRotation = true;
-		bodyDef.position.set(CoordinateConverter.pixelToMeter(pos)); //set the position in meters
+		bodyDef.position.set(CoordinateConverter.pixelToMeter(character.getPosition()));
 
-		body = physWorld.createBody(bodyDef);
+		body = world.createBody(bodyDef);
 		body.createFixture(fixtureDef);
-
+		
 		return body;
+
 	}
-	
+
 	/**
 	 * Creates a solid ground that is not affected by gravity or other forces
 	 * @param pos , the center position of the ground (pixels)
@@ -61,7 +63,7 @@ public class PhysBodyFactory {
 			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		polygonShape.setAsBox(size.x, size.y);
+		polygonShape.setAsBox(size.x/2, size.y/2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.friction = friction;
@@ -81,13 +83,13 @@ public class PhysBodyFactory {
 	
 	/*
 	 * adds an obstacle
-	 * ... ja jag vet att det är ful dubblering av kod...
+	 * ... ja jag vet att det r ful dubblering av kod...
 	 */
 	public static Body addObstacle(final Vector2 pos, Vector2 size, final float friction, 
 			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		polygonShape.setAsBox(size.x, size.y);
+		polygonShape.setAsBox(size.x/2, size.y/2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.friction = friction;

@@ -14,8 +14,28 @@ package com.dat255_group3.model;
  */
 public class MyGdxGame {
 
+	private int currentLevel;
+	private boolean isGameStarted;
+
 	public MyGdxGame() {
+		currentLevel = 0;
+		isGameStarted = false;
 
 	}
 
+	public boolean getIsGameStarted() {
+		return this.isGameStarted;
+	}
+
+	public void setIsGameStarted(boolean isGameStarted) {
+		this.isGameStarted = isGameStarted;
+	}
+
+	public int getCurrentLevel() {
+		return this.currentLevel;
+	}
+
+	public void setCurrentLevel(int level) {
+		this.currentLevel = level;
+	}
 }
