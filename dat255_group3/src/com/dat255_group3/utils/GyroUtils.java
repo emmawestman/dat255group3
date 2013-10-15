@@ -9,8 +9,6 @@ import com.badlogic.gdx.Input.Orientation;
  * A utility class that handles methods to do with the accelerometer
  */
 public class GyroUtils {
-	private static float upHill = 25;
-	private static float downHill = -25;
 	private static float maxPitch = 45;
 	private static float minPitch = -45;
 		
