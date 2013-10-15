@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
 
 /**
@@ -94,8 +95,11 @@ public class GameOverScreen implements Screen {
 		scoreNTimeStyle.font = new BitmapFont(
 				Gdx.files.internal("font/white.fnt"), false);
 		scoreNTimeStyle.font.setScale(1.8f);
-		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
 		Label timeLabel = new Label("Time: " + this.time, scoreNTimeStyle);
+		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
+		Label highScoreLabel = new Label("High Score: " + IOHandler.getScore(myGdxGameController.getMyGdxGame().getCurrentLevel()), scoreNTimeStyle);
+		
+		
 
 		// Setting the texts of the labels depending on whether the game was won
 		// or lost
@@ -159,11 +163,14 @@ public class GameOverScreen implements Screen {
 		table.add(header);
 		table.getCell(header).spaceBottom(50);
 		table.row();
+		table.add(timeLabel);
+		table.getCell(timeLabel).spaceBottom(50);
+		table.row();
 		table.add(scoreLabel);
 		table.getCell(scoreLabel).spaceBottom(50);
 		table.row();
-		table.add(timeLabel);
-		table.getCell(timeLabel).spaceBottom(50);
+		table.add(highScoreLabel);
+		table.getCell(highScoreLabel).spaceBottom(50);
 		table.row();
 		table.add(buttonLabel);
 		table.getCell(buttonLabel).spaceBottom(50);
