@@ -192,7 +192,7 @@ public class InGameController implements Screen {
 				worldController.getWorld().getTime() + delta);
 
 		// Check the pitch of the device and changes the speed
-		inGame.setSpeedM(0.5f * GyroUtils.gyroSteering());
+		inGame.setSpeedM(1.5f * GyroUtils.gyroSteering());
 
 		// Updates the speed
 		inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()
