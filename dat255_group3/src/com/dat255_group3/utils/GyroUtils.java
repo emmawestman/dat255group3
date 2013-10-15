@@ -24,7 +24,7 @@ public class GyroUtils {
 		// Makes sure the screen doesn't move backwards
 		if (pitch > maxPitch) pitch = maxPitch;
 		if (pitch < minPitch)  pitch = minPitch;
-		return 1.0f-(2*pitch*0.01f);
+		return 1.0f-(1.5f*pitch*0.01f);
 	}
 
 	/**

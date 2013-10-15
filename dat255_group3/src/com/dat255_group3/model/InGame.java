@@ -94,7 +94,7 @@ public class InGame {
 	}
 	
 	public boolean isNewHighScore(String levelName, int currentScore) {
-		return (IOHandler.getScore(levelName) < currentScore);
+		return (IOHandler.getScore(levelName) != 0 && IOHandler.getScore(levelName) < currentScore);
 	}
 	
 	

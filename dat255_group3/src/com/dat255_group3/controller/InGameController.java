@@ -34,7 +34,7 @@ public class InGameController implements Screen {
 		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
-		IOHandler.readScore();
+		//IOHandler.readScore();
 	}
 
 	@Override
@@ -159,12 +159,12 @@ public class InGameController implements Screen {
 
 
 	public void save(){
-		if (this.inGame.isNewHighScore("level1", this.myGdxGameController.getPlayerController().getPlayer().getScore())) {
-			IOHandler.saveNewHigscore("Level1", this.myGdxGameController.getPlayerController().getPlayer().getScore());
+		if (this.inGame.isNewHighScore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore())) {
+			IOHandler.saveNewHigscore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
 			Gdx.app.log("save new hs InGameController", "");
 		}
-		if ( ! (IOHandler.contains("level1"))) {
-			IOHandler.saveScore("Level1", this.myGdxGameController.getPlayerController().getPlayer().getScore());
+		if ( ! (IOHandler.contains("level" + myGdxGameController.getMyGdxGame().getCurrentLevel()))) {
+			IOHandler.saveScore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
 			Gdx.app.log("Save in GameController", "Score:" + 
 					this.myGdxGameController.getPlayerController().getPlayer().getScore() );
 		}
@@ -192,7 +192,7 @@ public class InGameController implements Screen {
 				worldController.getWorld().getTime() + delta);
 
 		// Check the pitch of the device and changes the speed
-		inGame.setSpeedM(0.5f * GyroUtils.gyroSteering());
+		inGame.setSpeedM(1.5f * GyroUtils.gyroSteering());
 
 		// Updates the speed
 		inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()
@@ -220,10 +220,12 @@ public class InGameController implements Screen {
 		Gdx.app.log("Game over:", gameOver + "");
 
 		myGdxGameController.getMyGdxGame().setIsGameStarted(false);
-		// Change to gameover-screen
-
+		
+		//calculate the score
 		this.myGdxGameController.getPlayerController().getPlayer().calculateScore(worldController.getWorld().getTime(),
 						worldController.getWorld().getCookieCounter(), gameOver);
+		save();
+		// Change to gameover-screen
 		myGdxGameController.getGameOverScreen().gameOver(this.myGdxGameController.getPlayerController().getPlayer()
 						.getScore(), worldController.getWorld().getTime(), gameOver);
 		myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
