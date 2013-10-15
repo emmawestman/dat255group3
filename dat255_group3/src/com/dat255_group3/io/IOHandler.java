@@ -6,8 +6,9 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class IOHandler {
 
-	private static FileHandle handle = Gdx.files.local("io/io.txt");
+	private static FileHandle handle = Gdx.files.external("io/io.txt");
 	private static String [] levelData;
+
 
 	public IOHandler() {
 	}
@@ -16,9 +17,14 @@ public class IOHandler {
 		try{
 			handle.writeString(level + ":" + score + ":", true);
 			Gdx.app.log("IOHandler", "Name: " + handle.name());
+			readScore();
+			Gdx.app.log("IOHandler", "Read higScore: " + getScore("Level1"));
+			Gdx.app.log("IOHandler", "LevelData: " + levelData[0]);
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("IOHandler", "Exception", e);
+		}catch (Exception e) {			
 		}
+	
 	}
 
 	public static void saveNewHigscore(String level, int score) {
@@ -26,6 +32,10 @@ public class IOHandler {
 			if (levelData[i].contains(level)) {
 				levelData[i]= level + ":";
 				levelData[i+1] = score + ":";
+				Gdx.app.log("IOHandler", "New HIgh score");
+				readScore();
+				
+				
 			}
 		}
 		String text = "";
@@ -40,6 +50,12 @@ public class IOHandler {
 	}
 
 	public static void readScore(){
+//		try {
+//	        InputStream in = (InputStream) Gdx.files.internal("data/cube.obj").read();
+//	        try {
+//	          in.close();
+//	        } catch (IOException e) {
+//	        }
 		try{
 			String text = handle.readString();
 			levelData = text.split(":");		
@@ -64,11 +80,14 @@ public class IOHandler {
 	
 	public static boolean contains(String level) {
 		boolean foundMatch = false;
-		for (int i=0; i<levelData.length; i++) {
-			if (levelData[i].contains(level)) {
-				foundMatch = true;
+		if (levelData != null) {
+			for (int i=0; i<levelData.length; i++) {
+				if (levelData[i].contains(level)) {
+					foundMatch = true;
+				}
 			}
 		}
+		
 		return foundMatch;
 	}
 	
