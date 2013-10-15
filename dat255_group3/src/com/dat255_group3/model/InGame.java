@@ -93,7 +93,7 @@ public class InGame {
 		this.speedP = speedP;
 	}
 	
-	public boolean isNewHighScore(String levelName, int currentScore) {
+	public boolean isNewHighScore(int levelName, int currentScore) {
 		return (IOHandler.getScore(levelName) != 0 && IOHandler.getScore(levelName) < currentScore);
 	}
 	

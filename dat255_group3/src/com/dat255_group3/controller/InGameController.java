@@ -159,12 +159,12 @@ public class InGameController implements Screen {
 
 
 	public void save(){
-		if (this.inGame.isNewHighScore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore())) {
-			IOHandler.saveNewHigscore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
+		if (this.inGame.isNewHighScore(myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore())) {
+			IOHandler.saveNewHigscore(myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
 			Gdx.app.log("save new hs InGameController", "");
 		}
 		if ( ! (IOHandler.contains("level" + myGdxGameController.getMyGdxGame().getCurrentLevel()))) {
-			IOHandler.saveScore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
+			IOHandler.saveScore(myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
 			Gdx.app.log("Save in GameController", "Score:" + 
 					this.myGdxGameController.getPlayerController().getPlayer().getScore() );
 		}
