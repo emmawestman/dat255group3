@@ -1,7 +1,11 @@
 package com.dat255_group3.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
@@ -15,10 +19,11 @@ import com.dat255_group3.utils.WorldUtil;
  */
 public class CharacterView {
 	
-	private Circle characterCircle;
 	private Character character;
-	private ShapeRenderer shape = new ShapeRenderer();
 	private OrthographicCamera camera;
+	private SpriteBatch spriteBatch;
+	private Sprite sprite;
+	private Texture texture;
 	
 	/** A constructor that takes a character class.
 	 * 
@@ -26,8 +31,10 @@ public class CharacterView {
 	 */
 	public CharacterView (Character character, OrthographicCamera camera) {
 		this.character = character;
-		characterCircle = new Circle();
-		characterCircle.radius =  Character.getRadius();
+		this.spriteBatch = new SpriteBatch();
+		texture = new Texture(Gdx.files.internal("ui/characterStandingStill.png"));
+		sprite = new Sprite(texture);
+		sprite.setSize(Character.getRadius()*2, Character.getRadius()*2);
 		this.camera = camera;
 	}
 	
@@ -38,12 +45,10 @@ public class CharacterView {
 	 */
 	public void draw(){
 		camera.update();
-		shape.setProjectionMatrix(camera.combined);
-		shape.begin(ShapeType.Filled);
-		shape.setColor(Color.CYAN);
-		shape.circle(character.getPosition().x, character.getPosition().y, characterCircle.radius);
-		shape.end();
-		
-
+		spriteBatch.begin();
+		spriteBatch.setProjectionMatrix(camera.combined);
+		sprite.setPosition(character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
+		sprite.draw(spriteBatch);
+		spriteBatch.end();
 	}
 }
