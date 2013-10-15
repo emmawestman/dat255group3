@@ -81,15 +81,20 @@ public class PhysBodyFactory {
 	}
 	
 	
-	/*
-	 * adds an obstacle
-	 * ... ja jag vet att det r ful dubblering av kod...
+	/**
+	 * Creates a movable obstacle that is not affected by gravity and forces but can be moved with other methods.
+	 * @param pos , the center position of the obstacle (pixels)
+	 * @param size , with and height of the obstacle (pixels)
+	 * @param friction , the friction (0f-1f) of the obstacle surface
+	 * @param restitution , restitution of the obstacle surface
+	 * @param physWorld , the physical world in which the obstacle is created and exists
+	 * @return The body whit the physical properties sent in by the parameters
 	 */
 	public static Body addObstacle(final Vector2 pos, Vector2 size, final float friction, 
 			final float restitution, World physWorld) {
 		PolygonShape polygonShape = new PolygonShape();
 		size = CoordinateConverter.pixelToMeter(size); //convert size to meters
-		polygonShape.setAsBox(size.x/2, size.y/2);
+		polygonShape.setAsBox(size.x/2, size.y/2); //Boxes are "drawn" from the middle and out, therefore the "/2"
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.friction = friction;
