@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -22,6 +23,7 @@ public class InGameView {
 	private SpriteBatch spriteBatch;
 	private BitmapFont font;
 	private CharSequence str;
+	private int[] mapLayers = {0, 2};
 	private Texture bgImage;
 	private Sprite bgSprite;
 	
@@ -51,7 +53,7 @@ public class InGameView {
 		drawBgImage();
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
-		mapRenderer.render();
+		mapRenderer.render(mapLayers);
 		worldView.draw(charView, cookieView);
 		//draw game over text
 		if(gameOver) drawGameOver();
