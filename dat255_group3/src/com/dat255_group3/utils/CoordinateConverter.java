@@ -1,7 +1,12 @@
 package com.dat255_group3.utils;
 
 import com.badlogic.gdx.math.Vector2;
-
+/**
+ * A util class containing methds for converting float and Vector2 values 
+ * between pixels and meters. The cameraWidth represents 10 meters. 
+ * 
+ *
+ */
 public class CoordinateConverter {
 	private static float ScreenWidth;
 	private static float ScreenHeight;
@@ -9,7 +14,7 @@ public class CoordinateConverter {
 	private static float CameraHeight = 512f;
 	
 	/**
-	 * converts a pixels into meters, 10 meter = long side of the screen
+	 * converts a pixels into meters, 10 meter = cameraWidth
 	 * @param pixels
 	 * @return meters
 	 */
@@ -20,7 +25,7 @@ public class CoordinateConverter {
 	    return meters;
 	}
 	/**
-	 * converts a set of pixels to meters, 10 meter = long side of the screen
+	 * converts a Vector2 of pixels to meters, 10 meter = cameraWidth
 	 * @param pixels
 	 * @return meters
 	 */
@@ -31,7 +36,7 @@ public class CoordinateConverter {
 	    return meters;
 	}
 	/**
-	 * converts meters into pixels, 10 meter = long side of the screen
+	 * converts meters into pixels, 10 meter = cameraWidth
 	 * @param meters
 	 * @return pixels
 	 */
@@ -42,7 +47,7 @@ public class CoordinateConverter {
 	    return pixels;
 	}
 	/**
-	 * converts a set of meters into pixels, 10 meter = long side of the screen
+	 * converts a Vector2 of meters into pixels, 10 meter = cameraWidth
 	 * @param meters
 	 * @return pixels
 	 */
@@ -74,8 +79,6 @@ public class CoordinateConverter {
 
 	public static void setScreenWidth(int screenWidth) {
 		ScreenWidth = screenWidth;
-		//Gdx.app.log("Viking", "screenWidth: "+screenWidth);
-		
 	}
 
 	public static float getScreenHeight() {
@@ -85,7 +88,6 @@ public class CoordinateConverter {
 
 	public static void setScreenHeight(int screenHeight) {
 		ScreenHeight = screenHeight;
-		//Gdx.app.log("Viking", "screenHeight: "+screenHeight);
 	}
 
 	public static float getCameraHeight() {
@@ -99,16 +101,6 @@ public class CoordinateConverter {
 	}
 	public static void setCameraWidth(float cameraWidth) {
 		CoordinateConverter.cameraWidth = cameraWidth;
-	}
-	/**
-	 * Converts the position according to the height and width of the screen.
-	 * @param pos
-	 * 		The position that should be converted.
-	 * @return
-	 * 		The converted position.
-	 */
-	public static Vector2 positionConverter(Vector2 pos) {
-		return new Vector2(ScreenWidth/1024f*pos.x, ScreenHeight/512f*pos.y);
 	}
 	
 }

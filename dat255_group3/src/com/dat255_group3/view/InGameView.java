@@ -1,8 +1,11 @@
 package com.dat255_group3.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -21,6 +24,8 @@ public class InGameView {
 	private BitmapFont font;
 	private CharSequence str;
 	private int[] mapLayers = {0, 2};
+	private Texture bgImage;
+	private Sprite bgSprite;
 	
 	/** A constructor that takes a map. 
 	 * @param map
@@ -32,6 +37,11 @@ public class InGameView {
 		this.spriteBatch = new SpriteBatch();
 		this.font = new BitmapFont();
 		spriteBatch.setProjectionMatrix(camera.combined);
+		Gdx.app.log("BG", "loading image...");
+		this.bgImage = new Texture(Gdx.files.internal("ui/window.png"));
+		bgSprite = new Sprite(bgImage);
+		Gdx.app.log("BG", "Done!");
+
 		
 	}
 	
@@ -39,6 +49,8 @@ public class InGameView {
 	 * 
 	 */
 	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, double time, int cookieCounter, boolean gameOver) {
+		//darw bg image
+		drawBgImage();
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render(mapLayers);
@@ -74,4 +86,18 @@ public class InGameView {
 		font.draw(spriteBatch, str, 100f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
+	
+	public void drawBgImage(){
+		Gdx.app.log("BG", "checking");
+		if(this.bgImage != null){
+			Gdx.app.log("BG", "Drawing");
+			this.spriteBatch.begin();
+			this.bgSprite.setSize(2000, 600);
+			this.bgSprite.setPosition(0, 0);
+			this.bgSprite.draw(spriteBatch);
+			this.spriteBatch.end();
+		}
+
+	}
+	
 }

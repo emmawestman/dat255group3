@@ -2,7 +2,6 @@ package com.dat255_group3.controller;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dat255_group3.model.Character;
