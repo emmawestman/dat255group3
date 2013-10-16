@@ -16,7 +16,7 @@ public class CharacterController {
 		/*
 		 * The character and its view will later on be placed in a map/lists as we will have different characters
 		 */
-		this.character = new Character(0.0, 50);
+		this.character = new Character(0.0);
 		this.characterView = new CharacterView(character, camera);
 
 	}

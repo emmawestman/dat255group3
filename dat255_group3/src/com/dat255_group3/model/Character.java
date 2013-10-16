@@ -4,13 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.dat255_group3.utils.WorldUtil;
 
 /**
- * A class which represents a Character. 
- * It inherits properties involving the position from its superclass GameObject.
+ * A class which represents a Character.
+ * The character is represented with a circle. 
  * @author The Hans-Gunnar Crew
  *
  */
 public class Character {
-	private int weight;
 	private double friction;
 	private static float radius; //size of character in pixels
 	private float deathLimit;
@@ -20,16 +19,12 @@ public class Character {
 	/**
 	 * Constructs a Character with its properties.
 	 * @param friction
-	 * 			The friction of the Character in the world
-	 * @param weight
-	 * 			The weight of the Character
+	 * 			The friction of the Character in the world (a value between 0-1)
 	 */
-	public Character(double friction, int weight){
-		//TODO no position in constructor! physics and render will handle it later!
+	public Character(double friction){
 		this.friction = friction;
-		this.weight = weight;
 		Character.radius = 25;
-		this.deathLimit = 0f;
+		this.deathLimit = 0f; 
 		this.position = WorldUtil.getStartPos();
 	}
 	
@@ -37,30 +32,12 @@ public class Character {
 		return getPosition().x < deathLimit;
 	}
 
-	/**
-	 * A method which gives the weight of the Character.
-	 * @return
-	 * 		The weight of the Character
-	 */
-	public int getWeight() {
-		return weight;
-	}
-
-	/**
-	 * Sets the weight of the Character
-	 * @param weight
-	 * 			The weight which the Character is to be set to.
-	 */
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-
 	public static float getRadius() {
 		return radius;
 	}
 
-	public void setRadius(float with) {
-		Character.radius = with;
+	public void setRadius(float radius) {
+		Character.radius = radius;
 	}
 
 	/**
@@ -82,18 +59,18 @@ public class Character {
 	}
 	
 	/**
-	 *  A method which gives the position of the GameObject.
+	 *  A method which gets the position of the character.
 	 * @return
-	 * 		The position of the GameObject
+	 * 		The position of the character
 	 */
 	public Vector2 getPosition() {
 		return position;
 	}
 
 	/**
-	 * Sets the position of the GameObject
+	 * Sets the position of the character
 	 * @param position
-	 * 		The position which the GameObject is to be set to.
+	 * 		The position which the character is to be set to.
 	 */
 	public void setPosition(Vector2 position) {
 		this.position = position;
