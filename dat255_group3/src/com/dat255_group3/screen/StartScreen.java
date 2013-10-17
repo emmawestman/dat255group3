@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
-import com.dat255_group3.controller.SoundController;
 import com.dat255_group3.utils.CoordinateConverter;
 
 /**
@@ -79,13 +77,8 @@ public class StartScreen implements Screen {
 
 		// Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(
-				Gdx.files.internal("menuIcons/RectangularIcons.pack"));
+				Gdx.files.internal("menuIcons/rectMenuIcon.pack"));
 		skin = new Skin(atlas);
-		
-		// Setting up the table
-		table = new Table(skin);
-		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(),
-				200);
 
 		// Setting the image for the title of the game
 		try {
@@ -95,6 +88,10 @@ public class StartScreen implements Screen {
 			Gdx.app.log("StartScreen", "Exception", e);
 		} catch (Exception e) {
 		}
+		
+		// Setting up the table
+		table = new Table(skin);
+		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(), 200);
 
 
 		ImageButtonStyle startButtonStyle = new ImageButtonStyle();
@@ -145,7 +142,7 @@ public class StartScreen implements Screen {
 		soundButtonStyle.checked = soundSkin.getDrawable("sound.up");
 
 		ImageButton soundEButton = new ImageButton(soundButtonStyle);
-		//soundEButton.pad(20);
+		// soundEButton.pad(20);
 		soundEButton.toggle();
 		soundEButton.addListener(new ClickListener() {
 			@Override
@@ -167,16 +164,18 @@ public class StartScreen implements Screen {
 		musicButtonStyle.checked = musicSkin.getDrawable("music.up");
 
 		ImageButton musicButton = new ImageButton(musicButtonStyle);
-		musicButton.setSize(150, 150);
 		musicButton.pad(20);
 		musicButton.toggle();
 		musicButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
-					myGdxGameController.getSoundController().pauseBackgroundMusic();
+				if (myGdxGameController.getSoundController()
+						.backgroundMusicIsPlaying()) {
+					myGdxGameController.getSoundController()
+							.pauseBackgroundMusic();
 				} else {
-					myGdxGameController.getSoundController().playBackgroundMusic();
+					myGdxGameController.getSoundController()
+							.playBackgroundMusic();
 				}
 			}
 		});
@@ -197,7 +196,7 @@ public class StartScreen implements Screen {
 		table.row();
 		stage.addActor(table);
 
-		//table.debug(); // To be removed later on
+		// table.debug(); // To be removed later on
 		spritebatch = new SpriteBatch();
 		sprite = new Sprite(texture);
 		spritebatch.begin();

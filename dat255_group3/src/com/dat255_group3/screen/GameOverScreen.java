@@ -74,7 +74,7 @@ public class GameOverScreen implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(Gdx.files.internal("gameOver/gameOver.pack"));
+		atlas = new TextureAtlas(Gdx.files.internal("menuIcons/rectMenuIcon.pack"));
 		//Update atlas with the new images!
 		
 		
@@ -116,8 +116,8 @@ public class GameOverScreen implements Screen {
 		}
 		
 		ImageButtonStyle retryButtonStyle = new ImageButtonStyle();
-		retryButtonStyle.up = skin.getDrawable("retry.up");
-		retryButtonStyle.down = skin.getDrawable("retry.down");
+		retryButtonStyle.up = skin.getDrawable("restart.up");
+		retryButtonStyle.down = skin.getDrawable("restart.down");
 		retryButtonStyle.pressedOffsetX = 1;
 		retryButtonStyle.pressedOffsetY = -1;
 		
@@ -136,8 +136,8 @@ public class GameOverScreen implements Screen {
 		
 		
 		ImageButtonStyle nextLevelButtonStyle = new ImageButtonStyle();
-		nextLevelButtonStyle.up = skin.getDrawable("nextLevel.up");
-		nextLevelButtonStyle.down = skin.getDrawable("nextLevel.down");
+		nextLevelButtonStyle.up = skin.getDrawable("next.up");
+		nextLevelButtonStyle.down = skin.getDrawable("next.down");
 		nextLevelButtonStyle.pressedOffsetX = 1;
 		nextLevelButtonStyle.pressedOffsetY = -1;
 		
@@ -165,8 +165,8 @@ public class GameOverScreen implements Screen {
 		
 
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
-		homeButtonStyle.up = skin.getDrawable("home.up");
-		homeButtonStyle.down = skin.getDrawable("home.down");
+		homeButtonStyle.up = skin.getDrawable("homeRect.up");
+		homeButtonStyle.down = skin.getDrawable("homeRect.down");
 		homeButtonStyle.pressedOffsetX = 1;
 		homeButtonStyle.pressedOffsetY = -1;
 		
