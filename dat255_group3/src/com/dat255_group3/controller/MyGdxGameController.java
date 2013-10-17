@@ -57,16 +57,6 @@ public class MyGdxGameController extends Game {
 	public void resume() {
 	}
 
-	public void setHeight(int height) {
-		Gdx.app.log("Size", "Height: " + height);
-		CoordinateConverter.setScreenHeight(height);
-	}
-
-	public void setWidth(int width) {
-		Gdx.app.log("Size", "Width: " + width);
-		CoordinateConverter.setScreenWidth(width);
-	}
-
 	public MyGdxGame getMyGdxGame() {
 		return myGdxGame;
 	}

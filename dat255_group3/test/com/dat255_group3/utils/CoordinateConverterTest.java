@@ -23,8 +23,8 @@ public class CoordinateConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		CoordinateConverter.setScreenHeight(100);
-		CoordinateConverter.setScreenWidth(50);
+		//CoordinateConverter.setScreenHeight(100);
+		//CoordinateConverter.setScreenWidth(50);
 	}
 
 	@After
@@ -37,8 +37,8 @@ public class CoordinateConverterTest {
 		float input = 5.0f;
 		assertEquals(expected,CoordinateConverter.pixelToMeter(input),0.00001f);
 
-		CoordinateConverter.setScreenHeight(0);
-		CoordinateConverter.setScreenWidth(0);
+		//CoordinateConverter.setScreenHeight(0);
+		//CoordinateConverter.setScreenWidth(0);
 		expected = Float.MAX_VALUE;
 		input = 5.0f;
 		assertEquals(expected,CoordinateConverter.pixelToMeter(input),0.00001f);
@@ -55,8 +55,8 @@ public class CoordinateConverterTest {
 		input.y = 10.0f;
 		assertEquals(expected, CoordinateConverter.pixelToMeter(input));
 
-		CoordinateConverter.setScreenHeight(0);
-		CoordinateConverter.setScreenWidth(0);
+		//CoordinateConverter.setScreenHeight(0);
+		//CoordinateConverter.setScreenWidth(0);
 		expected.x = Float.MAX_VALUE;
 		expected.y = Float.MAX_VALUE;
 		input.x = 5.0f;
@@ -70,8 +70,8 @@ public class CoordinateConverterTest {
 		float input = 5.0f;
 		assertEquals(expected, CoordinateConverter.meterToPixel(input),0.00001f);
 
-		CoordinateConverter.setScreenHeight(0);
-		CoordinateConverter.setScreenWidth(0);
+		//CoordinateConverter.setScreenHeight(0);
+		//CoordinateConverter.setScreenWidth(0);
 		expected = 0.0f;
 		input = 5.0f;
 		assertEquals(expected, CoordinateConverter.meterToPixel(input),0.00001f);
@@ -89,8 +89,8 @@ public class CoordinateConverterTest {
 
 		assertEquals(expected, CoordinateConverter.meterToPixel(input));
 
-		CoordinateConverter.setScreenHeight(0);
-		CoordinateConverter.setScreenWidth(0);
+		//CoordinateConverter.setScreenHeight(0);
+		//CoordinateConverter.setScreenWidth(0);
 		expected.x = 0.0f;
 		expected.y = 0.0f;
 		input.x = 5.0f;
@@ -104,8 +104,8 @@ public class CoordinateConverterTest {
 		float expected = 0.2f;
 		assertEquals(expected, CoordinateConverter.getPixelToMeter(),0.00001f);
 
-		CoordinateConverter.setScreenHeight(0);
-		CoordinateConverter.setScreenWidth(0);
+		//CoordinateConverter.setScreenHeight(0);
+		//CoordinateConverter.setScreenWidth(0);
 		expected = Float.MAX_VALUE;
 		assertEquals(expected, CoordinateConverter.getPixelToMeter(),0.00001f);
 	}
@@ -115,8 +115,8 @@ public class CoordinateConverterTest {
 		float expected = 5.0f;
 		assertEquals(expected, CoordinateConverter.getMeterToPixel(),0.00001f);
 
-		CoordinateConverter.setScreenHeight(0);
-		CoordinateConverter.setScreenWidth(0);
+		//CoordinateConverter.setScreenHeight(0);
+		//CoordinateConverter.setScreenWidth(0);
 		expected = 0.0f;
 		assertEquals(expected, CoordinateConverter.getMeterToPixel(),0.00001f);
 	}
