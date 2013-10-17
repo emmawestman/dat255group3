@@ -32,7 +32,7 @@ public class WorldController {
 
 	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
-		this.worldView = new WorldView();
+		this.worldView = new WorldView(world);
 		this.worldUtil = new WorldUtil(inGameController.getMap());
 		finishLineX = worldUtil.finishLineX();
 
@@ -42,7 +42,6 @@ public class WorldController {
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
 
 
-		this.worldView = new WorldView();
 		this.characterController = new CharacterController(this, inGameController.getCamera());
 
 		// create character body
@@ -81,7 +80,6 @@ public class WorldController {
 
 		// create soundController
 		soundController = new SoundController();
-		this.worldView = new WorldView();
 
 	}
 	public void uppdatePositions(Body body, Character character){
