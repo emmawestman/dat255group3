@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dat255_group3.model.Character;
@@ -21,6 +22,7 @@ public class CharacterView {
 	private TextureRegion[] walkFrames;
 	private TextureRegion currentFrame;
 	private Animation walkAnimation;
+	private Sprite sprite;
 	
 	
 	/** A constructor that takes a character class.
@@ -33,14 +35,17 @@ public class CharacterView {
 		this.camera = camera;
 		
 		//Create animation frames
-		walkSheet = new Texture(Gdx.files.internal("ui/walkSheetTest.png")); //wrong file
-		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/2, walkSheet.getHeight());
-		walkFrames = new TextureRegion[2];
-		for(int i = 0;i<2;i++) {
-			walkFrames[i] = tmp[i][1];
-		}
+		walkSheet = new Texture(Gdx.files.internal("ui/characterStandingStill.png")); //wrong file
+//		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/2, walkSheet.getHeight());
+//		walkFrames = new TextureRegion[2];
+//		for(int i = 0;i<2;i++) {
+//			walkFrames[i] = tmp[i][1];
+//		}
 		
-		walkAnimation = new Animation(0.06f, walkFrames);
+//		walkAnimation = new Animation(0.06f, walkFrames);
+		
+		sprite = new Sprite(walkSheet);
+		sprite.setSize(50, 50);
 	}
 	
 	
@@ -52,8 +57,11 @@ public class CharacterView {
 		camera.update();
 		spriteBatch.begin();
 		spriteBatch.setProjectionMatrix(camera.combined);
-		currentFrame = walkAnimation.getKeyFrame((float)time, true);
-		spriteBatch.draw(currentFrame, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
+//		currentFrame = walkAnimation.getKeyFrame((float)time, true);
+//		spriteBatch.draw(currentFrame, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
+//		spriteBatch.draw(walkSheet, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
+		sprite.setPosition(character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
+		sprite.draw(spriteBatch);
 		spriteBatch.end();
 	}
 }
