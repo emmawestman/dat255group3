@@ -19,6 +19,7 @@ public class MyGdxGameController extends Game {
 	private GameOverScreen gameOverScreen;
 	private PauseScreen pauseScreen;
 	private UnlockedScreen unlockedScreen;
+	private SoundController soundController;
 
 	private static boolean soundEffectsOn = true;
 
@@ -33,7 +34,7 @@ public class MyGdxGameController extends Game {
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
 		this.unlockedScreen = new UnlockedScreen(this);
-		SoundController.playBackgroundMusic();
+		soundController.playBackgroundMusic();
 
 		// go to the first screen
 		setScreen(startScreen);
@@ -110,6 +111,10 @@ public class MyGdxGameController extends Game {
 	public void save() {
 		inGameController.save();
 		Gdx.app.log("MyGdx", "Save");
+	}
+	
+	public SoundController getSoundController() {
+		return soundController;
 	}
 
 }
