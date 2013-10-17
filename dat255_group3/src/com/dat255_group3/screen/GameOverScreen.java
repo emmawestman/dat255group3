@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
 
 /**
@@ -70,7 +73,10 @@ public class GameOverScreen implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
+		atlas = new TextureAtlas(Gdx.files.internal("gameOver/gameOver.pack"));
+		//Update atlas with the new images!
+		
+		
 		skin = new Skin(atlas);
 
 		// Setting up the table
@@ -94,36 +100,52 @@ public class GameOverScreen implements Screen {
 		scoreNTimeStyle.font = new BitmapFont(
 				Gdx.files.internal("font/white.fnt"), false);
 		scoreNTimeStyle.font.setScale(1.8f);
-		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
 		Label timeLabel = new Label("Time: " + this.time, scoreNTimeStyle);
+		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
+		Label highScoreLabel = new Label("High Score: " + IOHandler.getScore(myGdxGameController.getMyGdxGame().getCurrentLevel()), scoreNTimeStyle);
+		
+		
 
 		// Setting the texts of the labels depending on whether the game was won
 		// or lost
 		if (!gameOver) {
-			header.setText("Congratulations, you have won!");
-			buttonLabel.setText("Would you like to proceed to the next level?");
+			header.setText("Congratulations!");
 		} else {
 			header.setText("Game over");
-			buttonLabel.setText("Would you like to retry?");
 		}
+		
+		ImageButtonStyle retryButtonStyle = new ImageButtonStyle();
+		retryButtonStyle.up = skin.getDrawable("retry.up");
+		retryButtonStyle.down = skin.getDrawable("retry.down");
+		retryButtonStyle.pressedOffsetX = 1;
+		retryButtonStyle.pressedOffsetY = -1;
+		
+		ImageButton retryButton = new ImageButton(retryButtonStyle);
+		retryButton.pad(20);
+		retryButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+					// This level
+					myGdxGameController.setScreen(myGdxGameController
+							.getInGameController());
 
-		// Setting up the characteristics for the buttons
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("button.up");
-		textButtonStyle.down = skin.getDrawable("button.down");
-		textButtonStyle.pressedOffsetX = 1;
-		textButtonStyle.pressedOffsetY = -1;
-		textButtonStyle.font = new BitmapFont(
-				Gdx.files.internal("font/black.fnt"), false);
-
-		// Instantiating the buttons & setting listeners
-		TextButton levelButton = new TextButton("Yes", textButtonStyle);
-		levelButton.pad(20);
-		levelButton.addListener(new ClickListener() {
+			}
+		});
+		
+		
+		
+		ImageButtonStyle nextLevelButtonStyle = new ImageButtonStyle();
+		nextLevelButtonStyle.up = skin.getDrawable("nextLevel.up");
+		nextLevelButtonStyle.down = skin.getDrawable("nextLevel.down");
+		nextLevelButtonStyle.pressedOffsetX = 1;
+		nextLevelButtonStyle.pressedOffsetY = -1;
+		
+		ImageButton nextLevelButton = new ImageButton(nextLevelButtonStyle);
+		nextLevelButton.pad(20);
+		nextLevelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				// Go to next level
-				if (!gameOver) {
 					int nextLevel = myGdxGameController.getMyGdxGame()
 							.getCurrentLevel() + 1;
 					if (nextLevel < 3) {
@@ -135,19 +157,21 @@ public class GameOverScreen implements Screen {
 					} else {
 						myGdxGameController.setScreen(myGdxGameController
 								.getUnlockedScreen());
-					}
-				} else {
-					// This level
-					myGdxGameController.setScreen(myGdxGameController
-							.getInGameController());
-				}
+					} 
 
 			}
 		});
+		
 
-		TextButton mainMenuButton = new TextButton("No", textButtonStyle);
-		mainMenuButton.pad(20);
-		mainMenuButton.addListener(new ClickListener() {
+		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
+		homeButtonStyle.up = skin.getDrawable("home.up");
+		homeButtonStyle.down = skin.getDrawable("home.down");
+		homeButtonStyle.pressedOffsetX = 1;
+		homeButtonStyle.pressedOffsetY = -1;
+		
+		ImageButton homeButton = new ImageButton(homeButtonStyle);
+		homeButton.pad(20);
+		homeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				myGdxGameController.setScreen(myGdxGameController
@@ -159,21 +183,29 @@ public class GameOverScreen implements Screen {
 		table.add(header);
 		table.getCell(header).spaceBottom(50);
 		table.row();
+		table.add(timeLabel);
+		table.getCell(timeLabel).spaceBottom(50);
+		table.row();
 		table.add(scoreLabel);
 		table.getCell(scoreLabel).spaceBottom(50);
 		table.row();
-		table.add(timeLabel);
-		table.getCell(timeLabel).spaceBottom(50);
+		table.add(highScoreLabel);
+		table.getCell(highScoreLabel).spaceBottom(50);
 		table.row();
 		table.add(buttonLabel);
 		table.getCell(buttonLabel).spaceBottom(50);
 		table.row();
-		table.add(levelButton);
-		table.getCell(levelButton).spaceBottom(50);
+		table.add(retryButton);
+		table.getCell(retryButton).spaceBottom(50);
 		table.row();
-		table.add(mainMenuButton);
-		table.getCell(mainMenuButton).spaceBottom(50);
+		if (!gameOver) {
+			table.add(nextLevelButton);
+		}
+		table.add(homeButton);
+		table.getCell(homeButton).spaceBottom(50);
 		stage.addActor(table);
+		
+		
 
 		// table.debug(); //To be removed later on
 	}

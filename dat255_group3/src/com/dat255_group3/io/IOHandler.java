@@ -6,19 +6,20 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class IOHandler {
 
-	private static FileHandle handle = Gdx.files.external("io/io.txt");
+	private static FileHandle handle = Gdx.files.local("io/io.txt");
 	private static String [] levelData;
 
 
 	public IOHandler() {
 	}
 
-	public static void saveScore(String level, int score){
+	public static void saveScore(int levelNr, int score){
 		try{
-			handle.writeString(level + ":" + score + ":", true);
+			handle.writeString("level" + levelNr + ":" + score + ":", true);
 			Gdx.app.log("IOHandler", "Name: " + handle.name());
 			readScore();
-			Gdx.app.log("IOHandler", "Read higScore: " + getScore("Level1"));
+			Gdx.app.log("IOHandler", "Level: " + levelNr);
+			Gdx.app.log("IOHandler", "Read higScore: " + getScore(levelNr));
 			Gdx.app.log("IOHandler", "LevelData: " + levelData[0]);
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("IOHandler", "Exception", e);
@@ -27,23 +28,28 @@ public class IOHandler {
 	
 	}
 
-	public static void saveNewHigscore(String level, int score) {
+	public static void saveNewHigscore(int levelNr, int score) {
 		for(int i = 0; i<levelData.length; i=i+2) { //only every second string will contain a level name therefore increase i by two
-			if (levelData[i].contains(level)) {
-				levelData[i]= level + ":";
+			if (levelData[i].contains("level" + levelNr)) {
+				levelData[i]= "level" + levelNr + ":";
+				Gdx.app.log("IOHandler", "levelData level:" + levelData[i]);		
 				levelData[i+1] = score + ":";
-				Gdx.app.log("IOHandler", "New HIgh score");
-				readScore();
-				
+				Gdx.app.log("IOHandler", "levelData score:" + levelData[i+1]);	
+				Gdx.app.log("IOHandler", "New HIgh score");				
 				
 			}
 		}
 		String text = "";
 		for (int i=0; i<levelData.length; i++) {
 			text = text + levelData[i];
+			
 		}
+		Gdx.app.log("IOHandler", "levelData text:" + text);	
+		Gdx.app.log("IOHandler", "Level: " + levelNr);
 		try{
 			handle.writeString(text, false);
+			readScore();
+			Gdx.app.log("IOHandler", "Read new higScore: " + getScore(levelNr));
 		} catch (GdxRuntimeException e){
 
 		}
@@ -64,10 +70,10 @@ public class IOHandler {
 		}
 	}
 
-	public static int getScore(String level) {
+	public static int getScore(int levelNr) {
 		try {
 			for(int i = 0; i<levelData.length; i=i+2) { //only every second string will contain a level name therefore increase i by two
-				if (levelData[i].contains(level)) {
+				if (levelData[i].contains("level" + levelNr)) {
 					return Integer.parseInt(levelData[i+1].trim());
 				}
 			}

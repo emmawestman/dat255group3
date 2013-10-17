@@ -41,9 +41,9 @@ public class SoundController {
 	
 	public static void playBackgroundMusic() {
 		 Gdx.app.log("Sound", "backgroundMusic: played");
-//		backgroundMusic.setLooping(true);
 		backgroundMusic.setVolume(volume);
 		backgroundMusic.play();
+		backgroundMusic.setLooping(true);
 	}
 
 	public static void pauseBackgroundMusic() {

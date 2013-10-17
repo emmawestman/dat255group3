@@ -35,10 +35,10 @@ public class OrthographicCameraController implements ApplicationListener {
 				new VertexAttribute(VertexAttributes.Usage.Position, 3, "attr_position"));
 
 		mesh.setVertices(new float[] {
-				-2048f, -512f, 0,
-				2048f, -512f, 0,
-				2048f, 512f, 0,
-				-2048f, 512f, 0
+				-8192f, -512f, 0,
+				8192f, -512f, 0,
+				8192f, 512f, 0,
+				-8192f, 512f, 0
 		});
 		mesh.setIndices(new short[] {0, 1, 2, 2, 3, 0});
 

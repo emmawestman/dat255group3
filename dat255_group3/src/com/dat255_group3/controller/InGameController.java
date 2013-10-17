@@ -55,10 +55,6 @@ public class InGameController implements Screen {
 		}
 
 		if (hasWon()) {
-			// Change to gamewon-screen
-			// worldController.getSoundController().playVictorySound();
-			// worldController.getSoundController().pauseBackgroundMusic();
-
 			this.gameOver = false;
 			gameOver();
 		}
@@ -66,8 +62,6 @@ public class InGameController implements Screen {
 		if (this.worldController.getCharacterController().getCharacter()
 				.isDead()) {
 			this.gameOver = true;
-			// worldController.getSoundController().playGameOverSound();
-			// worldController.getSoundController().pauseBackgroundMusic();
 			gameOver();
 		}
 
@@ -116,7 +110,7 @@ public class InGameController implements Screen {
 	@Override
 	public void pause() {
 		myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-		worldController.getSoundController().pauseBackgroundMusic();
+		SoundController.pauseBackgroundMusic();
 		cameraController.pause();
 	}
 
@@ -159,12 +153,12 @@ public class InGameController implements Screen {
 
 
 	public void save(){
-		if (this.inGame.isNewHighScore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore())) {
-			IOHandler.saveNewHigscore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
+		if (this.inGame.isNewHighScore(myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore())) {
+			IOHandler.saveNewHigscore(myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
 			Gdx.app.log("save new hs InGameController", "");
 		}
 		if ( ! (IOHandler.contains("level" + myGdxGameController.getMyGdxGame().getCurrentLevel()))) {
-			IOHandler.saveScore("level" + myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
+			IOHandler.saveScore(myGdxGameController.getMyGdxGame().getCurrentLevel(), this.myGdxGameController.getPlayerController().getPlayer().getScore());
 			Gdx.app.log("Save in GameController", "Score:" + 
 					this.myGdxGameController.getPlayerController().getPlayer().getScore() );
 		}
@@ -203,7 +197,7 @@ public class InGameController implements Screen {
 		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame
 				.getSpeedM()) {
 			this.worldController.getCharBody().applyForceToCenter(
-					new Vector2(5, 0), true);
+					new Vector2(3, 0), true);
 		}
 
 		// update the model position for the character
