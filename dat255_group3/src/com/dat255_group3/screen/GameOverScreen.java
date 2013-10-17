@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
@@ -229,10 +230,15 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
-		skin.dispose();
-		atlas.dispose();
-
+		
+		try{
+			stage.dispose();
+			skin.dispose();
+			atlas.dispose();
+		} catch (GdxRuntimeException e){
+			Gdx.app.log("IOHandler", "Exception", e);
+		}catch (Exception e) {			
+		}
 	}
 
 	public void gameOver(int score, double time, boolean gameOver) {
