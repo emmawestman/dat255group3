@@ -34,6 +34,7 @@ public class MyGdxGameController extends Game {
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
 		this.unlockedScreen = new UnlockedScreen(this);
+		this.soundController = new SoundController();
 		soundController.playBackgroundMusic();
 
 		// go to the first screen
