@@ -51,9 +51,9 @@ public class StartScreen implements Screen {
 		this.stage = new Stage(CoordinateConverter.getCameraWidth(), 
 								CoordinateConverter.getCameraHeight(), true);
 		this.camera = CameraFactory.Create();
-		stage.setCamera(camera);
-		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
-		stage.getCamera().update();
+		//stage.setCamera(camera);
+		//stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		//stage.getCamera().update();
 	}
 
 	@Override
@@ -70,16 +70,17 @@ public class StartScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// In order to make it look good not depending on the screensize.
-		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
-		table.invalidateHierarchy();
-		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
+		//stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		//stage.setViewport(width, height, true);
+		//table.invalidateHierarchy();
+		//table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
+		//table.setSize(width, height);
 	}
 
 	@Override
 	public void show() {
 		// Setting up the stage
-		this.stage = new Stage(CoordinateConverter.getCameraWidth(), 
-				CoordinateConverter.getCameraHeight(), true);
+		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 		Gdx.input.setInputProcessor(stage);
 		stage.setCamera(camera);
 		
@@ -202,6 +203,11 @@ public class StartScreen implements Screen {
 		stage.addActor(table);
 
 		table.debug(); // To be removed later on
+		
+		//table.invalidateHierarchy();
+		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
+		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		
 	}
 
 	@Override

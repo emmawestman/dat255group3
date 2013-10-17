@@ -1,5 +1,7 @@
 package com.dat255_group3.view;
 
+import com.dat255_group3.model.World;
+
 
 
 /** 
@@ -7,8 +9,11 @@ package com.dat255_group3.view;
  *
  */
 public class WorldView {
+	
+	private World world;
 
-	public WorldView () {
+	public WorldView(World world) {
+		this.world = world;
 		
 	}
 	
@@ -16,7 +21,7 @@ public class WorldView {
 	 * Draws all the graphical elements of the world
 	 */
 	public void draw(CharacterView charView, CookieView cookieView) {
-		charView.draw();
+		charView.draw(world.getTime());
 		cookieView.draw();
 	}
 }
