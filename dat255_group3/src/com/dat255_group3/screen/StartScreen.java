@@ -29,8 +29,6 @@ public class StartScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
-	private TextureAtlas atlas;
-	private Skin skin;
 	private Table table;
 	private SpriteBatch spritebatch;
 	private Texture texture;
@@ -52,6 +50,12 @@ public class StartScreen implements Screen {
 
 		// Update & draw the stage actors
 		stage.act(delta);
+		spritebatch = new SpriteBatch();
+		sprite = new Sprite(texture);
+		spritebatch.begin();
+		sprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 100, CoordinateConverter.getCameraHeight()+ 200);
+		sprite.draw(spritebatch);
+		spritebatch.end();
 		// Table.drawDebug(stage); //To be removed later on
 		stage.draw();
 	}
@@ -75,11 +79,6 @@ public class StartScreen implements Screen {
 				CoordinateConverter.getCameraHeight(), true);
 		Gdx.input.setInputProcessor(stage);
 
-		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(
-				Gdx.files.internal("menuIcons/rectMenuIcon.pack"));
-		skin = new Skin(atlas);
-
 		// Setting the image for the title of the game
 		try {
 			texture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
@@ -90,13 +89,13 @@ public class StartScreen implements Screen {
 		}
 		
 		// Setting up the table
-		table = new Table(skin);
-		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(), 200);
+		table = new Table();
+		table.setBounds(CoordinateConverter.getCameraWidth()/2-200, 0 , CoordinateConverter.getCameraWidth(), 0);
 
 
 		ImageButtonStyle startButtonStyle = new ImageButtonStyle();
-		startButtonStyle.up = skin.getDrawable("start.up");
-		startButtonStyle.down = skin.getDrawable("start.down");
+		startButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("start.up");
+		startButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("start.down");
 		startButtonStyle.pressedOffsetX = 1;
 		startButtonStyle.pressedOffsetY = -1;
 
@@ -114,8 +113,8 @@ public class StartScreen implements Screen {
 		});
 
 		ImageButtonStyle exitButtonStyle = new ImageButtonStyle();
-		exitButtonStyle.up = skin.getDrawable("exit.up");
-		exitButtonStyle.down = skin.getDrawable("exit.down");
+		exitButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("exit.up");
+		exitButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("exit.down");
 		exitButtonStyle.pressedOffsetX = 1;
 		exitButtonStyle.pressedOffsetY = -1;
 
@@ -127,7 +126,7 @@ public class StartScreen implements Screen {
 				try {
 					Gdx.app.exit();
 				} catch (GdxRuntimeException e) {
-					Gdx.app.log("IOHandler", "Exception", e);
+					Gdx.app.log("StartScreen", "Exception", e);
 				} catch (Exception e) {
 				}
 			}
@@ -141,10 +140,10 @@ public class StartScreen implements Screen {
 		soundButtonStyle.down = soundSkin.getDrawable("sound.down");
 		soundButtonStyle.checked = soundSkin.getDrawable("sound.up");
 
-		ImageButton soundEButton = new ImageButton(soundButtonStyle);
+		ImageButton soundButton = new ImageButton(soundButtonStyle);
 		// soundEButton.pad(20);
-		soundEButton.toggle();
-		soundEButton.addListener(new ClickListener() {
+		soundButton.toggle();
+		soundButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (MyGdxGameController.soundEffectsOn()) {
@@ -180,29 +179,25 @@ public class StartScreen implements Screen {
 			}
 		});
 
-		Table table2 = new Table(skin);
-		table2.setBounds(0, 0, 100, 50);
-
+	//	Table table2 = new Table();
+		
 		table.add(startButton);
 		// table.getCell(startButton).spaceBottom(50);
 		table.row();
 		table.add(exitButton);
 		// table.getCell(exitButton).spaceBottom(100);
 		table.row();
-		table2.center();
-		table2.add(soundEButton).right();
-		table2.add(musicButton);
-		table.add(table2);
-		table.row();
+		table.add(soundButton);
+		table.add(musicButton);
+//		;
+//		table2.center();
+//		table2.add(soundEButton).right();
+//		table2.add(musicButton);
+//		table.add(table2);
+//		table.row();
 		stage.addActor(table);
 
 		// table.debug(); // To be removed later on
-		spritebatch = new SpriteBatch();
-		sprite = new Sprite(texture);
-		spritebatch.begin();
-		sprite.setPosition(50, 50);
-		sprite.draw(spritebatch);
-		spritebatch.end();
 	}
 
 	@Override
@@ -221,8 +216,6 @@ public class StartScreen implements Screen {
 	public void dispose() {
 		try {
 			stage.dispose();
-			skin.dispose();
-			atlas.dispose();
 			spritebatch.dispose();
 			texture.dispose();
 		} catch (GdxRuntimeException e) {

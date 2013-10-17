@@ -31,11 +31,10 @@ public class LevelScreen implements Screen {
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
 	private TextureAtlas atlas;
-	private Skin skin;
 	private Table table;
 	private BitmapFont black;
 	private BitmapFont white;
-
+	private Skin skin;
 	public LevelScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(0, 0, true);
@@ -158,7 +157,7 @@ public class LevelScreen implements Screen {
 			atlas.dispose();
 			black.dispose();
 		} catch (GdxRuntimeException e){
-			Gdx.app.log("IOHandler", "Exception", e);
+			Gdx.app.log("LevelScreen", "Exception", e);
 		}catch (Exception e) {			
 		}
 	}

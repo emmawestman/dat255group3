@@ -153,7 +153,7 @@ public class InGameController implements Screen {
 			cameraController.dispose();
 			renderer.dispose();
 		} catch (GdxRuntimeException e){
-			Gdx.app.log("IOHandler", "Exception", e);
+			Gdx.app.log("InGameController", "Exception", e);
 		}catch (Exception e) {			
 		}
 	}

@@ -27,8 +27,6 @@ public class PauseScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
-	private TextureAtlas atlas;
-	private Skin skin;
 	private Table table;
 
 	public PauseScreen(MyGdxGameController myGdxGameController) {
@@ -60,12 +58,8 @@ public class PauseScreen implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(Gdx.files.internal("gameOver/gameOver.pack"));
-		skin = new Skin(atlas);
-
 		// Setting up the table
-		table = new Table(skin);
+		table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		// Setting characteristics for the label
@@ -80,8 +74,8 @@ public class PauseScreen implements Screen {
 		 * continuing to play, restart or to return to the main-menu
 		 */
 		ImageButtonStyle resumeButtonStyle = new ImageButtonStyle();
-		resumeButtonStyle.up = skin.getDrawable("retry.up");
-		resumeButtonStyle.down = skin.getDrawable("retry.down");
+		resumeButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("resume.up");
+		resumeButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("resume.down");
 		resumeButtonStyle.pressedOffsetX = 1;
 		resumeButtonStyle.pressedOffsetY = -1;
 
@@ -96,8 +90,8 @@ public class PauseScreen implements Screen {
 		});
 
 		ImageButtonStyle restartButtonStyle = new ImageButtonStyle();
-		restartButtonStyle.up = skin.getDrawable("retry.up");
-		restartButtonStyle.down = skin.getDrawable("retry.down");
+		restartButtonStyle.up = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("retry.up");
+		restartButtonStyle.down = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("retry.down");
 		restartButtonStyle.pressedOffsetX = 1;
 		restartButtonStyle.pressedOffsetY = -1;
 
@@ -114,8 +108,8 @@ public class PauseScreen implements Screen {
 		});
 
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
-		homeButtonStyle.up = skin.getDrawable("home.up");
-		homeButtonStyle.down = skin.getDrawable("home.down");
+		homeButtonStyle.up = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("home.up");
+		homeButtonStyle.down = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("home.down");
 		homeButtonStyle.pressedOffsetX = 1;
 		homeButtonStyle.pressedOffsetY = -1;
 
@@ -168,10 +162,8 @@ public class PauseScreen implements Screen {
 	public void dispose() {
 		try{
 			stage.dispose();
-			skin.dispose();
-			atlas.dispose();
 		} catch (GdxRuntimeException e){
-			Gdx.app.log("IOHandler", "Exception", e);
+			Gdx.app.log("PauScreen", "Exception", e);
 		}catch (Exception e) {			
 		}
 	}
