@@ -33,7 +33,7 @@ public class CharacterView {
 		this.camera = camera;
 		
 		//Create animation frames
-		walkSheet = new Texture(Gdx.files.internal("ui/walkSheetTest.png"));
+		walkSheet = new Texture(Gdx.files.internal("ui/walkSheetTest.png")); //wrong file
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/2, walkSheet.getHeight());
 		walkFrames = new TextureRegion[2];
 		for(int i = 0;i<2;i++) {
