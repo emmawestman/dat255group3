@@ -173,10 +173,10 @@ public class StartScreen implements Screen {
 		musicButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (SoundController.backgroundMusicIsPlaying()) {
-					SoundController.pauseBackgroundMusic();
+				if (myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
+					myGdxGameController.getSoundController().pauseBackgroundMusic();
 				} else {
-					SoundController.playBackgroundMusic();
+					myGdxGameController.getSoundController().playBackgroundMusic();
 				}
 			}
 		});
