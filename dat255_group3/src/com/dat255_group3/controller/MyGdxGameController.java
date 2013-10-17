@@ -7,9 +7,9 @@ import com.dat255_group3.screen.GameOverScreen;
 import com.dat255_group3.screen.LevelScreen;
 import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
-import com.dat255_group3.screen.UnlockedScreen;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.ScreenUtils;
+import com.dat255_group3.utils.UnlockedScreen;
 
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;

@@ -101,6 +101,7 @@ public class PauseScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				// This level
+				myGdxGameController.getMyGdxGame().setIsGameStarted(false);
 				myGdxGameController.setScreen(myGdxGameController
 						.getInGameController());
 

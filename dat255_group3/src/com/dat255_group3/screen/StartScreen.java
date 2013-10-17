@@ -50,8 +50,6 @@ public class StartScreen implements Screen {
 
 		// Update & draw the stage actors
 		stage.act(delta);
-		spritebatch = new SpriteBatch();
-		sprite = new Sprite(texture);
 		spritebatch.begin();
 		sprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 100, CoordinateConverter.getCameraHeight()+ 200);
 		sprite.draw(spritebatch);
@@ -87,6 +85,8 @@ public class StartScreen implements Screen {
 			Gdx.app.log("StartScreen", "Exception", e);
 		} catch (Exception e) {
 		}
+		spritebatch = new SpriteBatch();
+		sprite = new Sprite(texture);
 		
 		// Setting up the table
 		table = new Table();

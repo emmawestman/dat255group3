@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,6 +38,12 @@ public class LevelScreen implements Screen {
 	private BitmapFont black;
 	private BitmapFont white;
 	private Skin skin;
+	private SpriteBatch spritebatch;
+	private Texture texture;
+	private Texture levelTexture;
+	private Sprite sprite;
+	private Sprite levelSprite;
+	
 	public LevelScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(0, 0, true);
@@ -52,6 +61,12 @@ public class LevelScreen implements Screen {
 
 		// Update & draw the stage-actors
 		stage.act(delta);
+		spritebatch.begin();
+		sprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 100, CoordinateConverter.getCameraHeight()+ 200);
+		sprite.draw(spritebatch);
+		levelSprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 100, CoordinateConverter.getCameraHeight()+ 100);
+		levelSprite.draw(spritebatch);
+		spritebatch.end();
 		stage.draw();
 	}
 
@@ -68,6 +83,17 @@ public class LevelScreen implements Screen {
 		// Setting up the stage
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
+		
+		try {
+			texture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
+			levelTexture = new Texture(Gdx.files.internal("ui/selectLevelTitle.png"));
+		} catch (GdxRuntimeException e) {
+			Gdx.app.log("StartScreen", "Exception", e);
+		} catch (Exception e) {
+		}
+		spritebatch = new SpriteBatch();
+		sprite = new Sprite(texture);
+		levelSprite = new Sprite(levelTexture);
 
 		// Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
@@ -77,13 +103,8 @@ public class LevelScreen implements Screen {
 		white.scale(1.2f);
 
 		// Setting up the table
-		table = new Table(skin);
+		table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-		// Setting characteristics for the label
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = white;
-		Label label = new Label("Levels", labelStyle);
 
 		// Setting up the characteristics for the buttons
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
@@ -119,9 +140,6 @@ public class LevelScreen implements Screen {
 		});
 
 		// Adding to the table and actors to the stage
-		table.add(label);
-		table.getCell(label).spaceBottom(50);
-		table.row();
 		table.add(levelOneButton);
 		table.getCell(levelOneButton).spaceBottom(50);
 		table.row();

@@ -132,20 +132,26 @@ public class InGameController implements Screen {
 		// Pause button
 		ImageButtonStyle pauseButtonStyle = new ImageButtonStyle();
 		TextureAtlas pauseAtlas = new TextureAtlas(
-				Gdx.files.internal("ui/music/music.pack"));
+				Gdx.files.internal("menuIcons/pause.pack"));
 		Skin pauseSkin = new Skin(pauseAtlas);
-		pauseButtonStyle.up = pauseSkin.getDrawable("music.down");
-		pauseButtonStyle.down = pauseSkin.getDrawable("music.pressed");
-		pauseButtonStyle.checked = pauseSkin.getDrawable("music.up");
-		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
-		pauseButton.setBounds(CoordinateConverter.getCameraWidth() - 50, CoordinateConverter.getCameraHeight() - 100, 150, 150);
+		
+		pauseButtonStyle.up = pauseSkin.getDrawable("paus.down");
+		pauseButtonStyle.down = pauseSkin.getDrawable("paus.up");
+		pauseButtonStyle.checked = pauseSkin.getDrawable("paus.up");
+		final ImageButton pauseButton = new ImageButton(pauseButtonStyle);
+		pauseButton.setBounds(CoordinateConverter.getCameraWidth() - 100, CoordinateConverter.getCameraHeight() - 100, 100, 100);
 //		pauseButton.pad(20);
 		stage.addActor(pauseButton);
 		pauseButton.toggle();
 		pauseButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+
+				if(!pauseButton.isChecked()){
 				InGameController.this.pause();
+				} else {
+					//resume
+				}
 			}
 		});
 
