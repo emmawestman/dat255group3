@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.dat255_group3.utils.CoordinateConverter;
 
 /** A view class for the InGame model. 
  * @author The Hans-Gunnar Crew
@@ -25,6 +26,8 @@ public class InGameView {
 	private int[] mapLayers = {0, 2};
 	private Texture bgImage;
 	private Sprite bgSprite;
+	private Texture countDownImage;
+	private Sprite countDown;
 	
 	/** A constructor that takes a map. 
 	 * @param map
@@ -97,6 +100,31 @@ public class InGameView {
 			this.spriteBatch.end();
 		}
 
+	}
+	
+	public void drawCountDownNbr(float delayTime) {
+		Gdx.app.log("InGameView", "drawCountDownNbr");
+		
+		try {
+		if (delayTime <= 1.0) {
+			countDownImage = new Texture(Gdx.files.internal("ui/three.png"));
+		}else if (delayTime <= 2.0) {
+			countDownImage = new Texture(Gdx.files.internal("ui/two.png"));
+		}else {
+			countDownImage = new Texture(Gdx.files.internal("ui/one.png"));
+		}
+		}catch (Exception e) {
+			
+		}
+		
+		this.countDown = new Sprite(countDownImage);
+		
+		spriteBatch.begin();
+		countDown.setPosition(CoordinateConverter.getCameraWidth()/2 - 256/2, 
+				CoordinateConverter.getCameraHeight()/2 - 256/2);
+		countDown.draw(spriteBatch);
+		spriteBatch.end();
+		
 	}
 	
 }
