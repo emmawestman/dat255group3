@@ -19,9 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255_group3.controller.MyGdxGameController;
-import com.dat255_group3.controller.OrthographicCameraController;
 import com.dat255_group3.controller.SoundController;
-import com.dat255_group3.utils.CameraFactory;
 import com.dat255_group3.utils.CoordinateConverter;
 
 /**
@@ -40,7 +38,6 @@ public class StartScreen implements Screen {
 	private Table table;
 	private BitmapFont black;
 	private BitmapFont white;
-	private OrthographicCamera camera;
 
 	// import aurelienribon.tweenengine.TweenManager;
 	// private TweenManager tweenmanager;
@@ -49,10 +46,6 @@ public class StartScreen implements Screen {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(CoordinateConverter.getCameraWidth(), 
 								CoordinateConverter.getCameraHeight(), true);
-		this.camera = CameraFactory.Create();
-		//stage.setCamera(camera);
-		//stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
-		//stage.getCamera().update();
 	}
 
 	@Override
@@ -81,8 +74,7 @@ public class StartScreen implements Screen {
 		// Setting up the stage
 		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 		Gdx.input.setInputProcessor(stage);
-		stage.setCamera(camera);
-		
+
 		// Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
 		skin = new Skin(atlas);
