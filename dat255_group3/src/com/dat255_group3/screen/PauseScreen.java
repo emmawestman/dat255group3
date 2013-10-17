@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 
 /**
@@ -160,9 +161,14 @@ public class PauseScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
-		skin.dispose();
-		atlas.dispose();
+		try{
+			stage.dispose();
+			skin.dispose();
+			atlas.dispose();
+		} catch (GdxRuntimeException e){
+			Gdx.app.log("IOHandler", "Exception", e);
+		}catch (Exception e) {			
+		}
 	}
 
 }

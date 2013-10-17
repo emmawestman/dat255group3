@@ -48,12 +48,13 @@ public class StartScreen implements Screen {
 
 	public StartScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
-		this.stage = new Stage(CoordinateConverter.getCameraWidth(), 
-								CoordinateConverter.getCameraHeight(), true);
+		this.stage = new Stage(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 		this.camera = CameraFactory.Create();
-		//stage.setCamera(camera);
-		//stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
-		//stage.getCamera().update();
+		// stage.setCamera(camera);
+		// stage.setViewport(CoordinateConverter.getCameraWidth(),
+		// CoordinateConverter.getCameraHeight(), true);
+		// stage.getCamera().update();
 	}
 
 	@Override
@@ -70,22 +71,26 @@ public class StartScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// In order to make it look good not depending on the screensize.
-		//stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
-		//stage.setViewport(width, height, true);
-		//table.invalidateHierarchy();
-		//table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
-		//table.setSize(width, height);
+		// stage.setViewport(CoordinateConverter.getCameraWidth(),
+		// CoordinateConverter.getCameraHeight(), true);
+		// stage.setViewport(width, height, true);
+		// table.invalidateHierarchy();
+		// table.setSize(CoordinateConverter.getCameraWidth(),
+		// CoordinateConverter.getCameraHeight());
+		// table.setSize(width, height);
 	}
 
 	@Override
 	public void show() {
 		// Setting up the stage
-		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		stage.setViewport(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 		Gdx.input.setInputProcessor(stage);
 		stage.setCamera(camera);
-		
+
 		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
+		atlas = new TextureAtlas(
+				Gdx.files.internal("menuIcons/RectangularIcons.pack"));
 		skin = new Skin(atlas);
 		black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
 		white = new BitmapFont(Gdx.files.internal("font/whiteL.fnt"), false);
@@ -94,26 +99,22 @@ public class StartScreen implements Screen {
 		// Setting up the table
 		table = new Table(skin);
 		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(),
-							CoordinateConverter.getCameraHeight());
+				CoordinateConverter.getCameraHeight());
 
 		// Setting characteristics for the label
 		LabelStyle labelStyle = new LabelStyle();
 		labelStyle.font = white;
 		Label label = new Label("CookieGame", labelStyle);
 
-		// Setting up the characteristics for the button
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("button.up");
-		textButtonStyle.down = skin.getDrawable("button.down");
-		textButtonStyle.checked = skin.getDrawable("button.down");
-		textButtonStyle.pressedOffsetX = 1;
-		textButtonStyle.pressedOffsetY = -1;
-		textButtonStyle.font = black;
-		textButtonStyle.checkedFontColor = Color.RED;
+		ImageButtonStyle startButtonStyle = new ImageButtonStyle();
+		startButtonStyle.up = skin.getDrawable("start.up");
+		startButtonStyle.down = skin.getDrawable("start.down");
+		startButtonStyle.pressedOffsetX = 1;
+		startButtonStyle.pressedOffsetY = -1;
 
 		// Setting buttons & listeners with the options of starting the game or
 		// to quit
-		TextButton startButton = new TextButton("Start", textButtonStyle);
+		ImageButton startButton = new ImageButton(startButtonStyle);
 		startButton.pad(20);
 		startButton.addListener(new ClickListener() {
 			@Override
@@ -124,16 +125,22 @@ public class StartScreen implements Screen {
 			}
 		});
 
-		TextButton exitButton = new TextButton("Exit", textButtonStyle);
+		ImageButtonStyle exitButtonStyle = new ImageButtonStyle();
+		exitButtonStyle.up = skin.getDrawable("exit.up");
+		exitButtonStyle.down = skin.getDrawable("exit.down");
+		exitButtonStyle.pressedOffsetX = 1;
+		exitButtonStyle.pressedOffsetY = -1;
+
+		ImageButton exitButton = new ImageButton(exitButtonStyle);
 		exitButton.pad(20);
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				try{
+				try {
 					Gdx.app.exit();
-				} catch (GdxRuntimeException e){
+				} catch (GdxRuntimeException e) {
 					Gdx.app.log("IOHandler", "Exception", e);
-				}catch (Exception e) {			
+				} catch (Exception e) {
 				}
 			}
 		});
@@ -203,11 +210,13 @@ public class StartScreen implements Screen {
 		stage.addActor(table);
 
 		table.debug(); // To be removed later on
-		
-		//table.invalidateHierarchy();
-		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
-		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
-		
+
+		// table.invalidateHierarchy();
+		table.setSize(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight());
+		stage.setViewport(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
+
 	}
 
 	@Override
@@ -224,11 +233,15 @@ public class StartScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
-		skin.dispose();
-		atlas.dispose();
-		black.dispose();
-
+		try {
+			stage.dispose();
+			skin.dispose();
+			atlas.dispose();
+			black.dispose();
+		} catch (GdxRuntimeException e) {
+			Gdx.app.log("IOHandler", "Exception", e);
+		} catch (Exception e) {
+		}
 	}
 
 }
