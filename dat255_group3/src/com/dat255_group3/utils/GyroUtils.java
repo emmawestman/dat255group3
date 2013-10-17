@@ -38,8 +38,6 @@ public class GyroUtils {
 		Orientation orientation = Gdx.input.getNativeOrientation();
 	
 		if(orientation == Input.Orientation.valueOf("Landscape")){
-			//These values are untested, 
-			//and are intended to be used for tablet devices.
 			return pitch - 90;
 		}else{
 			return pitch;

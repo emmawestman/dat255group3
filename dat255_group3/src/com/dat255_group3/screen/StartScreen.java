@@ -2,9 +2,7 @@ package com.dat255_group3.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,14 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
-import com.dat255_group3.controller.OrthographicCameraController;
 import com.dat255_group3.controller.SoundController;
-import com.dat255_group3.utils.CameraFactory;
 import com.dat255_group3.utils.CoordinateConverter;
 
 /**
@@ -41,7 +35,6 @@ public class StartScreen implements Screen {
 	private Table table;
 	private BitmapFont black;
 	private BitmapFont white;
-	private OrthographicCamera camera;
 
 	// import aurelienribon.tweenengine.TweenManager;
 	// private TweenManager tweenmanager;
@@ -50,11 +43,6 @@ public class StartScreen implements Screen {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
-		this.camera = CameraFactory.Create();
-		// stage.setCamera(camera);
-		// stage.setViewport(CoordinateConverter.getCameraWidth(),
-		// CoordinateConverter.getCameraHeight(), true);
-		// stage.getCamera().update();
 	}
 
 	@Override
@@ -86,7 +74,6 @@ public class StartScreen implements Screen {
 		stage.setViewport(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
 		Gdx.input.setInputProcessor(stage);
-		stage.setCamera(camera);
 
 		// Setting up the atlas, skin & fonts
 		atlas = new TextureAtlas(

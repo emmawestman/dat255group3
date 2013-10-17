@@ -13,6 +13,7 @@ public class InGame {
 	private int score;
 	private float speedM;
 	private float speedP;
+	private float delayTime;
 
 	/**
 	 * Constructs a InGame
@@ -91,6 +92,14 @@ public class InGame {
 	 */
 	public void setSpeedP(float speedP) {
 		this.speedP = speedP;
+	}
+	
+	public float getDelayTime() {
+		return delayTime;
+	}
+	
+	public void setDelayTime(float delayTime) {
+		this.delayTime = delayTime;
 	}
 	
 	public boolean isNewHighScore(int levelName, int currentScore) {
