@@ -55,10 +55,6 @@ public class InGameController implements Screen {
 		}
 
 		if (hasWon()) {
-			// Change to gamewon-screen
-			// worldController.getSoundController().playVictorySound();
-			// worldController.getSoundController().pauseBackgroundMusic();
-
 			this.gameOver = false;
 			gameOver();
 		}
@@ -66,8 +62,6 @@ public class InGameController implements Screen {
 		if (this.worldController.getCharacterController().getCharacter()
 				.isDead()) {
 			this.gameOver = true;
-			// worldController.getSoundController().playGameOverSound();
-			// worldController.getSoundController().pauseBackgroundMusic();
 			gameOver();
 		}
 
@@ -203,7 +197,7 @@ public class InGameController implements Screen {
 		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame
 				.getSpeedM()) {
 			this.worldController.getCharBody().applyForceToCenter(
-					new Vector2(5, 0), true);
+					new Vector2(3, 0), true);
 		}
 
 		// update the model position for the character
