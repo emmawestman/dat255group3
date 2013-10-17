@@ -168,16 +168,17 @@ public class WorldController {
 	}
 
 	public void checkCookieCollision(Character character) {
-		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
+		if(Math.abs(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x) 
 				< Character.getRadius()) {
-			if(characterController.getCharacter().getPosition().y - cookieList.get(cookieIndex).getPosition().y
-					< Character.getRadius()*2 && characterController.getCharacter().getPosition().y - 
-					cookieList.get(cookieIndex).getPosition().y > 0) {
+			if(Math.abs(cookieList.get(cookieIndex).getPosition().y - characterController.getCharacter().getPosition().y + 32/2)
+					<= Character.getRadius()) {
+//				 && characterController.getCharacter().getPosition().y - 
+//					cookieList.get(cookieIndex).getPosition().y > 0
 				collision();
 			}
 		}
 	}
-
+ 
 	public void collision() {
 		cookieList.remove(cookieIndex);
 		world.increaseCookieCounter();

@@ -8,8 +8,6 @@ import com.badlogic.gdx.math.Vector2;
  *
  */
 public class CoordinateConverter {
-	private static float ScreenWidth;
-	private static float ScreenHeight;
 	private static float cameraWidth = 1024f;
 	private static float CameraHeight = 512f;
 	
@@ -73,23 +71,6 @@ public class CoordinateConverter {
 		return (float)CoordinateConverter.cameraWidth/10f;
 	}
 	
-	public static float getScreenWidth() {
-		return ScreenWidth;
-	}
-
-	public static void setScreenWidth(int screenWidth) {
-		ScreenWidth = screenWidth;
-	}
-
-	public static float getScreenHeight() {
-		return ScreenHeight;
-		
-	}
-
-	public static void setScreenHeight(int screenHeight) {
-		ScreenHeight = screenHeight;
-	}
-
 	public static float getCameraHeight() {
 		return CameraHeight;
 	}

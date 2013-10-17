@@ -14,7 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.utils.CoordinateConverter;
 
 /**
  * A class which represents the screen being shown when a yet unlocked level is
@@ -48,9 +50,9 @@ public class UnlockedScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// In order to make it look good not depending on the screen.
-		stage.setViewport(width, height, true);
-		table.invalidateHierarchy();
-		table.setSize(width, height);
+		//stage.setViewport(width, height, true);
+		//table.invalidateHierarchy();
+		//table.setSize(width, height);
 	}
 
 	@Override
@@ -132,6 +134,10 @@ public class UnlockedScreen implements Screen {
 		table.getCell(mainMenuButton).spaceBottom(50);
 		table.row();
 		stage.addActor(table);
+		
+		//table.invalidateHierarchy();
+		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
+		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 	}
 
 	@Override
@@ -151,9 +157,14 @@ public class UnlockedScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
-		skin.dispose();
-		atlas.dispose();
+		try{
+			stage.dispose();
+			skin.dispose();
+			atlas.dispose();
+		} catch (GdxRuntimeException e){
+			Gdx.app.log("IOHandler", "Exception", e);
+		}catch (Exception e) {			
+		}
 	}
 
 }

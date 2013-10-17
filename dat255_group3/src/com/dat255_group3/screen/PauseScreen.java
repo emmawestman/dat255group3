@@ -7,14 +7,16 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.utils.CoordinateConverter;
 
 /**
  * A class which represents the screen being shown when the game is paused.
@@ -47,9 +49,9 @@ public class PauseScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// In order to make it look good not depending on the screen.
-		stage.setViewport(width, height, true);
-		table.invalidateHierarchy();
-		table.setSize(width, height);
+		//stage.setViewport(width, height, true);
+		//table.invalidateHierarchy();
+		//table.setSize(width, height);
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class PauseScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
 		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
+		atlas = new TextureAtlas(Gdx.files.internal("gameOver/gameOver.pack"));
 		skin = new Skin(atlas);
 
 		// Setting up the table
@@ -73,18 +75,17 @@ public class PauseScreen implements Screen {
 		labelStyle.font.scale(1.2f);
 		Label header = new Label("Paused", labelStyle);
 
-		// Setting up the characteristics for the button
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("button.up");
-		textButtonStyle.down = skin.getDrawable("button.down");
-		textButtonStyle.pressedOffsetX = 1;
-		textButtonStyle.pressedOffsetY = -1;
-		textButtonStyle.font = new BitmapFont(
-				Gdx.files.internal("font/black.fnt"), false);
+		/*
+		 * Setting buttons, their characteristics & listeners with options of
+		 * continuing to play, restart or to return to the main-menu
+		 */
+		ImageButtonStyle resumeButtonStyle = new ImageButtonStyle();
+		resumeButtonStyle.up = skin.getDrawable("retry.up");
+		resumeButtonStyle.down = skin.getDrawable("retry.down");
+		resumeButtonStyle.pressedOffsetX = 1;
+		resumeButtonStyle.pressedOffsetY = -1;
 
-		// Setting buttons & listeners with options of continuing to play or to
-		// return to the main-menu
-		TextButton resumeButton = new TextButton("Resume", textButtonStyle);
+		ImageButton resumeButton = new ImageButton(resumeButtonStyle);
 		resumeButton.pad(20);
 		resumeButton.addListener(new ClickListener() {
 			@Override
@@ -94,9 +95,33 @@ public class PauseScreen implements Screen {
 			}
 		});
 
-		TextButton mainMenuButton = new TextButton("Main Menu", textButtonStyle);
-		mainMenuButton.pad(20);
-		mainMenuButton.addListener(new ClickListener() {
+		ImageButtonStyle restartButtonStyle = new ImageButtonStyle();
+		restartButtonStyle.up = skin.getDrawable("retry.up");
+		restartButtonStyle.down = skin.getDrawable("retry.down");
+		restartButtonStyle.pressedOffsetX = 1;
+		restartButtonStyle.pressedOffsetY = -1;
+
+		ImageButton restartButton = new ImageButton(restartButtonStyle);
+		restartButton.pad(20);
+		restartButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// This level
+				myGdxGameController.setScreen(myGdxGameController
+						.getInGameController());
+
+			}
+		});
+
+		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
+		homeButtonStyle.up = skin.getDrawable("home.up");
+		homeButtonStyle.down = skin.getDrawable("home.down");
+		homeButtonStyle.pressedOffsetX = 1;
+		homeButtonStyle.pressedOffsetY = -1;
+
+		ImageButton homeButton = new ImageButton(homeButtonStyle);
+		homeButton.pad(20);
+		homeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				myGdxGameController.setScreen(myGdxGameController
@@ -111,10 +136,17 @@ public class PauseScreen implements Screen {
 		table.add(resumeButton);
 		table.getCell(resumeButton).spaceBottom(50);
 		table.row();
-		table.add(mainMenuButton);
-		table.getCell(mainMenuButton).spaceBottom(50);
+		table.add(restartButton);
+		table.getCell(restartButton).spaceBottom(50);
+		table.row();
+		table.add(homeButton);
+		table.getCell(homeButton).spaceBottom(50);
 		table.row();
 		stage.addActor(table);
+		
+		//table.invalidateHierarchy();
+		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
+		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 	}
 
 	@Override
@@ -134,9 +166,14 @@ public class PauseScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
-		skin.dispose();
-		atlas.dispose();
+		try{
+			stage.dispose();
+			skin.dispose();
+			atlas.dispose();
+		} catch (GdxRuntimeException e){
+			Gdx.app.log("IOHandler", "Exception", e);
+		}catch (Exception e) {			
+		}
 	}
 
 }

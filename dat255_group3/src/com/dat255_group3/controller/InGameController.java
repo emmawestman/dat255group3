@@ -29,12 +29,13 @@ public class InGameController implements Screen {
 	private OrthographicCameraController cameraController;
 	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true, true, true, true, true);
 	private boolean gameOver;
+	private boolean isCountingDown = true;
 
 	public InGameController(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
-		//IOHandler.readScore();
+		
 	}
 
 	@Override
@@ -42,6 +43,8 @@ public class InGameController implements Screen {
 		// Shows a white screen
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		inGame.setDelayTime(inGame.getDelayTime() + delta);
 
 		/*
 		 * Checks whether the backbutton has been pressed. If so, a
@@ -65,7 +68,6 @@ public class InGameController implements Screen {
 			gameOver();
 		}
 
-		update(delta);
 
 		// check collision with the closest cookie
 		worldController.checkNextCookie();
@@ -84,7 +86,26 @@ public class InGameController implements Screen {
 		if (Gdx.input.isTouched()) {
 			worldController.getCharacterController().tryToJump();
 		}
-		
+		// Count Down
+		if(isCountingDown) {
+				if (inGame.getDelayTime() <= 1.0) {
+					Gdx.app.log("InGameContoller", "Count down: 3");
+					inGameView.drawCountDownNbr(inGame.getDelayTime());
+					
+				}else if (inGame.getDelayTime() <= 2.0) {
+					inGameView.drawCountDownNbr(inGame.getDelayTime());
+					Gdx.app.log("InGameContoller", "Count down: 2");
+					
+				}else if (inGame.getDelayTime() <= 3.0) {
+					inGameView.drawCountDownNbr(inGame.getDelayTime());
+					Gdx.app.log("InGameContoller", "Count down: 1");
+
+				}else {
+					isCountingDown = false;
+				}
+		}else {
+			update(delta);
+		}
 	}
 
 
@@ -101,6 +122,7 @@ public class InGameController implements Screen {
 			myGdxGameController.getMyGdxGame().setIsGameStarted(true);
 		}
 		this.cameraController.resume();
+		isCountingDown = true;
 
 	}
 
@@ -111,7 +133,7 @@ public class InGameController implements Screen {
 	@Override
 	public void pause() {
 		myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-		SoundController.pauseBackgroundMusic();
+		myGdxGameController.getSoundController().pauseBackgroundMusic();
 		cameraController.pause();
 	}
 
@@ -126,9 +148,14 @@ public class InGameController implements Screen {
 
 	@Override
 	public void dispose() {
-		map.dispose();
-		cameraController.dispose();
-		renderer.dispose();
+		try{
+			map.dispose();
+			cameraController.dispose();
+			renderer.dispose();
+		} catch (GdxRuntimeException e){
+			Gdx.app.log("IOHandler", "Exception", e);
+		}catch (Exception e) {			
+		}
 	}
 
 	public InGame getInGame() {
