@@ -20,8 +20,9 @@ public class WorldView {
 	/**
 	 * Draws all the graphical elements of the world
 	 */
-	public void draw(CharacterView charView, CookieView cookieView) {
+	public void draw(CharacterView charView, CookieView cookieView, EnemyView enemy) {
 		charView.draw(world.getTime());
 		cookieView.draw();
+		enemy.draw(world.getTime(), charView.getCharacter().getDeahLimit());
 	}
 }

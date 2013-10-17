@@ -10,6 +10,7 @@ import com.dat255_group3.model.World;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.PhysBodyFactory;
 import com.dat255_group3.utils.WorldUtil;
+import com.dat255_group3.view.EnemyView;
 import com.dat255_group3.view.WorldView;
 
 public class WorldController {
@@ -17,6 +18,7 @@ public class WorldController {
 	private World world;
 	private WorldView worldView;
 	private CharacterController characterController;
+	private EnemyView enemy;
 	private Vector2 gravity;
 	final boolean doSleep;
 	private ArrayList<Body> solidBodyList;
@@ -78,6 +80,9 @@ public class WorldController {
 		// create cookieController
 		cookieController = new CookieController(cookieList, inGameController.getCamera());
 
+		//create enemy
+		enemy = new EnemyView(inGameController.getCamera());
+		
 		// create soundController
 		soundController = new SoundController();
 
@@ -93,6 +98,10 @@ public class WorldController {
 
 	public WorldView getWorldView() {
 		return worldView;
+	}
+
+	public EnemyView getEnemy() {
+		return enemy;
 	}
 
 	public CharacterController getCharacterController(){

@@ -74,6 +74,7 @@ public class InGameController implements Screen {
 		this.inGameView.draw(this.worldController.getWorldView(),this.worldController.getCharBody(), 
 				this.worldController.getCharacterController().getCharacterView(),
 				this.worldController.getCookieController().getCookieView(),
+				this.worldController.getEnemy(),
 				worldController.getWorld().getTime(), worldController.getWorld().getCookieCounter(), gameOver);
 
 		/*

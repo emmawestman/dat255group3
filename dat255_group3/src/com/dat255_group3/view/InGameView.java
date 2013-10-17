@@ -47,13 +47,14 @@ public class InGameView {
 	/** Renders the HUD and background of the game. 
 	 * 
 	 */
-	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, double time, int cookieCounter, boolean gameOver) {
+	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, 
+			EnemyView enemy, double time, int cookieCounter, boolean gameOver) {
 		//darw bg image
 		drawBgImage();
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
 		mapRenderer.render(mapLayers);
-		worldView.draw(charView, cookieView);
+		worldView.draw(charView, cookieView, enemy);
 		//draw game over text
 		if(gameOver) drawGameOver();
 		//Draw time
