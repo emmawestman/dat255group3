@@ -31,7 +31,7 @@ public class PhysBodyFactory {
 		Body body = null;
 		
 		CircleShape shape = new CircleShape();
-		shape.setRadius(CoordinateConverter.pixelToMeter(character.getRadius()));
+		shape.setRadius(CoordinateConverter.pixelToMeter(Character.getRadius()));
 		
 		
 		fixtureDef.shape = shape;

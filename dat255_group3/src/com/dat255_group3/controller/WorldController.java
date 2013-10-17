@@ -28,7 +28,6 @@ public class WorldController {
 	private WorldUtil worldUtil;
 	private CookieController cookieController;
 	private int cookieIndex;
-	private int cookieCounter;
 	private SoundController soundController;
 
 	public WorldController(InGameController inGameController, float speedM){
@@ -154,14 +153,14 @@ public class WorldController {
 	public void checkNextCookie() {
 		if(cookieList.size() > 0 && cookieList.size() > cookieIndex) {
 			if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
-				checkCookieCollision();
+				checkCookieCollision(this.characterController.getCharacter());
 			}else if(cookieIndex < cookieList.size()-1){
 				cookieIndex++;
 			}
 		}
 	}
 
-	public void checkCookieCollision() {
+	public void checkCookieCollision(Character character) {
 		if(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x 
 				< Character.getRadius()) {
 			if(characterController.getCharacter().getPosition().y - cookieList.get(cookieIndex).getPosition().y

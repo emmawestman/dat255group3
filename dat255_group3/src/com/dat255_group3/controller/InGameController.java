@@ -116,7 +116,7 @@ public class InGameController implements Screen {
 	@Override
 	public void pause() {
 		myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-		worldController.getSoundController().pauseBackgroundMusic();
+		SoundController.pauseBackgroundMusic();
 		cameraController.pause();
 	}
 

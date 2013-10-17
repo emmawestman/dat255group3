@@ -31,7 +31,7 @@ public class CharacterController {
 		return characterView;
 	}
 	/**
-	 * Jumps the character body if it does not have a vertical velocity
+	 * Jumps the character body if its vertical velocity = 0
 	 */
 	public void tryToJump() {
 		if(this.worldController.getCharBody().getLinearVelocity().y == 0) {

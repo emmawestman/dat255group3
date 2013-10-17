@@ -26,7 +26,7 @@ public class MyGdxGameController extends Game {
 	public void create() {
 		// create other the scenes and the player and the gameModel
 		this.myGdxGame = new MyGdxGame();
-		this.playerController = new PlayerController(this);
+		this.playerController = new PlayerController();
 		this.inGameController = new InGameController(this);
 		this.startScreen = new StartScreen(this);
 		this.levelScreen = new LevelScreen(this);

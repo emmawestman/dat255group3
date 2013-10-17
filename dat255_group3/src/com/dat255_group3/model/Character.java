@@ -13,7 +13,7 @@ public class Character {
 	private double friction;
 	private static float radius; //size of character in pixels
 	private float deathLimit;
-	private static Vector2 position; 
+	private Vector2 position; 
 	
 
 	/**

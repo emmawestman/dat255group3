@@ -5,11 +5,9 @@ import com.dat255_group3.model.Player;
 
 public class PlayerController {
 
-	private MyGdxGameController myGdxGameController;
 	private Player player;
 	
-	public PlayerController(MyGdxGameController myGdxGameController){
-		this.myGdxGameController = myGdxGameController;
+	public PlayerController(){
 		this.player = new Player();
 		
 		if(Gdx.files.local("io/io.txt").exists()){
