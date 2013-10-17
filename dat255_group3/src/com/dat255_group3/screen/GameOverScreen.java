@@ -82,19 +82,19 @@ public class GameOverScreen implements Screen {
 		LabelStyle headerStyle = new LabelStyle();
 		headerStyle.font = new BitmapFont(
 				Gdx.files.internal("font/whiteL.fnt"), false);
-		headerStyle.font.scale(1.2f);
+		headerStyle.font.scale(0.6f); //<------------------------------------------------
 		Label header = new Label("", headerStyle);
 
 		LabelStyle buttonLabelStyle = new LabelStyle();
 		buttonLabelStyle.font = new BitmapFont(
 				Gdx.files.internal("font/white.fnt"), false);
-		buttonLabelStyle.font.scale(1.1f);
+		buttonLabelStyle.font.scale(0.5f);
 		Label buttonLabel = new Label("", buttonLabelStyle);
 
 		LabelStyle scoreNTimeStyle = new LabelStyle();
 		scoreNTimeStyle.font = new BitmapFont(
 				Gdx.files.internal("font/white.fnt"), false);
-		scoreNTimeStyle.font.setScale(1.8f);
+		scoreNTimeStyle.font.setScale(0.9f);
 		Label timeLabel = new Label("Time: " + this.time, scoreNTimeStyle);
 		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
 		Label highScoreLabel = new Label("High Score: " + IOHandler.getScore(myGdxGameController.getMyGdxGame().getCurrentLevel()), scoreNTimeStyle);
@@ -161,25 +161,25 @@ public class GameOverScreen implements Screen {
 
 		// Adding to the table and actors to the stage
 		table.add(header);
-		table.getCell(header).spaceBottom(50);
+		table.getCell(header).spaceBottom(5);
 		table.row();
 		table.add(timeLabel);
-		table.getCell(timeLabel).spaceBottom(50);
+		table.getCell(timeLabel).spaceBottom(5);
 		table.row();
 		table.add(scoreLabel);
-		table.getCell(scoreLabel).spaceBottom(50);
+		table.getCell(scoreLabel).spaceBottom(5);
 		table.row();
 		table.add(highScoreLabel);
-		table.getCell(highScoreLabel).spaceBottom(50);
+		table.getCell(highScoreLabel).spaceBottom(5);
 		table.row();
 		table.add(buttonLabel);
-		table.getCell(buttonLabel).spaceBottom(50);
+		table.getCell(buttonLabel).spaceBottom(5);
 		table.row();
 		table.add(levelButton);
-		table.getCell(levelButton).spaceBottom(50);
+		table.getCell(levelButton).spaceBottom(5);
 		table.row();
 		table.add(mainMenuButton);
-		table.getCell(mainMenuButton).spaceBottom(50);
+		table.getCell(mainMenuButton).spaceBottom(5);
 		stage.addActor(table);
 
 		// table.debug(); //To be removed later on
