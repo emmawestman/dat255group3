@@ -1,0 +1,47 @@
+
+gameOver.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+home.down
+  rotate: false
+  xy: 1, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+home.up
+  rotate: false
+  xy: 103, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+retry.up
+  rotate: false
+  xy: 205, 63
+  size: 107, 38
+  orig: 107, 38
+  offset: 0, 0
+  index: -1
+nextLevel.up
+  rotate: false
+  xy: 205, 23
+  size: 98, 38
+  orig: 98, 38
+  offset: 0, 0
+  index: -1
+retry.down
+  rotate: false
+  xy: 314, 70
+  size: 86, 31
+  orig: 86, 31
+  offset: 0, 0
+  index: -1
+nextLevel.down
+  rotate: false
+  xy: 314, 37
+  size: 79, 31
+  orig: 79, 31
+  offset: 0, 0
+  index: -1
