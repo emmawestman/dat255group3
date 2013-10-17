@@ -147,9 +147,14 @@ public class InGameController implements Screen {
 
 	@Override
 	public void dispose() {
-		map.dispose();
-		cameraController.dispose();
-		renderer.dispose();
+		try{
+			map.dispose();
+			cameraController.dispose();
+			renderer.dispose();
+		} catch (GdxRuntimeException e){
+			Gdx.app.log("IOHandler", "Exception", e);
+		}catch (Exception e) {			
+		}
 	}
 
 	public InGame getInGame() {
