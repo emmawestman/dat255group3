@@ -5,85 +5,113 @@ filter: Nearest,Nearest
 repeat: none
 back.up
   rotate: false
-  xy: 1, 153
-  size: 150, 150
-  orig: 150, 150
+  xy: 1, 409
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 home.up
   rotate: false
-  xy: 1, 1
-  size: 150, 150
-  orig: 150, 150
+  xy: 1, 307
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-music.down
+music.checked
   rotate: false
-  xy: 153, 153
-  size: 150, 150
-  orig: 150, 150
+  xy: 103, 409
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 music.up
   rotate: false
-  xy: 153, 1
-  size: 150, 150
-  orig: 150, 150
+  xy: 1, 205
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 paus.up
   rotate: false
-  xy: 305, 153
-  size: 150, 150
-  orig: 150, 150
+  xy: 103, 307
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 play.up
   rotate: false
-  xy: 305, 1
-  size: 150, 150
-  orig: 150, 150
+  xy: 1, 103
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 retry.up
   rotate: false
-  xy: 457, 153
-  size: 150, 150
-  orig: 150, 150
+  xy: 103, 205
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-sound.down
+sound.checked
   rotate: false
-  xy: 457, 1
-  size: 150, 150
-  orig: 150, 150
+  xy: 1, 1
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 sound.up
   rotate: false
-  xy: 609, 153
-  size: 150, 150
-  orig: 150, 150
+  xy: 103, 103
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 back.down
   rotate: false
-  xy: 609, 31
-  size: 120, 120
-  orig: 120, 120
+  xy: 205, 429
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
 home.down
   rotate: false
-  xy: 761, 183
-  size: 120, 120
-  orig: 120, 120
+  xy: 103, 21
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+music.down
+  rotate: false
+  xy: 205, 347
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+pause.down
+  rotate: false
+  xy: 205, 265
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+play.down
+  rotate: false
+  xy: 205, 183
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
 retry.down
   rotate: false
-  xy: 731, 31
-  size: 120, 120
-  orig: 120, 120
+  xy: 205, 101
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+sound.down
+  rotate: false
+  xy: 185, 19
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1

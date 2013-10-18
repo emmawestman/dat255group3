@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -32,7 +30,7 @@ public class StartScreen implements Screen {
 	private Table table;
 	private SpriteBatch spritebatch;
 	private Texture texture;
-	private Sprite sprite;
+	private Image image;
 
 	// import aurelienribon.tweenengine.TweenManager;
 	// private TweenManager tweenmanager;
@@ -51,8 +49,8 @@ public class StartScreen implements Screen {
 		// Update & draw the stage actors
 		stage.act(delta);
 		spritebatch.begin();
-		sprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 100, CoordinateConverter.getCameraHeight()+ 200);
-		sprite.draw(spritebatch);
+		image.setSize(685, 258);
+		image.draw(spritebatch, 1f);
 		spritebatch.end();
 		// Table.drawDebug(stage); //To be removed later on
 		stage.draw();
@@ -86,16 +84,18 @@ public class StartScreen implements Screen {
 		} catch (Exception e) {
 		}
 		spritebatch = new SpriteBatch();
-		sprite = new Sprite(texture);
-		
+		image = new Image(texture);
+
 		// Setting up the table
 		table = new Table();
-		table.setBounds(CoordinateConverter.getCameraWidth()/2-200, 0 , CoordinateConverter.getCameraWidth(), 0);
-
+		table.setBounds(CoordinateConverter.getCameraWidth() / 2 - 450, CoordinateConverter.getCameraHeight()/2 - 50,
+				CoordinateConverter.getCameraWidth(), 0);
 
 		ImageButtonStyle startButtonStyle = new ImageButtonStyle();
-		startButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("start.up");
-		startButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("start.down");
+		startButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("start.up");
+		startButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("start.down");
 		startButtonStyle.pressedOffsetX = 1;
 		startButtonStyle.pressedOffsetY = -1;
 
@@ -113,8 +113,10 @@ public class StartScreen implements Screen {
 		});
 
 		ImageButtonStyle exitButtonStyle = new ImageButtonStyle();
-		exitButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("exit.up");
-		exitButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("exit.down");
+		exitButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("exit.up");
+		exitButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("exit.down");
 		exitButtonStyle.pressedOffsetX = 1;
 		exitButtonStyle.pressedOffsetY = -1;
 
@@ -133,12 +135,12 @@ public class StartScreen implements Screen {
 		});
 
 		ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
-		TextureAtlas soundAtlas = new TextureAtlas(
-				Gdx.files.internal("ui/music/sound.pack"));
-		Skin soundSkin = new Skin(soundAtlas);
-		soundButtonStyle.up = soundSkin.getDrawable("sound.down");
-		soundButtonStyle.down = soundSkin.getDrawable("sound.down");
-		soundButtonStyle.checked = soundSkin.getDrawable("sound.up");
+		soundButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("sound.up");
+		soundButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("sound.down");
+		soundButtonStyle.checked = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("sound.checked");
 
 		ImageButton soundButton = new ImageButton(soundButtonStyle);
 		// soundEButton.pad(20);
@@ -155,12 +157,12 @@ public class StartScreen implements Screen {
 		});
 
 		ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
-		TextureAtlas musicAtlas = new TextureAtlas(
-				Gdx.files.internal("ui/music/music.pack"));
-		Skin musicSkin = new Skin(musicAtlas);
-		musicButtonStyle.up = musicSkin.getDrawable("music.down");
-		musicButtonStyle.down = musicSkin.getDrawable("music.pressed");
-		musicButtonStyle.checked = musicSkin.getDrawable("music.up");
+		musicButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("music.up");
+		musicButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("music.down");
+		musicButtonStyle.checked = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("music.checked");
 
 		ImageButton musicButton = new ImageButton(musicButtonStyle);
 		musicButton.pad(20);
@@ -179,22 +181,24 @@ public class StartScreen implements Screen {
 			}
 		});
 
-	//	Table table2 = new Table();
-		
+		// Table table2 = new Table();
+		table.center();
+		table.add(image);
+		table.row();
 		table.add(startButton);
-		// table.getCell(startButton).spaceBottom(50);
+		table.getCell(startButton).spaceBottom(30);
 		table.row();
 		table.add(exitButton);
-		// table.getCell(exitButton).spaceBottom(100);
+		table.getCell(exitButton).spaceBottom(30);
 		table.row();
-		table.add(soundButton);
-		table.add(musicButton);
-//		;
-//		table2.center();
-//		table2.add(soundEButton).right();
-//		table2.add(musicButton);
-//		table.add(table2);
-//		table.row();
+		table.add(soundButton).left();
+		table.add(musicButton).left();
+		// ;
+		// table2.center();
+		// table2.add(soundEButton).right();
+		// table2.add(musicButton);
+		// table.add(table2);
+		// table.row();
 		stage.addActor(table);
 
 		// table.debug(); // To be removed later on

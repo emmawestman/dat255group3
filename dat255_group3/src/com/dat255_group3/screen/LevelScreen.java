@@ -64,7 +64,7 @@ public class LevelScreen implements Screen {
 		spritebatch.begin();
 		sprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 100, CoordinateConverter.getCameraHeight()+ 200);
 		sprite.draw(spritebatch);
-		levelSprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 100, CoordinateConverter.getCameraHeight()+ 100);
+		levelSprite.setPosition(CoordinateConverter.getCameraWidth()/2 + 200, CoordinateConverter.getCameraHeight()+ 100);
 		levelSprite.draw(spritebatch);
 		spritebatch.end();
 		stage.draw();
@@ -104,7 +104,8 @@ public class LevelScreen implements Screen {
 
 		// Setting up the table
 		table = new Table();
-		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		table.setBounds(CoordinateConverter.getCameraWidth() / 2 - 500, CoordinateConverter.getCameraHeight()/2 - 350,
+				CoordinateConverter.getCameraWidth(), 0);
 
 		// Setting up the characteristics for the buttons
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
