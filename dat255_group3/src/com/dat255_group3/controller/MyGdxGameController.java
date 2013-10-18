@@ -42,7 +42,7 @@ public class MyGdxGameController extends Game {
 		soundController.playBackgroundMusic();
 
 		// go to the first screen
-		setScreen(startScreen);
+		setScreen(gameCompletedScreen);
 	}
 
 	@Override
