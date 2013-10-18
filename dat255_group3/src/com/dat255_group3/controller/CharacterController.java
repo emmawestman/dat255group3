@@ -43,7 +43,7 @@ public class CharacterController {
 	 * Jumps the character body
 	 */
 	public void jump(){
-		float impulse = this.worldController.getCharBody().getMass()*5;
+		float impulse = this.worldController.getCharBody().getMass()*6;
 		worldController.getCharBody().applyLinearImpulse(0.0f, impulse, 
 				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
 	
