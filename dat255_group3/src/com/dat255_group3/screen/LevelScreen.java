@@ -66,7 +66,7 @@ public class LevelScreen implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		// Setting the image for the title of the game
+		// Setting the image for the title
 		try {
 			levelTexture = new Texture(
 					Gdx.files.internal("ui/selectLevelTitle.png"));
@@ -76,9 +76,7 @@ public class LevelScreen implements Screen {
 		}
 		Image levelImage = new Image(levelTexture);
 		
-		// Setting up the characteristics for the buttons
-		
-		//Level 1
+		// Setting buttons & listeners for choosing the levels
 		ImageButtonStyle levelOneStyle = new ImageButtonStyle();
 		levelOneStyle.up = myGdxGameController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelOne.up");
@@ -87,7 +85,6 @@ public class LevelScreen implements Screen {
 		levelOneStyle.pressedOffsetX = 1;
 		levelOneStyle.pressedOffsetY = -1;
 
-		// Setting buttons & listeners for choosing the levels
 		ImageButton levelOneButton = new ImageButton(levelOneStyle);
 		levelOneButton.pad(20);
 		levelOneButton.addListener(new ClickListener() {
@@ -100,7 +97,6 @@ public class LevelScreen implements Screen {
 			}
 		});
 		
-		//Level 2
 		ImageButtonStyle levelTwoStyle = new ImageButtonStyle();
 		levelTwoStyle.up = myGdxGameController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelTwo.up");
@@ -121,7 +117,6 @@ public class LevelScreen implements Screen {
 			}
 		});
 		
-		//Level 3
 		ImageButtonStyle levelThreeStyle = new ImageButtonStyle();
 		levelThreeStyle.up = myGdxGameController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelThree.up");
@@ -132,18 +127,15 @@ public class LevelScreen implements Screen {
 
 		ImageButton levelThreeButton = new ImageButton(levelThreeStyle);
 		levelThreeButton.pad(20);
-		//levelThreeButton.setVisible(false);
 		levelThreeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				//myGdxGameController.getMyGdxGame().setCurrentLevel(3);
+				myGdxGameController.getInGameController().loadMap();
+				myGdxGameController.setScreen(myGdxGameController
+						.getInGameController());
 			}
 		});
-		
-		//Positions
-		levelImage.setPosition(270, 400);
-		levelOneButton.setPosition(180, 150);
-		levelTwoButton.setPosition(405, 150);
-		levelThreeButton.setPosition(630, 150);
 		
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
 		homeButtonStyle.up = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("home.up");
@@ -153,7 +145,6 @@ public class LevelScreen implements Screen {
 
 		ImageButton homeButton = new ImageButton(homeButtonStyle);
 		homeButton.pad(20);
-		//homeButton.setPosition(x, y) //TODO
 		homeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -162,16 +153,21 @@ public class LevelScreen implements Screen {
 			}
 		});
 
+		//Setting the positions of the actors and add them to the stage
+		levelImage.setPosition(270, 400);
+		levelOneButton.setPosition(180, 160);
+		levelTwoButton.setPosition(405, 160);
+		levelThreeButton.setPosition(630, 160);
+		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 120, 30);
 		stage.addActor(levelImage);
 		stage.addActor(levelOneButton);
 		stage.addActor(levelTwoButton);
 		stage.addActor(levelThreeButton);
 		stage.addActor(homeButton);
 
-		// table.invalidateHierarchy();
 		stage.setViewport(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
-		//stage.addActor(myGdxGameController.getScreenUtils().getBackgroundImage());
+		stage.addActor(myGdxGameController.getScreenUtils().getBackgroundImage());
 	}
 
 	@Override
