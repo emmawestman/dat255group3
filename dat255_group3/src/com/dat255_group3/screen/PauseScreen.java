@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -115,7 +113,7 @@ public class PauseScreen implements Screen {
 		homeButtonStyle.pressedOffsetY = -1;
 
 		ImageButton homeButton = new ImageButton(homeButtonStyle);
-		homeButton.pad(20);
+		homeButton.setPosition(CoordinateConverter.getCameraWidth()-130, 30);
 		homeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -124,22 +122,90 @@ public class PauseScreen implements Screen {
 			}
 		});
 
+
+
+		ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
+		if(MyGdxGameController.soundEffectsOn()) {
+			soundButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.checked");
+			soundButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.down");
+			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.up");
+		}else{
+			soundButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.up");
+			soundButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.down");
+			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.checked");
+
+		}
+
+		ImageButton soundButton = new ImageButton(soundButtonStyle);
+		soundButton.setPosition(120, 30);
+		soundButton.toggle();
+		soundButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (MyGdxGameController.soundEffectsOn()) {
+					myGdxGameController.soundEffectsOn(false);
+				} else {
+					myGdxGameController.soundEffectsOn(true);
+				}
+			}
+		});
+		
+		ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
+		if(myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
+			musicButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.checked");
+			musicButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.down");
+			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.up");
+		}else{
+			musicButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.up");
+			musicButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.down");
+			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.checked");
+		}
+		ImageButton musicButton = new ImageButton(musicButtonStyle);
+		musicButton.setPosition(20,30);
+		musicButton.toggle();
+		musicButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (myGdxGameController.getSoundController()
+						.backgroundMusicIsPlaying()) {
+					myGdxGameController.getSoundController()
+					.pauseBackgroundMusic();
+				} else {
+					myGdxGameController.getSoundController()
+					.playBackgroundMusic();
+				}
+			}
+		});
+
 		// Adding to the table and actors to the stage
-		table.add(header);
+		table.add(header).center();
 		table.getCell(header).spaceBottom(50);
 		table.row();
-		table.add(resumeButton);
-		table.getCell(resumeButton).spaceBottom(50);
+		table.add(resumeButton).center();
+		table.getCell(resumeButton).spaceBottom(20);
 		table.row();
-		table.add(restartButton);
-		table.getCell(restartButton).spaceBottom(50);
+		table.add(restartButton).center();
+		table.getCell(restartButton).spaceBottom(20);
 		table.row();
-		table.add(homeButton);
-		table.getCell(homeButton).spaceBottom(50);
-		table.row();
+		table.setFillParent(true);
+
 		stage.addActor(table);
-		
-		//table.invalidateHierarchy();
+		stage.addActor(soundButton);
+		stage.addActor(musicButton);
+		stage.addActor(homeButton);
+
 		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
 		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 	}

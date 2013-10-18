@@ -123,16 +123,24 @@ public class StartScreen implements Screen {
 		});
 
 		ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
-		soundButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("sound.up");
-		soundButtonStyle.down = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("sound.down");
-		soundButtonStyle.checked = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("sound.checked");
-
+		if(MyGdxGameController.soundEffectsOn()) {
+			soundButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.checked");
+			soundButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.down");
+			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.up");
+		}else{
+			soundButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.up");
+			soundButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.down");
+			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("sound.checked");
+		}
+		
 		ImageButton soundButton = new ImageButton(soundButtonStyle);
-		// soundEButton.pad(20);
-		//soundButton.setPosition(x, y) //TODO
+		soundButton.setPosition(120, 30);
 		soundButton.toggle();
 		soundButton.addListener(new ClickListener() {
 			@Override
@@ -146,16 +154,25 @@ public class StartScreen implements Screen {
 		});
 
 		ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
-		musicButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("music.up");
-		musicButtonStyle.down = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("music.down");
-		musicButtonStyle.checked = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("music.checked");
-
+		if(myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
+			musicButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.checked");
+			musicButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.down");
+			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.up");
+		}else{
+			musicButtonStyle.up = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.up");
+			musicButtonStyle.down = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.down");
+			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
+					.getCircularSkin().getDrawable("music.checked");
+		}
+		
 		ImageButton musicButton = new ImageButton(musicButtonStyle);
 		musicButton.pad(20);
-		//musicButton.setPosition(x, y) //TODO
+		musicButton.setPosition(20, 30);
 		musicButton.toggle();
 		musicButton.addListener(new ClickListener() {
 			@Override
