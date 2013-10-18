@@ -63,10 +63,7 @@ public class InGameView {
 		//Draw time
 		drawTime(time);
 		drawCookieCounter(cookieCounter);
-		
-		// pause button
-		
-		
+
 	}
 	
 	public void drawGameOver(){
@@ -81,7 +78,7 @@ public class InGameView {
 		spriteBatch.begin();
 		str = "Time: "+ (double)((int)(time*100))/100;
 		font.setColor(Color.BLACK);
-		font.draw(spriteBatch, str, 20f, camera.viewportHeight-30f);
+		font.draw(spriteBatch, str, 100f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
 	
@@ -89,7 +86,7 @@ public class InGameView {
 		spriteBatch.begin();
 		str = "Cookies: "+ cookieCounter;
 		font.setColor(Color.BLACK);
-		font.draw(spriteBatch, str, 100f, camera.viewportHeight-30f);
+		font.draw(spriteBatch, str, 200f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
 	

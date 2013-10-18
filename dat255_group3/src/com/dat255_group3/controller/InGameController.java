@@ -137,8 +137,8 @@ public class InGameController implements Screen {
 		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("paus.up");
 		final ImageButton pauseButton = new ImageButton(pauseButtonStyle);
-		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 100,
-				CoordinateConverter.getCameraHeight() - 50);
+		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
+				CoordinateConverter.getCameraHeight() - 70);
 		// pauseButton.pad(20);
 		stage.addActor(pauseButton);
 		pauseButton.toggle();

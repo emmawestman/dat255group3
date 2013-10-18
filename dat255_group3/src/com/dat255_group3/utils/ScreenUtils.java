@@ -20,6 +20,7 @@ public class ScreenUtils {
 	private Image backgroundImage;
 	private Texture backgroundTexture;
 	private OrthographicCamera camera;
+	private SpriteBatch spriteBatch;
 	
 	
 	public ScreenUtils(){
@@ -41,7 +42,8 @@ public class ScreenUtils {
 				CoordinateConverter.getCameraHeight());
 		camera.position.set(CoordinateConverter.getCameraWidth()/2, CoordinateConverter.getCameraHeight()/2, 0);
 		camera.update();
-		 
+		spriteBatch = new SpriteBatch();
+		spriteBatch.setProjectionMatrix(camera.combined);
 		
 		
 	}
@@ -61,22 +63,24 @@ public class ScreenUtils {
 	public Image getBackgroundImage() {
 		return backgroundImage;
 	}
-	
-	public void setCamera(SpriteBatch spriteBatch) {
-		spriteBatch.setProjectionMatrix(camera.combined);
-	}
-	
+
 	public void dispose(){
 		try {
 		skinRect.dispose();
 		skinCirc.dispose();
 		atlasRect.dispose();
 		atlasCirc.dispose();
+		spriteBatch.dispose();
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("ScreenUtils", "Exception", e);
 		}catch (Exception e) {			
 		}
 	}
 	
+	public void drawBackgroundImage() {
+		spriteBatch.begin();
+		backgroundImage.draw(spriteBatch, 1);
+		spriteBatch.end();
+	}
 
 }
