@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -27,11 +26,8 @@ public class StartScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
-	private Table table;
-	private SpriteBatch spritebatch;
 	private Texture texture;
-	private Image image;
-
+	
 	// import aurelienribon.tweenengine.TweenManager;
 	// private TweenManager tweenmanager;
 
@@ -48,11 +44,7 @@ public class StartScreen implements Screen {
 
 		// Update & draw the stage actors
 		stage.act(delta);
-		spritebatch.begin();
-		image.setSize(685, 258);
-		image.draw(spritebatch, 1f);
-		spritebatch.end();
-		// Table.drawDebug(stage); //To be removed later on
+		//Table.drawDebug(stage); // To be removed later on
 		stage.draw();
 	}
 
@@ -71,8 +63,6 @@ public class StartScreen implements Screen {
 	@Override
 	public void show() {
 		// Setting up the stage
-		stage.setViewport(CoordinateConverter.getCameraWidth(),
-				CoordinateConverter.getCameraHeight(), true);
 		Gdx.input.setInputProcessor(stage);
 
 		// Setting the image for the title of the game
@@ -83,13 +73,11 @@ public class StartScreen implements Screen {
 			Gdx.app.log("StartScreen", "Exception", e);
 		} catch (Exception e) {
 		}
-		spritebatch = new SpriteBatch();
-		image = new Image(texture);
+		Image image = new Image(texture);
 
 		// Setting up the table
-		table = new Table();
-		table.setBounds(CoordinateConverter.getCameraWidth() / 2 - 450, CoordinateConverter.getCameraHeight()/2 - 50,
-				CoordinateConverter.getCameraWidth(), 0);
+		Table table = new Table();		
+		table.setBounds(0,0,CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
 
 		ImageButtonStyle startButtonStyle = new ImageButtonStyle();
 		startButtonStyle.up = myGdxGameController.getScreenUtils()
@@ -144,6 +132,7 @@ public class StartScreen implements Screen {
 
 		ImageButton soundButton = new ImageButton(soundButtonStyle);
 		// soundEButton.pad(20);
+		//soundButton.setPosition(x, y) //TODO
 		soundButton.toggle();
 		soundButton.addListener(new ClickListener() {
 			@Override
@@ -166,6 +155,7 @@ public class StartScreen implements Screen {
 
 		ImageButton musicButton = new ImageButton(musicButtonStyle);
 		musicButton.pad(20);
+		//musicButton.setPosition(x, y) //TODO
 		musicButton.toggle();
 		musicButton.addListener(new ClickListener() {
 			@Override
@@ -181,27 +171,23 @@ public class StartScreen implements Screen {
 			}
 		});
 
-		// Table table2 = new Table();
-		table.center();
-		table.add(image);
+		table.add(image).center();
+		table.getCell(image).spaceBottom(30);
 		table.row();
-		table.add(startButton);
+		table.add(startButton).center();
 		table.getCell(startButton).spaceBottom(30);
 		table.row();
-		table.add(exitButton);
+		table.add(exitButton).center();
 		table.getCell(exitButton).spaceBottom(30);
 		table.row();
-		table.add(soundButton).left();
-		table.add(musicButton).left();
-		// ;
-		// table2.center();
-		// table2.add(soundEButton).right();
-		// table2.add(musicButton);
-		// table.add(table2);
-		// table.row();
+		table.setFillParent(true);
+		stage.addActor(musicButton);
+		stage.addActor(soundButton);
 		stage.addActor(table);
+		stage.setViewport(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 
-		// table.debug(); // To be removed later on
+		//table.debug(); // To be removed later on
 	}
 
 	@Override
@@ -220,7 +206,6 @@ public class StartScreen implements Screen {
 	public void dispose() {
 		try {
 			stage.dispose();
-			spritebatch.dispose();
 			texture.dispose();
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("StartScreen", "Exception", e);
