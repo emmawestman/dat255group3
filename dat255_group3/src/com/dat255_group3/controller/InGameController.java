@@ -121,6 +121,7 @@ public class InGameController implements Screen {
 			myGdxGameController.getMyGdxGame().setIsGameStarted(true);
 		}
 		this.cameraController.resume();
+		inGame.setDelayTime(0);
 		isCountingDown = true;
 
 	}
