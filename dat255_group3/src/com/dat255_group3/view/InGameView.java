@@ -63,10 +63,7 @@ public class InGameView {
 		//Draw time
 		drawTime(time);
 		drawCookieCounter(cookieCounter);
-		
-		// pause button
-		
-		
+
 	}
 	
 	public void drawGameOver(){
