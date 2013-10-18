@@ -4,21 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
-import com.dat255_group3.utils.ScreenUtils;
 
 /**
  * A class which represents the view of a won or a lost game containing the time
@@ -37,7 +35,8 @@ public class GameOverScreen implements Screen {
 	private int score;
 	private double time;
 	private boolean gameOver;
-
+	private SpriteBatch spriteBatch;
+	
 	// import aurelienribon.tweenengine.TweenManager;
 	// private TweenManager tweenmanager;
 
@@ -45,13 +44,18 @@ public class GameOverScreen implements Screen {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraWidth(), true);
-		// Setting up the stage
+		spriteBatch = new SpriteBatch();
+		myGdxGameController.getScreenUtils().setCamera(spriteBatch);
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		spriteBatch.begin();
+		myGdxGameController.getScreenUtils().getBackgroundImage().draw(spriteBatch, 1);
+		spriteBatch.end();
 
 		// Update & draw the stage actors
 		stage.act(delta);

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -38,16 +39,23 @@ public class LevelScreen implements Screen {
 	private BitmapFont white;
 	private Skin skin;
 	private Texture levelTexture;
+	private SpriteBatch spriteBatch;
 
 	public LevelScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(0, 0, true);
+		spriteBatch = new SpriteBatch();
+		myGdxGameController.getScreenUtils().setCamera(spriteBatch);
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		spriteBatch.begin();
+		myGdxGameController.getScreenUtils().getBackgroundImage().draw(spriteBatch, 1);
+		spriteBatch.end();
 
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
 			Gdx.input.setCatchBackKey(true);
