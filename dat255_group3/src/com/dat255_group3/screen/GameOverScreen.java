@@ -8,18 +8,17 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.ScreenUtils;
 
 /**
  * A class which represents the view of a won or a lost game containing the time
@@ -34,8 +33,6 @@ public class GameOverScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
-	private TextureAtlas atlas;
-	private Skin skin;
 	private Table table;
 	private int score;
 	private double time;
@@ -73,15 +70,9 @@ public class GameOverScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
-		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(Gdx.files.internal("gameOver/gameOver.pack"));
-		//Update atlas with the new images!
-		
-		
-		skin = new Skin(atlas);
 
 		// Setting up the table
-		table = new Table(skin);
+		table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		// Setting characteristics for the label
@@ -116,8 +107,8 @@ public class GameOverScreen implements Screen {
 		}
 		
 		ImageButtonStyle retryButtonStyle = new ImageButtonStyle();
-		retryButtonStyle.up = skin.getDrawable("retry.up");
-		retryButtonStyle.down = skin.getDrawable("retry.down");
+		retryButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("restart.up");
+		retryButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("restart.down");
 		retryButtonStyle.pressedOffsetX = 1;
 		retryButtonStyle.pressedOffsetY = -1;
 		
@@ -126,7 +117,6 @@ public class GameOverScreen implements Screen {
 		retryButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-					// This level
 					myGdxGameController.setScreen(myGdxGameController
 							.getInGameController());
 
@@ -136,8 +126,8 @@ public class GameOverScreen implements Screen {
 		
 		
 		ImageButtonStyle nextLevelButtonStyle = new ImageButtonStyle();
-		nextLevelButtonStyle.up = skin.getDrawable("nextLevel.up");
-		nextLevelButtonStyle.down = skin.getDrawable("nextLevel.down");
+		nextLevelButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("next.up");
+		nextLevelButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("next.down");
 		nextLevelButtonStyle.pressedOffsetX = 1;
 		nextLevelButtonStyle.pressedOffsetY = -1;
 		
@@ -146,7 +136,6 @@ public class GameOverScreen implements Screen {
 		nextLevelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// Go to next level
 					int nextLevel = myGdxGameController.getMyGdxGame()
 							.getCurrentLevel() + 1;
 					if (nextLevel < 3) {
@@ -165,8 +154,8 @@ public class GameOverScreen implements Screen {
 		
 
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
-		homeButtonStyle.up = skin.getDrawable("home.up");
-		homeButtonStyle.down = skin.getDrawable("home.down");
+		homeButtonStyle.up = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("home.up");
+		homeButtonStyle.down = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("home.down");
 		homeButtonStyle.pressedOffsetX = 1;
 		homeButtonStyle.pressedOffsetY = -1;
 		
@@ -233,10 +222,8 @@ public class GameOverScreen implements Screen {
 		
 		try{
 			stage.dispose();
-			skin.dispose();
-			atlas.dispose();
 		} catch (GdxRuntimeException e){
-			Gdx.app.log("IOHandler", "Exception", e);
+			Gdx.app.log("GameOverScreen", "Exception", e);
 		}catch (Exception e) {			
 		}
 	}

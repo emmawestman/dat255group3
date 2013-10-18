@@ -24,7 +24,7 @@ public class Character {
 	public Character(double friction){
 		this.friction = friction;
 		Character.radius = 25;
-		this.deathLimit = 0f; 
+		this.deathLimit = 20f; 
 		this.position = WorldUtil.getStartPos();
 	}
 	

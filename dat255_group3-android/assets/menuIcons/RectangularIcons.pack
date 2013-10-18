@@ -5,85 +5,92 @@ filter: Nearest,Nearest
 repeat: none
 start.up
   rotate: false
-  xy: 1, 108
-  size: 189, 57
-  orig: 189, 57
+  xy: 1, 157
+  size: 252, 76
+  orig: 252, 76
   offset: 0, 0
   index: -1
 exit.up
   rotate: false
-  xy: 1, 49
-  size: 161, 57
-  orig: 161, 57
+  xy: 1, 79
+  size: 214, 76
+  orig: 214, 76
   offset: 0, 0
   index: -1
-start.down
+homeRect.up
   rotate: false
-  xy: 1, 1
-  size: 152, 46
-  orig: 152, 46
-  offset: 0, 0
-  index: -1
-exit.down
-  rotate: false
-  xy: 155, 1
-  size: 128, 46
-  orig: 128, 46
-  offset: 0, 0
-  index: -1
-home.up
-  rotate: false
-  xy: 164, 49
-  size: 161, 57
-  orig: 161, 57
-  offset: 0, 0
-  index: -1
-home.down
-  rotate: false
-  xy: 285, 1
-  size: 128, 46
-  orig: 128, 46
+  xy: 255, 157
+  size: 214, 76
+  orig: 214, 76
   offset: 0, 0
   index: -1
 restart.up
   rotate: false
-  xy: 192, 108
-  size: 161, 57
-  orig: 161, 57
+  xy: 1, 1
+  size: 214, 76
+  orig: 214, 76
   offset: 0, 0
   index: -1
 resume.up
   rotate: false
-  xy: 327, 49
-  size: 161, 57
-  orig: 161, 57
-  offset: 0, 0
-  index: -1
-restart.down
-  rotate: false
-  xy: 415, 1
-  size: 128, 46
-  orig: 128, 46
+  xy: 217, 79
+  size: 214, 76
+  orig: 214, 76
   offset: 0, 0
   index: -1
 next.up
   rotate: false
-  xy: 355, 108
-  size: 147, 57
-  orig: 147, 57
+  xy: 471, 157
+  size: 196, 76
+  orig: 196, 76
+  offset: 0, 0
+  index: -1
+start.down
+  rotate: false
+  xy: 217, 16
+  size: 202, 61
+  orig: 202, 61
+  offset: 0, 0
+  index: -1
+exit.down
+  rotate: false
+  xy: 433, 94
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+home.down
+  rotate: false
+  xy: 669, 172
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+homeRect.down
+  rotate: false
+  xy: 669, 172
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+restart.down
+  rotate: false
+  xy: 842, 172
+  size: 171, 61
+  orig: 171, 61
   offset: 0, 0
   index: -1
 resume.down
   rotate: false
-  xy: 490, 60
-  size: 128, 46
-  orig: 128, 46
+  xy: 433, 31
+  size: 171, 61
+  orig: 171, 61
   offset: 0, 0
   index: -1
 next.down
   rotate: false
-  xy: 504, 119
-  size: 118, 46
-  orig: 118, 46
+  xy: 669, 109
+  size: 157, 61
+  orig: 157, 61
   offset: 0, 0
   index: -1

@@ -59,9 +59,13 @@ public class CharacterView {
 		spriteBatch.setProjectionMatrix(camera.combined);
 //		currentFrame = walkAnimation.getKeyFrame((float)time, true);
 //		spriteBatch.draw(currentFrame, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
-//		spriteBatch.draw(walkSheet, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
 		sprite.setPosition(character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
 		sprite.draw(spriteBatch);
 		spriteBatch.end();
+	}
+
+
+	public Character getCharacter() {
+		return character;
 	}
 }

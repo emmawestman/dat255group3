@@ -9,9 +9,12 @@ import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
 import com.dat255_group3.screen.GameCompletedScreen;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.ScreenUtils;
+import com.dat255_group3.utils.UnlockedScreen;
 
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;
+	private ScreenUtils screenUtils;
 	private InGameController inGameController;
 	private PlayerController playerController;
 	private StartScreen startScreen;
@@ -27,6 +30,7 @@ public class MyGdxGameController extends Game {
 	public void create() {
 		// create other the scenes and the player and the gameModel
 		this.myGdxGame = new MyGdxGame();
+		this.screenUtils = new ScreenUtils();
 		this.playerController = new PlayerController();
 		this.inGameController = new InGameController(this);
 		this.startScreen = new StartScreen(this);
@@ -45,6 +49,7 @@ public class MyGdxGameController extends Game {
 	public void dispose() {
 		super.dispose();
 		inGameController.dispose();
+		screenUtils.dispose();
 	}
 
 	@Override
@@ -61,6 +66,10 @@ public class MyGdxGameController extends Game {
 
 	public MyGdxGame getMyGdxGame() {
 		return myGdxGame;
+	}
+	
+	public ScreenUtils getScreenUtils(){
+		return screenUtils;
 	}
 
 	public InGameController getInGameController() {
