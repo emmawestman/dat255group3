@@ -189,7 +189,6 @@ public class LevelScreen implements Screen {
 		try {
 			stage.dispose();
 			atlas.dispose();
-			spriteBatch.dispose();
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("LevelScreen", "Exception", e);
 		} catch (Exception e) {
