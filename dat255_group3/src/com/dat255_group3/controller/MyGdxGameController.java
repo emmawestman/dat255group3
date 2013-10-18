@@ -7,6 +7,7 @@ import com.dat255_group3.screen.GameOverScreen;
 import com.dat255_group3.screen.LevelScreen;
 import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
+import com.dat255_group3.screen.GameCompletedScreen;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.ScreenUtils;
 import com.dat255_group3.utils.UnlockedScreen;
@@ -20,7 +21,7 @@ public class MyGdxGameController extends Game {
 	private LevelScreen levelScreen;
 	private GameOverScreen gameOverScreen;
 	private PauseScreen pauseScreen;
-	private UnlockedScreen unlockedScreen;
+	private GameCompletedScreen gameCompletedScreen;
 	private SoundController soundController;
 
 	private static boolean soundEffectsOn = true;
@@ -36,7 +37,7 @@ public class MyGdxGameController extends Game {
 		this.levelScreen = new LevelScreen(this);
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
-		this.unlockedScreen = new UnlockedScreen(this);
+		this.gameCompletedScreen = new GameCompletedScreen(this);
 		this.soundController = new SoundController();
 		soundController.playBackgroundMusic();
 
@@ -95,8 +96,8 @@ public class MyGdxGameController extends Game {
 		return this.gameOverScreen;
 	}
 
-	public UnlockedScreen getUnlockedScreen() {
-		return unlockedScreen;
+	public GameCompletedScreen getUnlockedScreen() {
+		return gameCompletedScreen;
 	}
 
 	public void soundEffectsOn(boolean soundOn) {
