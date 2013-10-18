@@ -3,10 +3,12 @@ package com.dat255_group3.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -37,6 +39,9 @@ public class GameOverScreen implements Screen {
 	private int score;
 	private double time;
 	private boolean gameOver;
+	private Texture titleTexture;
+	private Image titleImage;
+	
 
 	// import aurelienribon.tweenengine.TweenManager;
 	// private TweenManager tweenmanager;
@@ -97,14 +102,23 @@ public class GameOverScreen implements Screen {
 		Label highScoreLabel = new Label("High Score: " + IOHandler.getScore(myGdxGameController.getMyGdxGame().getCurrentLevel()), scoreNTimeStyle);
 		
 		
+		
+		
 
 		// Setting the texts of the labels depending on whether the game was won
 		// or lost
-		if (!gameOver) {
-			header.setText("Congratulations!");
+if 		(!gameOver) {
+			try {
+				titleTexture = new Texture(Gdx.files.internal("ui/congratulationsTitle.png"));
+			}catch (Exception e) {	
+			}
 		} else {
-			header.setText("Game over");
+			try {
+				titleTexture = new Texture(Gdx.files.internal("ui/gameOverTitle.png"));
+			}catch (Exception e) {	
+			}
 		}
+		
 		
 		ImageButtonStyle retryButtonStyle = new ImageButtonStyle();
 		retryButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("restart.up");
@@ -194,7 +208,9 @@ public class GameOverScreen implements Screen {
 		table.add(homeButton);
 		table.getCell(homeButton).spaceBottom(5);
 		stage.addActor(table);
-		
+		titleImage = new Image(titleTexture);
+		stage.addActor(titleImage);
+	
 		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
 		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 		
