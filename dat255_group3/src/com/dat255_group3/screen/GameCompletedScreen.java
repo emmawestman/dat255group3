@@ -117,7 +117,7 @@ public class GameCompletedScreen implements Screen {
 
 	@Override
 	public void hide() {
-
+		stage.clear();
 	}
 
 	@Override
