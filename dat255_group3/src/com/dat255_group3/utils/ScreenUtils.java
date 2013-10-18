@@ -1,7 +1,9 @@
 package com.dat255_group3.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,6 +19,7 @@ public class ScreenUtils {
 	private Texture gameTitleTexture;
 	private Image backgroundImage;
 	private Texture backgroundTexture;
+	private OrthographicCamera camera;
 	
 	
 	public ScreenUtils(){
@@ -34,6 +37,10 @@ public class ScreenUtils {
 		skinCirc = new Skin(atlasCirc);
 		gameTitleImage = new Image(gameTitleTexture);
 		backgroundImage = new Image (backgroundTexture);
+		camera = new OrthographicCamera(CoordinateConverter.getCameraWidth(), 
+				CoordinateConverter.getCameraHeight());
+		camera.position.set(CoordinateConverter.getCameraWidth()/2, CoordinateConverter.getCameraHeight()/2, 0);
+		camera.update();
 		 
 		
 		
@@ -53,6 +60,10 @@ public class ScreenUtils {
 	
 	public Image getBackgroundImage() {
 		return backgroundImage;
+	}
+	
+	public void setCamera(SpriteBatch spriteBatch) {
+		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 	
 	public void dispose(){
