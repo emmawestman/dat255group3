@@ -1,4 +1,9 @@
 package com.dat255_group3.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
  * A class that represents the user playing the game.
  * 
@@ -10,18 +15,16 @@ package com.dat255_group3.model;
 public class Player {
 
 	/** The player's current score.*/
-	private int score;
+	private List <Integer> highScores;
 	
 	/** The player's current score.*/
-	private int bestTime;
-	
-	/** The player's high score.*/
-	private int highScore;
+	private int score;
 	
 	/**
 	 * Class constructor.
 	 */
 	public Player(){
+		highScores = new ArrayList <Integer>();
 		
 	}
 	
@@ -41,25 +44,12 @@ public class Player {
 	 * 
 	 * @return the player's high score
 	 */
-	public int getHighscore(){
-		return highScore;
+	public int getHighscore(int levelNr){
+		return highScores.get(levelNr-1);
 	}
 	
-	public void setHighScore (int score){
-		this.highScore = score;
-	}
-	
-	/**
-	 * Returns and int representing the player's high score.
-	 * 
-	 * @return the player's high score
-	 */
-	public int getBestTime(){
-		return bestTime;
-	}
-	
-	public void setBestTime (int time){
-		this.bestTime = time;
+	public void setHighScore (int levelNr, int score){
+		this.highScores.set(levelNr-1, score);
 	}
 	
 	public void calculateScore(double time, int cookies, boolean gameLost) {
