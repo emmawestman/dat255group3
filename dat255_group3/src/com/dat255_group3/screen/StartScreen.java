@@ -136,9 +136,9 @@ public class StartScreen implements Screen {
 
 		ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
 		soundButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("sound.up");
-		soundButtonStyle.down = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("sound.down");
+		soundButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("sound.up");
 		soundButtonStyle.checked = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("sound.checked");
 
@@ -158,9 +158,9 @@ public class StartScreen implements Screen {
 
 		ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
 		musicButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("music.up");
-		musicButtonStyle.down = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("music.down");
+		musicButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("music.up");
 		musicButtonStyle.checked = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("music.checked");
 
