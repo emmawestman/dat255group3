@@ -27,10 +27,6 @@ public class GameCompletedScreen implements Screen {
 	private Stage stage;
 	private Texture messageIcon;
 	private Image messageImage;
-	private Table table;
-	private Table column1;
-	private Table column2;
-	private Table column3;
 	private SpriteBatch spriteBatch;
 	
 
@@ -70,7 +66,7 @@ public class GameCompletedScreen implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
-		table = new Table(myGdxGameController.getScreenUtils().getCircularSkin());
+		Table table = new Table(myGdxGameController.getScreenUtils().getCircularSkin());
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		//The message image
@@ -97,15 +93,15 @@ public class GameCompletedScreen implements Screen {
 		
 		
 		table.row();
-		column1 = new Table();
+		Table column1 = new Table();
 		table.add(column1).width(100);
-		column2 = new Table();
+		Table column2 = new Table();
 		table.add(column2);
 		column2.row();
 		column2.add(myGdxGameController.getScreenUtils().getGameTitleImage());
 		column2.row();
 		column2.add(messageImage);
-		column3 = new Table();
+		Table column3 = new Table();
 		table.add(column3).width(100);
 		
 		table.setFillParent(true);

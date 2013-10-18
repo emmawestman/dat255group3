@@ -33,7 +33,6 @@ public class GameOverScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
-	private Table table;
 	private int score;
 	private double time;
 	private boolean gameOver;
@@ -80,26 +79,21 @@ public class GameOverScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
 		// Setting up the table
-		table = new Table();
+		Table table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		// Setting characteristics for the label
-		LabelStyle headerStyle = new LabelStyle();
-		headerStyle.font = new BitmapFont(
-				Gdx.files.internal("font/whiteL.fnt"), false);
-		headerStyle.font.scale(0.6f); //<------------------------------------------------
-		Label header = new Label("", headerStyle);
 
-		LabelStyle buttonLabelStyle = new LabelStyle();
-		buttonLabelStyle.font = new BitmapFont(
-				Gdx.files.internal("font/white.fnt"), false);
-		buttonLabelStyle.font.scale(0.5f);
-		Label buttonLabel = new Label("", buttonLabelStyle);
+//		LabelStyle buttonLabelStyle = new LabelStyle();
+//		buttonLabelStyle.font = new BitmapFont(
+//				Gdx.files.internal("font/white.fnt"), false);
+//		buttonLabelStyle.font.scale(0.5f);
+//		Label buttonLabel = new Label("", buttonLabelStyle);
 
 		LabelStyle scoreNTimeStyle = new LabelStyle();
 		scoreNTimeStyle.font = new BitmapFont(
 				Gdx.files.internal("font/white.fnt"), false);
-		scoreNTimeStyle.font.setScale(0.9f);
+		scoreNTimeStyle.font.setScale(1.5f);
 		Label timeLabel = new Label("Time: " + this.time, scoreNTimeStyle);
 		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
 		Label highScoreLabel = new Label("High Score: " + IOHandler.getScore(myGdxGameController.getMyGdxGame().getCurrentLevel()), scoreNTimeStyle);
@@ -131,6 +125,12 @@ if 		(!gameOver) {
 		
 		ImageButton retryButton = new ImageButton(retryButtonStyle);
 		retryButton.pad(20);
+		if(! gameOver) {
+			retryButton.setPosition(300, 80);
+		}else {
+			retryButton.setPosition(430, 80);
+		}
+		
 		retryButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -150,12 +150,13 @@ if 		(!gameOver) {
 		
 		ImageButton nextLevelButton = new ImageButton(nextLevelButtonStyle);
 		nextLevelButton.pad(20);
+		nextLevelButton.setPosition(570, 80);
 		nextLevelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 					int nextLevel = myGdxGameController.getMyGdxGame()
 							.getCurrentLevel() + 1;
-					if (nextLevel < 3) {
+					if (nextLevel < 4) {
 						myGdxGameController.getMyGdxGame().setCurrentLevel(
 								nextLevel);
 						myGdxGameController.getInGameController().loadMap();
@@ -178,6 +179,7 @@ if 		(!gameOver) {
 		
 		ImageButton homeButton = new ImageButton(homeButtonStyle);
 		homeButton.pad(20);
+		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 120, 30);
 		homeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -187,9 +189,6 @@ if 		(!gameOver) {
 		});
 
 		// Adding to the table and actors to the stage
-		table.add(header);
-		table.getCell(header).spaceBottom(5);
-		table.row();
 		table.add(timeLabel);
 		table.getCell(timeLabel).spaceBottom(5);
 		table.row();
@@ -198,21 +197,18 @@ if 		(!gameOver) {
 		table.row();
 		table.add(highScoreLabel);
 		table.getCell(highScoreLabel).spaceBottom(5);
-		table.row();
-		table.add(buttonLabel);
-		table.getCell(buttonLabel).spaceBottom(5);
-		table.row();
-		table.add(retryButton);
-		table.getCell(retryButton).spaceBottom(5);
-		table.row();
-		if (!gameOver) {
-			table.add(nextLevelButton);
-		}
-		table.add(homeButton);
-		table.getCell(homeButton).spaceBottom(5);
+		
+		table.setFillParent(true);
 		stage.addActor(table);
 		titleImage = new Image(titleTexture);
+		titleImage.setPosition(265, 400);
 		stage.addActor(titleImage);
+		stage.addActor(homeButton);
+		if (! gameOver) {
+			stage.addActor(nextLevelButton);
+		}
+		stage.addActor(retryButton);
+		
 	
 		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
 		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
@@ -223,7 +219,7 @@ if 		(!gameOver) {
 
 	@Override
 	public void hide() {
-		table.clear();
+		stage.clear();
 	}
 
 	@Override
