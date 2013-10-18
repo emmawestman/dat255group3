@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -115,7 +113,6 @@ public class PauseScreen implements Screen {
 		homeButtonStyle.pressedOffsetY = -1;
 
 		ImageButton homeButton = new ImageButton(homeButtonStyle);
-		//		homeButton.pad(20);
 		homeButton.setPosition(CoordinateConverter.getCameraWidth()-130, 30);
 		homeButton.addListener(new ClickListener() {
 			@Override
@@ -146,9 +143,7 @@ public class PauseScreen implements Screen {
 		}
 
 		ImageButton soundButton = new ImageButton(soundButtonStyle);
-		// soundEButton.pad(20);
 		soundButton.setPosition(120, 30);
-
 		soundButton.toggle();
 		soundButton.addListener(new ClickListener() {
 			@Override
@@ -178,7 +173,6 @@ public class PauseScreen implements Screen {
 					.getCircularSkin().getDrawable("music.checked");
 		}
 		ImageButton musicButton = new ImageButton(musicButtonStyle);
-		//		musicButton.pad(20);
 		musicButton.setPosition(20,30);
 		musicButton.toggle();
 		musicButton.addListener(new ClickListener() {
@@ -205,24 +199,6 @@ public class PauseScreen implements Screen {
 		table.add(restartButton).center();
 		table.getCell(restartButton).spaceBottom(20);
 		table.row();
-		//		Table column1 = new Table();
-		//		column1.add(musicButton);
-		//		column1.add(soundButton);
-		//		column1.left().bottom();
-		//		table.add(column1);
-		//		Table column2 = new Table();
-		//		table.add(column2).center();
-		//		Table column3 = new Table();
-		//		column3.add(homeButton);
-		//		column3.right().bottom();
-		//		table.add(column3);
-		//		table.add(musicButton).left();
-		//		table.getCell(musicButton).spaceBottom(20);
-		//		table.add(soundButton).left();
-		//		table.getCell(soundButton).spaceBottom(20);
-		//		table.add(homeButton).right();
-		//		table.getCell(homeButton).spaceBottom(20);
-		//		table.row();
 		table.setFillParent(true);
 
 		stage.addActor(table);
@@ -230,8 +206,6 @@ public class PauseScreen implements Screen {
 		stage.addActor(musicButton);
 		stage.addActor(homeButton);
 
-
-		//table.invalidateHierarchy();
 		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
 		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
 	}
