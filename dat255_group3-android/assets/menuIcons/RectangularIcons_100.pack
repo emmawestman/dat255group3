@@ -1,0 +1,96 @@
+
+RectangularIcons_100.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+start.up
+  rotate: false
+  xy: 1, 157
+  size: 252, 76
+  orig: 252, 76
+  offset: 0, 0
+  index: -1
+exit.up
+  rotate: false
+  xy: 1, 79
+  size: 214, 76
+  orig: 214, 76
+  offset: 0, 0
+  index: -1
+homeRect.up
+  rotate: false
+  xy: 255, 157
+  size: 214, 76
+  orig: 214, 76
+  offset: 0, 0
+  index: -1
+restart.up
+  rotate: false
+  xy: 1, 1
+  size: 214, 76
+  orig: 214, 76
+  offset: 0, 0
+  index: -1
+resume.up
+  rotate: false
+  xy: 217, 79
+  size: 214, 76
+  orig: 214, 76
+  offset: 0, 0
+  index: -1
+next.up
+  rotate: false
+  xy: 471, 157
+  size: 196, 76
+  orig: 196, 76
+  offset: 0, 0
+  index: -1
+start.down
+  rotate: false
+  xy: 217, 16
+  size: 202, 61
+  orig: 202, 61
+  offset: 0, 0
+  index: -1
+exit.down
+  rotate: false
+  xy: 433, 94
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+home.down
+  rotate: false
+  xy: 669, 172
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+homeRect.down
+  rotate: false
+  xy: 669, 172
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+restart.down
+  rotate: false
+  xy: 842, 172
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+resume.down
+  rotate: false
+  xy: 433, 31
+  size: 171, 61
+  orig: 171, 61
+  offset: 0, 0
+  index: -1
+next.down
+  rotate: false
+  xy: 669, 109
+  size: 157, 61
+  orig: 157, 61
+  offset: 0, 0
+  index: -1

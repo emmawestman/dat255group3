@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -26,10 +28,18 @@ public class PauseScreen implements Screen {
 	private MyGdxGameController myGdxGameController;
 	private Stage stage;
 	private Table table;
+	private Image backgroundImage;
+	private SpriteBatch spriteBatch;
 
 	public PauseScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.stage = new Stage(0, 0, true);
+		backgroundImage = myGdxGameController.getScreenUtils().getBackgroundImage();
+		backgroundImage.setPosition(0, 0);
+		spriteBatch = new SpriteBatch();
+		myGdxGameController.getScreenUtils().setCamera(spriteBatch);
+
+		
 	}
 
 	@Override
@@ -37,6 +47,9 @@ public class PauseScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		spriteBatch.begin();
+		myGdxGameController.getScreenUtils().getBackgroundImage().draw(spriteBatch, 1);
+		spriteBatch.end();
 		// Update & draw the stage-actors
 		stage.act(delta);
 		stage.draw();
@@ -45,9 +58,7 @@ public class PauseScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// In order to make it look good not depending on the screen.
-		//stage.setViewport(width, height, true);
-		//table.invalidateHierarchy();
-		//table.setSize(width, height);
+
 	}
 
 	@Override
@@ -201,6 +212,7 @@ public class PauseScreen implements Screen {
 		table.row();
 		table.setFillParent(true);
 
+		
 		stage.addActor(table);
 		stage.addActor(soundButton);
 		stage.addActor(musicButton);
