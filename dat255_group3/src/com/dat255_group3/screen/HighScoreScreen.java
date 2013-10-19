@@ -35,7 +35,6 @@ import com.dat255_group3.utils.CoordinateConverter;
 		private Skin skin;
 		private Table table;
 		private List <Integer> highScores;
-		private List <Integer> bestTimes;
 		
 //		import aurelienribon.tweenengine.TweenManager;
 //		private TweenManager tweenmanager;
@@ -44,7 +43,6 @@ import com.dat255_group3.utils.CoordinateConverter;
 		public HighScoreScreen(MyGdxGameController myGdxGameController, List <Integer> scores, List <Integer> times ){
 			this.myGdxGameController = myGdxGameController;
 			this.highScores = scores;
-			this.bestTimes = times;
 			
 			this.stage = new Stage(0,0, true);
 			Gdx.input.setInputProcessor(stage);
@@ -96,11 +94,9 @@ import com.dat255_group3.utils.CoordinateConverter;
 	        
 	        Label levelOneLabel = new Label("Level 1", levelStyle);
 	        Label levelOneScore = new Label("Score: " + highScores.get(0), scoreNTimeStyle);
-	        Label levelOneTime = new Label("Time: " + this.bestTimes.get(0), scoreNTimeStyle);
 	        
 	        Label levelTwoLabel = new Label("Level 1", levelStyle);
 	        Label levelTwoScore = new Label("Score: " + highScores.get(0), scoreNTimeStyle);
-	        Label levelTwoTime = new Label("Time: " + this.bestTimes.get(0), scoreNTimeStyle);
 	        
 	        
 	        
@@ -132,17 +128,11 @@ import com.dat255_group3.utils.CoordinateConverter;
 	        table.add(levelOneScore);
 	        table.getCell(levelOneScore).spaceBottom(20);
 	        table.row();
-	        table.add(levelOneTime );
-	        table.getCell(levelOneTime).spaceBottom(20);
-	        table.row();
 	        table.add(levelTwoLabel);
 	        table.getCell(levelOneLabel).spaceBottom(20);
 	        table.row();
 	        table.add(levelTwoScore);
 	        table.getCell(levelOneScore).spaceBottom(20);
-	        table.row();
-	        table.add(levelTwoTime );
-	        table.getCell(levelOneTime).spaceBottom(20);
 	        table.row();
 	        table.add(returnButton);
 	        table.getCell(returnButton).spaceBottom(20);

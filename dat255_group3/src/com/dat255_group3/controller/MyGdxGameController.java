@@ -3,14 +3,12 @@ package com.dat255_group3.controller;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.dat255_group3.model.MyGdxGame;
+import com.dat255_group3.screen.GameCompletedScreen;
 import com.dat255_group3.screen.GameOverScreen;
 import com.dat255_group3.screen.LevelScreen;
 import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
-import com.dat255_group3.screen.GameCompletedScreen;
-import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.ScreenUtils;
-import com.dat255_group3.utils.UnlockedScreen;
 
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;

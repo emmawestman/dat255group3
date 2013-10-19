@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class IOHandler {
 
-	private static FileHandle handle = Gdx.files.local("io/io.txt");
+	private static FileHandle handle = Gdx.files.local("highScores.txt");
 	private static String [] levelData;
 
 

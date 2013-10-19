@@ -10,7 +10,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,6 +18,8 @@ import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.GyroUtils;
+import com.dat255_group3.utils.InputStage;
+import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 import com.dat255_group3.view.InGameView;
 
 public class InGameController implements Screen {
@@ -36,15 +37,15 @@ public class InGameController implements Screen {
 			true, true, true, true);
 	private boolean gameOver;
 	private boolean isCountingDown = true;
-	private Stage stage;
+	private InputStage stage;
 
 	public InGameController(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
-		this.stage = new Stage(CoordinateConverter.getCameraWidth(),
+		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
-
+		IOHandler.readScore();
 	}
 
 	@Override
@@ -55,20 +56,12 @@ public class InGameController implements Screen {
 
 		// Update the stage actors
 		stage.act(delta);
-
 		inGame.setDelayTime(inGame.getDelayTime() + delta);
 
+		
 		/*
-		 * Checks whether the backbutton has been pressed. If so, a
-		 * pausepop-up-screen will be shown.
+		 * Checks if the game is over or won
 		 */
-
-		if (Gdx.input.isKeyPressed(Keys.BACK)) {
-			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
-
-		}
-
 		if (hasWon()) {
 			this.gameOver = false;
 			gameOver();
@@ -92,7 +85,7 @@ public class InGameController implements Screen {
 						.getTime(), worldController.getWorld()
 						.getCookieCounter(), gameOver);
 
-		// Draws the pause button
+		
 		stage.draw();
 
 		/*
@@ -127,6 +120,21 @@ public class InGameController implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setCatchBackKey(true);
+
+		/*
+		 * Checks whether the backbutton has been pressed. If so, a
+		 * pausepop-up-screen will be shown.
+		 */
+		stage.setHardKeyListener(new OnHardKeyListener() {
+			@Override
+			public void onHardKey(int keyCode, int state) {
+				if (keyCode == Keys.BACK && state == 1) {
+					myGdxGameController.setScreen(myGdxGameController
+							.getPauseScreen());
+				}
+			}
+		});
 
 		// Pause button
 		ImageButtonStyle pauseButtonStyle = new ImageButtonStyle();
@@ -136,7 +144,7 @@ public class InGameController implements Screen {
 				.getCircularSkin().getDrawable("play.down");
 		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("paus.up");
-		final ImageButton pauseButton = new ImageButton(pauseButtonStyle);
+		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
 		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
 				CoordinateConverter.getCameraHeight() - 70);
 		// pauseButton.pad(20);
@@ -145,12 +153,7 @@ public class InGameController implements Screen {
 		pauseButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-
-				if (!pauseButton.isChecked()) {
-					InGameController.this.pause();
-				} else {
-					// resume
-				}
+				InGameController.this.pause();
 			}
 		});
 
@@ -199,6 +202,7 @@ public class InGameController implements Screen {
 			Gdx.app.log("InGameController", "Exception", e);
 		} catch (Exception e) {
 		}
+
 	}
 
 	public InGame getInGame() {
@@ -298,6 +302,7 @@ public class InGameController implements Screen {
 				.getPlayer()
 				.calculateScore(worldController.getWorld().getTime(),
 						worldController.getWorld().getCookieCounter(), gameOver);
+
 		save();
 		// Change to gameover-screen
 		myGdxGameController.getGameOverScreen().gameOver(
