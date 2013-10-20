@@ -6,6 +6,7 @@ import com.dat255_group3.model.MyGdxGame;
 import com.dat255_group3.screen.ExitPopUpScreen;
 import com.dat255_group3.screen.GameCompletedScreen;
 import com.dat255_group3.screen.GameOverScreen;
+import com.dat255_group3.screen.HighScoreScreen;
 import com.dat255_group3.screen.LevelScreen;
 import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
@@ -21,6 +22,7 @@ public class MyGdxGameController extends Game {
 	private GameOverScreen gameOverScreen;
 	private PauseScreen pauseScreen;
 	private ExitPopUpScreen exitPopUpScreen;
+	private HighScoreScreen highScoreScreen;
 	private GameCompletedScreen gameCompletedScreen;
 	private SoundController soundController;
 
@@ -39,8 +41,9 @@ public class MyGdxGameController extends Game {
 		this.pauseScreen = new PauseScreen(this);
 		this.gameCompletedScreen = new GameCompletedScreen(this);
 		this.exitPopUpScreen = new ExitPopUpScreen(this);
+		this.highScoreScreen = new HighScoreScreen(this);
 		this.soundController = new SoundController();
-		soundController.playBackgroundMusic();
+		this.soundController.playBackgroundMusic();
 
 		// go to the first screen
 		setScreen(startScreen);
@@ -95,6 +98,10 @@ public class MyGdxGameController extends Game {
 	
 	public ExitPopUpScreen getExitPopUpScreen() {
 		return this.exitPopUpScreen;
+	}
+	
+	public HighScoreScreen getHighScoreScreen() {
+		return this.highScoreScreen;
 	}
 
 	public GameOverScreen getGameOverScreen() {

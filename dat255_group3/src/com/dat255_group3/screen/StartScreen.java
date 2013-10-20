@@ -102,6 +102,24 @@ public class StartScreen implements Screen {
 						myGdxGameController));
 			}
 		});
+		
+		//TODO: Remove commentefields of highscore when the pictures are done
+	/*	ImageButtonStyle highScoreButtonStyle = new ImageButtonStyle();
+		highScoreButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("highscore.up");
+		highScoreButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("highscore.down");
+		highScoreButtonStyle.pressedOffsetX = 1;
+		highScoreButtonStyle.pressedOffsetY = -1;
+
+		ImageButton highScoreButton = new ImageButton(highScoreButtonStyle);
+		highScoreButton.pad(20);
+		highScoreButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				myGdxGameController.setScreen(myGdxGameController.getHighScoreScreen());
+			}
+		});*/
 
 		ImageButtonStyle exitButtonStyle = new ImageButtonStyle();
 		exitButtonStyle.up = myGdxGameController.getScreenUtils()
@@ -191,6 +209,9 @@ public class StartScreen implements Screen {
 		table.row();
 		table.add(startButton).center();
 		table.getCell(startButton).spaceBottom(30);
+		table.row();
+	//	table.add(highScoreButton).center();
+	//	table.getCell(highScoreButton).spaceBottom(30);
 		table.row();
 		table.add(exitButton).center();
 		table.getCell(exitButton).spaceBottom(30);
