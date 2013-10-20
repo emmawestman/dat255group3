@@ -62,7 +62,7 @@ public class StartScreen implements Screen {
 			@Override
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
-					exit();
+					myGdxGameController.setScreen(myGdxGameController.getExitPopUpScreen());
 				}
 			}
 		});
@@ -116,12 +116,7 @@ public class StartScreen implements Screen {
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				try {
-					Gdx.app.exit();
-				} catch (GdxRuntimeException e) {
-					Gdx.app.log("StartScreen", "Exception", e);
-				} catch (Exception e) {
-				}
+				myGdxGameController.setScreen(myGdxGameController.getExitPopUpScreen());
 			}
 		});
 
@@ -236,12 +231,5 @@ public class StartScreen implements Screen {
 	}
 
 	public void exit() {
-		try {
-			Gdx.app.exit();
-		} catch (GdxRuntimeException e) {
-			Gdx.app.log("StartScreen", "Exception", e);
-		} catch (Exception e) {
-		}
 	}
-
 }

@@ -3,6 +3,7 @@ package com.dat255_group3.controller;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.dat255_group3.model.MyGdxGame;
+import com.dat255_group3.screen.ExitPopUpScreen;
 import com.dat255_group3.screen.GameCompletedScreen;
 import com.dat255_group3.screen.GameOverScreen;
 import com.dat255_group3.screen.LevelScreen;
@@ -19,6 +20,7 @@ public class MyGdxGameController extends Game {
 	private LevelScreen levelScreen;
 	private GameOverScreen gameOverScreen;
 	private PauseScreen pauseScreen;
+	private ExitPopUpScreen exitPopUpScreen;
 	private GameCompletedScreen gameCompletedScreen;
 	private SoundController soundController;
 
@@ -36,6 +38,7 @@ public class MyGdxGameController extends Game {
 		this.gameOverScreen = new GameOverScreen(this);
 		this.pauseScreen = new PauseScreen(this);
 		this.gameCompletedScreen = new GameCompletedScreen(this);
+		this.exitPopUpScreen = new ExitPopUpScreen(this);
 		this.soundController = new SoundController();
 		soundController.playBackgroundMusic();
 
@@ -88,6 +91,10 @@ public class MyGdxGameController extends Game {
 
 	public PauseScreen getPauseScreen() {
 		return this.pauseScreen;
+	}
+	
+	public ExitPopUpScreen getExitPopUpScreen() {
+		return this.exitPopUpScreen;
 	}
 
 	public GameOverScreen getGameOverScreen() {

@@ -17,8 +17,7 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the screen being shown when a yet unlocked level is
- * chosen.
+ * A class which represents the screen being shown when the whole game is completed.
  * 
  * @author The Hans-Gunnar Crew
  */
