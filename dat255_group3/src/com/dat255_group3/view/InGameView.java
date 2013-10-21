@@ -105,7 +105,6 @@ public class InGameView {
 		if(this.bgImage != null){
 			Gdx.app.log("BG", "Drawing");
 			this.spriteBatch.begin();
-			//this.bgSprite.setSize(2000, 600);
 			this.bgSprite.setPosition(0, 0);
 			this.bgSprite.draw(spriteBatch);
 			this.spriteBatch.end();
