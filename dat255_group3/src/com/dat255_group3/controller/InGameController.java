@@ -273,6 +273,10 @@ public class InGameController implements Screen {
 				this.worldController.getCharacterController().getCharacter().getDeahLimit() < 400) {
 			this.worldController.getCharBody().applyForceToCenter(
 					new Vector2(1, 0), true);
+		} else if(this.worldController.getCharacterController().getCharacter().getPosition().x - 
+				this.worldController.getCharacterController().getCharacter().getDeahLimit() > 600){
+			this.worldController.getCharBody().applyForceToCenter(
+					new Vector2(- (this.worldController.getCharBody().getLinearVelocity().x * this.worldController.getCharBody().getMass()), 0), true);
 		}
 
 		// update the model position for the character
