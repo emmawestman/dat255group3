@@ -65,6 +65,7 @@ public class InGameView {
 		//Draw time
 		drawTime(time);
 		drawCookieCounter(cookieCounter);
+		drawLevelNbr();
 
 	}
 	
