@@ -4,20 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.InputStage;
+import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
  * A class which represents the menu for the levels of the game. The user is
@@ -29,16 +26,13 @@ import com.dat255_group3.utils.CoordinateConverter;
 public class LevelScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
-	private Stage stage;
-	private TextureAtlas atlas;
-	private Skin skin;
-	private Table table;
-	private BitmapFont black;
-	private BitmapFont white;
+	private InputStage stage;
+	private Texture levelTexture;
 
 	public LevelScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
-		this.stage = new Stage(0, 0, true);
+		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 	}
 
 	@Override
@@ -46,10 +40,7 @@ public class LevelScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		if (Gdx.input.isKeyPressed(Keys.BACK)) {
-			Gdx.input.setCatchBackKey(true);
-			myGdxGameController.setScreen(myGdxGameController.getStartScreen());
-		}
+		myGdxGameController.getScreenUtils().drawBackgroundImage();
 
 		// Update & draw the stage-actors
 		stage.act(delta);
@@ -58,44 +49,43 @@ public class LevelScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// In order to make it look good not depending on the screen.
-		//stage.setViewport(width, height, true);
-		//table.invalidateHierarchy();
-		//table.setSize(width, height);
 	}
 
 	@Override
 	public void show() {
-		// Setting up the stage
-		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		// Setting up the atlas, skin & fonts
-		atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
-		skin = new Skin(atlas);
-		black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
-		white = new BitmapFont(Gdx.files.internal("font/whiteL.fnt"), false);
-		white.scale(1.2f);
+		// Checks if the back-key has been pressed & if so, the start screen will be shown
+		stage.setHardKeyListener(new OnHardKeyListener() {
+			@Override
+			public void onHardKey(int keyCode, int state) {
+				if (keyCode == Keys.BACK && state == 1) {
+					myGdxGameController.setScreen(myGdxGameController
+							.getStartScreen());
+				}
+			}
+		});
 
-		// Setting up the table
-		table = new Table(skin);
-		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-		// Setting characteristics for the label
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = white;
-		Label label = new Label("Levels", labelStyle);
-
-		// Setting up the characteristics for the buttons
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.up = skin.getDrawable("button.up");
-		textButtonStyle.down = skin.getDrawable("button.down");
-		textButtonStyle.pressedOffsetX = 1;
-		textButtonStyle.pressedOffsetY = -1;
-		textButtonStyle.font = black;
+		// Setting the image for the title
+		try {
+			levelTexture = new Texture(
+					Gdx.files.internal("ui/selectLevelTitle.png"));
+		} catch (GdxRuntimeException e) {
+			Gdx.app.log("LevelScreen", "Exception", e);
+		} catch (Exception e) {
+		}
+		Image levelImage = new Image(levelTexture);
 
 		// Setting buttons & listeners for choosing the levels
-		TextButton levelOneButton = new TextButton("Level 1", textButtonStyle);
+		ImageButtonStyle levelOneStyle = new ImageButtonStyle();
+		levelOneStyle.up = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("levelOne.up");
+		levelOneStyle.down = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("levelOne.down");
+		levelOneStyle.pressedOffsetX = 1;
+		levelOneStyle.pressedOffsetY = -1;
+
+		ImageButton levelOneButton = new ImageButton(levelOneStyle);
 		levelOneButton.pad(20);
 		levelOneButton.addListener(new ClickListener() {
 			@Override
@@ -107,7 +97,15 @@ public class LevelScreen implements Screen {
 			}
 		});
 
-		TextButton levelTwoButton = new TextButton("Level 2", textButtonStyle);
+		ImageButtonStyle levelTwoStyle = new ImageButtonStyle();
+		levelTwoStyle.up = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("levelTwo.up");
+		levelTwoStyle.down = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("levelTwo.down");
+		levelTwoStyle.pressedOffsetX = 1;
+		levelTwoStyle.pressedOffsetY = -1;
+
+		ImageButton levelTwoButton = new ImageButton(levelTwoStyle);
 		levelTwoButton.pad(20);
 		levelTwoButton.addListener(new ClickListener() {
 			@Override
@@ -119,27 +117,63 @@ public class LevelScreen implements Screen {
 			}
 		});
 
-		// Adding to the table and actors to the stage
-		table.add(label);
-		table.getCell(label).spaceBottom(50);
-		table.row();
-		table.add(levelOneButton);
-		table.getCell(levelOneButton).spaceBottom(50);
-		table.row();
-		table.add(levelTwoButton);
-		table.getCell(levelTwoButton).spaceBottom(50);
-		table.row();
-		stage.addActor(table);
-		
-		//table.invalidateHierarchy();
-		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
-		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		ImageButtonStyle levelThreeStyle = new ImageButtonStyle();
+		levelThreeStyle.up = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("levelThree.up");
+		levelThreeStyle.down = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("levelThree.down");
+		levelThreeStyle.pressedOffsetX = 1;
+		levelThreeStyle.pressedOffsetY = -1;
 
+		ImageButton levelThreeButton = new ImageButton(levelThreeStyle);
+		levelThreeButton.pad(20);
+		levelThreeButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				myGdxGameController.getMyGdxGame().setCurrentLevel(3);
+				myGdxGameController.getInGameController().loadMap();
+				myGdxGameController.setScreen(myGdxGameController
+						.getInGameController());
+			}
+		});
+
+		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
+		homeButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("home.up");
+		homeButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("home.down");
+		homeButtonStyle.pressedOffsetX = 1;
+		homeButtonStyle.pressedOffsetY = -1;
+
+		ImageButton homeButton = new ImageButton(homeButtonStyle);
+		homeButton.pad(20);
+		homeButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				myGdxGameController.setScreen(myGdxGameController
+						.getStartScreen());
+			}
+		});
+
+		// Setting the positions of the actors and add them to the stage
+		levelImage.setPosition(270, 400);
+		levelOneButton.setPosition(180, 160);
+		levelTwoButton.setPosition(405, 160);
+		levelThreeButton.setPosition(630, 160);
+		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 120, 30);
+		stage.addActor(levelImage);
+		stage.addActor(levelOneButton);
+		stage.addActor(levelTwoButton);
+		stage.addActor(levelThreeButton);
+		stage.addActor(homeButton);
+
+		stage.setViewport(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 	}
 
 	@Override
 	public void hide() {
-		table.clear();
+		stage.clear();
 	}
 
 	@Override
@@ -152,14 +186,11 @@ public class LevelScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		try{
+		try {
 			stage.dispose();
-			skin.dispose();
-			atlas.dispose();
-			black.dispose();
-		} catch (GdxRuntimeException e){
-			Gdx.app.log("IOHandler", "Exception", e);
-		}catch (Exception e) {			
+		} catch (GdxRuntimeException e) {
+			Gdx.app.log("LevelScreen", "Exception", e);
+		} catch (Exception e) {
 		}
 	}
 

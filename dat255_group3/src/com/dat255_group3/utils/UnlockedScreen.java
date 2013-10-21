@@ -1,4 +1,4 @@
-package com.dat255_group3.screen;
+package com.dat255_group3.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
-import com.dat255_group3.utils.CoordinateConverter;
 
 /**
  * A class which represents the screen being shown when a yet unlocked level is

@@ -14,13 +14,15 @@ package com.dat255_group3.model;
  */
 public class MyGdxGame {
 
+
+	private int numberOfLevels;
 	private int currentLevel;
 	private boolean isGameStarted;
 
 	public MyGdxGame() {
 		currentLevel = 0;
 		isGameStarted = false;
-
+		numberOfLevels = 3;
 	}
 
 	public boolean getIsGameStarted() {
@@ -38,4 +40,14 @@ public class MyGdxGame {
 	public void setCurrentLevel(int level) {
 		this.currentLevel = level;
 	}
+	
+
+	public int getNumberOfLevels() {
+		return numberOfLevels;
+	}
+
+	public void setNumberOfLevels(int numberOfLevels) {
+		this.numberOfLevels = numberOfLevels;
+	}
+
 }
