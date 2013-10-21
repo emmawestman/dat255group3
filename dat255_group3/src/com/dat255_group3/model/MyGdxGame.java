@@ -38,4 +38,5 @@ public class MyGdxGame {
 	public void setCurrentLevel(int level) {
 		this.currentLevel = level;
 	}
+	
 }

@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
-import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
 
 /**
@@ -76,19 +75,14 @@ public class GameOverScreen implements Screen {
 
 		// Setting characteristics for the label
 
-//		LabelStyle buttonLabelStyle = new LabelStyle();
-//		buttonLabelStyle.font = new BitmapFont(
-//				Gdx.files.internal("font/white.fnt"), false);
-//		buttonLabelStyle.font.scale(0.5f);
-//		Label buttonLabel = new Label("", buttonLabelStyle);
-
 		LabelStyle scoreNTimeStyle = new LabelStyle();
 		scoreNTimeStyle.font = new BitmapFont(
 				Gdx.files.internal("font/white.fnt"), false);
 		scoreNTimeStyle.font.setScale(1.5f);
 		Label timeLabel = new Label("Time: " + this.time, scoreNTimeStyle);
 		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
-		Label highScoreLabel = new Label("High Score: " + IOHandler.getScore(myGdxGameController.getMyGdxGame().getCurrentLevel()), scoreNTimeStyle);
+		Label highScoreLabel = new Label("High Score: " + myGdxGameController.getPlayerController().getPlayer().
+				getHighScore(myGdxGameController.getMyGdxGame().getCurrentLevel()), scoreNTimeStyle);
 		
 		
 		

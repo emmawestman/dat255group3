@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.model.InGame;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.GyroUtils;
@@ -223,24 +222,19 @@ public class InGameController implements Screen {
 	}
 
 	public void save() {
-		if (this.inGame.isNewHighScore(myGdxGameController.getMyGdxGame()
-				.getCurrentLevel(), this.myGdxGameController
-				.getPlayerController().getPlayer().getScore())) {
-			IOHandler.saveNewHigscore(myGdxGameController.getMyGdxGame()
-					.getCurrentLevel(), this.myGdxGameController
-					.getPlayerController().getPlayer().getScore());
-			Gdx.app.log("save new hs InGameController", "");
+		//  if score > high score for the current level
+		if (this.myGdxGameController.getPlayerController().getPlayer().getScore() > 
+			this.myGdxGameController.getPlayerController().getPlayer()
+			.getHighScore(myGdxGameController.getMyGdxGame().getCurrentLevel())) {
+			
+			myGdxGameController.getPlayerController().getPlayer().setNewHighScore
+			(this.myGdxGameController.getMyGdxGame().getCurrentLevel(),
+					this.myGdxGameController.getPlayerController().getPlayer().getScore());
+			
+			Gdx.app.log("InGameControler", "new hs: " + this.myGdxGameController.getPlayerController().getPlayer().getScore());
+			Gdx.app.log("InGameControler", "get hs: " +this.myGdxGameController.getPlayerController().getPlayer().
+					getHighScore(this.myGdxGameController.getMyGdxGame().getCurrentLevel()));
 		}
-		if (!(IOHandler.contains("level"
-				+ myGdxGameController.getMyGdxGame().getCurrentLevel()))) {
-			IOHandler.saveScore(myGdxGameController.getMyGdxGame()
-					.getCurrentLevel(), this.myGdxGameController
-					.getPlayerController().getPlayer().getScore());
-			Gdx.app.log("Save in GameController", "Score:"
-					+ this.myGdxGameController.getPlayerController()
-							.getPlayer().getScore());
-		}
-
 	}
 
 	public void reset() {
@@ -294,11 +288,11 @@ public class InGameController implements Screen {
 
 		// calculate the score
 		this.myGdxGameController
-				.getPlayerController()
-				.getPlayer()
+				.getPlayerController().getPlayer()
 				.calculateScore(worldController.getWorld().getTime(),
 						worldController.getWorld().getCookieCounter(), gameOver);
 		save();
+		
 		// Change to gameover-screen
 		myGdxGameController.getGameOverScreen().gameOver(
 				this.myGdxGameController.getPlayerController().getPlayer()
