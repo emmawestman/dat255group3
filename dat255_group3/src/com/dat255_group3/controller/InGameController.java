@@ -141,7 +141,7 @@ public class InGameController implements Screen {
 		pauseButtonStyle.down = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("play.down");
 		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("paus.up");
+				.getCircularSkin().getDrawable("pause.up");
 		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
 		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
 				CoordinateConverter.getCameraHeight() - 70);
