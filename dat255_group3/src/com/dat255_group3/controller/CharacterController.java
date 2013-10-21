@@ -18,7 +18,7 @@ public class CharacterController {
 	 */
 	public CharacterController(WorldController worldController, OrthographicCamera camera){
 		this.worldController = worldController;
-		this.character = new Character(0);
+		this.character = new Character(0.5);
 		this.characterView = new CharacterView(character, camera);
 
 	}

@@ -28,19 +28,21 @@ public class InGameView {
 	private Sprite bgSprite;
 	private Texture countDownImage;
 	private Sprite countDown;
+	private int level;
 	
 	/** A constructor that takes a map. 
 	 * @param map
 	 */
 	
-	public InGameView (TiledMap map, OrthographicCamera camera) {
+	public InGameView (TiledMap map, OrthographicCamera camera, int level) {
+		this.level=level;
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
 		this.camera = camera;
 		this.spriteBatch = new SpriteBatch();
 		this.font = new BitmapFont();
 		spriteBatch.setProjectionMatrix(camera.combined);
 		Gdx.app.log("BG", "loading image...");
-		this.bgImage = new Texture(Gdx.files.internal("ui/window.png"));
+		this.bgImage = new Texture(Gdx.files.internal("ui/ingameBackground.png"));
 		bgSprite = new Sprite(bgImage);
 		Gdx.app.log("BG", "Done!");
 
@@ -87,6 +89,14 @@ public class InGameView {
 		str = "Cookies: "+ cookieCounter;
 		font.setColor(Color.BLACK);
 		font.draw(spriteBatch, str, 200f, camera.viewportHeight-30f);
+		spriteBatch.end();
+	}
+	
+	public void drawLevelNbr(){
+		spriteBatch.begin();
+		str = "Level: "+ this.level;
+		font.setColor(Color.BLACK);
+		font.draw(spriteBatch, str, 300f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
 	
