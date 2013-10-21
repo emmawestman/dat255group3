@@ -40,7 +40,7 @@ public class InGameView {
 		this.font = new BitmapFont();
 		spriteBatch.setProjectionMatrix(camera.combined);
 		Gdx.app.log("BG", "loading image...");
-		this.bgImage = new Texture(Gdx.files.internal("ui/window.png"));
+		this.bgImage = new Texture(Gdx.files.internal("ui/ingameBackground.png"));
 		bgSprite = new Sprite(bgImage);
 		Gdx.app.log("BG", "Done!");
 
