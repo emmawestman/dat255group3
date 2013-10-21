@@ -159,7 +159,7 @@ public class InGameController implements Screen {
 			this.cameraController = new OrthographicCameraController();
 			this.cameraController.create();
 			loadMap();
-			this.inGameView = new InGameView(map, cameraController.getCamera());
+			this.inGameView = new InGameView(map, cameraController.getCamera(), this.myGdxGameController.getMyGdxGame().getCurrentLevel());
 			this.inGame = new InGame();
 			this.worldController = new WorldController(this, inGame.getSpeedM());
 			this.gameOver = false;
