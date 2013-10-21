@@ -29,7 +29,7 @@ public class ExitPopUpScreen implements Screen {
 	private InputStage stage;
 	private Texture popUpTexture;
 	private Image popUpImage;
-	private Texture labelTexture;
+	private Texture popUpLabelTexture;
 	private Image labelImage;
 
 	public ExitPopUpScreen(MyGdxGameController myGdxGameController) {
@@ -74,15 +74,15 @@ public class ExitPopUpScreen implements Screen {
 		// commentfields of the codes
 		try {
 			popUpTexture = new Texture(Gdx.files.internal("ui/exitPopUp.png"));
-			// popUpTexture = new Texture(
-			// Gdx.files.internal("ui/exitLabel.png"));
+			popUpLabelTexture = new Texture(
+			Gdx.files.internal("ui/exitLabel.png"));
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("ExitPopUp", "Exception", e);
 		} catch (Exception e) {
 		}
 		popUpImage = new Image(popUpTexture);
 		popUpImage.setSize(1024, 580);
-		// labelImage = new Image(labelImage);
+		labelImage = new Image(popUpLabelTexture);
 
 		// Yes-Button, to exit
 		// TODO: To change the buttonimages (meaning packing again etc)
@@ -129,11 +129,12 @@ public class ExitPopUpScreen implements Screen {
 		});
 
 		// Setting positions & adding to the stage
-		yesButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 90, 200);
-		noButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 110);
-		//labelImage.setPosition(CoordinateConverter.getCameraWidth() - 130, 30);
+		yesButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 90, 230);
+		noButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 130);
+		labelImage.setPosition(CoordinateConverter.getCameraWidth()/2 - 250, 370);
 		
 		stage.addActor(popUpImage);
+		stage.addActor(labelImage);
 		stage.addActor(yesButton);
 		stage.addActor(noButton);
 		stage.setViewport(CoordinateConverter.getCameraWidth(),
