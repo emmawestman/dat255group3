@@ -122,7 +122,7 @@ public class GameOverScreen implements Screen {
 		if (!gameOver) {
 			retryButton.setPosition(300, 80);
 		} else {
-			retryButton.setPosition(430, 80);
+			retryButton.setPosition(410, 80);
 		}
 
 		retryButton.addListener(new ClickListener() {

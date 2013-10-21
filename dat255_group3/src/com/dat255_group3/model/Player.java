@@ -15,11 +15,11 @@ import com.dat255_group3.io.IOHandler;
 
 public class Player {
 
-	/** The player's current score.*/
+	/** The player's hihscores */
 	private List <Integer> highScores;
 	
 	/** The player's current score.*/
-	private int score;
+	private int currentScore;
 
 	
 	/**
@@ -56,11 +56,11 @@ public class Player {
 	}
 	
 	public int getScore() {
-		return score;
+		return currentScore;
 	}
 	
 	public void setScore(int score) {
-		this.score = score;
+		this.currentScore = score;
 	}
 	
 	public void setHighScore(int levelNbr, int score) {
@@ -74,9 +74,9 @@ public class Player {
 	
 	public void calculateScore(double time, int cookies, boolean gameLost) {
 		if(gameLost){
-			this.score = cookies*100;
+			this.currentScore = cookies*100;
 		}else {
-			this.score = (int) (Math.pow(40/time, 3.0)*1000 + cookies*100);
+			this.currentScore = (int) (Math.pow(40/time, 3.0)*1000 + cookies*100);
 		}
 	}
 	public void addHighScoresToList(String [] levelData) {
