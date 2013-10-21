@@ -76,7 +76,7 @@ public class Player {
 		if(gameLost){
 			this.currentScore = cookies*100;
 		}else {
-			this.currentScore = (int) (Math.pow(20/time, 3.0)*1000 + cookies*100);
+			this.currentScore = (int) (Math.pow(40/time, 3.0)*1000 + cookies*100);
 		}
 	}
 	public void addHighScoresToList(String [] levelData) {
