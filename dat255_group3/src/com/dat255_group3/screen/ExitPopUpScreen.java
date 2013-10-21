@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
@@ -69,9 +68,6 @@ public class ExitPopUpScreen implements Screen {
 			}
 		});
 
-		// The pop-up image
-		// TODO: Label with "Would you really want to exit?", & then remove the
-		// commentfields of the codes
 		try {
 			popUpTexture = new Texture(Gdx.files.internal("ui/exitPopUp.png"));
 			popUpLabelTexture = new Texture(
@@ -84,13 +80,11 @@ public class ExitPopUpScreen implements Screen {
 		popUpImage.setSize(1024, 580);
 		labelImage = new Image(popUpLabelTexture);
 
-		// Yes-Button, to exit
-		// TODO: To change the buttonimages (meaning packing again etc)
 		ImageButtonStyle yesButtonStyle = new ImageButtonStyle();
 		yesButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getRectangularSkin().getDrawable("exit.up");
+				.getRectangularSkin().getDrawable("yes.up");
 		yesButtonStyle.down = myGdxGameController.getScreenUtils()
-				.getRectangularSkin().getDrawable("exit.down");
+				.getRectangularSkin().getDrawable("yes.down");
 		yesButtonStyle.pressedOffsetX = 1;
 		yesButtonStyle.pressedOffsetY = -1;
 
@@ -108,13 +102,11 @@ public class ExitPopUpScreen implements Screen {
 			}
 		});
 
-		// No-Button, back to startscreen
-		// TODO: To change the buttonimages (meaning packing again etc)
 		ImageButtonStyle noButtonStyle = new ImageButtonStyle();
 		noButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getRectangularSkin().getDrawable("start.up");
+				.getRectangularSkin().getDrawable("no.up");
 		noButtonStyle.down = myGdxGameController.getScreenUtils()
-				.getRectangularSkin().getDrawable("start.down");
+				.getRectangularSkin().getDrawable("no.down");
 		noButtonStyle.pressedOffsetX = 1;
 		noButtonStyle.pressedOffsetY = -1;
 
@@ -129,7 +121,7 @@ public class ExitPopUpScreen implements Screen {
 		});
 
 		// Setting positions & adding to the stage
-		yesButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 90, 230);
+		yesButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 230);
 		noButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 130);
 		labelImage.setPosition(CoordinateConverter.getCameraWidth()/2 - 250, 370);
 		

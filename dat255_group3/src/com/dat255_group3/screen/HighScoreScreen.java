@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -33,7 +34,7 @@ public class HighScoreScreen implements Screen {
 	private MyGdxGameController myGdxGameController;
 	private InputStage stage;
 	private Table table;
-	//private Texture highScoreLabelTexture;
+	private Texture highScoreLabelTexture;
 
 	public HighScoreScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
@@ -77,17 +78,14 @@ public class HighScoreScreen implements Screen {
 		table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		// Setting the highscore title
-		// TODO: Label with "High Scores" & then remove the
-		// commentfields of the codes
 		try {
-			//highScoreLabelTexture = new Texture(
-			//		Gdx.files.internal("ui//highScoreTitle.png"));
+			highScoreLabelTexture = new Texture(
+			Gdx.files.internal("ui//highScoreTitle.png"));
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("LevelScreen", "Exception", e);
 		} catch (Exception e) {
 		}
-		//Image highScoreLabelImage = new Image(highScoreLabelTexture);
+		Image highScoreLabelImage = new Image(highScoreLabelTexture);
 
 		LabelStyle scoreLabelStyle = new LabelStyle();
 		scoreLabelStyle.font = new BitmapFont(
@@ -142,10 +140,13 @@ public class HighScoreScreen implements Screen {
 		table.add(levelTwoScore);
 		table.getCell(levelTwoScore).spaceBottom(20);
 		table.row();
+		table.add(levelThreeLabel);
+		table.getCell(levelThreeLabel).spaceBottom(20);
+		table.row();
 		table.add(levelThreeScore);
 		table.getCell(levelThreeScore).spaceBottom(20);
-		//highScoreLabelImage.setPosition(270, 400);
-		//stage.addActor(highScoreLabelImage);
+		highScoreLabelImage.setPosition(270, 400);
+		stage.addActor(highScoreLabelImage);
 		stage.addActor(table);
 
 		// table.debug(); //To be removed later on
