@@ -23,7 +23,6 @@ public class CharacterView {
 	private TextureRegion[] walkFrames;
 	private TextureRegion currentFrame;
 	private Animation walkAnimation;
-	private Sprite sprite;
 	
 	
 	/** A constructor that takes a character class.
@@ -36,17 +35,15 @@ public class CharacterView {
 		this.camera = camera;
 		
 		//Create animation frames
-		walkSheet = new Texture(Gdx.files.internal("ui/characterStandingStill.png")); //wrong file
-//		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAMES_COLS, walkSheet.getHeight());
-//		walkFrames = new TextureRegion[FRAMES_COLS];
-//		for(int i = 0;i<FRAMES_COLS;i++) {
-//			walkFrames[i] = tmp[0][i];
-//		}
+		walkSheet = new Texture(Gdx.files.internal("ui/characterSpreadsheet.png"));
+		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAMES_COLS, walkSheet.getHeight());
+		walkFrames = new TextureRegion[FRAMES_COLS];
+		for(int i = 0;i<FRAMES_COLS;i++) {
+			walkFrames[i] = tmp[0][i];
+		}
 		
-//		walkAnimation = new Animation(0.06f, walkFrames);
-		
-		sprite = new Sprite(walkSheet);
-		sprite.setSize(50, 50);
+		walkAnimation = new Animation(0.06f, walkFrames);
+
 	}
 	
 	
@@ -58,10 +55,8 @@ public class CharacterView {
 		camera.update();
 		spriteBatch.begin();
 		spriteBatch.setProjectionMatrix(camera.combined);
-//		currentFrame = walkAnimation.getKeyFrame((float)time, true);
-//		spriteBatch.draw(currentFrame, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
-		sprite.setPosition(character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
-		sprite.draw(spriteBatch);
+		currentFrame = walkAnimation.getKeyFrame((float)time, true);
+		spriteBatch.draw(currentFrame, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
 		spriteBatch.end();
 	}
 
