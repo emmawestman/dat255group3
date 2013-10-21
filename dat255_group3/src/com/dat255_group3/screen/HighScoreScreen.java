@@ -100,14 +100,14 @@ public class HighScoreScreen implements Screen {
 		levelStyle.font.scale(1.1f);
 
 		Label levelOneLabel = new Label("Level 1", levelStyle);
-		Label levelOneScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighscore(1), scoreLabelStyle);
+		Label levelOneScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(1), scoreLabelStyle);
 
 		Label levelTwoLabel = new Label("Level 2", levelStyle);
-		Label levelTwoScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighscore(2),
+		Label levelTwoScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(2),
 				scoreLabelStyle);
 		
 		Label levelThreeLabel = new Label("Level 3", levelStyle);
-		Label levelThreeScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighscore(3),
+		Label levelThreeScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(3),
 				scoreLabelStyle);
 
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();

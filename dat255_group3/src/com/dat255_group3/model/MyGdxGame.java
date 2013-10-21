@@ -41,6 +41,7 @@ public class MyGdxGame {
 		this.currentLevel = level;
 	}
 	
+
 	public int getNumberOfLevels() {
 		return numberOfLevels;
 	}
@@ -48,4 +49,5 @@ public class MyGdxGame {
 	public void setNumberOfLevels(int numberOfLevels) {
 		this.numberOfLevels = numberOfLevels;
 	}
+
 }

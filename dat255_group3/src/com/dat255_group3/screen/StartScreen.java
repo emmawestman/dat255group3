@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
@@ -134,6 +135,15 @@ public class StartScreen implements Screen {
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+
+				try {
+					IOHandler.saveHighScores(myGdxGameController.getPlayerController()
+							.getPlayer().getHighScoreList());
+					Gdx.app.exit();
+				} catch (GdxRuntimeException e) {
+					Gdx.app.log("StartScreen", "Exception", e);
+				} catch (Exception e) {
+				}
 				myGdxGameController.setScreen(myGdxGameController.getExitPopUpScreen());
 			}
 		});

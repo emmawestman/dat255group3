@@ -1,6 +1,5 @@
 package com.dat255_group3.model;
 
-import com.dat255_group3.io.IOHandler;
 
 /**
  * A class which describes the state of the player being playing a game. 
@@ -101,10 +100,5 @@ public class InGame {
 	public void setDelayTime(float delayTime) {
 		this.delayTime = delayTime;
 	}
-	
-	public boolean isNewHighScore(int levelName, int currentScore) {
-		return (IOHandler.getScore(levelName) != 0 && IOHandler.getScore(levelName) < currentScore);
-	}
-	
 	
 }

@@ -12,6 +12,9 @@ import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
 import com.dat255_group3.utils.ScreenUtils;
 
+
+
+
 public class MyGdxGameController extends Game {
 	private MyGdxGame myGdxGame;
 	private ScreenUtils screenUtils;
