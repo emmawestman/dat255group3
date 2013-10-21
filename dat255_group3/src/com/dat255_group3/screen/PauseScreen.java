@@ -200,7 +200,7 @@ public class PauseScreen implements Screen {
 		// Pause button
 		ImageButtonStyle pauseButtonStyle = new ImageButtonStyle();
 		pauseButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("paus.up");
+				.getCircularSkin().getDrawable("pause.up");
 		pauseButtonStyle.down = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("play.up");
 		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
