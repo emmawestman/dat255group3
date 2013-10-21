@@ -275,8 +275,9 @@ public class InGameController implements Screen {
 		cameraController.setSpeedP(inGame.getSpeedP());
 
 		// give character speed
-		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame
-				.getSpeedM()) {
+		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM() 
+				&& this.worldController.getCharacterController().getCharacter().getPosition().x -
+				this.worldController.getCharacterController().getCharacter().getDeahLimit() < 400) {
 			this.worldController.getCharBody().applyForceToCenter(
 					new Vector2(3, 0), true);
 		}

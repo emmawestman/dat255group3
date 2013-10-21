@@ -40,7 +40,7 @@ public class PhysBodyFactory {
 		fixtureDef.restitution = 0f;
 
 		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.fixedRotation = true;
+		bodyDef.fixedRotation = false;
 		bodyDef.position.set(CoordinateConverter.pixelToMeter(character.getPosition()));
 
 		body = world.createBody(bodyDef);
