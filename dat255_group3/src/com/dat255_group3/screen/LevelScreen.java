@@ -5,10 +5,13 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
@@ -154,6 +157,19 @@ public class LevelScreen implements Screen {
 						.getStartScreen());
 			}
 		});
+		
+		//Setting high scores of the levels
+		LabelStyle scoreLabelStyle = new LabelStyle();
+		scoreLabelStyle.font = new BitmapFont(
+				Gdx.files.internal("font/white.fnt"), false);
+		scoreLabelStyle.font.setScale(1.8f);
+
+		Label levelOneScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(1), scoreLabelStyle);
+		Label levelTwoScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(2),
+				scoreLabelStyle);
+		Label levelThreeScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(3),
+				scoreLabelStyle);
+
 
 		// Setting the positions of the actors and add them to the stage
 		levelImage.setPosition(270, 400);
@@ -161,6 +177,11 @@ public class LevelScreen implements Screen {
 		levelTwoButton.setPosition(405, 160);
 		levelThreeButton.setPosition(630, 160);
 		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 120, 30);
+		
+		levelOneScore.setPosition(180, 60);
+		levelTwoScore.setPosition(405, 60);
+		levelThreeScore.setPosition(630, 60);
+		
 		stage.addActor(levelImage);
 		stage.addActor(levelOneButton);
 		stage.addActor(levelTwoButton);
