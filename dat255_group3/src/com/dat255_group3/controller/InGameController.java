@@ -141,7 +141,7 @@ public class InGameController implements Screen {
 		pauseButtonStyle.down = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("play.down");
 		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("paus.up");
+				.getCircularSkin().getDrawable("pause.up");
 		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
 		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
 				CoordinateConverter.getCameraHeight() - 70);
@@ -272,7 +272,7 @@ public class InGameController implements Screen {
 				&& this.worldController.getCharacterController().getCharacter().getPosition().x -
 				this.worldController.getCharacterController().getCharacter().getDeahLimit() < 400) {
 			this.worldController.getCharBody().applyForceToCenter(
-					new Vector2(3, 0), true);
+					new Vector2(1, 0), true);
 		}
 
 		// update the model position for the character

@@ -1,116 +1,88 @@
 
-CircularIcons.png
+Circular_Icons.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-back.up
-  rotate: false
-  xy: 1, 409
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
 home.up
-  rotate: false
-  xy: 1, 307
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-music.checked
-  rotate: false
-  xy: 103, 409
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-music.up
   rotate: false
   xy: 1, 205
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-paus.up
-  rotate: false
-  xy: 103, 307
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-play.up
+music.checked
   rotate: false
   xy: 1, 103
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-retry.up
+music.up
   rotate: false
   xy: 103, 205
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-sound.checked
+pause.up
   rotate: false
   xy: 1, 1
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-sound.up
+play.up
   rotate: false
   xy: 103, 103
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-back.down
+sound.checked
   rotate: false
-  xy: 205, 429
-  size: 80, 80
-  orig: 80, 80
+  xy: 205, 205
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+sound.up
+  rotate: false
+  xy: 103, 1
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 home.down
   rotate: false
-  xy: 103, 21
+  xy: 205, 123
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 music.down
   rotate: false
-  xy: 205, 347
+  xy: 307, 225
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 pause.down
   rotate: false
-  xy: 205, 265
+  xy: 205, 41
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 play.down
   rotate: false
-  xy: 205, 183
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-retry.down
-  rotate: false
-  xy: 205, 101
+  xy: 287, 123
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 sound.down
   rotate: false
-  xy: 185, 19
+  xy: 287, 41
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
