@@ -1,11 +1,11 @@
 package com.dat255_group3.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.InputStage;
+import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
  * A class which represents the screen being shown when the game is paused.
@@ -23,26 +25,24 @@ import com.dat255_group3.utils.CoordinateConverter;
 public class PauseScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
-	private Stage stage;
+	private InputStage stage;
 	private Texture messageIcon;
 	private Image messageImage;
 	
 
 	public PauseScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
-		this.stage = new Stage(0, 0, true);
-		
+		// Setting up the stage
+		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-//		spriteBatch.begin();
-//		myGdxGameController.getScreenUtils().getBackgroundImage().draw(spriteBatch, 1);
-//		spriteBatch.end();
 		myGdxGameController.getScreenUtils().drawBackgroundImage();
+		
 		// Update & draw the stage-actors
 		stage.act(delta);
 		stage.draw();
@@ -50,15 +50,22 @@ public class PauseScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// In order to make it look good not depending on the screen.
-
 	}
 
 	@Override
 	public void show() {
-		// Setting up the stage
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setInputProcessor(stage);		
+
+		// Checks if the back-key has been pressed  & if so, the level screen will be shown
+	    stage.setHardKeyListener(new OnHardKeyListener() {          
+	        @Override
+	        public void onHardKey(int keyCode, int state) {
+	            if(keyCode==Keys.BACK && state==1){
+	            	myGdxGameController.setScreen(myGdxGameController.getLevelScreen());      
+	            }       
+	        }
+	    });
+
 
 		// Setting up the table
 		Table table = new Table();

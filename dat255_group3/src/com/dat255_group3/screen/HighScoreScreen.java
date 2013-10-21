@@ -1,184 +1,177 @@
-		package com.dat255_group3.screen;
-
-	import java.util.List;
+package com.dat255_group3.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.InputStage;
+import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
+/**
+ * A class which represents the view of a won or a lost game containing the time
+ * and the score. The user is given the options of choosing of continuing to the
+ * next level if the game was won or to play the same level again if the game
+ * was lost.
+ * 
+ * @author The Hans-Gunnar Crew
+ * 
+ */
+public class HighScoreScreen implements Screen {
 
-	/**
-	 * A class which represents the view of a won or a lost game containing the time and the score. 
-	 * The user is given the options of choosing of continuing to the next level if the game was won 
-	 * or to play the same level again if the game was lost.
-	 * @author The Hans-Gunnar Crew
-	 *
-	 */
-	public class HighScoreScreen implements Screen{
+	private MyGdxGameController myGdxGameController;
+	private InputStage stage;
+	private Table table;
+	//private Texture highScoreLabelTexture;
 
-		private MyGdxGameController myGdxGameController;
-		private Stage stage;
-		private TextureAtlas atlas;
-		private Skin skin;
-		private Table table;
-		private List <Integer> highScores;
-		private List <Integer> bestTimes;
+	public HighScoreScreen(MyGdxGameController myGdxGameController) {
+		this.myGdxGameController = myGdxGameController;
+		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
+	}
+
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-//		import aurelienribon.tweenengine.TweenManager;
-//		private TweenManager tweenmanager;
-		
-		
-		public HighScoreScreen(MyGdxGameController myGdxGameController, List <Integer> scores, List <Integer> times ){
-			this.myGdxGameController = myGdxGameController;
-			this.highScores = scores;
-			this.bestTimes = times;
-			
-			this.stage = new Stage(0,0, true);
-			Gdx.input.setInputProcessor(stage);
-		}
-		
-		@Override
-		public void render(float delta) {
-			Gdx.gl.glClearColor(0, 0, 0, 0);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		myGdxGameController.getScreenUtils().drawBackgroundImage();
 
-			//Update & draw the stage actors
-			stage.act(delta);
-			//table.drawDebug(stage); //To be removed later on
-			stage.draw();
-		}
+		// Update & draw the stage actors
+		stage.act(delta);
+		stage.draw();
+	}
 
-		@Override
-		public void resize(int width, int height) {
-			//In order to make it look good not depending on the screensize.
-			//stage.setViewport(width, height, true);
-			//table.invalidateHierarchy();
-			//table.setSize(width,height);
-		}
+	@Override
+	public void resize(int width, int height) {
+	}
 
-		@Override
-		public void show() {		
-			//Setting up the atlas, skin & fonts
-			atlas = new TextureAtlas(Gdx.files.internal("ui/button.pack"));
-			skin = new Skin(atlas);
-			
-			//Setting up the table
-			table = new Table(skin);
-	        table.setBounds( 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	        
-	        
-	        //Setting characteristics for the label
-	        LabelStyle headerStyle = new LabelStyle();
-	        headerStyle.font =  new BitmapFont(Gdx.files.internal("font/whiteL.fnt"),false);
-	        headerStyle.font.scale(1.2f);
-	        Label header = new Label("Highscores", headerStyle);
-	        
-	        LabelStyle scoreNTimeStyle = new LabelStyle();
-	        scoreNTimeStyle.font = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
-	        scoreNTimeStyle.font.setScale(1.8f);
-	       
-	        LabelStyle levelStyle= new LabelStyle();
-	        levelStyle.font = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
-	        levelStyle.font.scale(1.1f);
-	        
-	        Label levelOneLabel = new Label("Level 1", levelStyle);
-	        Label levelOneScore = new Label("Score: " + highScores.get(0), scoreNTimeStyle);
-	        Label levelOneTime = new Label("Time: " + this.bestTimes.get(0), scoreNTimeStyle);
-	        
-	        Label levelTwoLabel = new Label("Level 1", levelStyle);
-	        Label levelTwoScore = new Label("Score: " + highScores.get(0), scoreNTimeStyle);
-	        Label levelTwoTime = new Label("Time: " + this.bestTimes.get(0), scoreNTimeStyle);
-	        
-	        
-	        
-	        //Setting up the characteristics for the buttons
-	        TextButtonStyle textButtonStyle = new TextButtonStyle();
-	        textButtonStyle.up = skin.getDrawable("button.up");
-	        textButtonStyle.down = skin.getDrawable("button.down");
-	        textButtonStyle.pressedOffsetX = 1;
-	        textButtonStyle.pressedOffsetY = -1;
-	        textButtonStyle.font = new BitmapFont(Gdx.files.internal("font/black.fnt"),false);
+	@Override
+	public void show() {
+		Gdx.input.setInputProcessor(stage);
 
-	        //Instantiating the buttons & setting listeners
-	        TextButton returnButton = new TextButton("Return", textButtonStyle);
-	        returnButton.pad(20);
-	        returnButton.addListener(new ClickListener(){
-	        	@Override
-				public void clicked (InputEvent event, float x, float y){
-	        		myGdxGameController.setScreen(myGdxGameController.getStartScreen());
+		// Checks if the back-key has been pressed & if so, confirming screen to
+		// exit the application will be shown
+		stage.setHardKeyListener(new OnHardKeyListener() {
+			@Override
+			public void onHardKey(int keyCode, int state) {
+				if (keyCode == Keys.BACK && state == 1) {
+					myGdxGameController.setScreen(myGdxGameController
+							.getStartScreen());
 				}
-	        });
+			}
+		});
 
-	        //Adding to the table and actors to the stage
-	        table.add(header);
-	        table.getCell(header).spaceBottom(50);
-	        table.row();
-	        table.add(levelOneLabel);
-	        table.getCell(levelOneLabel).spaceBottom(20);
-	        table.row();
-	        table.add(levelOneScore);
-	        table.getCell(levelOneScore).spaceBottom(20);
-	        table.row();
-	        table.add(levelOneTime );
-	        table.getCell(levelOneTime).spaceBottom(20);
-	        table.row();
-	        table.add(levelTwoLabel);
-	        table.getCell(levelOneLabel).spaceBottom(20);
-	        table.row();
-	        table.add(levelTwoScore);
-	        table.getCell(levelOneScore).spaceBottom(20);
-	        table.row();
-	        table.add(levelTwoTime );
-	        table.getCell(levelOneTime).spaceBottom(20);
-	        table.row();
-	        table.add(returnButton);
-	        table.getCell(returnButton).spaceBottom(20);
-	        table.row();
-	        stage.addActor(table);
-	        
-	       // table.debug(); //To be removed later on
-	        
-			//table.invalidateHierarchy();
-			table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
-			stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		// Setting up the table
+		table = new Table();
+		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+		// Setting the highscore title
+		// TODO: Label with "High Scores" & then remove the
+		// commentfields of the codes
+		try {
+			//highScoreLabelTexture = new Texture(
+			//		Gdx.files.internal("ui//highScoreTitle.png"));
+		} catch (GdxRuntimeException e) {
+			Gdx.app.log("LevelScreen", "Exception", e);
+		} catch (Exception e) {
 		}
+		//Image highScoreLabelImage = new Image(highScoreLabelTexture);
 
-		@Override
-		public void hide() {
-			// TODO Auto-generated method stub
-		}
+		LabelStyle scoreLabelStyle = new LabelStyle();
+		scoreLabelStyle.font = new BitmapFont(
+				Gdx.files.internal("font/white.fnt"), false);
+		scoreLabelStyle.font.setScale(1.8f);
 
-		@Override
-		public void pause() {
-			// TODO Auto-generated method stub
-		}
+		LabelStyle levelStyle = new LabelStyle();
+		levelStyle.font = new BitmapFont(Gdx.files.internal("font/white.fnt"),
+				false);
+		levelStyle.font.scale(1.1f);
 
-		@Override
-		public void resume() {
-			// TODO Auto-generated method stub
-		}
+		Label levelOneLabel = new Label("Level 1", levelStyle);
+		Label levelOneScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(1), scoreLabelStyle);
 
-		@Override
-		public void dispose() {
-			Gdx.app.log("Start", "dispose");
-			stage.dispose();
-			skin.dispose();
-			atlas.dispose();
-			
-		}
+		Label levelTwoLabel = new Label("Level 2", levelStyle);
+		Label levelTwoScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(2),
+				scoreLabelStyle);
+		
+		Label levelThreeLabel = new Label("Level 3", levelStyle);
+		Label levelThreeScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(3),
+				scoreLabelStyle);
+
+		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
+		homeButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("home.up");
+		homeButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getCircularSkin().getDrawable("home.down");
+		homeButtonStyle.pressedOffsetX = 1;
+		homeButtonStyle.pressedOffsetY = -1;
+
+		ImageButton homeButton = new ImageButton(homeButtonStyle);
+		homeButton.pad(20);
+		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 120, 30);
+		homeButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				myGdxGameController.setScreen(myGdxGameController
+						.getStartScreen());
+			}
+		});
+
+		// Adding to the table and actors to the stage
+		table.add(levelOneLabel);
+		table.getCell(levelOneLabel).spaceBottom(20);
+		table.row();
+		table.add(levelOneScore);
+		table.getCell(levelOneScore).spaceBottom(20);
+		table.row();
+		table.add(levelTwoLabel);
+		table.getCell(levelTwoLabel).spaceBottom(20);
+		table.row();
+		table.add(levelTwoScore);
+		table.getCell(levelTwoScore).spaceBottom(20);
+		table.row();
+		table.add(levelThreeScore);
+		table.getCell(levelThreeScore).spaceBottom(20);
+		//highScoreLabelImage.setPosition(270, 400);
+		//stage.addActor(highScoreLabelImage);
+		stage.addActor(table);
+
+		// table.debug(); //To be removed later on
+		table.setSize(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight());
+		stage.setViewport(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 
 	}
+
+	@Override
+	public void hide() {
+		stage.clear();
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
+	}
+
+	@Override
+	public void dispose() {
+		stage.dispose();
+	}
+
+}

@@ -1,5 +1,6 @@
 package com.dat255_group3.controller;
 
+import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.model.Player;
 
 public class PlayerController {
@@ -8,6 +9,8 @@ public class PlayerController {
 	
 	public PlayerController(){
 		this.player = new Player();
+		player.addHighScoresToList(IOHandler.getLevelData());
+
 	}
 	
 	public Player getPlayer() {

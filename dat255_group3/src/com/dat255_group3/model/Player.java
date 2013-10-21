@@ -2,12 +2,8 @@ package com.dat255_group3.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.dat255_group3.io.IOHandler;
-
-
-
 
 /**
  * A class that represents the user playing the game.
@@ -18,8 +14,13 @@ import com.dat255_group3.io.IOHandler;
  */
 
 public class Player {
-	private int score;
+
+	/** The player's current score.*/
 	private List <Integer> highScores;
+	
+	/** The player's current score.*/
+	private int score;
+
 	
 	/**
 	 * Class constructor.
@@ -27,8 +28,6 @@ public class Player {
 	public Player(){
 		highScores = new ArrayList <Integer>();
 		IOHandler.readScore();
-		addHighScoresToList(IOHandler.getLevelData());
-		
 	}
 	
 	
@@ -37,6 +36,7 @@ public class Player {
 	 * 
 	 * @return the player's high score
 	 */
+
 	public int getHighScore(int level){
 		return highScores.get(level-1);
 	}
@@ -70,6 +70,7 @@ public class Player {
 	public List<Integer> getHighScoreList() {
 		return this.highScores;
 	}
+
 	
 	public void calculateScore(double time, int cookies, boolean gameLost) {
 		if(gameLost){

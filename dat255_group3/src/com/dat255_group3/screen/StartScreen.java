@@ -1,11 +1,11 @@
 package com.dat255_group3.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dat255_group3.controller.MyGdxGameController;
 import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
+import com.dat255_group3.utils.InputStage;
+import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
  * A class which represents the startmenu of the game. The user is given the
@@ -26,12 +28,12 @@ import com.dat255_group3.utils.CoordinateConverter;
 public class StartScreen implements Screen {
 
 	private MyGdxGameController myGdxGameController;
-	private Stage stage;
-	private Texture texture;
+	private InputStage stage;
+	private Texture imageTexture;
 
 	public StartScreen(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
-		this.stage = new Stage(CoordinateConverter.getCameraWidth(),
+		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
 	}
 
@@ -39,45 +41,47 @@ public class StartScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		myGdxGameController.getScreenUtils().drawBackgroundImage();
-		
+
 		// Update & draw the stage actors
 		stage.act(delta);
-		//Table.drawDebug(stage); // To be removed later on
 		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// In order to make it look good not depending on the screensize.
-		// stage.setViewport(CoordinateConverter.getCameraWidth(),
-		// CoordinateConverter.getCameraHeight(), true);
-		// stage.setViewport(width, height, true);
-		// table.invalidateHierarchy();
-		// table.setSize(CoordinateConverter.getCameraWidth(),
-		// CoordinateConverter.getCameraHeight());
-		// table.setSize(width, height);
 	}
 
 	@Override
 	public void show() {
-		// Setting up the stage
 		Gdx.input.setInputProcessor(stage);
+
+		// Checks if the back-key has been pressed & if so, confirming screen to
+		// exit the application will be shown
+		stage.setHardKeyListener(new OnHardKeyListener() {
+			@Override
+			public void onHardKey(int keyCode, int state) {
+				if (keyCode == Keys.BACK && state == 1) {
+					myGdxGameController.setScreen(myGdxGameController.getExitPopUpScreen());
+				}
+			}
+		});
 
 		// Setting the image for the title of the game
 		try {
-			texture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
+			imageTexture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
 
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("StartScreen", "Exception", e);
 		} catch (Exception e) {
 		}
-		Image image = new Image(texture);
+		Image image = new Image(imageTexture);
 
 		// Setting up the table
-		Table table = new Table();		
-		table.setBounds(0,0,CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
+		Table table = new Table();
+		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight());
 
 		ImageButtonStyle startButtonStyle = new ImageButtonStyle();
 		startButtonStyle.up = myGdxGameController.getScreenUtils()
@@ -99,6 +103,24 @@ public class StartScreen implements Screen {
 						myGdxGameController));
 			}
 		});
+		
+		//TODO: Remove commentefields of highscore when the pictures are done
+	/*	ImageButtonStyle highScoreButtonStyle = new ImageButtonStyle();
+		highScoreButtonStyle.up = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("highscore.up");
+		highScoreButtonStyle.down = myGdxGameController.getScreenUtils()
+				.getRectangularSkin().getDrawable("highscore.down");
+		highScoreButtonStyle.pressedOffsetX = 1;
+		highScoreButtonStyle.pressedOffsetY = -1;
+
+		ImageButton highScoreButton = new ImageButton(highScoreButtonStyle);
+		highScoreButton.pad(20);
+		highScoreButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				myGdxGameController.setScreen(myGdxGameController.getHighScoreScreen());
+			}
+		});*/
 
 		ImageButtonStyle exitButtonStyle = new ImageButtonStyle();
 		exitButtonStyle.up = myGdxGameController.getScreenUtils()
@@ -113,6 +135,7 @@ public class StartScreen implements Screen {
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+
 				try {
 					IOHandler.saveHighScores(myGdxGameController.getPlayerController()
 							.getPlayer().getHighScoreList());
@@ -121,18 +144,19 @@ public class StartScreen implements Screen {
 					Gdx.app.log("StartScreen", "Exception", e);
 				} catch (Exception e) {
 				}
+				myGdxGameController.setScreen(myGdxGameController.getExitPopUpScreen());
 			}
 		});
 
 		ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
-		if(MyGdxGameController.soundEffectsOn()) {
+		if (MyGdxGameController.soundEffectsOn()) {
 			soundButtonStyle.up = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.checked");
 			soundButtonStyle.down = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.down");
 			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.up");
-		}else{
+		} else {
 			soundButtonStyle.up = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.up");
 			soundButtonStyle.down = myGdxGameController.getScreenUtils()
@@ -140,7 +164,7 @@ public class StartScreen implements Screen {
 			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.checked");
 		}
-		
+
 		ImageButton soundButton = new ImageButton(soundButtonStyle);
 		soundButton.setPosition(120, 30);
 		soundButton.toggle();
@@ -156,14 +180,14 @@ public class StartScreen implements Screen {
 		});
 
 		ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
-		if(myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
+		if (myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
 			musicButtonStyle.up = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.checked");
 			musicButtonStyle.down = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.down");
 			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.up");
-		}else{
+		} else {
 			musicButtonStyle.up = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.up");
 			musicButtonStyle.down = myGdxGameController.getScreenUtils()
@@ -171,7 +195,7 @@ public class StartScreen implements Screen {
 			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.checked");
 		}
-		
+
 		ImageButton musicButton = new ImageButton(musicButtonStyle);
 		musicButton.pad(20);
 		musicButton.setPosition(20, 30);
@@ -196,6 +220,9 @@ public class StartScreen implements Screen {
 		table.add(startButton).center();
 		table.getCell(startButton).spaceBottom(30);
 		table.row();
+	//	table.add(highScoreButton).center();
+	//	table.getCell(highScoreButton).spaceBottom(30);
+		table.row();
 		table.add(exitButton).center();
 		table.getCell(exitButton).spaceBottom(30);
 		table.row();
@@ -207,7 +234,7 @@ public class StartScreen implements Screen {
 		stage.setViewport(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
 
-		//table.debug(); // To be removed later on
+		// table.debug(); // To be removed later on
 	}
 
 	@Override
@@ -227,11 +254,13 @@ public class StartScreen implements Screen {
 	public void dispose() {
 		try {
 			stage.dispose();
-			texture.dispose();
+			imageTexture.dispose();
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("StartScreen", "Exception", e);
 		} catch (Exception e) {
 		}
 	}
 
+	public void exit() {
+	}
 }
