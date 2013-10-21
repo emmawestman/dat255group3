@@ -25,7 +25,7 @@ public class ScreenUtils {
 	
 	public ScreenUtils(){
 		try{
-		atlasRect = new TextureAtlas(Gdx.files.internal("menuIcons/RectangularIcons.pack"));
+		atlasRect = new TextureAtlas(Gdx.files.internal("menuIcons/Rectangular_Icons.pack"));
 		atlasCirc = new TextureAtlas(Gdx.files.internal("menuIcons/CircularIcons.pack"));
 		gameTitleTexture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
 		backgroundTexture = new Texture(Gdx.files.internal("ui/startBackground1024x512.png"));

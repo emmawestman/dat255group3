@@ -63,14 +63,16 @@ public class StartScreen implements Screen {
 			@Override
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
-					myGdxGameController.setScreen(myGdxGameController.getExitPopUpScreen());
+					myGdxGameController.setScreen(myGdxGameController
+							.getExitPopUpScreen());
 				}
 			}
 		});
 
 		// Setting the image for the title of the game
 		try {
-			imageTexture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
+			imageTexture = new Texture(
+					Gdx.files.internal("menuIcons/gameTitle.png"));
 
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("StartScreen", "Exception", e);
@@ -103,24 +105,6 @@ public class StartScreen implements Screen {
 						myGdxGameController));
 			}
 		});
-		
-		//TODO: Remove commentefields of highscore when the pictures are done
-	/*	ImageButtonStyle highScoreButtonStyle = new ImageButtonStyle();
-		highScoreButtonStyle.up = myGdxGameController.getScreenUtils()
-				.getRectangularSkin().getDrawable("highscore.up");
-		highScoreButtonStyle.down = myGdxGameController.getScreenUtils()
-				.getRectangularSkin().getDrawable("highscore.down");
-		highScoreButtonStyle.pressedOffsetX = 1;
-		highScoreButtonStyle.pressedOffsetY = -1;
-
-		ImageButton highScoreButton = new ImageButton(highScoreButtonStyle);
-		highScoreButton.pad(20);
-		highScoreButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setScreen(myGdxGameController.getHighScoreScreen());
-			}
-		});*/
 
 		ImageButtonStyle exitButtonStyle = new ImageButtonStyle();
 		exitButtonStyle.up = myGdxGameController.getScreenUtils()
@@ -137,14 +121,15 @@ public class StartScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 
 				try {
-					IOHandler.saveHighScores(myGdxGameController.getPlayerController()
-							.getPlayer().getHighScoreList());
-					Gdx.app.exit();
+					IOHandler.saveHighScores(myGdxGameController
+							.getPlayerController().getPlayer()
+							.getHighScoreList());
 				} catch (GdxRuntimeException e) {
 					Gdx.app.log("StartScreen", "Exception", e);
 				} catch (Exception e) {
 				}
-				myGdxGameController.setScreen(myGdxGameController.getExitPopUpScreen());
+				myGdxGameController.setScreen(myGdxGameController
+						.getExitPopUpScreen());
 			}
 		});
 
@@ -220,8 +205,6 @@ public class StartScreen implements Screen {
 		table.add(startButton).center();
 		table.getCell(startButton).spaceBottom(30);
 		table.row();
-	//	table.add(highScoreButton).center();
-	//	table.getCell(highScoreButton).spaceBottom(30);
 		table.row();
 		table.add(exitButton).center();
 		table.getCell(exitButton).spaceBottom(30);
@@ -233,8 +216,6 @@ public class StartScreen implements Screen {
 		stage.addActor(table);
 		stage.setViewport(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
-
-		// table.debug(); // To be removed later on
 	}
 
 	@Override
