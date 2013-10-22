@@ -14,7 +14,6 @@ public class Character {
 	private static float radius; //size of character in pixels
 	private float deathLimit;
 	private Vector2 position; 
-	
 
 	/**
 	 * Constructs a Character with its properties.

@@ -1,5 +1,7 @@
 package com.dat255_group3.model;
 
+import com.dat255_group3.utils.CoordinateConverter;
+
 
 /**
  * A class which describes the state of the player being playing a game. 
@@ -99,6 +101,10 @@ public class InGame {
 	
 	public void setDelayTime(float delayTime) {
 		this.delayTime = delayTime;
+	}
+
+	public void updateSpeedP(float delta) {
+		this.speedP = CoordinateConverter.meterToPixel(this.speedM * delta);		
 	}
 	
 }
