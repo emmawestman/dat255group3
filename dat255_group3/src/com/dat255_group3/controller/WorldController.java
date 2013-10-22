@@ -178,7 +178,8 @@ public class WorldController {
 
 	public void checkNextCookie() {
 		if(cookieList.size() > 0 && cookieList.size() > cookieIndex) {
-			if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
+			characterController.getCharacter();
+			if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x - Character.getRadius()) {
 				checkCookieCollision(this.characterController.getCharacter());
 			}else if(cookieIndex < cookieList.size()-1){
 				cookieIndex++;
@@ -187,12 +188,10 @@ public class WorldController {
 	}
 
 	public void checkCookieCollision(Character character) {
-		if(Math.abs(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x) 
+		if(Math.abs(cookieList.get(cookieIndex).getPosition().x + 32 - characterController.getCharacter().getPosition().x) 
 				< Character.getRadius()) {
 			if(Math.abs(cookieList.get(cookieIndex).getPosition().y - characterController.getCharacter().getPosition().y + 32/2)
 					<= Character.getRadius()) {
-//				 && characterController.getCharacter().getPosition().y - 
-//					cookieList.get(cookieIndex).getPosition().y > 0
 				collision();
 			}
 		}

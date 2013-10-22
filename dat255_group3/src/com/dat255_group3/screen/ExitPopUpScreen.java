@@ -123,7 +123,7 @@ public class ExitPopUpScreen implements Screen {
 		// Setting positions & adding to the stage
 		yesButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 230);
 		noButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 130);
-		labelImage.setPosition(CoordinateConverter.getCameraWidth()/2 - 250, 370);
+		labelImage.setPosition(130, 370);
 		
 		stage.addActor(popUpImage);
 		stage.addActor(labelImage);
