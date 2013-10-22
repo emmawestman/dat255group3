@@ -93,6 +93,7 @@ public class InGameController implements Screen {
 		if (Gdx.input.isTouched()) {
 			worldController.getCharacterController().tryToJump();
 		}
+		
 		// Count Down
 		if (isCountingDown) {
 			if (inGame.getDelayTime() <= 1.0) {

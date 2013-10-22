@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dat255_group3.model.Character;
@@ -34,8 +33,8 @@ public class CharacterView {
 		this.spriteBatch = new SpriteBatch();
 		this.camera = camera;
 		
-		//Create animation frames
-		walkSheet = new Texture(Gdx.files.internal("ui/characterSpreadsheet.png"));
+		//Create animation frames for walking
+		walkSheet = new Texture(Gdx.files.internal("ui/CharacterSpritesheet.png"));
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAMES_COLS, walkSheet.getHeight());
 		walkFrames = new TextureRegion[FRAMES_COLS];
 		for(int i = 0;i<FRAMES_COLS;i++) {
@@ -43,7 +42,6 @@ public class CharacterView {
 		}
 		
 		walkAnimation = new Animation(0.06f, walkFrames);
-
 	}
 	
 	
@@ -59,7 +57,6 @@ public class CharacterView {
 		spriteBatch.draw(currentFrame, character.getPosition().x-Character.getRadius(), character.getPosition().y-Character.getRadius());
 		spriteBatch.end();
 	}
-
 
 	public Character getCharacter() {
 		return character;
