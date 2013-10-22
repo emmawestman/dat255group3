@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -77,13 +76,13 @@ public class InGameController implements Screen {
 		// draws the world and its components
 		this.inGameView.draw(this.worldController.getWorldView(),
 				this.worldController.getCharBody(), this.worldController
-						.getCharacterController().getCharacterView(),
+				.getCharacterController().getCharacterView(),
 				this.worldController.getCookieController().getCookieView(),
 				this.worldController.getEnemy(), worldController.getWorld()
-						.getTime(), worldController.getWorld()
-						.getCookieCounter(), gameOver);
+				.getTime(), worldController.getWorld()
+				.getCookieCounter(), gameOver);
 
-		
+
 		stage.draw();
 
 		/*
@@ -97,17 +96,13 @@ public class InGameController implements Screen {
 		// Count Down
 		if (isCountingDown) {
 			if (inGame.getDelayTime() <= 1.0) {
-				Gdx.app.log("InGameContoller", "Count down: 3");
 				inGameView.drawCountDownNbr(inGame.getDelayTime());
 
 			} else if (inGame.getDelayTime() <= 2.0) {
 				inGameView.drawCountDownNbr(inGame.getDelayTime());
-				Gdx.app.log("InGameContoller", "Count down: 2");
 
 			} else if (inGame.getDelayTime() <= 3.0) {
 				inGameView.drawCountDownNbr(inGame.getDelayTime());
-				Gdx.app.log("InGameContoller", "Count down: 1");
-
 			} else {
 				isCountingDown = false;
 			}
@@ -142,7 +137,7 @@ public class InGameController implements Screen {
 		pauseButtonStyle.down = myGdxGameController.getScreenUtils()
 				.getCircularSkin().getDrawable("play.down");
 		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("paus.up");
+				.getCircularSkin().getDrawable("pause.up");
 		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
 		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
 				CoordinateConverter.getCameraHeight() - 70);
@@ -264,17 +259,12 @@ public class InGameController implements Screen {
 		inGame.setSpeedM(1.5f * GyroUtils.gyroSteering());
 
 		// Updates the speed
-		inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()
-				* delta));
+		this.inGame.updateSpeedP(delta);
 		cameraController.setSpeedP(inGame.getSpeedP());
 
 		// give character speed
-		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM() 
-				&& this.worldController.getCharacterController().getCharacter().getPosition().x -
-				this.worldController.getCharacterController().getCharacter().getDeahLimit() < 400) {
-			this.worldController.getCharBody().applyForceToCenter(
-					new Vector2(3, 0), true);
-		}
+		//TODO check if working
+		this.worldController.moveCharacter(this.inGame.getSpeedM());
 
 		// update the model position for the character
 		this.worldController.uppdatePositions(this.worldController
@@ -287,8 +277,6 @@ public class InGameController implements Screen {
 	}
 
 	public void gameOver() {
-		Gdx.app.log("Game over:", gameOver + "");
-
 		myGdxGameController.getMyGdxGame().setIsGameStarted(false);
 
 		// calculate the score

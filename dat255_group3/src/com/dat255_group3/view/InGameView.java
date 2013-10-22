@@ -41,12 +41,8 @@ public class InGameView {
 		this.spriteBatch = new SpriteBatch();
 		this.font = new BitmapFont();
 		spriteBatch.setProjectionMatrix(camera.combined);
-		Gdx.app.log("BG", "loading image...");
 		this.bgImage = new Texture(Gdx.files.internal("ui/ingameBackground.png"));
 		bgSprite = new Sprite(bgImage);
-		Gdx.app.log("BG", "Done!");
-
-		
 	}
 	
 	/** Renders the HUD and background of the game. 
@@ -65,6 +61,7 @@ public class InGameView {
 		//Draw time
 		drawTime(time);
 		drawCookieCounter(cookieCounter);
+		drawLevelNbr();
 
 	}
 	
@@ -101,11 +98,8 @@ public class InGameView {
 	}
 	
 	public void drawBgImage(){
-		Gdx.app.log("BG", "checking");
 		if(this.bgImage != null){
-			Gdx.app.log("BG", "Drawing");
 			this.spriteBatch.begin();
-			this.bgSprite.setSize(2000, 600);
 			this.bgSprite.setPosition(0, 0);
 			this.bgSprite.draw(spriteBatch);
 			this.spriteBatch.end();
@@ -113,9 +107,7 @@ public class InGameView {
 
 	}
 	
-	public void drawCountDownNbr(float delayTime) {
-		Gdx.app.log("InGameView", "drawCountDownNbr");
-		
+	public void drawCountDownNbr(float delayTime) {		
 		try {
 		if (delayTime <= 1.0) {
 			countDownImage = new Texture(Gdx.files.internal("ui/three.png"));

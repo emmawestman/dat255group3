@@ -162,7 +162,7 @@ public class LevelScreen implements Screen {
 		LabelStyle scoreLabelStyle = new LabelStyle();
 		scoreLabelStyle.font = new BitmapFont(
 				Gdx.files.internal("font/white.fnt"), false);
-		scoreLabelStyle.font.setScale(1.8f);
+		scoreLabelStyle.font.setScale(1.3f);
 
 		Label levelOneScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(1), scoreLabelStyle);
 		Label levelTwoScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(2),
@@ -178,14 +178,17 @@ public class LevelScreen implements Screen {
 		levelThreeButton.setPosition(630, 160);
 		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 120, 30);
 		
-		levelOneScore.setPosition(180, 60);
-		levelTwoScore.setPosition(405, 60);
-		levelThreeScore.setPosition(630, 60);
+		levelOneScore.setPosition(190, 100);
+		levelTwoScore.setPosition(415, 100);
+		levelThreeScore.setPosition(650, 100);
 		
 		stage.addActor(levelImage);
 		stage.addActor(levelOneButton);
 		stage.addActor(levelTwoButton);
 		stage.addActor(levelThreeButton);
+		stage.addActor(levelOneScore);
+		stage.addActor(levelTwoScore);
+		stage.addActor(levelThreeScore);
 		stage.addActor(homeButton);
 
 		stage.setViewport(CoordinateConverter.getCameraWidth(),
