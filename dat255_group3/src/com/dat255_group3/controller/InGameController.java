@@ -95,17 +95,13 @@ public class InGameController implements Screen {
 		// Count Down
 		if (isCountingDown) {
 			if (inGame.getDelayTime() <= 1.0) {
-				Gdx.app.log("InGameContoller", "Count down: 3");
 				inGameView.drawCountDownNbr(inGame.getDelayTime());
 
 			} else if (inGame.getDelayTime() <= 2.0) {
 				inGameView.drawCountDownNbr(inGame.getDelayTime());
-				Gdx.app.log("InGameContoller", "Count down: 2");
 
 			} else if (inGame.getDelayTime() <= 3.0) {
 				inGameView.drawCountDownNbr(inGame.getDelayTime());
-				Gdx.app.log("InGameContoller", "Count down: 1");
-
 			} else {
 				isCountingDown = false;
 			}
@@ -291,8 +287,6 @@ public class InGameController implements Screen {
 	}
 
 	public void gameOver() {
-		Gdx.app.log("Game over:", gameOver + "");
-
 		myGdxGameController.getMyGdxGame().setIsGameStarted(false);
 
 		// calculate the score
