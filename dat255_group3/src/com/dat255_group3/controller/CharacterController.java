@@ -20,7 +20,6 @@ public class CharacterController {
 		this.worldController = worldController;
 		this.character = new Character(0.5);
 		this.characterView = new CharacterView(character, camera);
-
 	}
 
 	public Character getCharacter() {
@@ -46,7 +45,6 @@ public class CharacterController {
 		float impulse = this.worldController.getCharBody().getMass()*6;
 		worldController.getCharBody().applyLinearImpulse(0.0f, impulse, 
 				worldController.getCharBody().getWorldCenter().x, worldController.getCharBody().getWorldCenter().y, true);
-	
 	}
 }
 

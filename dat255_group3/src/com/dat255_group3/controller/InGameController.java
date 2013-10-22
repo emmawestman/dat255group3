@@ -76,13 +76,13 @@ public class InGameController implements Screen {
 		// draws the world and its components
 		this.inGameView.draw(this.worldController.getWorldView(),
 				this.worldController.getCharBody(), this.worldController
-						.getCharacterController().getCharacterView(),
+				.getCharacterController().getCharacterView(),
 				this.worldController.getCookieController().getCookieView(),
 				this.worldController.getEnemy(), worldController.getWorld()
-						.getTime(), worldController.getWorld()
-						.getCookieCounter(), gameOver);
+				.getTime(), worldController.getWorld()
+				.getCookieCounter(), gameOver);
 
-		
+
 		stage.draw();
 
 		/*
@@ -92,6 +92,7 @@ public class InGameController implements Screen {
 		if (Gdx.input.isTouched()) {
 			worldController.getCharacterController().tryToJump();
 		}
+		
 		// Count Down
 		if (isCountingDown) {
 			if (inGame.getDelayTime() <= 1.0) {
@@ -258,23 +259,12 @@ public class InGameController implements Screen {
 		inGame.setSpeedM(1.5f * GyroUtils.gyroSteering());
 
 		// Updates the speed
-		inGame.setSpeedP(CoordinateConverter.meterToPixel(inGame.getSpeedM()
-				* delta));
+		this.inGame.updateSpeedP(delta);
 		cameraController.setSpeedP(inGame.getSpeedP());
 
 		// give character speed
 		//TODO check if working
 		this.worldController.moveCharacter(this.inGame.getSpeedM());
-//		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM() 
-//				&& this.worldController.getCharacterController().getCharacter().getPosition().x -
-//				this.worldController.getCharacterController().getCharacter().getDeahLimit() < 400) {
-//			this.worldController.getCharBody().applyForceToCenter(
-//					new Vector2(1, 0), true);
-//		} else if(this.worldController.getCharacterController().getCharacter().getPosition().x - 
-//				this.worldController.getCharacterController().getCharacter().getDeahLimit() > 600){
-//			this.worldController.getCharBody().applyForceToCenter(
-//					new Vector2(- (this.worldController.getCharBody().getLinearVelocity().x * this.worldController.getCharBody().getMass()), 0), true);
-//		}
 
 		// update the model position for the character
 		this.worldController.uppdatePositions(this.worldController

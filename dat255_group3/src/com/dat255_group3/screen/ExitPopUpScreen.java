@@ -79,7 +79,7 @@ public class ExitPopUpScreen implements Screen {
 		popUpImage = new Image(popUpTexture);
 		popUpImage.setSize(1024, 580);
 		labelImage = new Image(popUpLabelTexture);
-
+		
 		ImageButtonStyle yesButtonStyle = new ImageButtonStyle();
 		yesButtonStyle.up = myGdxGameController.getScreenUtils()
 				.getRectangularSkin().getDrawable("yes.up");
@@ -124,7 +124,6 @@ public class ExitPopUpScreen implements Screen {
 		yesButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 230);
 		noButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 130);
 		labelImage.setPosition(130, 370);
-		
 		stage.addActor(popUpImage);
 		stage.addActor(labelImage);
 		stage.addActor(yesButton);
