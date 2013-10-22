@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Cookie {
 	
 	private Vector2 position;
+	private int radius;
 
 	/**
 	 * A constructor that takes a position for the cookie
@@ -19,10 +20,15 @@ public class Cookie {
 	 */
 	public Cookie(Vector2 position) {
 		this.position = position;
+		radius = 32;
 	}
 	
 	public Vector2 getPosition() {
 		return position;
+	}
+	
+	public int getCookieRadius() {
+		return radius;
 	}
 
 }

@@ -78,7 +78,7 @@ public class WorldController {
 		world.setCookieCounter(0);
 
 		// create cookieController
-		cookieController = new CookieController(cookieList, inGameController.getCamera());
+		cookieController = new CookieController(this, cookieList, inGameController.getCamera());
 
 		//create enemy
 		enemy = new EnemyView(inGameController.getCamera());
@@ -176,34 +176,7 @@ public class WorldController {
 		}
 	}
 
-	public void checkNextCookie() {
-		if(cookieList.size() > 0 && cookieList.size() > cookieIndex) {
-			if(cookieList.get(cookieIndex).getPosition().x + 32 > characterController.getCharacter().getPosition().x) {
-				checkCookieCollision(this.characterController.getCharacter());
-			}else if(cookieIndex < cookieList.size()-1){
-				cookieIndex++;
-			}
-		}
+	public void checkCookies() {
+		cookieController.checkNextCookie(characterController);
 	}
-
-	public void checkCookieCollision(Character character) {
-		if(Math.abs(cookieList.get(cookieIndex).getPosition().x - characterController.getCharacter().getPosition().x) 
-				< Character.getRadius()) {
-			if(Math.abs(cookieList.get(cookieIndex).getPosition().y - characterController.getCharacter().getPosition().y + 32/2)
-					<= Character.getRadius()) {
-//				 && characterController.getCharacter().getPosition().y - 
-//					cookieList.get(cookieIndex).getPosition().y > 0
-				collision();
-			}
-		}
-	}
- 
-	public void collision() {
-		cookieList.remove(cookieIndex);
-		world.increaseCookieCounter();
-		if(MyGdxGameController.soundEffectsOn()) {
-			soundController.playCookieSound();
-		}
-	}
-
 }
