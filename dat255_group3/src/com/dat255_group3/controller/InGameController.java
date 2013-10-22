@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -268,16 +267,18 @@ public class InGameController implements Screen {
 		cameraController.setSpeedP(inGame.getSpeedP());
 
 		// give character speed
-		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM() 
-				&& this.worldController.getCharacterController().getCharacter().getPosition().x -
-				this.worldController.getCharacterController().getCharacter().getDeahLimit() < 400) {
-			this.worldController.getCharBody().applyForceToCenter(
-					new Vector2(1, 0), true);
-		} else if(this.worldController.getCharacterController().getCharacter().getPosition().x - 
-				this.worldController.getCharacterController().getCharacter().getDeahLimit() > 600){
-			this.worldController.getCharBody().applyForceToCenter(
-					new Vector2(- (this.worldController.getCharBody().getLinearVelocity().x * this.worldController.getCharBody().getMass()), 0), true);
-		}
+		//TODO check if working
+		this.worldController.moveCharacter(this.inGame.getSpeedM());
+//		if (this.worldController.getCharBody().getLinearVelocity().x < this.inGame.getSpeedM() 
+//				&& this.worldController.getCharacterController().getCharacter().getPosition().x -
+//				this.worldController.getCharacterController().getCharacter().getDeahLimit() < 400) {
+//			this.worldController.getCharBody().applyForceToCenter(
+//					new Vector2(1, 0), true);
+//		} else if(this.worldController.getCharacterController().getCharacter().getPosition().x - 
+//				this.worldController.getCharacterController().getCharacter().getDeahLimit() > 600){
+//			this.worldController.getCharBody().applyForceToCenter(
+//					new Vector2(- (this.worldController.getCharBody().getLinearVelocity().x * this.worldController.getCharBody().getMass()), 0), true);
+//		}
 
 		// update the model position for the character
 		this.worldController.uppdatePositions(this.worldController

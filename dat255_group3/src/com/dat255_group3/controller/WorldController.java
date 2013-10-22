@@ -156,6 +156,25 @@ public class WorldController {
 	public Vector2 getStartPos() {
 		return WorldUtil.getStartPos();
 	}
+	
+	/**
+	 * Make the physical character move with the speed (meter/sec) of the camera. 
+	 * If the character is too far ahead of the camera the character will 
+	 * slow down so the camera can catch up.
+	 * @param speedM , the speed, meter/sec, of the camera.
+	 */
+	public void moveCharacter(float speedM){
+		if (this.getCharBody().getLinearVelocity().x < speedM
+				&& this.getCharacterController().getCharacter().getPosition().x -
+				this.getCharacterController().getCharacter().getDeahLimit() < 400) {
+			this.getCharBody().applyForceToCenter(
+					new Vector2(1, 0), true);
+		} else if(this.getCharacterController().getCharacter().getPosition().x - 
+				this.getCharacterController().getCharacter().getDeahLimit() > 600){
+			this.getCharBody().applyForceToCenter(
+					new Vector2(- (this.getCharBody().getLinearVelocity().x * this.getCharBody().getMass()), 0), true);
+		}
+	}
 
 	public void checkNextCookie() {
 		if(cookieList.size() > 0 && cookieList.size() > cookieIndex) {
