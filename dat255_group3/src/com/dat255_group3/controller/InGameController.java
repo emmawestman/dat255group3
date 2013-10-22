@@ -71,7 +71,7 @@ public class InGameController implements Screen {
 		}
 
 		// check collision with the closest cookie
-		worldController.checkNextCookie();
+		worldController.checkCookies();
 
 		// draws the world and its components
 		this.inGameView.draw(this.worldController.getWorldView(),
