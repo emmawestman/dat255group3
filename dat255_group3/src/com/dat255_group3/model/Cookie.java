@@ -4,7 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 
 
 /**
- * A class that represents a cookie
+ * A Cookie is a collectible item in the game that gives you
+ * bonus points.
+ * 
  * @author The Hans-Gunnar Crew
  *
  */
@@ -14,9 +16,11 @@ public class Cookie {
 	private int radius;
 
 	/**
-	 * A constructor that takes a position for the cookie
-	 * @param position
-	 * 			The position of the cookie
+	 * Constructs a new Cookie with the specified position, and sets
+	 * the default radius to 32 pixels.
+	 * 
+	 * @param position the position of the cookie
+	 * 			
 	 */
 	public Cookie(Vector2 position) {
 		this.position = position;
