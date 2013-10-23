@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.OneMoreCookiePleaseController;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
@@ -24,14 +24,14 @@ import com.dat255_group3.utils.InputStage.OnHardKeyListener;
  */
 public class PauseScreen implements Screen {
 
-	private MyGdxGameController myGdxGameController;
+	private OneMoreCookiePleaseController oneMoreCookiePleaseController;
 	private InputStage stage;
 	private Texture messageIcon;
 	private Image messageImage;
-	
 
-	public PauseScreen(MyGdxGameController myGdxGameController) {
-		this.myGdxGameController = myGdxGameController;
+	public PauseScreen(
+			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
+		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		// Setting up the stage
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
@@ -41,8 +41,8 @@ public class PauseScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		myGdxGameController.getScreenUtils().drawBackgroundImage();
-		
+		oneMoreCookiePleaseController.getScreenUtils().drawBackgroundImage();
+
 		// Update & draw the stage-actors
 		stage.act(delta);
 		stage.draw();
@@ -54,24 +54,26 @@ public class PauseScreen implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(stage);		
+		Gdx.input.setInputProcessor(stage);
 
-		// Checks if the back-key has been pressed  & if so, the level screen will be shown
-	    stage.setHardKeyListener(new OnHardKeyListener() {          
-	        @Override
-	        public void onHardKey(int keyCode, int state) {
-	            if(keyCode==Keys.BACK && state==1){
-	            	myGdxGameController.setScreen(myGdxGameController.getLevelScreen());      
-	            }       
-	        }
-	    });
-
+		// Checks if the back-key has been pressed & if so, the level screen
+		// will be shown
+		stage.setHardKeyListener(new OnHardKeyListener() {
+			@Override
+			public void onHardKey(int keyCode, int state) {
+				if (keyCode == Keys.BACK && state == 1) {
+					oneMoreCookiePleaseController
+							.setScreen(oneMoreCookiePleaseController
+									.getLevelScreen());
+				}
+			}
+		});
 
 		// Setting up the table
 		Table table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		//The message image
+		// The message image
 		messageIcon = new Texture(Gdx.files.internal("ui/pausedTitle.png"));
 		messageImage = new Image(messageIcon);
 
@@ -80,8 +82,10 @@ public class PauseScreen implements Screen {
 		 * continuing to play, restart or to return to the main-menu
 		 */
 		ImageButtonStyle resumeButtonStyle = new ImageButtonStyle();
-		resumeButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("resume.up");
-		resumeButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("resume.down");
+		resumeButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
+				.getRectangularSkin().getDrawable("resume.up");
+		resumeButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
+				.getRectangularSkin().getDrawable("resume.down");
 		resumeButtonStyle.pressedOffsetX = 1;
 		resumeButtonStyle.pressedOffsetY = -1;
 
@@ -90,14 +94,18 @@ public class PauseScreen implements Screen {
 		resumeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setScreen(myGdxGameController
-						.getInGameController());
+				oneMoreCookiePleaseController
+						.setScreen(oneMoreCookiePleaseController
+								.getInGameController());
 			}
 		});
 
 		ImageButtonStyle restartButtonStyle = new ImageButtonStyle();
-		restartButtonStyle.up = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("restart.up");
-		restartButtonStyle.down = myGdxGameController.getScreenUtils().getRectangularSkin().getDrawable("restart.down");
+		restartButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
+				.getRectangularSkin().getDrawable("restart.up");
+		restartButtonStyle.down = oneMoreCookiePleaseController
+				.getScreenUtils().getRectangularSkin()
+				.getDrawable("restart.down");
 		restartButtonStyle.pressedOffsetX = 1;
 		restartButtonStyle.pressedOffsetY = -1;
 
@@ -107,45 +115,51 @@ public class PauseScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				// This level
-				myGdxGameController.setScreen(myGdxGameController
-						.getInGameController());
+				oneMoreCookiePleaseController
+						.setScreen(oneMoreCookiePleaseController
+								.getInGameController());
 
 			}
 		});
 
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
-		homeButtonStyle.up = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("home.up");
-		homeButtonStyle.down = myGdxGameController.getScreenUtils().getCircularSkin().getDrawable("home.down");
+		homeButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
+				.getCircularSkin().getDrawable("home.up");
+		homeButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
+				.getCircularSkin().getDrawable("home.down");
 		homeButtonStyle.pressedOffsetX = 1;
 		homeButtonStyle.pressedOffsetY = -1;
 
 		ImageButton homeButton = new ImageButton(homeButtonStyle);
-		homeButton.setPosition(CoordinateConverter.getCameraWidth()-130, 30);
+		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 130, 30);
 		homeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setScreen(myGdxGameController
-						.getStartScreen());
+				oneMoreCookiePleaseController
+						.setScreen(oneMoreCookiePleaseController
+								.getStartScreen());
 			}
 		});
 
-
-
 		ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
-		if(MyGdxGameController.soundEffectsOn()) {
-			soundButtonStyle.up = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("sound.checked");
-			soundButtonStyle.down = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("sound.down");
-			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("sound.up");
-		}else{
-			soundButtonStyle.up = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("sound.up");
-			soundButtonStyle.down = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("sound.down");
-			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("sound.checked");
+		if (OneMoreCookiePleaseController.soundEffectsOn()) {
+			soundButtonStyle.up = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("sound.checked");
+			soundButtonStyle.down = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("sound.down");
+			soundButtonStyle.checked = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin().getDrawable("sound.up");
+		} else {
+			soundButtonStyle.up = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin().getDrawable("sound.up");
+			soundButtonStyle.down = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("sound.down");
+			soundButtonStyle.checked = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("sound.checked");
 
 		}
 
@@ -155,55 +169,60 @@ public class PauseScreen implements Screen {
 		soundButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (MyGdxGameController.soundEffectsOn()) {
-					myGdxGameController.soundEffectsOn(false);
+				if (OneMoreCookiePleaseController.soundEffectsOn()) {
+					oneMoreCookiePleaseController.soundEffectsOn(false);
 				} else {
-					myGdxGameController.soundEffectsOn(true);
+					oneMoreCookiePleaseController.soundEffectsOn(true);
 				}
 			}
 		});
-		
+
 		ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
-		if(myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
-			musicButtonStyle.up = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("music.checked");
-			musicButtonStyle.down = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("music.down");
-			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("music.up");
-		}else{
-			musicButtonStyle.up = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("music.up");
-			musicButtonStyle.down = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("music.down");
-			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
-					.getCircularSkin().getDrawable("music.checked");
+		if (oneMoreCookiePleaseController.getSoundController()
+				.backgroundMusicIsPlaying()) {
+			musicButtonStyle.up = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("music.checked");
+			musicButtonStyle.down = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("music.down");
+			musicButtonStyle.checked = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin().getDrawable("music.up");
+		} else {
+			musicButtonStyle.up = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin().getDrawable("music.up");
+			musicButtonStyle.down = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("music.down");
+			musicButtonStyle.checked = oneMoreCookiePleaseController
+					.getScreenUtils().getCircularSkin()
+					.getDrawable("music.checked");
 		}
 		ImageButton musicButton = new ImageButton(musicButtonStyle);
-		musicButton.setPosition(20,30);
+		musicButton.setPosition(20, 30);
 		musicButton.toggle();
 		musicButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (myGdxGameController.getSoundController()
+				if (oneMoreCookiePleaseController.getSoundController()
 						.backgroundMusicIsPlaying()) {
-					myGdxGameController.getSoundController()
-					.pauseBackgroundMusic();
+					oneMoreCookiePleaseController.getSoundController()
+							.pauseBackgroundMusic();
 				} else {
-					myGdxGameController.getSoundController()
-					.playBackgroundMusic();
+					oneMoreCookiePleaseController.getSoundController()
+							.playBackgroundMusic();
 				}
 			}
 		});
-		
+
 		// Pause button
 		ImageButtonStyle pauseButtonStyle = new ImageButtonStyle();
-		pauseButtonStyle.up = myGdxGameController.getScreenUtils()
+		pauseButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("pause.up");
-		pauseButtonStyle.down = myGdxGameController.getScreenUtils()
+		pauseButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("play.up");
-		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
-				.getCircularSkin().getDrawable("play.up");
+		pauseButtonStyle.checked = oneMoreCookiePleaseController
+				.getScreenUtils().getCircularSkin().getDrawable("play.up");
 		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
 		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
 				CoordinateConverter.getCameraHeight() - 70);
@@ -212,8 +231,9 @@ public class PauseScreen implements Screen {
 		pauseButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setScreen(myGdxGameController
-						.getInGameController());
+				oneMoreCookiePleaseController
+						.setScreen(oneMoreCookiePleaseController
+								.getInGameController());
 			}
 		});
 
@@ -234,8 +254,10 @@ public class PauseScreen implements Screen {
 		stage.addActor(musicButton);
 		stage.addActor(homeButton);
 
-		table.setSize(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
-		stage.setViewport(CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight(), true);
+		table.setSize(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight());
+		stage.setViewport(CoordinateConverter.getCameraWidth(),
+				CoordinateConverter.getCameraHeight(), true);
 	}
 
 	@Override
@@ -255,11 +277,11 @@ public class PauseScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		try{
+		try {
 			stage.dispose();
-		} catch (GdxRuntimeException e){
+		} catch (GdxRuntimeException e) {
 			Gdx.app.log("PauScreen", "Exception", e);
-		}catch (Exception e) {			
+		} catch (Exception e) {
 		}
 	}
 

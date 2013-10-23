@@ -5,7 +5,7 @@ import android.view.WindowManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.OneMoreCookiePleaseController;
 
 public class MainActivity extends AndroidApplication {
 	private int width;
@@ -18,9 +18,9 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = true;
         
-        MyGdxGameController gdx = new MyGdxGameController();
+        OneMoreCookiePleaseController oneMoreCookiePleaseController = new OneMoreCookiePleaseController();
         
-        initialize(gdx, cfg);
+        initialize(oneMoreCookiePleaseController, cfg);
     }
     
     public int getScreenWidth(){

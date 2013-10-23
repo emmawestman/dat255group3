@@ -29,8 +29,8 @@ public class InGameController implements Screen {
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
-	private MyGdxGameController myGdxGameController;
 	private float timeStep = 1.0f / 10.0f; //sätts till delta i update?
+	private OneMoreCookiePleaseController oneMoreCookiePleaseController;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
 	private TiledMap map;
@@ -44,8 +44,9 @@ public class InGameController implements Screen {
 	 * 
 	 * @param myGdxGameController
 	 */
-	public InGameController(MyGdxGameController myGdxGameController) {
-		this.myGdxGameController = myGdxGameController;
+	
+	public InGameController(OneMoreCookiePleaseController oneMoreCookiePleaseController) {
+		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.cameraController = new OrthographicCameraController();
 		this.cameraController.create();
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
@@ -131,7 +132,7 @@ public class InGameController implements Screen {
 			@Override
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
-					myGdxGameController.setScreen(myGdxGameController
+					oneMoreCookiePleaseController.setScreen(oneMoreCookiePleaseController
 							.getPauseScreen());
 				}
 			}
@@ -139,11 +140,11 @@ public class InGameController implements Screen {
 
 		// Pause button
 		ImageButtonStyle pauseButtonStyle = new ImageButtonStyle();
-		pauseButtonStyle.up = myGdxGameController.getScreenUtils()
+		pauseButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("play.up");
-		pauseButtonStyle.down = myGdxGameController.getScreenUtils()
+		pauseButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("play.down");
-		pauseButtonStyle.checked = myGdxGameController.getScreenUtils()
+		pauseButtonStyle.checked = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("pause.up");
 		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
 		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
@@ -158,15 +159,15 @@ public class InGameController implements Screen {
 			}
 		});
 
-		if (myGdxGameController.getMyGdxGame().getIsGameStarted() == false) {
+		if (oneMoreCookiePleaseController.getOneMoreCookiePlease().getIsGameStarted() == false) {
 			this.cameraController = new OrthographicCameraController();
 			this.cameraController.create();
 			loadMap();
-			this.inGameView = new InGameView(map, cameraController.getCamera(), this.myGdxGameController.getMyGdxGame().getCurrentLevel());
+			this.inGameView = new InGameView(map, cameraController.getCamera(), this.oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel());
 			this.inGame = new InGame();
 			this.worldController = new WorldController(this, inGame.getSpeedM());
 			this.gameOver = false;
-			myGdxGameController.getMyGdxGame().setIsGameStarted(true);
+			oneMoreCookiePleaseController.getOneMoreCookiePlease().setIsGameStarted(true);
 		}
 		this.cameraController.resume();
 		inGame.setDelayTime(0);
@@ -180,7 +181,7 @@ public class InGameController implements Screen {
 
 	@Override
 	public void pause() {
-		myGdxGameController.setScreen(myGdxGameController.getPauseScreen());
+		oneMoreCookiePleaseController.setScreen(oneMoreCookiePleaseController.getPauseScreen());
 		cameraController.pause();
 	}
 
@@ -236,17 +237,17 @@ public class InGameController implements Screen {
 	 */
 	public void save() {
 		//  if score > high score for the current level
-		if (this.myGdxGameController.getPlayerController().getPlayer().getScore() > 
-			this.myGdxGameController.getPlayerController().getPlayer()
-			.getHighScore(myGdxGameController.getMyGdxGame().getCurrentLevel())) {
+		if (this.oneMoreCookiePleaseController.getPlayerController().getPlayer().getScore() > 
+			this.oneMoreCookiePleaseController.getPlayerController().getPlayer()
+			.getHighScore(oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel())) {
 			
-			myGdxGameController.getPlayerController().getPlayer().setNewHighScore
-			(this.myGdxGameController.getMyGdxGame().getCurrentLevel(),
-					this.myGdxGameController.getPlayerController().getPlayer().getScore());
+			oneMoreCookiePleaseController.getPlayerController().getPlayer().setNewHighScore
+			(this.oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel(),
+					this.oneMoreCookiePleaseController.getPlayerController().getPlayer().getScore());
 			
-			Gdx.app.log("InGameControler", "new hs: " + this.myGdxGameController.getPlayerController().getPlayer().getScore());
-			Gdx.app.log("InGameControler", "get hs: " +this.myGdxGameController.getPlayerController().getPlayer().
-					getHighScore(this.myGdxGameController.getMyGdxGame().getCurrentLevel()));
+			Gdx.app.log("InGameControler", "new hs: " + this.oneMoreCookiePleaseController.getPlayerController().getPlayer().getScore());
+			Gdx.app.log("InGameControler", "get hs: " +this.oneMoreCookiePleaseController.getPlayerController().getPlayer().
+					getHighScore(this.oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel()));
 		}
 	}
 
@@ -282,7 +283,6 @@ public class InGameController implements Screen {
 		cameraController.setSpeedP(inGame.getSpeedP());
 
 		// give character speed
-		//TODO check if working
 		this.worldController.moveCharacter(this.inGame.getSpeedM());
 
 		// update the model position for the character
@@ -299,10 +299,10 @@ public class InGameController implements Screen {
 	 * Called when the game is lost.
 	 */
 	public void gameOver() {
-		myGdxGameController.getMyGdxGame().setIsGameStarted(false);
+		oneMoreCookiePleaseController.getOneMoreCookiePlease().setIsGameStarted(false);
 
 		// calculate the score
-		this.myGdxGameController
+		this.oneMoreCookiePleaseController
 				.getPlayerController().getPlayer()
 				.calculateScore(worldController.getWorld().getTime(),
 						worldController.getWorld().getCookieCounter(), gameOver);
@@ -310,12 +310,12 @@ public class InGameController implements Screen {
 		save();
 		
 		// Change to gameover-screen
-		myGdxGameController.getGameOverScreen().gameOver(
-				this.myGdxGameController.getPlayerController().getPlayer()
+		oneMoreCookiePleaseController.getGameOverScreen().gameOver(
+				this.oneMoreCookiePleaseController.getPlayerController().getPlayer()
 						.getScore(), worldController.getWorld().getTime(),
 				gameOver);
-		myGdxGameController.setScreen(myGdxGameController.getGameOverScreen());
-		if (MyGdxGameController.soundEffectsOn()) {
+		oneMoreCookiePleaseController.setScreen(oneMoreCookiePleaseController.getGameOverScreen());
+		if (OneMoreCookiePleaseController.soundEffectsOn()) {
 			if (!gameOver) {
 				worldController.getSoundController().playVictorySound();
 			} else {
@@ -330,7 +330,7 @@ public class InGameController implements Screen {
 	public void loadMap() {
 		try {
 			map = new TmxMapLoader().load("worlds/map"
-					+ myGdxGameController.getMyGdxGame().getCurrentLevel()
+					+ oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel()
 					+ ".tmx");
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("InGameController", "loadMap()", e);

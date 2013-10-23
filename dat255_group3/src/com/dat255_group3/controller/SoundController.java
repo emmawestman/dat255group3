@@ -23,14 +23,18 @@ public class SoundController {
 	 */
 	public SoundController() {
 		try {
-			victorySound = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.mp3"));
-			cookieSound = Gdx.audio.newSound(Gdx.files.internal("sounds/cookiebeep.mp3"));
-			gameOverSound = Gdx.audio.newSound(Gdx.files.internal("sounds/fail.mp3"));
-			backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundmusic.mp3"));
-		}catch(GdxRuntimeException e){
+			victorySound = Gdx.audio.newSound(Gdx.files
+					.internal("sounds/victory.mp3"));
+			cookieSound = Gdx.audio.newSound(Gdx.files
+					.internal("sounds/cookiebeep.mp3"));
+			gameOverSound = Gdx.audio.newSound(Gdx.files
+					.internal("sounds/fail.mp3"));
+			backgroundMusic = Gdx.audio.newMusic(Gdx.files
+					.internal("sounds/backgroundmusic.mp3"));
+		} catch (GdxRuntimeException e) {
 			Gdx.app.log("SoundController", "constructor", e);
 		}
-	
+
 	}
 	
 	/**
@@ -50,10 +54,11 @@ public class SoundController {
 	/**
 	 * Plays the game over sound at the maximum volume.
 	 */
+
 	public void playGameOverSound() {
 		gameOverSound.play(volume);
 	}
-	
+
 	public void setVolume(float volume) {
 		SoundController.volume = volume;
 	}
@@ -82,6 +87,7 @@ public class SoundController {
 	 * 
 	 * @return true if the background music is playing
 	 */
+
 	public boolean backgroundMusicIsPlaying() {
 		return backgroundMusic.isPlaying();
 	}

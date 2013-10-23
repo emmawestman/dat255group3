@@ -27,7 +27,9 @@ public class CookieController {
 	 * @param cookieList the list of cookies that are displayed in the game
 	 * @param camera the camera used to display the game
 	 */
-	public CookieController(WorldController worldController, ArrayList<Cookie> cookieList, OrthographicCamera camera) {
+
+	public CookieController(WorldController worldController,
+			ArrayList<Cookie> cookieList, OrthographicCamera camera) {
 		this.cookieView = new CookieView(camera, cookieList);
 		this.cookieList = cookieList;
 		cookieIndex = 0;
@@ -37,7 +39,7 @@ public class CookieController {
 	public CookieView getCookieView() {
 		return cookieView;
 	}
-	
+
 	public ArrayList<Cookie> getCookieList() {
 		return cookieList;
 	}
@@ -48,12 +50,15 @@ public class CookieController {
 	 * 
 	 * @param characterController the game's CharacterController object
 	 */
+
 	public void checkNextCookie(CharacterController characterController) {
-		if(cookieList.size() > 0 && cookieList.size() > cookieIndex) {
+		if (cookieList.size() > 0 && cookieList.size() > cookieIndex) {
 			characterController.getCharacter();
-			if(cookieList.get(cookieIndex).getPosition().x + cookieList.get(0).getCookieRadius() > characterController.getCharacter().getPosition().x - Character.getRadius()) {
+			if (cookieList.get(cookieIndex).getPosition().x
+					+ cookieList.get(0).getCookieRadius() > characterController
+					.getCharacter().getPosition().x - Character.getRadius()) {
 				checkCookieCollision(characterController.getCharacter());
-			}else if(cookieIndex < cookieList.size()-1){
+			} else if (cookieIndex < cookieList.size() - 1) {
 				cookieIndex++;
 			}
 		}
@@ -65,10 +70,12 @@ public class CookieController {
 	 * @param character the game's Character object
 	 */
 	public void checkCookieCollision(Character character) {
-		if(Math.abs(cookieList.get(cookieIndex).getPosition().x + 32 - character.getPosition().x) 
-				< Character.getRadius()) {
-			if(Math.abs(cookieList.get(cookieIndex).getPosition().y - character.getPosition().y + cookieList.get(0).getCookieRadius()/2)
-					<= Character.getRadius()) {
+		if (Math.abs(cookieList.get(cookieIndex).getPosition().x + 32
+				- character.getPosition().x) < Character.getRadius()) {
+			if (Math.abs(cookieList.get(cookieIndex).getPosition().y
+					- character.getPosition().y
+					+ cookieList.get(0).getCookieRadius() / 2) <= Character
+					.getRadius()) {
 				collision();
 			}
 		}
@@ -78,10 +85,11 @@ public class CookieController {
 	 * Removes the collected cookie from the list, so that it's no longer
 	 * drawn in the view.
 	 */
+
 	public void collision() {
 		cookieList.remove(cookieIndex);
 		worldController.getWorld().increaseCookieCounter();
-		if(MyGdxGameController.soundEffectsOn()) {
+		if (OneMoreCookiePleaseController.soundEffectsOn()) {
 			worldController.getSoundController().playCookieSound();
 		}
 	}

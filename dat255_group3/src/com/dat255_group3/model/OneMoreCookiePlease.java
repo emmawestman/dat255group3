@@ -12,14 +12,14 @@ package com.dat255_group3.model;
  * @author The Hans-Gunnar Crew
  *
  */
-public class MyGdxGame {
+public class OneMoreCookiePlease {
 
 
 	private int numberOfLevels;
 	private int currentLevel;
 	private boolean isGameStarted;
 
-	public MyGdxGame() {
+	public OneMoreCookiePlease() {
 		currentLevel = 0;
 		isGameStarted = false;
 		numberOfLevels = 3;

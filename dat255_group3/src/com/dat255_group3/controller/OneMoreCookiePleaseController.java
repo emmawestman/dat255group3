@@ -1,12 +1,10 @@
 package com.dat255_group3.controller;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.dat255_group3.model.MyGdxGame;
+import com.dat255_group3.model.OneMoreCookiePlease;
 import com.dat255_group3.screen.ExitPopUpScreen;
 import com.dat255_group3.screen.GameCompletedScreen;
 import com.dat255_group3.screen.GameOverScreen;
-import com.dat255_group3.screen.HighScoreScreen;
 import com.dat255_group3.screen.LevelScreen;
 import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
@@ -19,9 +17,8 @@ import com.dat255_group3.utils.ScreenUtils;
  *
  */
 
-
-public class MyGdxGameController extends Game {
-	private MyGdxGame myGdxGame;
+public class OneMoreCookiePleaseController extends Game {
+	private OneMoreCookiePlease oneMoreCookiePlease;
 	private ScreenUtils screenUtils;
 	private InGameController inGameController;
 	private PlayerController playerController;
@@ -30,7 +27,6 @@ public class MyGdxGameController extends Game {
 	private GameOverScreen gameOverScreen;
 	private PauseScreen pauseScreen;
 	private ExitPopUpScreen exitPopUpScreen;
-	private HighScoreScreen highScoreScreen;
 	private GameCompletedScreen gameCompletedScreen;
 	private SoundController soundController;
 
@@ -39,7 +35,7 @@ public class MyGdxGameController extends Game {
 	@Override
 	public void create() {
 		// create other the scenes and the player and the gameModel
-		this.myGdxGame = new MyGdxGame();
+		this.oneMoreCookiePlease = new OneMoreCookiePlease();
 		this.screenUtils = new ScreenUtils();
 		this.playerController = new PlayerController();
 		this.inGameController = new InGameController(this);
@@ -49,7 +45,6 @@ public class MyGdxGameController extends Game {
 		this.pauseScreen = new PauseScreen(this);
 		this.gameCompletedScreen = new GameCompletedScreen(this);
 		this.exitPopUpScreen = new ExitPopUpScreen(this);
-		this.highScoreScreen = new HighScoreScreen(this);
 		this.soundController = new SoundController();
 		this.soundController.playBackgroundMusic();
 
@@ -76,11 +71,11 @@ public class MyGdxGameController extends Game {
 	public void resume() {
 	}
 
-	public MyGdxGame getMyGdxGame() {
-		return myGdxGame;
+	public OneMoreCookiePlease getOneMoreCookiePlease() {
+		return oneMoreCookiePlease;
 	}
-	
-	public ScreenUtils getScreenUtils(){
+
+	public ScreenUtils getScreenUtils() {
 		return screenUtils;
 	}
 
@@ -103,13 +98,9 @@ public class MyGdxGameController extends Game {
 	public PauseScreen getPauseScreen() {
 		return this.pauseScreen;
 	}
-	
+
 	public ExitPopUpScreen getExitPopUpScreen() {
 		return this.exitPopUpScreen;
-	}
-	
-	public HighScoreScreen getHighScoreScreen() {
-		return this.highScoreScreen;
 	}
 
 	public GameOverScreen getGameOverScreen() {
@@ -130,9 +121,8 @@ public class MyGdxGameController extends Game {
 
 	public void save() { //anropas aldrig?
 		inGameController.save();
-		Gdx.app.log("MyGdx", "Save");
 	}
-	
+
 	public SoundController getSoundController() {
 		return soundController;
 	}
