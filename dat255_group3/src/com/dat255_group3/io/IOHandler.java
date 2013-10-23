@@ -6,15 +6,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+/**
+ * Saves and reads the highscore.
+ * 
+ * @author The Hans-Gunnar Crew
+ */
 public class IOHandler {
 
 	private static FileHandle handle = Gdx.files.local("highScores.txt");
 	private static String [] levelData;
 
-
-	public IOHandler() {
-	}
-
+	/**
+	 * Saves the player's high scores in a .txt file.
+	 * 
+	 * @param highScores the player's high scores
+	 */
 	public static void saveHighScores(List<Integer> highScores){
 		String text = "";
 		for (int i=0; i<highScores.size(); i++) {
@@ -29,6 +35,9 @@ public class IOHandler {
 	
 	}
 
+	/**
+	 * Reads the player's high scores.
+	 */
 	public static void readScore(){
 		try{
 			String text = handle.readString();

@@ -40,7 +40,7 @@ public class InGameController implements Screen {
 	private InputStage stage;
 
 	/**
-	 * Constructs a new InGameController with the specified OneMoreCookieController object.
+	 * Constructs a new InGameController with the specified OneMoreCookiePleaseController object.
 	 * 
 	 * @param myGdxGameController
 	 */
