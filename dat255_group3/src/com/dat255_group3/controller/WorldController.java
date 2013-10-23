@@ -29,7 +29,6 @@ public class WorldController {
 	private com.badlogic.gdx.physics.box2d.World physicsWorld;
 	private WorldUtil worldUtil;
 	private CookieController cookieController;
-	private int cookieIndex;
 	private SoundController soundController;
 
 	public WorldController(InGameController inGameController, float speedM){
@@ -74,7 +73,6 @@ public class WorldController {
 		for(int i=0; i<cookiePosList.size(); i++) {
 			cookieList.add(new Cookie(new Vector2(cookiePosList.get(i).x, cookiePosList.get(i).y)));
 		}
-		cookieIndex = 0;
 		world.setCookieCounter(0);
 
 		// create cookieController
@@ -170,11 +168,8 @@ public class WorldController {
 			this.getCharBody().applyForceToCenter(
 					new Vector2(1, 0), true);
 		} else if(this.getCharacterController().getCharacter().getPosition().x - 
-				this.getCharacterController().getCharacter().getDeahLimit() > 600){
+				this.getCharacterController().getCharacter().getDeahLimit() > 600 || this.getCharBody().getLinearVelocity().x > speedM){
 			this.getCharBody().applyForceToCenter(
-					new Vector2(- (this.getCharBody().getLinearVelocity().x * this.getCharBody().getMass()), 0), true);
-		} else if (this.getCharBody().getLinearVelocity().x > speedM) {
-			this.getCharBody().applyForceToCenter( //TODO fix 
 					new Vector2(- (this.getCharBody().getLinearVelocity().x * this.getCharBody().getMass()), 0), true);
 		}
 	}
