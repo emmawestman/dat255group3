@@ -173,6 +173,9 @@ public class WorldController {
 				this.getCharacterController().getCharacter().getDeahLimit() > 600){
 			this.getCharBody().applyForceToCenter(
 					new Vector2(- (this.getCharBody().getLinearVelocity().x * this.getCharBody().getMass()), 0), true);
+		} else if (this.getCharBody().getLinearVelocity().x > speedM) {
+			this.getCharBody().applyForceToCenter( //TODO fix 
+					new Vector2(- (this.getCharBody().getLinearVelocity().x * this.getCharBody().getMass()), 0), true);
 		}
 	}
 
