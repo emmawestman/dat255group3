@@ -11,18 +11,18 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dat255_group3.model.Character;
 /**
- * A class containing methods to create physical bodies in an physics-world
- * @author Group 3
- *
+ * Contains methods to create physical bodies in a physics world.
+ * 
+ * @author The Hans-Gunnar Crew
  */
 public class PhysBodyFactory {
 
-	
 	/**
-	 * Create a circle shaped body for the character
-	 * @param character , the characterModel with position and radius
-	 * @param world , the physics world where the body should be created
-	 * @return
+	 * Creates a circle shaped body for the character.
+	 * 
+	 * @param character the Character with a position and radius
+	 * @param world the physics world where the body should be created
+	 * @return the created physics body for the character
 	 */
 	public static Body createRoundCharacter(Character character, World world){
 		
@@ -51,13 +51,14 @@ public class PhysBodyFactory {
 	}
 
 	/**
-	 * Creates a solid ground that is not affected by gravity or other forces
-	 * @param pos , the center position of the ground (pixels)
-	 * @param size , with and height of the ground (pixels)
-	 * @param friction , the friction (0f-1f) of the ground surface
-	 * @param restitution , restitution of the ground surface
-	 * @param physWorld , the physical world in which the solid ground is created and exists
-	 * @return The body whit the physical properties sent in by the parameters
+	 * Creates a solid ground that is not affected by gravity or other forces.
+	 * 
+	 * @param pos the center position of the ground (pixels)
+	 * @param size width and height of the ground (pixels)
+	 * @param friction the friction (0f-1f) of the ground surface
+	 * @param restitution the restitution of the ground surface
+	 * @param physWorld the physics world in which the solid ground is created and exists
+	 * @return the created body for the ground
 	 */
 	public static Body addSolidGround(final Vector2 pos, Vector2 size, final float friction, 
 			final float restitution, World physWorld) {
@@ -82,13 +83,15 @@ public class PhysBodyFactory {
 	
 	
 	/**
-	 * Creates a movable obstacle that is not affected by gravity and forces but can be moved with other methods.
-	 * @param pos , the center position of the obstacle (pixels)
-	 * @param size , with and height of the obstacle (pixels)
-	 * @param friction , the friction (0f-1f) of the obstacle surface
-	 * @param restitution , restitution of the obstacle surface
-	 * @param physWorld , the physical world in which the obstacle is created and exists
-	 * @return The body whit the physical properties sent in by the parameters
+	 * Creates a movable obstacle that is not affected by gravity and forces
+	 * but can be moved with other methods.
+	 * 
+	 * @param pos the center position of the obstacle (pixels)
+	 * @param size width and height of the obstacle (pixels)
+	 * @param friction the friction (0f-1f) of the obstacle surface
+	 * @param restitution the restitution of the obstacle surface
+	 * @param physWorld the physical world in which the obstacle is created and exists
+	 * @return the created body for the obstacle
 	 */
 	public static Body addObstacle(final Vector2 pos, Vector2 size, final float friction, 
 			final float restitution, World physWorld) {
@@ -110,6 +113,4 @@ public class PhysBodyFactory {
 		body.createFixture(fixtureDef);
 		return body;
 	}
-
-
 }

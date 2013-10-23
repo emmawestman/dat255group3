@@ -1,8 +1,8 @@
 package com.dat255_group3.utils;
 
 /**
- * A class representing a stage which controls the input in general and manipulates the
- * input of the back key of the android device.
+ * An InputStage is a stage which controls the input in general,
+ * and manipulates the input of the back key of the android device.
  * 
  * @author The Hans-Gunnar Crew
  */
@@ -11,6 +11,14 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class InputStage extends Stage {
+	
+	/**
+	 * Constructs a new InputStage with the specified viewport.
+	 * 
+	 * @param width the width of the camera
+	 * @param height the height of the camera
+	 * @param keepAspectRatio if true, scales the stage to fit the viewport
+	 */
 	public InputStage(float width, float height, boolean keepAspectRatio) {
 		super(width, height, keepAspectRatio);
 	}
@@ -43,11 +51,8 @@ public class InputStage extends Stage {
 		/**
 		 * Is invoked as the player presses a hardkey of the android device
 		 * 
-		 * @param keyCode
-		 *           The back key (keyCode is one of the constants in
-		 *            Input.Keys)
-		 * @param state
-		 *            1 - key down, 0 - key up
+		 * @param keyCode the back key (keyCode is one of the constants in Input.Keys)
+		 * @param state 1 - key down, 0 - key up
 		 */
 		public abstract void onHardKey(int keyCode, int state);
 	}

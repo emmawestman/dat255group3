@@ -49,7 +49,7 @@ public class WorldController {
 		this.world = new World();
 		this.worldView = new WorldView(world);
 		this.worldUtil = new WorldUtil(inGameController.getMap());
-		finishLineX = worldUtil.finishLineX();
+		finishLineX = worldUtil.getFinishLineX();
 
 		// create the physics world
 		this.setGravity(new Vector2(0.0f, -10f));
