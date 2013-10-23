@@ -12,7 +12,12 @@ import com.dat255_group3.screen.PauseScreen;
 import com.dat255_group3.screen.StartScreen;
 import com.dat255_group3.utils.ScreenUtils;
 
-
+/**
+ * Creates the game.
+ * 
+ * @author The Hans-Gunnar Crew
+ *
+ */
 
 
 public class MyGdxGameController extends Game {
@@ -123,7 +128,7 @@ public class MyGdxGameController extends Game {
 		return soundEffectsOn;
 	}
 
-	public void save() {
+	public void save() { //anropas aldrig?
 		inGameController.save();
 		Gdx.app.log("MyGdx", "Save");
 	}

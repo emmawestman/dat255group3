@@ -5,13 +5,22 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+/**
+ * Handles the sound.
+ * 
+ * @author The Hans-Gunnar Crew
+ */
+
 public class SoundController {
 	private Sound victorySound;
 	private Sound cookieSound;
 	private Sound gameOverSound;
-	private static float volume = 1.0f;
+	private static float volume = 1.0f; //maximum volume
 	private Music backgroundMusic;
 	
+	/**
+	 * Constructs a new SoundController and loads all sound files.
+	 */
 	public SoundController() {
 		try {
 			victorySound = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.mp3"));
@@ -24,14 +33,23 @@ public class SoundController {
 	
 	}
 	
+	/**
+	 * Plays the victory sound at the maximum volume.
+	 */
 	public void playVictorySound() {
 		victorySound.play(volume);
 	}
 	
+	/**
+	 * Plays the cookie sound at the maximum volume.
+	 */
 	public void playCookieSound() {
 		cookieSound.play(volume);
 	}
 	
+	/**
+	 * Plays the game over sound at the maximum volume.
+	 */
 	public void playGameOverSound() {
 		gameOverSound.play(volume);
 	}
@@ -40,21 +58,30 @@ public class SoundController {
 		SoundController.volume = volume;
 	}
 	
+	/**
+	 * Plays the background music and loops it.
+	 */
 	public void playBackgroundMusic() {
-		 Gdx.app.log("Sound", "backgroundMusic: played");
 		backgroundMusic.play();
 		backgroundMusic.setVolume(volume);
 		backgroundMusic.setLooping(true);
 
 	}
 
+	/**
+	 * Pauses the background music.
+	 */
 	public void pauseBackgroundMusic() {
-		 Gdx.app.log("Sound", "backgroundMusic: paused");
-		if(backgroundMusic.isPlaying()){
+		if(backgroundMusic.isPlaying()){ //borde inte backgroundMusicIsPlaying anropas här?
 			backgroundMusic.pause();
 		}
 	}
 	
+	/**
+	 * Checks if the background music is playing.
+	 * 
+	 * @return true if the background music is playing
+	 */
 	public boolean backgroundMusicIsPlaying() {
 		return backgroundMusic.isPlaying();
 	}

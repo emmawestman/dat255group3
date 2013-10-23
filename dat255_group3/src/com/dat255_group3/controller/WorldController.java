@@ -13,6 +13,12 @@ import com.dat255_group3.utils.WorldUtil;
 import com.dat255_group3.view.EnemyView;
 import com.dat255_group3.view.WorldView;
 
+/**
+ * Controls what happens in the actual gaming view.
+ * 
+ * @author The Hans-Gunnar Crew
+ *
+ */
 public class WorldController {
 
 	private World world;
@@ -31,6 +37,14 @@ public class WorldController {
 	private CookieController cookieController;
 	private SoundController soundController;
 
+	/**
+	 * Constructs a new WorldController with the specified InGameController and
+	 * speed that the camera is moving in, and creates everything that is needed
+	 * in the gaming view.
+	 * 
+	 * @param inGameController the game's InGameController object
+	 * @param speedM the camera's speed
+	 */
 	public WorldController(InGameController inGameController, float speedM){
 		this.world = new World();
 		this.worldView = new WorldView(world);
@@ -85,6 +99,13 @@ public class WorldController {
 		soundController = new SoundController();
 
 	}
+	
+	/**
+	 * Updates the character's position to match the physics body's position.
+	 * 
+	 * @param body the character's physics body
+	 * @param character the game's Character object
+	 */
 	public void uppdatePositions(Body body, Character character){
 		Vector2 posInPixels = CoordinateConverter.meterToPixel(body.getPosition());
 		character.setPosition(new Vector2 (posInPixels.x, posInPixels.y) );
@@ -146,8 +167,11 @@ public class WorldController {
 		this.gravity = gravity;
 	}
 
-
-	public void moveFinishLine(float speedP) {
+	/**
+	 * Moves the finish line 
+	 * @param speedP
+	 */
+	public void moveFinishLine(float speedP) { //verkar aldrig anropas?
 		finishLineX = finishLineX - speedP/10;
 	}
 
@@ -156,10 +180,11 @@ public class WorldController {
 	}
 	
 	/**
-	 * Make the physical character move with the speed (meter/sec) of the camera. 
+	 * Makes the physical character move with the speed (meter/sec) of the camera. 
 	 * If the character is too far ahead of the camera the character will 
 	 * slow down so the camera can catch up.
-	 * @param speedM , the speed, meter/sec, of the camera.
+	 * 
+	 * @param speedM the speed (meter/sec) of the camera
 	 */
 	public void moveCharacter(float speedM){
 		if (this.getCharBody().getLinearVelocity().x < speedM
@@ -174,6 +199,9 @@ public class WorldController {
 		}
 	}
 
+	/**
+	 * Calls on CookieController's checkNextCookie method.
+	 */
 	public void checkCookies() {
 		cookieController.checkNextCookie(characterController);
 	}

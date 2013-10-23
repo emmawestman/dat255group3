@@ -11,8 +11,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.dat255_group3.utils.CoordinateConverter;
 
 /**
- * A controller class for the camera
- * @author Group 3
+ * The controller class for the camera.
+ * 
+ * @author The Hans-Gunnar Crew
  *
  */
 public class OrthographicCameraController implements ApplicationListener {
@@ -23,10 +24,6 @@ public class OrthographicCameraController implements ApplicationListener {
 	private OrthographicCamera camera;
 	private boolean pause = false;
 
-
-	/**
-	 * Creates the controller
-	 */
 	@Override
 	public void create() {
 		
@@ -55,85 +52,49 @@ public class OrthographicCameraController implements ApplicationListener {
 		
 	}
 
-
-	/**
-	 * A method to resize how much the camera is showing.
-	 */
 	@Override
 	public void resize(int width, int height) {
 		glViewport.setSize(width, height);
 
 
 	}
-	/**
-	 * A method to update the camera and move it sideways.
-	 */
 
 	@Override
 	public void render() {
 		if(!pause) {
-			camera.translate(speedP, 0, 0);
+			camera.translate(speedP, 0, 0); //moves the camera sideways
 			camera.update();
 		}
 
 	}
 
-	/**
-	 * A method to pause the cameras movement
-	 */
 	@Override
 	public void pause() {
 		pause = true;
 
 	}
 
-	/**
-	 * A method to resume the paused camera
-	 */
 	@Override
 	public void resume() {
 		pause = false;
 
 	}
 
-	/**
-	 * The method that is called right before the application is destroyed.
-	 * Calls the pause method
-	 */
 	@Override
 	public void dispose() {
 		pause();
 
 	}
 
-	/**
-	 * A method to get the camera
-	 * @return
-	 * 		The camera
-	 */
 	public OrthographicCamera getCamera() {
 		return camera;
 	}
 
-	/**
-	 * A method to set the speed in pixels.
-	 * @param speedP
-	 * 			The speed in pixels.
-	 */
 	public void setSpeedP(float speedP) {
 		this.speedP = speedP;
 	}
 	
-	/**
-	 * A method to get the current speed in pixels.
-	 * @return
-	 * 		The current speed in pixels.
-	 */
 	public float getSpeedP() {
 		return speedP;
 	}
-
-
-
-
 }

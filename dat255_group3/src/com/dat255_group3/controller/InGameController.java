@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
@@ -20,23 +19,31 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 import com.dat255_group3.view.InGameView;
 
+/**
+ * The controller class which controls the entire game.
+ * 
+ * @author The Hans-Gunnar Crew
+ */
 public class InGameController implements Screen {
 
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
 	private MyGdxGameController myGdxGameController;
-	private float timeStep = 1.0f / 10.0f;
+	private float timeStep = 1.0f / 10.0f; //sätts till delta i update?
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
 	private TiledMap map;
 	private OrthographicCameraController cameraController;
-	private Box2DDebugRenderer renderer = new Box2DDebugRenderer(true, true,
-			true, true, true, true);
 	private boolean gameOver;
 	private boolean isCountingDown = true;
 	private InputStage stage;
 
+	/**
+	 * Constructs a new InGameController with the specified OneMoreCookieController object.
+	 * 
+	 * @param myGdxGameController
+	 */
 	public InGameController(MyGdxGameController myGdxGameController) {
 		this.myGdxGameController = myGdxGameController;
 		this.cameraController = new OrthographicCameraController();
@@ -191,7 +198,6 @@ public class InGameController implements Screen {
 		try {
 			map.dispose();
 			cameraController.dispose();
-			renderer.dispose();
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("InGameController", "Exception", e);
 		} catch (Exception e) {
@@ -215,11 +221,19 @@ public class InGameController implements Screen {
 		return cameraController.getCamera();
 	}
 
+	/**
+	 * Checks if the game has been won.
+	 * 
+	 * @return true if the character has reached the finish line
+	 */
 	public boolean hasWon() {
 		return worldController.getCharacterController().getCharacter()
 				.getPosition().x >= worldController.getFinishLineX();
 	}
 
+	/**
+	 * Saves the player's score, if it's a new high score.
+	 */
 	public void save() {
 		//  if score > high score for the current level
 		if (this.myGdxGameController.getPlayerController().getPlayer().getScore() > 
@@ -240,6 +254,11 @@ public class InGameController implements Screen {
 		// reset
 	}
 
+	/**
+	 * Updates the game.
+	 * 
+	 * @param delta the time in seconds since the last render
+	 */
 	public void update(float delta) {
 
 		this.timeStep = delta;
@@ -276,6 +295,9 @@ public class InGameController implements Screen {
 				.moveDeathLimit(inGame.getSpeedP());
 	}
 
+	/**
+	 * Called when the game is lost.
+	 */
 	public void gameOver() {
 		myGdxGameController.getMyGdxGame().setIsGameStarted(false);
 
@@ -302,6 +324,9 @@ public class InGameController implements Screen {
 		}
 	}
 
+	/**
+	 * Loads the level's map.
+	 */
 	public void loadMap() {
 		try {
 			map = new TmxMapLoader().load("worlds/map"
