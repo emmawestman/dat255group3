@@ -61,6 +61,7 @@ public class HighScoreScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		myGdxGameController.getMyGdxGame().setIsGameStarted(false);
 
 		// Checks if the back-key has been pressed & if so, confirming screen to
 		// exit the application will be shown
