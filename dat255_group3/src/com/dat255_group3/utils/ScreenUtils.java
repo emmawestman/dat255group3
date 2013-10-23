@@ -25,9 +25,9 @@ public class ScreenUtils {
 	
 	public ScreenUtils(){
 		try{
-		atlasRect = new TextureAtlas(Gdx.files.internal("menuIcons/Rectangular_Icons.pack"));
-		atlasCirc = new TextureAtlas(Gdx.files.internal("menuIcons/Circular_Icons.pack"));
-		gameTitleTexture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
+		atlasRect = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Rectangular_Icons.pack"));
+		atlasCirc = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Circular_Icons.pack"));
+		gameTitleTexture = new Texture(Gdx.files.internal("ui/gameTitle.png"));
 		backgroundTexture = new Texture(Gdx.files.internal("ui/startBackground1024x512.png"));
 		
 		} catch (GdxRuntimeException e){

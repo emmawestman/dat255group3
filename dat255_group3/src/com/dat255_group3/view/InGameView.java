@@ -56,21 +56,11 @@ public class InGameView {
 		mapRenderer.setView(camera);
 		mapRenderer.render(mapLayers);
 		worldView.draw(charView, cookieView, enemy);
-		//draw game over text
-		if(gameOver) drawGameOver();
 		//Draw time
 		drawTime(time);
 		drawCookieCounter(cookieCounter);
 		drawLevelNbr();
 
-	}
-	
-	public void drawGameOver(){
-		spriteBatch.begin();
-		str = "GAME OVER";
-		font.setColor(Color.RED);
-		font.draw(spriteBatch, str, camera.viewportWidth/2 -40f, camera.viewportHeight/2);
-		spriteBatch.end();
 	}
 	
 	public void drawTime(double time) {
