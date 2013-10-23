@@ -29,7 +29,6 @@ public class WorldController {
 	private com.badlogic.gdx.physics.box2d.World physicsWorld;
 	private WorldUtil worldUtil;
 	private CookieController cookieController;
-	private int cookieIndex;
 	private SoundController soundController;
 
 	public WorldController(InGameController inGameController, float speedM) {
@@ -78,7 +77,6 @@ public class WorldController {
 			cookieList.add(new Cookie(new Vector2(cookiePosList.get(i).x,
 					cookiePosList.get(i).y)));
 		}
-		cookieIndex = 0;
 		world.setCookieCounter(0);
 
 		// create cookieController
@@ -173,6 +171,7 @@ public class WorldController {
 	 */
 	public void moveCharacter(float speedM) {
 		if (this.getCharBody().getLinearVelocity().x < speedM
+<<<<<<< HEAD
 				&& this.getCharacterController().getCharacter().getPosition().x
 						- this.getCharacterController().getCharacter()
 								.getDeahLimit() < 400) {
@@ -188,6 +187,16 @@ public class WorldController {
 					new Vector2(
 							-(this.getCharBody().getLinearVelocity().x * this
 									.getCharBody().getMass()), 0), true);
+=======
+				&& this.getCharacterController().getCharacter().getPosition().x -
+				this.getCharacterController().getCharacter().getDeahLimit() < 400) {
+			this.getCharBody().applyForceToCenter(
+					new Vector2(1, 0), true);
+		} else if(this.getCharacterController().getCharacter().getPosition().x - 
+				this.getCharacterController().getCharacter().getDeahLimit() > 600 || this.getCharBody().getLinearVelocity().x > speedM){
+			this.getCharBody().applyForceToCenter(
+					new Vector2(- (this.getCharBody().getLinearVelocity().x * this.getCharBody().getMass()), 0), true);
+>>>>>>> 1e3aec0e4b2b7f59c984b36c7b5f5a8ccef1f59e
 		}
 	}
 
