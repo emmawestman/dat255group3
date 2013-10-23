@@ -19,11 +19,10 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the startmenu of the game. The user is given the
- * options of choosing a character, starting the game or to exit.
+ * A start menu to the game. The user is given the option to start/exit
+ * the game, and turn the sound and music on/off.
  * 
  * @author The Hans-Gunnar Crew
- * 
  */
 public class StartScreen implements Screen {
 
@@ -31,6 +30,11 @@ public class StartScreen implements Screen {
 	private InputStage stage;
 	private Texture imageTexture;
 
+	/**
+	 * Constructs a new StartScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
 	public StartScreen(OneMoreCookiePleaseController oneMoreCookiePleaseController) {
 		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),

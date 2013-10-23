@@ -20,9 +20,8 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the menu for the levels of the game. The user is
- * given the options of choosing which level or to return by pressing the
- * backbutton on the phone.
+ * A menu for the levels of the game. The user is given the options of 
+ * choosing which level or to return by pressing the backbutton on the phone.
  * 
  * @author The Hans-Gunnar Crew
  */
@@ -32,6 +31,11 @@ public class LevelScreen implements Screen {
 	private InputStage stage;
 	private Texture levelTexture;
 
+	/**
+	 * Constructs a new LevelScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
 	public LevelScreen(
 			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
 		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
@@ -232,5 +236,4 @@ public class LevelScreen implements Screen {
 		} catch (Exception e) {
 		}
 	}
-
 }

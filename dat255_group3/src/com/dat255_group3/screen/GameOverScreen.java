@@ -21,13 +21,12 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the view of a won or a lost game containing the time
+ * A screen that is shown when the game is either won or a lost, containing the time
  * and the score. The user is given the options of choosing of continuing to the
  * next level if the game was won or to play the same level again if the game
  * was lost.
  * 
  * @author The Hans-Gunnar Crew
- * 
  */
 public class GameOverScreen implements Screen {
 
@@ -39,6 +38,11 @@ public class GameOverScreen implements Screen {
 	private double time;
 	private boolean gameOver;
 
+	/**
+	 * Constructs a new GameOverScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
 	public GameOverScreen(
 			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
 		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
@@ -255,5 +259,4 @@ public class GameOverScreen implements Screen {
 		this.time = (double) ((int) (time * 100)) / 100;
 		this.gameOver = gameOver;
 	}
-
 }

@@ -18,7 +18,9 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the screen being shown when the game is paused.
+ * A screen that is shown when the game is paused.
+ * From here the user can resume or restart the game, turn music and
+ * sound on/off, or go back to the start menu.
  * 
  * @author The Hans-Gunnar Crew
  */
@@ -29,6 +31,11 @@ public class PauseScreen implements Screen {
 	private Texture messageIcon;
 	private Image messageImage;
 
+	/**
+	 * Constructs a new PauseScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
 	public PauseScreen(
 			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
 		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
@@ -284,5 +291,4 @@ public class PauseScreen implements Screen {
 		} catch (Exception e) {
 		}
 	}
-
 }

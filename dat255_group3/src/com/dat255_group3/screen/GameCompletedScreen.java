@@ -17,8 +17,7 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the screen being shown when the whole game is
- * completed.
+ * A screen that is shown when the whole game is completed.
  * 
  * @author The Hans-Gunnar Crew
  */
@@ -28,6 +27,13 @@ public class GameCompletedScreen implements Screen {
 	private InputStage stage;
 	private Image messageImage;
 
+	/**
+	 * Constructs a new GameCompletedScreen with the specified 
+	 * OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController
+	 * 		  object
+	 */
 	public GameCompletedScreen(
 			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
 		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
@@ -140,7 +146,5 @@ public class GameCompletedScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-
 	}
-
 }

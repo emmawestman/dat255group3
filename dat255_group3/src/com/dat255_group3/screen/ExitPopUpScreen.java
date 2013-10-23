@@ -17,8 +17,8 @@ import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the popup-screen being shown to confirm the exit of
- * the game
+ * A popup-screen that is shown when you try to exit the game.
+ * The user is given a YES/NO option.
  * 
  * @author The Hans-Gunnar Crew
  */
@@ -31,8 +31,12 @@ public class ExitPopUpScreen implements Screen {
 	private Texture popUpLabelTexture;
 	private Image labelImage;
 
-	public ExitPopUpScreen(
-			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
+	/**
+	 * Constructs a new ExitPopUpScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
+	public ExitPopUpScreen(OneMoreCookiePleaseController oneMoreCookiePleaseController) {
 		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraWidth(), true);
@@ -159,5 +163,4 @@ public class ExitPopUpScreen implements Screen {
 		stage.dispose();
 
 	}
-
 }
