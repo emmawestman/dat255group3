@@ -55,6 +55,7 @@ public class ExitPopUpScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		myGdxGameController.getMyGdxGame().setIsGameStarted(false);
 
 		// Checks if the back-key has been pressed & if so, the level screen
 		// will be shown
