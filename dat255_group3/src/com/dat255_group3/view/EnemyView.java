@@ -7,6 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * The view which animates the enemy at the left side of the display.
+ * 
+ * @author The Hans-Gunnar Crew
+ */
+
 public class EnemyView {
 	
 	private static final int FRAME_COLS = 4;
@@ -17,6 +23,11 @@ public class EnemyView {
 	private Animation walkAnimation;
 	private SpriteBatch spriteBatch;
 	
+	/**
+	 * Constructs a new EnemyView with the specified camera.
+	 * 
+	 * @param camera the camera that is used to display the game
+	 */
 	public EnemyView(OrthographicCamera camera) {
 		
 		this.walkSheet = new Texture(Gdx.files.internal("ui/tornado_128x4x512.png"));
@@ -33,13 +44,19 @@ public class EnemyView {
 		walkAnimation = new Animation(0.06f, walkFrames);
 	}
 	
-	public void draw(double time, float posX){
+	/**
+	 * Animates the enemy.
+	 * 
+	 * @param time the time that's being updated in the game
+	 * @param deathLimit the x-coordinate which when reached, the game is lost,
+	 * 			and which is being moved at the same speed as the camera
+	 */
+	public void draw(double time, float deathLimit){
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
 		currentFrame = walkAnimation.getKeyFrame((float)time, true);
 		spriteBatch.begin();
-		spriteBatch.draw(currentFrame, posX-70, 0);
+		spriteBatch.draw(currentFrame, deathLimit-70, 0); //-70 so that the enemy is drawn behind the deathLimit
 		spriteBatch.end();
 	}
-
 }
