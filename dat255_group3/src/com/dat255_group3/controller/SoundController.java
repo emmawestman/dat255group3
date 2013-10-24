@@ -77,7 +77,7 @@ public class SoundController {
 	 * Pauses the background music.
 	 */
 	public void pauseBackgroundMusic() {
-		if(backgroundMusic.isPlaying()){ //borde inte backgroundMusicIsPlaying anropas här?
+		if(backgroundMusic.isPlaying()){ 
 			backgroundMusic.pause();
 		}
 	}

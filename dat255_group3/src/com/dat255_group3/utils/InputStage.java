@@ -11,7 +11,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class InputStage extends Stage {
-	
+
 	/**
 	 * Constructs a new InputStage with the specified viewport.
 	 * 
@@ -41,13 +41,13 @@ public class InputStage extends Stage {
 		return super.keyUp(keyCode);
 	}
 
-	
+
 	/**
 	 * The hard key listener
 	 */
-	
+
 	public interface OnHardKeyListener {
-		
+
 		/**
 		 * Is invoked as the player presses a hardkey of the android device
 		 * 

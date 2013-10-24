@@ -10,7 +10,7 @@ import com.dat255_group3.utils.WorldUtil;
  */
 public class Character {
 	private double friction;
-	private static float radius; //the character's physics body's radius
+	private static float radius; 
 	private float deathLimit; //the character is taken by the enemy if it reaches this limit
 	private Vector2 position; 
 

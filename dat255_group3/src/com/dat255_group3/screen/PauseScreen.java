@@ -70,13 +70,13 @@ public class PauseScreen implements Screen {
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
 					oneMoreCookiePleaseController
-							.setScreen(oneMoreCookiePleaseController
-									.getLevelScreen());
+					.setScreen(oneMoreCookiePleaseController
+							.getLevelScreen());
 				}
 			}
 		});
 
-		// Setting up the table
+		// Setting up the layout table
 		Table table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -84,10 +84,8 @@ public class PauseScreen implements Screen {
 		messageIcon = new Texture(Gdx.files.internal("ui/pausedTitle.png"));
 		messageImage = new Image(messageIcon);
 
-		/*
-		 * Setting buttons, their characteristics & listeners with options of
-		 * continuing to play, restart or to return to the main-menu
-		 */
+		// Setting buttons, their characteristics & listeners with options of
+		// continuing to play, restart or to return to the main-menu
 		ImageButtonStyle resumeButtonStyle = new ImageButtonStyle();
 		resumeButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("resume.up");
@@ -102,8 +100,8 @@ public class PauseScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getInGameController());
+				.setScreen(oneMoreCookiePleaseController
+						.getInGameController());
 			}
 		});
 
@@ -121,10 +119,9 @@ public class PauseScreen implements Screen {
 		restartButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// This level
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getInGameController());
+				.setScreen(oneMoreCookiePleaseController
+						.getInGameController());
 
 			}
 		});
@@ -143,8 +140,8 @@ public class PauseScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getStartScreen());
+				.setScreen(oneMoreCookiePleaseController
+						.getStartScreen());
 			}
 		});
 
@@ -214,10 +211,10 @@ public class PauseScreen implements Screen {
 				if (oneMoreCookiePleaseController.getSoundController()
 						.backgroundMusicIsPlaying()) {
 					oneMoreCookiePleaseController.getSoundController()
-							.pauseBackgroundMusic();
+					.pauseBackgroundMusic();
 				} else {
 					oneMoreCookiePleaseController.getSoundController()
-							.playBackgroundMusic();
+					.playBackgroundMusic();
 				}
 			}
 		});
@@ -239,12 +236,12 @@ public class PauseScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getInGameController());
+				.setScreen(oneMoreCookiePleaseController
+						.getInGameController());
 			}
 		});
 
-		// Adding to the table and actors to the stage
+		// Adding to the layout table and actors to the stage
 		table.add(messageImage).center();
 		table.getCell(messageImage).spaceBottom(50);
 		table.row();

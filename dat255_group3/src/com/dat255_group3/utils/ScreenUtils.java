@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
  * @author The Hans-Gunnar Crew
  */
 public class ScreenUtils {
-	
+
 	private TextureAtlas atlasRect;
 	private TextureAtlas atlasCirc;
 	private Skin skinRect;
@@ -26,18 +26,18 @@ public class ScreenUtils {
 	private Texture backgroundTexture;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
-	
+
 	/**
 	 * Constructs a new ScreenUtils, loads the image files and creates
 	 * the necessary objects needed to draw them.
 	 */
 	public ScreenUtils(){
 		try{
-		atlasRect = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Rectangular_Icons.pack"));
-		atlasCirc = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Circular_Icons.pack"));
-		gameTitleTexture = new Texture(Gdx.files.internal("ui/gameTitle.png"));
-		backgroundTexture = new Texture(Gdx.files.internal("ui/startBackground1024x512.png"));
-		
+			atlasRect = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Rectangular_Icons.pack"));
+			atlasCirc = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Circular_Icons.pack"));
+			gameTitleTexture = new Texture(Gdx.files.internal("ui/gameTitle.png"));
+			backgroundTexture = new Texture(Gdx.files.internal("ui/startBackground1024x512.png"));
+
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("ScreenUtils", "Exception", e);
 		}catch (Exception e) {			
@@ -53,19 +53,19 @@ public class ScreenUtils {
 		spriteBatch = new SpriteBatch();
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
-	
+
 	public Skin getRectangularSkin(){
 		return skinRect;
 	}
-	
+
 	public Skin getCircularSkin(){
 		return skinCirc;
 	}
-	
+
 	public Image getGameTitleImage() {
 		return gameTitleImage;
 	}
-	
+
 	public Image getBackgroundImage() {
 		return backgroundImage;
 	}
@@ -75,17 +75,17 @@ public class ScreenUtils {
 	 */
 	public void dispose(){
 		try {
-		skinRect.dispose();
-		skinCirc.dispose();
-		atlasRect.dispose();
-		atlasCirc.dispose();
-		spriteBatch.dispose();
+			skinRect.dispose();
+			skinCirc.dispose();
+			atlasRect.dispose();
+			atlasCirc.dispose();
+			spriteBatch.dispose();
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("ScreenUtils", "Exception", e);
 		}catch (Exception e) {			
 		}
 	}
-	
+
 	/**
 	 * Draws the background image.
 	 */

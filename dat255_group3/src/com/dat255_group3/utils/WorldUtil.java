@@ -1,6 +1,5 @@
 package com.dat255_group3.utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -15,7 +14,7 @@ import com.dat255_group3.model.MapList;
  * @author The Hans-Gunnar Crew
  */
 public class WorldUtil {
-	
+
 	private static Vector2 startPos;
 	private TiledMap map;
 	private static MapList groundList;
@@ -52,7 +51,6 @@ public class WorldUtil {
 		return tileSize;
 	}
 
-	//only static temporarily to help test
 	public static MapList getObstacleList() {
 		return obstacleList;
 	}
@@ -61,7 +59,6 @@ public class WorldUtil {
 		return startPos;
 	}
 
-	//only static temporarily to help test
 	public static MapList getGroundList() {
 		return groundList;
 	}
@@ -104,7 +101,6 @@ public class WorldUtil {
 								finishLineX = x*tileSize.x;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
 								startPos = new Vector2((x*tileSize.x) - Character.getRadius()/2,y*tileSize.y + Character.getRadius()/2 + 30);
-								Gdx.app.log("from map", "StartPos found at: "+ x + ","+y);
 							}else if(tile.getProperties().containsKey("Cookie")) {
 								cookieList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
 							}

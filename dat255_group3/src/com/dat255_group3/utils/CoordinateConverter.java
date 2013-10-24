@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class CoordinateConverter {
 	private static float cameraWidth = 1024f;
 	private static float CameraHeight = 512f;
-	
+
 	/**
 	 * Converts pixels into meters, 10 meter = cameraWidth.
 	 * 
@@ -21,9 +21,9 @@ public class CoordinateConverter {
 		float pixelToMeter = getPixelToMeter();
 		float meters = 0;
 		meters = pixels*pixelToMeter;
-	    return meters;
+		return meters;
 	}
-	
+
 	/**
 	 * Converts a Vector2 with pixel values to meters, 10 meter = cameraWidth.
 	 * 
@@ -34,9 +34,9 @@ public class CoordinateConverter {
 		Vector2 meters = new Vector2 ();
 		meters.x =pixelToMeter(pixels.x);
 		meters.y = pixelToMeter(pixels.y);
-	    return meters;
+		return meters;
 	}
-	
+
 	/**
 	 * Converts meters into pixels, 10 meter = cameraWidth.
 	 * 
@@ -47,9 +47,9 @@ public class CoordinateConverter {
 		float meterToPixel = getMeterToPixel();
 		float pixels = 0;
 		pixels = meters*meterToPixel;
-	    return pixels;
+		return pixels;
 	}
-	
+
 	/**
 	 * Converts a Vector2 with meter values into pixels, 10 meter = cameraWidth.
 	 * 
@@ -60,9 +60,9 @@ public class CoordinateConverter {
 		Vector2 pixels = new Vector2 ();
 		pixels.x = meterToPixel(meters.x);
 		pixels.y = meterToPixel(meters.y);
-	    return pixels;
+		return pixels;
 	}
-	
+
 	/**
 	 * Returns the number of meters in 1 pixel.
 	 * 
@@ -71,7 +71,7 @@ public class CoordinateConverter {
 	public static float getPixelToMeter(){
 		return 10f/(float)CoordinateConverter.cameraWidth;
 	}
-	
+
 	/**
 	 * Returns the number of pixels in 1 meter.
 	 * 
@@ -80,7 +80,7 @@ public class CoordinateConverter {
 	public static float getMeterToPixel(){
 		return (float)CoordinateConverter.cameraWidth/10f;
 	}
-	
+
 	public static float getCameraHeight() {
 		return CameraHeight;
 	}

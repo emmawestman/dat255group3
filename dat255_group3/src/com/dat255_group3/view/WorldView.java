@@ -9,7 +9,7 @@ import com.dat255_group3.model.World;
  */
 
 public class WorldView {
-	
+
 	private World world;
 
 	/**
@@ -20,7 +20,7 @@ public class WorldView {
 	public WorldView(World world) {
 		this.world = world;
 	}
-	
+
 	/**
 	 * Draws the character, cookie and enemy views.
 	 * 

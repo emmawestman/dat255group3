@@ -15,13 +15,13 @@ import com.dat255_group3.model.Cookie;
  * @author The Hans-Gunnar Crew
  */
 public class CookieView {
-	
+
 	private OrthographicCamera camera;
 	private ArrayList<Cookie> cookieList;
 	private SpriteBatch spriteBatch;
 	private Sprite sprite;
 	private Texture texture;
-	
+
 	/**
 	 * Constructs a new CookieView with the specified camera and list
 	 * of cookies.
@@ -37,7 +37,7 @@ public class CookieView {
 		sprite = new Sprite(texture);
 		sprite.setSize(32f, 32f);
 	}
-	
+
 	/**
 	 * Loops through the cookie list and draws all cookies.
 	 */

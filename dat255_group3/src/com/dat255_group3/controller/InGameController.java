@@ -29,7 +29,7 @@ public class InGameController implements Screen {
 	private InGame inGame;
 	private InGameView inGameView;
 	private WorldController worldController;
-	private float timeStep = 1.0f / 10.0f; //sätts till delta i update?
+	private float timeStep = 1.0f / 10.0f; 
 	private OneMoreCookiePleaseController oneMoreCookiePleaseController;
 	private final int velocityIterations = 6;
 	private final int positionIterations = 2;
@@ -44,7 +44,7 @@ public class InGameController implements Screen {
 	 * 
 	 * @param myGdxGameController
 	 */
-	
+
 	public InGameController(OneMoreCookiePleaseController oneMoreCookiePleaseController) {
 		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.cameraController = new OrthographicCameraController();
@@ -55,7 +55,7 @@ public class InGameController implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// Shows a white screen
+		// Shows a white screen in case background does not load
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -63,10 +63,9 @@ public class InGameController implements Screen {
 		stage.act(delta);
 		inGame.setDelayTime(inGame.getDelayTime() + delta);
 
-		
-		/*
-		 * Checks if the game is over or won
-		 */
+
+
+		// Checks if the game is over or won
 		if (hasWon()) {
 			this.gameOver = false;
 			gameOver();
@@ -93,15 +92,14 @@ public class InGameController implements Screen {
 
 		stage.draw();
 
-		/*
-		 * Checks whether the screen has been touched. If so, a method which
-		 * will make the character jump is invoked.
-		 */
+
+		// Checks whether the screen has been touched. If so, a method which
+		// will make the character jump is invoked.
 		if (Gdx.input.isTouched()) {
 			worldController.getCharacterController().tryToJump();
 		}
-		
-		// Count Down
+
+		// Count Down before the game starts to move
 		if (isCountingDown) {
 			if (inGame.getDelayTime() <= 1.0) {
 				inGameView.drawCountDownNbr(inGame.getDelayTime());
@@ -124,10 +122,8 @@ public class InGameController implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		Gdx.input.setCatchBackKey(true);
 
-		/*
-		 * Checks whether the backbutton has been pressed. If so, a
-		 * pausepop-up-screen will be shown.
-		 */
+		// Checks whether the back button has been pressed. If so, a
+		// pause pop-up-screen will be shown.
 		stage.setHardKeyListener(new OnHardKeyListener() {
 			@Override
 			public void onHardKey(int keyCode, int state) {
@@ -149,7 +145,6 @@ public class InGameController implements Screen {
 		ImageButton pauseButton = new ImageButton(pauseButtonStyle);
 		pauseButton.setPosition(CoordinateConverter.getCameraWidth() - 130,
 				CoordinateConverter.getCameraHeight() - 70);
-		// pauseButton.pad(20);
 		stage.addActor(pauseButton);
 		pauseButton.toggle();
 		pauseButton.addListener(new ClickListener() {
@@ -238,16 +233,12 @@ public class InGameController implements Screen {
 	public void save() {
 		//  if score > high score for the current level
 		if (this.oneMoreCookiePleaseController.getPlayerController().getPlayer().getScore() > 
-			this.oneMoreCookiePleaseController.getPlayerController().getPlayer()
-			.getHighScore(oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel())) {
-			
+		this.oneMoreCookiePleaseController.getPlayerController().getPlayer()
+		.getHighScore(oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel())) {
+
 			oneMoreCookiePleaseController.getPlayerController().getPlayer().setNewHighScore
 			(this.oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel(),
 					this.oneMoreCookiePleaseController.getPlayerController().getPlayer().getScore());
-			
-			Gdx.app.log("InGameControler", "new hs: " + this.oneMoreCookiePleaseController.getPlayerController().getPlayer().getScore());
-			Gdx.app.log("InGameControler", "get hs: " +this.oneMoreCookiePleaseController.getPlayerController().getPlayer().
-					getHighScore(this.oneMoreCookiePleaseController.getOneMoreCookiePlease().getCurrentLevel()));
 		}
 	}
 
@@ -278,21 +269,22 @@ public class InGameController implements Screen {
 		// Check the pitch of the device and changes the speed
 		inGame.setSpeedM(1.5f * GyroUtils.gyroSteering());
 
-		// Updates the speed
+		// Updates the speed of the camera and enemy
 		this.inGame.updateSpeedP(delta);
 		cameraController.setSpeedP(inGame.getSpeedP());
 
 		// give character speed
 		this.worldController.moveCharacter(this.inGame.getSpeedM());
 
-		// update the model position for the character
+		// update the model position for the character to the position
+		// of the physical body
 		this.worldController.uppdatePositions(this.worldController
 				.getCharBody(), this.worldController.getCharacterController()
 				.getCharacter());
 
 		// Update the position of the death limit
 		worldController.getCharacterController().getCharacter()
-				.moveDeathLimit(inGame.getSpeedP());
+		.moveDeathLimit(inGame.getSpeedP());
 	}
 
 	/**
@@ -303,16 +295,16 @@ public class InGameController implements Screen {
 
 		// calculate the score
 		this.oneMoreCookiePleaseController
-				.getPlayerController().getPlayer()
-				.calculateScore(worldController.getWorld().getTime(),
-						worldController.getWorld().getCookieCounter(), gameOver);
+		.getPlayerController().getPlayer()
+		.calculateScore(worldController.getWorld().getTime(),
+				worldController.getWorld().getCookieCounter(), gameOver);
 
 		save();
-		
-		// Change to gameover-screen
+
+		// Change to game over-screen
 		oneMoreCookiePleaseController.getGameOverScreen().gameOver(
 				this.oneMoreCookiePleaseController.getPlayerController().getPlayer()
-						.getScore(), worldController.getWorld().getTime(),
+				.getScore(), worldController.getWorld().getTime(),
 				gameOver);
 		oneMoreCookiePleaseController.setScreen(oneMoreCookiePleaseController.getGameOverScreen());
 		if (OneMoreCookiePleaseController.soundEffectsOn()) {

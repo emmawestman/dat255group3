@@ -82,7 +82,7 @@ public class StartScreen implements Screen {
 		}
 		Image image = oneMoreCookiePleaseController.getScreenUtils().getGameTitleImage();
 
-		// Setting up the table
+		// Setting up the layout table
 		Table table = new Table();
 		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight());
@@ -193,10 +193,10 @@ public class StartScreen implements Screen {
 				if (oneMoreCookiePleaseController.getSoundController()
 						.backgroundMusicIsPlaying()) {
 					oneMoreCookiePleaseController.getSoundController()
-							.pauseBackgroundMusic();
+					.pauseBackgroundMusic();
 				} else {
 					oneMoreCookiePleaseController.getSoundController()
-							.playBackgroundMusic();
+					.playBackgroundMusic();
 				}
 			}
 		});

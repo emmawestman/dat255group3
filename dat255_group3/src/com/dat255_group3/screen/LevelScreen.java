@@ -63,7 +63,7 @@ public class LevelScreen implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		oneMoreCookiePleaseController.getOneMoreCookiePlease()
-				.setIsGameStarted(false);
+		.setIsGameStarted(false);
 
 		// Checks if the back-key has been pressed & if so, the start screen
 		// will be shown
@@ -72,8 +72,8 @@ public class LevelScreen implements Screen {
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
 					oneMoreCookiePleaseController
-							.setScreen(oneMoreCookiePleaseController
-									.getStartScreen());
+					.setScreen(oneMoreCookiePleaseController
+							.getStartScreen());
 				}
 			}
 		});
@@ -103,11 +103,11 @@ public class LevelScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController.getOneMoreCookiePlease()
-						.setCurrentLevel(1);
+				.setCurrentLevel(1);
 				oneMoreCookiePleaseController.getInGameController().loadMap();
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getInGameController());
+				.setScreen(oneMoreCookiePleaseController
+						.getInGameController());
 			}
 		});
 
@@ -125,11 +125,11 @@ public class LevelScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController.getOneMoreCookiePlease()
-						.setCurrentLevel(2);
+				.setCurrentLevel(2);
 				oneMoreCookiePleaseController.getInGameController().loadMap();
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getInGameController());
+				.setScreen(oneMoreCookiePleaseController
+						.getInGameController());
 			}
 		});
 
@@ -147,11 +147,11 @@ public class LevelScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController.getOneMoreCookiePlease()
-						.setCurrentLevel(3);
+				.setCurrentLevel(3);
 				oneMoreCookiePleaseController.getInGameController().loadMap();
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getInGameController());
+				.setScreen(oneMoreCookiePleaseController
+						.getInGameController());
 			}
 		});
 
@@ -169,8 +169,8 @@ public class LevelScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getStartScreen());
+				.setScreen(oneMoreCookiePleaseController
+						.getStartScreen());
 			}
 		});
 
@@ -182,13 +182,13 @@ public class LevelScreen implements Screen {
 
 		Label levelOneScore = new Label("Score: "
 				+ oneMoreCookiePleaseController.getPlayerController()
-						.getPlayer().getHighScore(1), scoreLabelStyle);
+				.getPlayer().getHighScore(1), scoreLabelStyle);
 		Label levelTwoScore = new Label("Score: "
 				+ oneMoreCookiePleaseController.getPlayerController()
-						.getPlayer().getHighScore(2), scoreLabelStyle);
+				.getPlayer().getHighScore(2), scoreLabelStyle);
 		Label levelThreeScore = new Label("Score: "
 				+ oneMoreCookiePleaseController.getPlayerController()
-						.getPlayer().getHighScore(3), scoreLabelStyle);
+				.getPlayer().getHighScore(3), scoreLabelStyle);
 
 		// Setting the positions of the actors and add them to the stage
 		levelImage.setPosition(270, 400);

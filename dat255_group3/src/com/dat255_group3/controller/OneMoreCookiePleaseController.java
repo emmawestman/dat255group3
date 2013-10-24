@@ -119,10 +119,6 @@ public class OneMoreCookiePleaseController extends Game {
 		return soundEffectsOn;
 	}
 
-	public void save() { //anropas aldrig?
-		inGameController.save();
-	}
-
 	public SoundController getSoundController() {
 		return soundController;
 	}

@@ -70,7 +70,7 @@ public class GameOverScreen implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		oneMoreCookiePleaseController.getOneMoreCookiePlease()
-				.setIsGameStarted(false);
+		.setIsGameStarted(false);
 
 		// Checks if the back-key has been pressed & if so, the level screen
 		// will be shown
@@ -79,13 +79,13 @@ public class GameOverScreen implements Screen {
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
 					oneMoreCookiePleaseController
-							.setScreen(oneMoreCookiePleaseController
-									.getLevelScreen());
+					.setScreen(oneMoreCookiePleaseController
+							.getLevelScreen());
 				}
 			}
 		});
 
-		// Setting up the table
+		// Setting up the layout table
 		Table table = new Table();
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -98,12 +98,12 @@ public class GameOverScreen implements Screen {
 		Label scoreLabel = new Label("Score: " + this.score, scoreNTimeStyle);
 		Label highScoreLabel = new Label("High Score: "
 				+ oneMoreCookiePleaseController
-						.getPlayerController()
-						.getPlayer()
-						.getHighScore(
-								oneMoreCookiePleaseController
-										.getOneMoreCookiePlease()
-										.getCurrentLevel()), scoreNTimeStyle);
+				.getPlayerController()
+				.getPlayer()
+				.getHighScore(
+						oneMoreCookiePleaseController
+						.getOneMoreCookiePlease()
+						.getCurrentLevel()), scoreNTimeStyle);
 
 		// Setting the texts of the labels depending on whether the game was won
 		// or lost
@@ -141,8 +141,8 @@ public class GameOverScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getInGameController());
+				.setScreen(oneMoreCookiePleaseController
+						.getInGameController());
 
 			}
 		});
@@ -166,16 +166,16 @@ public class GameOverScreen implements Screen {
 				if (nextLevel <= oneMoreCookiePleaseController
 						.getOneMoreCookiePlease().getNumberOfLevels()) {
 					oneMoreCookiePleaseController.getOneMoreCookiePlease()
-							.setCurrentLevel(nextLevel);
+					.setCurrentLevel(nextLevel);
 					oneMoreCookiePleaseController.getInGameController()
-							.loadMap();
+					.loadMap();
 					oneMoreCookiePleaseController
-							.setScreen(oneMoreCookiePleaseController
-									.getInGameController());
+					.setScreen(oneMoreCookiePleaseController
+							.getInGameController());
 				} else {
 					oneMoreCookiePleaseController
-							.setScreen(oneMoreCookiePleaseController
-									.getUnlockedScreen());
+					.setScreen(oneMoreCookiePleaseController
+							.getUnlockedScreen());
 				}
 
 			}
@@ -196,8 +196,8 @@ public class GameOverScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				oneMoreCookiePleaseController
-						.setScreen(oneMoreCookiePleaseController
-								.getStartScreen());
+				.setScreen(oneMoreCookiePleaseController
+						.getStartScreen());
 			}
 		});
 
@@ -226,8 +226,6 @@ public class GameOverScreen implements Screen {
 				CoordinateConverter.getCameraHeight());
 		stage.setViewport(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
-
-		// table.debug(); //To be removed later on
 	}
 
 	@Override

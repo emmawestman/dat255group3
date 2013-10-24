@@ -19,7 +19,7 @@ import com.dat255_group3.utils.CoordinateConverter;
  */
 
 public class InGameView {
-	
+
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
@@ -31,7 +31,7 @@ public class InGameView {
 	private Texture countDownImage;
 	private Sprite countDown;
 	private int level;
-	
+
 	/**
 	 * Constructs a new InGameView with the specified TiledMap and camera.
 	 * 
@@ -49,7 +49,7 @@ public class InGameView {
 		this.bgImage = new Texture(Gdx.files.internal("ui/background.png"));
 		bgSprite = new Sprite(bgImage);
 	}
-	
+
 	/**
 	 * Draws everything that is displayed in the level.
 	 * 
@@ -64,12 +64,12 @@ public class InGameView {
 	 */
 	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, 
 			EnemyView enemy, double time, int cookieCounter, boolean gameOver) {
-		
+
 		drawBgImage();
-		
+
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
-		
+
 		mapRenderer.render(mapLayers);
 		worldView.draw(charView, cookieView, enemy);
 		drawTime(time);
@@ -77,7 +77,7 @@ public class InGameView {
 		drawLevelNbr();
 
 	}
-	
+
 	/**
 	 * Draws the time elapsed in the upper left corner.
 	 * 
@@ -90,7 +90,7 @@ public class InGameView {
 		font.draw(spriteBatch, str, 100f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
-	
+
 	/**
 	 * Draws the cookie counter next to the time.
 	 * 
@@ -103,7 +103,7 @@ public class InGameView {
 		font.draw(spriteBatch, str, 200f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
-	
+
 	/**
 	 * Draws the level number next to the cookie counter.
 	 */
@@ -114,7 +114,7 @@ public class InGameView {
 		font.draw(spriteBatch, str, 300f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
-	
+
 	/**
 	 * Draws the background image. This image has a fixed position 
 	 * and does not move with the camera.
@@ -127,7 +127,7 @@ public class InGameView {
 			this.spriteBatch.end();
 		}
 	}
-	
+
 	/**
 	 * Draws the count down numbers at the start of a level.
 	 * 
@@ -135,24 +135,24 @@ public class InGameView {
 	 */
 	public void drawCountDownNbr(float delayTime) {		
 		try {
-		if (delayTime <= 1.0) {
-			countDownImage = new Texture(Gdx.files.internal("ui/three.png"));
-		}else if (delayTime <= 2.0) {
-			countDownImage = new Texture(Gdx.files.internal("ui/two.png"));
-		}else {
-			countDownImage = new Texture(Gdx.files.internal("ui/one.png"));
-		}
+			if (delayTime <= 1.0) {
+				countDownImage = new Texture(Gdx.files.internal("ui/three.png"));
+			}else if (delayTime <= 2.0) {
+				countDownImage = new Texture(Gdx.files.internal("ui/two.png"));
+			}else {
+				countDownImage = new Texture(Gdx.files.internal("ui/one.png"));
+			}
 		}catch (Exception e) {
-			
+
 		}
-		
+
 		this.countDown = new Sprite(countDownImage);
-		
+
 		spriteBatch.begin();
 		countDown.setPosition(CoordinateConverter.getCameraWidth()/2 - 256/2, 
 				CoordinateConverter.getCameraHeight()/2 - 256/2);
 		countDown.draw(spriteBatch);
 		spriteBatch.end();
-		
+
 	}
 }

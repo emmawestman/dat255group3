@@ -15,7 +15,7 @@ import com.dat255_group3.model.Character;
  * @author The Hans-Gunnar Crew
  */
 public class CharacterView {
-	
+
 	private static final int FRAMES_COLS = 4;
 	private Character character;
 	private OrthographicCamera camera;
@@ -24,7 +24,7 @@ public class CharacterView {
 	private TextureRegion[] walkFrames;
 	private TextureRegion currentFrame;
 	private Animation walkAnimation;
-	
+
 	/**
 	 * Constructs a new CharacterView with the specified Character and camera.
 	 * 
@@ -35,7 +35,7 @@ public class CharacterView {
 		this.character = character;
 		this.spriteBatch = new SpriteBatch();
 		this.camera = camera;
-		
+
 		//Create animation frames for walking
 		walkSheet = new Texture(Gdx.files.internal("ui/CharacterSpritesheet.png"));
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAMES_COLS, walkSheet.getHeight());
@@ -43,10 +43,10 @@ public class CharacterView {
 		for(int i = 0;i<FRAMES_COLS;i++) {
 			walkFrames[i] = tmp[0][i];
 		}
-		
+
 		walkAnimation = new Animation(0.06f, walkFrames);
 	}
-	
+
 	/**
 	 * Animates the character.
 	 * 

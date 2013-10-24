@@ -47,7 +47,6 @@ public class OrthographicCameraController implements ApplicationListener {
 		camera.update();
 
 		// Sets how much of the map that is shown on the screen
-		//TODO might never be used
 		glViewport = new Rectangle(0, 0, CoordinateConverter.getCameraWidth(), CoordinateConverter.getCameraHeight());
 		
 	}

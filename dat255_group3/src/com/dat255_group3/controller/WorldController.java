@@ -172,14 +172,6 @@ public class WorldController {
 		this.gravity = gravity;
 	}
 
-	/**
-	 * Moves the finish line 
-	 * @param speedP
-	 */
-	public void moveFinishLine(float speedP) { //verkar aldrig anropas?
-		finishLineX = finishLineX - speedP/10;
-	}
-
 	public Vector2 getStartPos() {
 		return WorldUtil.getStartPos();
 	}

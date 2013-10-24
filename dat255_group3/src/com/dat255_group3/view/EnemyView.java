@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 
 public class EnemyView {
-	
+
 	private static final int FRAME_COLS = 4;
 	private OrthographicCamera camera;
 	private Texture walkSheet;
@@ -22,28 +22,28 @@ public class EnemyView {
 	private TextureRegion currentFrame;
 	private Animation walkAnimation;
 	private SpriteBatch spriteBatch;
-	
+
 	/**
 	 * Constructs a new EnemyView with the specified camera.
 	 * 
 	 * @param camera the camera that is used to display the game
 	 */
 	public EnemyView(OrthographicCamera camera) {
-		
+
 		this.walkSheet = new Texture(Gdx.files.internal("ui/tornado_128x4x512.png"));
 		this.camera = camera;
 		this.spriteBatch = new SpriteBatch();
-		
-		//Create frames
+
+		//Create frames for animation
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight());
 		walkFrames = new TextureRegion[FRAME_COLS];
 		for(int i = 0;i<FRAME_COLS;i++) {
 			walkFrames[i] = tmp[0][i];
 		}
-		
+
 		walkAnimation = new Animation(0.06f, walkFrames);
 	}
-	
+
 	/**
 	 * Animates the enemy.
 	 * 
