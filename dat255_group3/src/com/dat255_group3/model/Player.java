@@ -73,7 +73,7 @@ public class Player {
 	/**
 	 * Adds the player's new high score to the high score list.
 	 * 
-	 * @param levelData 
+	 * @param levelData an array containing the high scores for each level
 	 */
 	public void addHighScoresToList(String [] levelData) {
 		try {
@@ -92,7 +92,7 @@ public class Player {
 	 * 
 	 * 
 	 * @param levelNbr the current level
-	 * @return 
+	 * @return true if
 	 */
 	public boolean contains(int levelNbr) {
 		return highScores.size() > levelNbr;
