@@ -1,25 +1,24 @@
 package com.dat255_group3.model;
 
 /**
- * A class which describes the game MyGdxGame.
- * 
- * The game is about a squirrel named Hans-Gunnar who founds cookies falling down from the clouds. He falls promptly in love
- * as he tastes them. In order to maintain this wonderful delicacy in his belongings he runs to catch more.
- * However, these cookies has a propraetor, namely the god of weathers Bartolomeus, who leaked them from his castle. 
- * As the discovers the thief he becomes furious and uses all his powers to catch Hans-Gunnar.
-
+ * OneMoreCookiePlease is the main model class of the game.
+ * It contains information about the number of levels, which the current level is,
+ * and if the game has started.
  * 
  * @author The Hans-Gunnar Crew
  *
  */
-public class MyGdxGame {
-
+public class OneMoreCookiePlease {
 
 	private int numberOfLevels;
 	private int currentLevel;
 	private boolean isGameStarted;
 
-	public MyGdxGame() {
+	/**
+	 * Constructs a new OneMoreCookiePlease, and sets the default values
+	 * of the class fields.
+	 */
+	public OneMoreCookiePlease() {
 		currentLevel = 0;
 		isGameStarted = false;
 		numberOfLevels = 3;
@@ -40,7 +39,6 @@ public class MyGdxGame {
 	public void setCurrentLevel(int level) {
 		this.currentLevel = level;
 	}
-	
 
 	public int getNumberOfLevels() {
 		return numberOfLevels;
@@ -49,5 +47,4 @@ public class MyGdxGame {
 	public void setNumberOfLevels(int numberOfLevels) {
 		this.numberOfLevels = numberOfLevels;
 	}
-
 }

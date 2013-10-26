@@ -11,24 +11,32 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.OneMoreCookiePleaseController;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the screen being shown when the whole game is completed.
+ * A screen that is shown when the whole game is completed.
  * 
  * @author The Hans-Gunnar Crew
  */
 public class GameCompletedScreen implements Screen {
 
-	private MyGdxGameController myGdxGameController;
+	private OneMoreCookiePleaseController oneMoreCookiePleaseController;
 	private InputStage stage;
 	private Image messageImage;
 
-	public GameCompletedScreen(MyGdxGameController myGdxGameController) {
-		this.myGdxGameController = myGdxGameController;
+	/**
+	 * Constructs a new GameCompletedScreen with the specified 
+	 * OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController
+	 * 		  object
+	 */
+	public GameCompletedScreen(
+			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
+		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraWidth(), true);
 	}
@@ -38,7 +46,7 @@ public class GameCompletedScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		myGdxGameController.getScreenUtils().drawBackgroundImage();
+		oneMoreCookiePleaseController.getScreenUtils().drawBackgroundImage();
 
 		// Update & draw the stage-actors
 		stage.act(delta);
@@ -53,32 +61,36 @@ public class GameCompletedScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		oneMoreCookiePleaseController.getOneMoreCookiePlease()
+				.setIsGameStarted(false);
 
-		// Checks if the back-key has been pressed & if so, the level screen will be shown
+		// Checks if the back-key has been pressed & if so, the level screen
+		// will be shown
 		stage.setHardKeyListener(new OnHardKeyListener() {
 			@Override
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
-					myGdxGameController.setScreen(myGdxGameController
-							.getLevelScreen());
+					oneMoreCookiePleaseController
+							.setScreen(oneMoreCookiePleaseController
+									.getLevelScreen());
 				}
 			}
 		});
 
-		Table table = new Table(myGdxGameController.getScreenUtils()
+		Table table = new Table(oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin());
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		// The message image
 		Texture messageIcon = new Texture(
-				Gdx.files.internal("menuIcons/completedTheGameMsg.png"));
+				Gdx.files.internal("ui/completedTheGameMsg.png"));
 		messageImage = new Image(messageIcon);
 
 		// Home Button
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
-		homeButtonStyle.up = myGdxGameController.getScreenUtils()
+		homeButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("home.up");
-		homeButtonStyle.down = myGdxGameController.getScreenUtils()
+		homeButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("home.up");
 		homeButtonStyle.pressedOffsetX = 1;
 		homeButtonStyle.pressedOffsetY = -1;
@@ -90,8 +102,9 @@ public class GameCompletedScreen implements Screen {
 		mainMenuButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setScreen(myGdxGameController
-						.getStartScreen());
+				oneMoreCookiePleaseController
+						.setScreen(oneMoreCookiePleaseController
+								.getStartScreen());
 			}
 		});
 
@@ -101,7 +114,8 @@ public class GameCompletedScreen implements Screen {
 		Table column2 = new Table();
 		table.add(column2);
 		column2.row();
-		column2.add(myGdxGameController.getScreenUtils().getGameTitleImage());
+		column2.add(oneMoreCookiePleaseController.getScreenUtils()
+				.getGameTitleImage());
 		column2.row();
 		column2.add(messageImage);
 		Table column3 = new Table();
@@ -132,7 +146,5 @@ public class GameCompletedScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-
 	}
-
 }

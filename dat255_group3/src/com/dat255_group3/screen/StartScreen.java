@@ -12,27 +12,31 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.OneMoreCookiePleaseController;
 import com.dat255_group3.io.IOHandler;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the startmenu of the game. The user is given the
- * options of choosing a character, starting the game or to exit.
+ * A start menu to the game. The user is given the option to start/exit
+ * the game, and turn the sound and music on/off.
  * 
  * @author The Hans-Gunnar Crew
- * 
  */
 public class StartScreen implements Screen {
 
-	private MyGdxGameController myGdxGameController;
+	private OneMoreCookiePleaseController oneMoreCookiePleaseController;
 	private InputStage stage;
 	private Texture imageTexture;
 
-	public StartScreen(MyGdxGameController myGdxGameController) {
-		this.myGdxGameController = myGdxGameController;
+	/**
+	 * Constructs a new StartScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
+	public StartScreen(OneMoreCookiePleaseController oneMoreCookiePleaseController) {
+		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
 	}
@@ -42,7 +46,7 @@ public class StartScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		myGdxGameController.getScreenUtils().drawBackgroundImage();
+		oneMoreCookiePleaseController.getScreenUtils().drawBackgroundImage();
 
 		// Update & draw the stage actors
 		stage.act(delta);
@@ -56,6 +60,7 @@ public class StartScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		oneMoreCookiePleaseController.getOneMoreCookiePlease().setIsGameStarted(false);
 
 		// Checks if the back-key has been pressed & if so, confirming screen to
 		// exit the application will be shown
@@ -63,7 +68,7 @@ public class StartScreen implements Screen {
 			@Override
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
-					myGdxGameController.setScreen(myGdxGameController
+					oneMoreCookiePleaseController.setScreen(oneMoreCookiePleaseController
 							.getExitPopUpScreen());
 				}
 			}
@@ -71,24 +76,21 @@ public class StartScreen implements Screen {
 
 		// Setting the image for the title of the game
 		try {
-			imageTexture = new Texture(
-					Gdx.files.internal("menuIcons/gameTitle.png"));
-
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("StartScreen", "Exception", e);
 		} catch (Exception e) {
 		}
-		Image image = new Image(imageTexture);
+		Image image = oneMoreCookiePleaseController.getScreenUtils().getGameTitleImage();
 
-		// Setting up the table
+		// Setting up the layout table
 		Table table = new Table();
 		table.setBounds(0, 0, CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight());
 
 		ImageButtonStyle startButtonStyle = new ImageButtonStyle();
-		startButtonStyle.up = myGdxGameController.getScreenUtils()
+		startButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("start.up");
-		startButtonStyle.down = myGdxGameController.getScreenUtils()
+		startButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("start.down");
 		startButtonStyle.pressedOffsetX = 1;
 		startButtonStyle.pressedOffsetY = -1;
@@ -100,16 +102,16 @@ public class StartScreen implements Screen {
 		startButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.getMyGdxGame().setIsGameStarted(false);
-				myGdxGameController.setScreen(new LevelScreen(
-						myGdxGameController));
+				oneMoreCookiePleaseController.getOneMoreCookiePlease().setIsGameStarted(false);
+				oneMoreCookiePleaseController.setScreen(new LevelScreen(
+						oneMoreCookiePleaseController));
 			}
 		});
 
 		ImageButtonStyle exitButtonStyle = new ImageButtonStyle();
-		exitButtonStyle.up = myGdxGameController.getScreenUtils()
+		exitButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("exit.up");
-		exitButtonStyle.down = myGdxGameController.getScreenUtils()
+		exitButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("exit.down");
 		exitButtonStyle.pressedOffsetX = 1;
 		exitButtonStyle.pressedOffsetY = -1;
@@ -121,32 +123,32 @@ public class StartScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 
 				try {
-					IOHandler.saveHighScores(myGdxGameController
+					IOHandler.saveHighScores(oneMoreCookiePleaseController
 							.getPlayerController().getPlayer()
 							.getHighScoreList());
 				} catch (GdxRuntimeException e) {
 					Gdx.app.log("StartScreen", "Exception", e);
 				} catch (Exception e) {
 				}
-				myGdxGameController.setScreen(myGdxGameController
+				oneMoreCookiePleaseController.setScreen(oneMoreCookiePleaseController
 						.getExitPopUpScreen());
 			}
 		});
 
 		ImageButtonStyle soundButtonStyle = new ImageButtonStyle();
-		if (MyGdxGameController.soundEffectsOn()) {
-			soundButtonStyle.up = myGdxGameController.getScreenUtils()
+		if (OneMoreCookiePleaseController.soundEffectsOn()) {
+			soundButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.checked");
-			soundButtonStyle.down = myGdxGameController.getScreenUtils()
+			soundButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.down");
-			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
+			soundButtonStyle.checked = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.up");
 		} else {
-			soundButtonStyle.up = myGdxGameController.getScreenUtils()
+			soundButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.up");
-			soundButtonStyle.down = myGdxGameController.getScreenUtils()
+			soundButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.down");
-			soundButtonStyle.checked = myGdxGameController.getScreenUtils()
+			soundButtonStyle.checked = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("sound.checked");
 		}
 
@@ -156,28 +158,28 @@ public class StartScreen implements Screen {
 		soundButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (MyGdxGameController.soundEffectsOn()) {
-					myGdxGameController.soundEffectsOn(false);
+				if (OneMoreCookiePleaseController.soundEffectsOn()) {
+					oneMoreCookiePleaseController.soundEffectsOn(false);
 				} else {
-					myGdxGameController.soundEffectsOn(true);
+					oneMoreCookiePleaseController.soundEffectsOn(true);
 				}
 			}
 		});
 
 		ImageButtonStyle musicButtonStyle = new ImageButtonStyle();
-		if (myGdxGameController.getSoundController().backgroundMusicIsPlaying()) {
-			musicButtonStyle.up = myGdxGameController.getScreenUtils()
+		if (oneMoreCookiePleaseController.getSoundController().backgroundMusicIsPlaying()) {
+			musicButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.checked");
-			musicButtonStyle.down = myGdxGameController.getScreenUtils()
+			musicButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.down");
-			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
+			musicButtonStyle.checked = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.up");
 		} else {
-			musicButtonStyle.up = myGdxGameController.getScreenUtils()
+			musicButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.up");
-			musicButtonStyle.down = myGdxGameController.getScreenUtils()
+			musicButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.down");
-			musicButtonStyle.checked = myGdxGameController.getScreenUtils()
+			musicButtonStyle.checked = oneMoreCookiePleaseController.getScreenUtils()
 					.getCircularSkin().getDrawable("music.checked");
 		}
 
@@ -188,13 +190,13 @@ public class StartScreen implements Screen {
 		musicButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (myGdxGameController.getSoundController()
+				if (oneMoreCookiePleaseController.getSoundController()
 						.backgroundMusicIsPlaying()) {
-					myGdxGameController.getSoundController()
-							.pauseBackgroundMusic();
+					oneMoreCookiePleaseController.getSoundController()
+					.pauseBackgroundMusic();
 				} else {
-					myGdxGameController.getSoundController()
-							.playBackgroundMusic();
+					oneMoreCookiePleaseController.getSoundController()
+					.playBackgroundMusic();
 				}
 			}
 		});

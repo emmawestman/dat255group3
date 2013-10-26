@@ -1,6 +1,5 @@
 package com.dat255_group3.utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -10,11 +9,12 @@ import com.dat255_group3.model.MapList;
 
 
 /**
- * A class containing methods to detect positions from the tmx map.
- * @author group 3
- *
+ * Contains methods to detect positions from the tmx map.
+ * 
+ * @author The Hans-Gunnar Crew
  */
 public class WorldUtil {
+
 	private static Vector2 startPos;
 	private TiledMap map;
 	private static MapList groundList;
@@ -23,11 +23,11 @@ public class WorldUtil {
 	private Vector2 tileSize;
 	private MapList cookieList;
 
-
 	/**
-	 * Class constructor specifying the map and creating lists.
-	 * @param tiledMap
-	 * 				The tiled map
+	 * Constructs a new WorldUtil and creates MapLists for the ground,
+	 * obstacle and cookie positions.
+	 * 
+	 * @param tiledMap the level's TiledMap
 	 */
 	public WorldUtil(TiledMap tiledMap) {
 		this.map = tiledMap;
@@ -36,63 +36,34 @@ public class WorldUtil {
 		cookieList = new MapList();
 		findTileSize();
 		addToLists();
-
 	}
 
 
 	/**
-	 * A method to find the size of the tiles
+	 * Finds the size of the tiles.
 	 */
 	public void findTileSize() {
 		TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
 		tileSize = new Vector2(layer.getTileHeight(), layer.getTileWidth());
 	}
 
-	/**
-	 * A method to get the size of the tiles
-	 * @return 
-	 * 		The size of the tile
-	 */
 	public Vector2 getTileSize() {
 		return tileSize;
 	}
 
-	/**
-	 * A method to get the list containing the positions of the obstacles
-	 * @return
-	 * 		The list with the obstacles positions
-	 */
-	//only static temporarily to help test
 	public static MapList getObstacleList() {
 		return obstacleList;
 	}
 
-
-	/**
-	 * A method to get the start position on the map for the character 
-	 * @return
-	 * 		The start position for the character	
-	 */
 	public static Vector2 getStartPos() {
 		return startPos;
 	}
 
-	/**
-	 * A method to get a list containing all the positions of ground tiles in the map.
-	 * @return
-	 * 		A list of positions of the ground tiles
-	 */
-	//only static temporarily to help test
 	public static MapList getGroundList() {
 		return groundList;
 	}
 
-	/**
-	 * A method to get the list of all the positions for the finish line in the map
-	 * @return
-	 * 		A list of all positions of the finish line
-	 */
-	public float finishLineX() {
+	public float getFinishLineX() {
 		return finishLineX;
 	}
 
@@ -101,7 +72,8 @@ public class WorldUtil {
 	}
 
 	/**
-	 * A method to loop through the map layers and create lists of different kinds of positions
+	 * Loops through the map layers and creates lists of different 
+	 * kinds of positions.
 	 */
 	private void addToLists() {
 		for(int i=0; i<map.getLayers().getCount(); i++) {
@@ -129,7 +101,6 @@ public class WorldUtil {
 								finishLineX = x*tileSize.x;
 							}else if(tile.getProperties().containsKey("StartPosition")) {
 								startPos = new Vector2((x*tileSize.x) - Character.getRadius()/2,y*tileSize.y + Character.getRadius()/2 + 30);
-								Gdx.app.log("from map", "StartPos found at: "+ x + ","+y);
 							}else if(tile.getProperties().containsKey("Cookie")) {
 								cookieList.getMapList().add(new Vector2((x*tileSize.x), y*tileSize.y));
 							}

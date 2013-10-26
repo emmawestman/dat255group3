@@ -14,26 +14,31 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.OneMoreCookiePleaseController;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the menu for the levels of the game. The user is
- * given the options of choosing which level or to return by pressing the
- * backbutton on the phone.
+ * A menu for the levels of the game. The user is given the options of 
+ * choosing which level or to return by pressing the backbutton on the phone.
  * 
  * @author The Hans-Gunnar Crew
  */
 public class LevelScreen implements Screen {
 
-	private MyGdxGameController myGdxGameController;
+	private OneMoreCookiePleaseController oneMoreCookiePleaseController;
 	private InputStage stage;
 	private Texture levelTexture;
 
-	public LevelScreen(MyGdxGameController myGdxGameController) {
-		this.myGdxGameController = myGdxGameController;
+	/**
+	 * Constructs a new LevelScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
+	public LevelScreen(
+			OneMoreCookiePleaseController oneMoreCookiePleaseController) {
+		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraHeight(), true);
 	}
@@ -43,7 +48,7 @@ public class LevelScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		myGdxGameController.getScreenUtils().drawBackgroundImage();
+		oneMoreCookiePleaseController.getScreenUtils().drawBackgroundImage();
 
 		// Update & draw the stage-actors
 		stage.act(delta);
@@ -57,13 +62,17 @@ public class LevelScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		oneMoreCookiePleaseController.getOneMoreCookiePlease()
+		.setIsGameStarted(false);
 
-		// Checks if the back-key has been pressed & if so, the start screen will be shown
+		// Checks if the back-key has been pressed & if so, the start screen
+		// will be shown
 		stage.setHardKeyListener(new OnHardKeyListener() {
 			@Override
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
-					myGdxGameController.setScreen(myGdxGameController
+					oneMoreCookiePleaseController
+					.setScreen(oneMoreCookiePleaseController
 							.getStartScreen());
 				}
 			}
@@ -81,9 +90,9 @@ public class LevelScreen implements Screen {
 
 		// Setting buttons & listeners for choosing the levels
 		ImageButtonStyle levelOneStyle = new ImageButtonStyle();
-		levelOneStyle.up = myGdxGameController.getScreenUtils()
+		levelOneStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelOne.up");
-		levelOneStyle.down = myGdxGameController.getScreenUtils()
+		levelOneStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelOne.down");
 		levelOneStyle.pressedOffsetX = 1;
 		levelOneStyle.pressedOffsetY = -1;
@@ -93,17 +102,19 @@ public class LevelScreen implements Screen {
 		levelOneButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.getMyGdxGame().setCurrentLevel(1);
-				myGdxGameController.getInGameController().loadMap();
-				myGdxGameController.setScreen(myGdxGameController
+				oneMoreCookiePleaseController.getOneMoreCookiePlease()
+				.setCurrentLevel(1);
+				oneMoreCookiePleaseController.getInGameController().loadMap();
+				oneMoreCookiePleaseController
+				.setScreen(oneMoreCookiePleaseController
 						.getInGameController());
 			}
 		});
 
 		ImageButtonStyle levelTwoStyle = new ImageButtonStyle();
-		levelTwoStyle.up = myGdxGameController.getScreenUtils()
+		levelTwoStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelTwo.up");
-		levelTwoStyle.down = myGdxGameController.getScreenUtils()
+		levelTwoStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelTwo.down");
 		levelTwoStyle.pressedOffsetX = 1;
 		levelTwoStyle.pressedOffsetY = -1;
@@ -113,17 +124,19 @@ public class LevelScreen implements Screen {
 		levelTwoButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.getMyGdxGame().setCurrentLevel(2);
-				myGdxGameController.getInGameController().loadMap();
-				myGdxGameController.setScreen(myGdxGameController
+				oneMoreCookiePleaseController.getOneMoreCookiePlease()
+				.setCurrentLevel(2);
+				oneMoreCookiePleaseController.getInGameController().loadMap();
+				oneMoreCookiePleaseController
+				.setScreen(oneMoreCookiePleaseController
 						.getInGameController());
 			}
 		});
 
 		ImageButtonStyle levelThreeStyle = new ImageButtonStyle();
-		levelThreeStyle.up = myGdxGameController.getScreenUtils()
+		levelThreeStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelThree.up");
-		levelThreeStyle.down = myGdxGameController.getScreenUtils()
+		levelThreeStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("levelThree.down");
 		levelThreeStyle.pressedOffsetX = 1;
 		levelThreeStyle.pressedOffsetY = -1;
@@ -133,17 +146,19 @@ public class LevelScreen implements Screen {
 		levelThreeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.getMyGdxGame().setCurrentLevel(3);
-				myGdxGameController.getInGameController().loadMap();
-				myGdxGameController.setScreen(myGdxGameController
+				oneMoreCookiePleaseController.getOneMoreCookiePlease()
+				.setCurrentLevel(3);
+				oneMoreCookiePleaseController.getInGameController().loadMap();
+				oneMoreCookiePleaseController
+				.setScreen(oneMoreCookiePleaseController
 						.getInGameController());
 			}
 		});
 
 		ImageButtonStyle homeButtonStyle = new ImageButtonStyle();
-		homeButtonStyle.up = myGdxGameController.getScreenUtils()
+		homeButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("home.up");
-		homeButtonStyle.down = myGdxGameController.getScreenUtils()
+		homeButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getCircularSkin().getDrawable("home.down");
 		homeButtonStyle.pressedOffsetX = 1;
 		homeButtonStyle.pressedOffsetY = -1;
@@ -153,23 +168,27 @@ public class LevelScreen implements Screen {
 		homeButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setScreen(myGdxGameController
+				oneMoreCookiePleaseController
+				.setScreen(oneMoreCookiePleaseController
 						.getStartScreen());
 			}
 		});
-		
-		//Setting high scores of the levels
+
+		// Setting high scores of the levels
 		LabelStyle scoreLabelStyle = new LabelStyle();
 		scoreLabelStyle.font = new BitmapFont(
-				Gdx.files.internal("font/white.fnt"), false);
+				Gdx.files.internal("ui/font/white.fnt"), false);
 		scoreLabelStyle.font.setScale(1.3f);
 
-		Label levelOneScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(1), scoreLabelStyle);
-		Label levelTwoScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(2),
-				scoreLabelStyle);
-		Label levelThreeScore = new Label("Score: " + myGdxGameController.getPlayerController().getPlayer().getHighScore(3),
-				scoreLabelStyle);
-
+		Label levelOneScore = new Label("Score: "
+				+ oneMoreCookiePleaseController.getPlayerController()
+				.getPlayer().getHighScore(1), scoreLabelStyle);
+		Label levelTwoScore = new Label("Score: "
+				+ oneMoreCookiePleaseController.getPlayerController()
+				.getPlayer().getHighScore(2), scoreLabelStyle);
+		Label levelThreeScore = new Label("Score: "
+				+ oneMoreCookiePleaseController.getPlayerController()
+				.getPlayer().getHighScore(3), scoreLabelStyle);
 
 		// Setting the positions of the actors and add them to the stage
 		levelImage.setPosition(270, 400);
@@ -177,11 +196,11 @@ public class LevelScreen implements Screen {
 		levelTwoButton.setPosition(405, 160);
 		levelThreeButton.setPosition(630, 160);
 		homeButton.setPosition(CoordinateConverter.getCameraWidth() - 120, 30);
-		
+
 		levelOneScore.setPosition(190, 100);
 		levelTwoScore.setPosition(415, 100);
 		levelThreeScore.setPosition(650, 100);
-		
+
 		stage.addActor(levelImage);
 		stage.addActor(levelOneButton);
 		stage.addActor(levelTwoButton);
@@ -217,5 +236,4 @@ public class LevelScreen implements Screen {
 		} catch (Exception e) {
 		}
 	}
-
 }

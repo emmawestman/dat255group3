@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * A class describing a list for maps.
+ * A MapList is used for storing specific tiles' positions.
+ * It contains an ArrayList with Vector2 objects.
+ * 
  * @author The Hans-Gunnar Crew
  *
  */
@@ -13,17 +15,13 @@ public class MapList {
 	private ArrayList<Vector2> mapList;
 
 	/**
-	 * Constructs a MapList.
+	 * Constructs a new MapList and creates an ArrayList with 
+	 * Vector2 objects.
 	 */
 	public MapList() {
 		mapList = new ArrayList<Vector2>();		
 	}
 
-	/**
-	 * A method which returns the list of maps as it is invoked.
-	 * @return
-	 * 		The maplist
-	 */
 	public ArrayList<Vector2> getMapList() {
 		return mapList;
 	}

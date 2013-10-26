@@ -9,8 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+/**
+ * Creates images that are drawn in the screens.
+ * 
+ * @author The Hans-Gunnar Crew
+ */
 public class ScreenUtils {
-	
+
 	private TextureAtlas atlasRect;
 	private TextureAtlas atlasCirc;
 	private Skin skinRect;
@@ -21,15 +26,18 @@ public class ScreenUtils {
 	private Texture backgroundTexture;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
-	
-	
+
+	/**
+	 * Constructs a new ScreenUtils, loads the image files and creates
+	 * the necessary objects needed to draw them.
+	 */
 	public ScreenUtils(){
 		try{
-		atlasRect = new TextureAtlas(Gdx.files.internal("menuIcons/Rectangular_Icons.pack"));
-		atlasCirc = new TextureAtlas(Gdx.files.internal("menuIcons/Circular_Icons.pack"));
-		gameTitleTexture = new Texture(Gdx.files.internal("menuIcons/gameTitle.png"));
-		backgroundTexture = new Texture(Gdx.files.internal("ui/startBackground1024x512.png"));
-		
+			atlasRect = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Rectangular_Icons.pack"));
+			atlasCirc = new TextureAtlas(Gdx.files.internal("ui/menuIcons/Circular_Icons.pack"));
+			gameTitleTexture = new Texture(Gdx.files.internal("ui/gameTitle.png"));
+			backgroundTexture = new Texture(Gdx.files.internal("ui/startBackground1024x512.png"));
+
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("ScreenUtils", "Exception", e);
 		}catch (Exception e) {			
@@ -44,43 +52,46 @@ public class ScreenUtils {
 		camera.update();
 		spriteBatch = new SpriteBatch();
 		spriteBatch.setProjectionMatrix(camera.combined);
-		
-		
 	}
-	
+
 	public Skin getRectangularSkin(){
 		return skinRect;
 	}
-	
+
 	public Skin getCircularSkin(){
 		return skinCirc;
 	}
-	
+
 	public Image getGameTitleImage() {
 		return gameTitleImage;
 	}
-	
+
 	public Image getBackgroundImage() {
 		return backgroundImage;
 	}
 
+	/**
+	 * Should be called when the application is destroyed.
+	 */
 	public void dispose(){
 		try {
-		skinRect.dispose();
-		skinCirc.dispose();
-		atlasRect.dispose();
-		atlasCirc.dispose();
-		spriteBatch.dispose();
+			skinRect.dispose();
+			skinCirc.dispose();
+			atlasRect.dispose();
+			atlasCirc.dispose();
+			spriteBatch.dispose();
 		} catch (GdxRuntimeException e){
 			Gdx.app.log("ScreenUtils", "Exception", e);
 		}catch (Exception e) {			
 		}
 	}
-	
+
+	/**
+	 * Draws the background image.
+	 */
 	public void drawBackgroundImage() {
 		spriteBatch.begin();
 		backgroundImage.draw(spriteBatch, 1);
 		spriteBatch.end();
 	}
-
 }

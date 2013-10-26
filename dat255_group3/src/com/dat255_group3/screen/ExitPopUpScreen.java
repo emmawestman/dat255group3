@@ -11,28 +11,33 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.dat255_group3.controller.MyGdxGameController;
+import com.dat255_group3.controller.OneMoreCookiePleaseController;
 import com.dat255_group3.utils.CoordinateConverter;
 import com.dat255_group3.utils.InputStage;
 import com.dat255_group3.utils.InputStage.OnHardKeyListener;
 
 /**
- * A class which represents the popup-screen being shown to confirm the exit of
- * the game
+ * A popup-screen that is shown when you try to exit the game.
+ * The user is given a YES/NO option.
  * 
  * @author The Hans-Gunnar Crew
  */
 public class ExitPopUpScreen implements Screen {
 
-	private MyGdxGameController myGdxGameController;
+	private OneMoreCookiePleaseController oneMoreCookiePleaseController;
 	private InputStage stage;
 	private Texture popUpTexture;
 	private Image popUpImage;
 	private Texture popUpLabelTexture;
 	private Image labelImage;
 
-	public ExitPopUpScreen(MyGdxGameController myGdxGameController) {
-		this.myGdxGameController = myGdxGameController;
+	/**
+	 * Constructs a new ExitPopUpScreen with the specified OneMoreCookiePleaseController.
+	 * 
+	 * @param oneMoreCookiePleaseController the game's OneMoreCookiePleaseController object
+	 */
+	public ExitPopUpScreen(OneMoreCookiePleaseController oneMoreCookiePleaseController) {
+		this.oneMoreCookiePleaseController = oneMoreCookiePleaseController;
 		this.stage = new InputStage(CoordinateConverter.getCameraWidth(),
 				CoordinateConverter.getCameraWidth(), true);
 	}
@@ -55,6 +60,8 @@ public class ExitPopUpScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		oneMoreCookiePleaseController.getOneMoreCookiePlease()
+				.setIsGameStarted(false);
 
 		// Checks if the back-key has been pressed & if so, the level screen
 		// will be shown
@@ -62,8 +69,9 @@ public class ExitPopUpScreen implements Screen {
 			@Override
 			public void onHardKey(int keyCode, int state) {
 				if (keyCode == Keys.BACK && state == 1) {
-					myGdxGameController.setScreen(myGdxGameController
-							.getStartScreen());
+					oneMoreCookiePleaseController
+							.setScreen(oneMoreCookiePleaseController
+									.getStartScreen());
 				}
 			}
 		});
@@ -71,7 +79,7 @@ public class ExitPopUpScreen implements Screen {
 		try {
 			popUpTexture = new Texture(Gdx.files.internal("ui/exitPopUp.png"));
 			popUpLabelTexture = new Texture(
-			Gdx.files.internal("ui/exitLabel.png"));
+					Gdx.files.internal("ui/exitLabel.png"));
 		} catch (GdxRuntimeException e) {
 			Gdx.app.log("ExitPopUp", "Exception", e);
 		} catch (Exception e) {
@@ -79,11 +87,11 @@ public class ExitPopUpScreen implements Screen {
 		popUpImage = new Image(popUpTexture);
 		popUpImage.setSize(1024, 580);
 		labelImage = new Image(popUpLabelTexture);
-		
+
 		ImageButtonStyle yesButtonStyle = new ImageButtonStyle();
-		yesButtonStyle.up = myGdxGameController.getScreenUtils()
+		yesButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("yes.up");
-		yesButtonStyle.down = myGdxGameController.getScreenUtils()
+		yesButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("yes.down");
 		yesButtonStyle.pressedOffsetX = 1;
 		yesButtonStyle.pressedOffsetY = -1;
@@ -103,9 +111,9 @@ public class ExitPopUpScreen implements Screen {
 		});
 
 		ImageButtonStyle noButtonStyle = new ImageButtonStyle();
-		noButtonStyle.up = myGdxGameController.getScreenUtils()
+		noButtonStyle.up = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("no.up");
-		noButtonStyle.down = myGdxGameController.getScreenUtils()
+		noButtonStyle.down = oneMoreCookiePleaseController.getScreenUtils()
 				.getRectangularSkin().getDrawable("no.down");
 		noButtonStyle.pressedOffsetX = 1;
 		noButtonStyle.pressedOffsetY = -1;
@@ -115,15 +123,18 @@ public class ExitPopUpScreen implements Screen {
 		noButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				myGdxGameController.setScreen(myGdxGameController
-						.getStartScreen());
+				oneMoreCookiePleaseController
+						.setScreen(oneMoreCookiePleaseController
+								.getStartScreen());
 			}
 		});
 
 		// Setting positions & adding to the stage
-		yesButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 230);
-		noButton.setPosition(CoordinateConverter.getCameraWidth()/2 - 105, 130);
-		labelImage.setPosition(130, 370);
+		yesButton.setPosition(CoordinateConverter.getCameraWidth() / 2 - 105,
+				230);
+		noButton.setPosition(CoordinateConverter.getCameraWidth() / 2 - 105,
+				130);
+		labelImage.setPosition(140, 370);
 		stage.addActor(popUpImage);
 		stage.addActor(labelImage);
 		stage.addActor(yesButton);
@@ -152,5 +163,4 @@ public class ExitPopUpScreen implements Screen {
 		stage.dispose();
 
 	}
-
 }

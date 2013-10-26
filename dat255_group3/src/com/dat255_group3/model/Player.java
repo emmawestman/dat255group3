@@ -6,8 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.dat255_group3.io.IOHandler;
 
 /**
- * A class that represents the user playing the game.
- * 
+ * A Player is the user playing the game.
  * 
  * @author The Hans-Gunnar Crew
  *
@@ -15,28 +14,18 @@ import com.dat255_group3.io.IOHandler;
 
 public class Player {
 
-	/** The player's hihscores */
 	private List <Integer> highScores;
-	
-	/** The player's current score.*/
 	private int currentScore;
 
-	
 	/**
-	 * Class constructor.
+	 * Constructs a new Player, instantiates an ArrayList for the high score,
+	 * and reads the high score.
 	 */
 	public Player(){
 		highScores = new ArrayList <Integer>();
 		IOHandler.readScore();
 	}
 	
-	
-	/**
-	 * Returns and int representing the player's high score.
-	 * 
-	 * @return the player's high score
-	 */
-
 	public int getHighScore(int level){
 		return highScores.get(level-1);
 	}
@@ -44,15 +33,9 @@ public class Player {
 	public void setNewHighScore (int levelNbr, int score){
 		if (contains(levelNbr)) {
 			setHighScore(levelNbr, score);
-			
 		}else {
 			highScores.add(score);
 		}
-		
-		Gdx.app.log("plyer", "set new Hs: " + highScores.get(levelNbr));
-		Gdx.app.log("player", "score: " + score);
-		Gdx.app.log("Player", "Contains: 1: " + highScores.get(0) + " 2: " + highScores.get(1) + " 3: " + highScores.get(2));
-		
 	}
 	
 	public int getScore() {
@@ -71,7 +54,14 @@ public class Player {
 		return this.highScores;
 	}
 
-	
+	/**
+	 * Calculates the player's score using the following formula:
+	 * (40/time)^3.0*1000 + cookies*100.
+	 * 
+	 * @param time the amount of time the player spent on the level
+	 * @param cookies the number of cookies the player collected on the level
+	 * @param gameLost true if the player died before completing the level
+	 */
 	public void calculateScore(double time, int cookies, boolean gameLost) {
 		if(gameLost){
 			this.currentScore = cookies*100;
@@ -79,6 +69,12 @@ public class Player {
 			this.currentScore = (int) (Math.pow(40/time, 3.0)*1000 + cookies*100);
 		}
 	}
+	
+	/**
+	 * Adds the player's new high score to the high score list.
+	 * 
+	 * @param levelData an array containing the high scores for each level
+	 */
 	public void addHighScoresToList(String [] levelData) {
 		try {
 			for (int i=0; i<levelData.length; i++) {
@@ -89,13 +85,16 @@ public class Player {
 			for (int i=0; i<3; i++) {
 				highScores.add(0);
 			}
-			
 		}
 	}
-	 
+	
+	/**
+	 * 
+	 * 
+	 * @param levelNbr the current level
+	 * @return true if
+	 */
 	public boolean contains(int levelNbr) {
 		return highScores.size() > levelNbr;
-		
 	}
- 
 }

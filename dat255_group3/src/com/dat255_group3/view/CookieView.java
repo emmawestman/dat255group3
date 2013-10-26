@@ -10,23 +10,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255_group3.model.Cookie;
 
 /**
- * A View for all cookies in the game.
+ * The view which draws all the cookies in the game.
+ * 
  * @author The Hans-Gunnar Crew
- *
  */
 public class CookieView {
+
 	private OrthographicCamera camera;
 	private ArrayList<Cookie> cookieList;
 	private SpriteBatch spriteBatch;
 	private Sprite sprite;
 	private Texture texture;
-	
+
 	/**
-	 * A constructor that takes a camera and a list of cookies.
-	 * @param camera
-	 * 			The camera that will show the cookies.
-	 * @param cookieList
-	 * 			The list of cookies to be drawn.
+	 * Constructs a new CookieView with the specified camera and list
+	 * of cookies.
+	 * 
+	 * @param camera the camera used to display the game
+	 * @param cookieList the list of cookies to be drawn.
 	 */
 	public CookieView(OrthographicCamera camera, ArrayList<Cookie> cookieList) {
 		this.camera = camera;
@@ -36,9 +37,9 @@ public class CookieView {
 		sprite = new Sprite(texture);
 		sprite.setSize(32f, 32f);
 	}
-	
+
 	/**
-	 * A method which draws all the cookies.
+	 * Loops through the cookie list and draws all cookies.
 	 */
 	public void draw() {
 		camera.update();
@@ -50,5 +51,4 @@ public class CookieView {
 		}
 		spriteBatch.end();
 	}
-	
 }

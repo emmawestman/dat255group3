@@ -12,12 +12,14 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dat255_group3.utils.CoordinateConverter;
 
-/** A view class for the InGame model. 
+/**
+ * The view which draws everything in the game screen.
+ *  
  * @author The Hans-Gunnar Crew
- *
  */
+
 public class InGameView {
-	
+
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
@@ -29,50 +31,58 @@ public class InGameView {
 	private Texture countDownImage;
 	private Sprite countDown;
 	private int level;
-	
-	/** A constructor that takes a map. 
-	 * @param map
+
+	/**
+	 * Constructs a new InGameView with the specified TiledMap and camera.
+	 * 
+	 * @param map the level's TiledMap
+	 * @param camera the camera used to display the game
+	 * @param level the current level
 	 */
-	
-	public InGameView (TiledMap map, OrthographicCamera camera, int level) {
+	public InGameView(TiledMap map, OrthographicCamera camera, int level) {
 		this.level=level;
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
 		this.camera = camera;
 		this.spriteBatch = new SpriteBatch();
 		this.font = new BitmapFont();
 		spriteBatch.setProjectionMatrix(camera.combined);
-		this.bgImage = new Texture(Gdx.files.internal("ui/ingameBackground.png"));
+		this.bgImage = new Texture(Gdx.files.internal("ui/background.png"));
 		bgSprite = new Sprite(bgImage);
 	}
-	
-	/** Renders the HUD and background of the game. 
+
+	/**
+	 * Draws everything that is displayed in the level.
 	 * 
+	 * @param worldView the view that draws the character, cookies and enemy
+	 * @param charBody the character's physics body
+	 * @param charView the view that draws the character
+	 * @param cookieView the view that draws the cookies
+	 * @param enemy the view that draws the enemy
+	 * @param time the time that's being updated in the game
+	 * @param cookieCounter keeps track of the number of cookies collected
+	 * @param gameOver true if the game is lost
 	 */
 	public void draw(WorldView worldView, Body charBody, CharacterView charView, CookieView cookieView, 
 			EnemyView enemy, double time, int cookieCounter, boolean gameOver) {
-		//darw bg image
+
 		drawBgImage();
+
 		//Shows selected part of the map
 		mapRenderer.setView(camera);
+
 		mapRenderer.render(mapLayers);
 		worldView.draw(charView, cookieView, enemy);
-		//draw game over text
-		if(gameOver) drawGameOver();
-		//Draw time
 		drawTime(time);
 		drawCookieCounter(cookieCounter);
 		drawLevelNbr();
 
 	}
-	
-	public void drawGameOver(){
-		spriteBatch.begin();
-		str = "GAME OVER";
-		font.setColor(Color.RED);
-		font.draw(spriteBatch, str, camera.viewportWidth/2 -40f, camera.viewportHeight/2);
-		spriteBatch.end();
-	}
-	
+
+	/**
+	 * Draws the time elapsed in the upper left corner.
+	 * 
+	 * @param time the time that's being updated in the game
+	 */
 	public void drawTime(double time) {
 		spriteBatch.begin();
 		str = "Time: "+ (double)((int)(time*100))/100;
@@ -80,7 +90,12 @@ public class InGameView {
 		font.draw(spriteBatch, str, 100f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
-	
+
+	/**
+	 * Draws the cookie counter next to the time.
+	 * 
+	 * @param cookieCounter keeps track of the number of cookies collected
+	 */
 	public void drawCookieCounter(int cookieCounter) {
 		spriteBatch.begin();
 		str = "Cookies: "+ cookieCounter;
@@ -88,7 +103,10 @@ public class InGameView {
 		font.draw(spriteBatch, str, 200f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
-	
+
+	/**
+	 * Draws the level number next to the cookie counter.
+	 */
 	public void drawLevelNbr(){
 		spriteBatch.begin();
 		str = "Level: "+ this.level;
@@ -96,7 +114,11 @@ public class InGameView {
 		font.draw(spriteBatch, str, 300f, camera.viewportHeight-30f);
 		spriteBatch.end();
 	}
-	
+
+	/**
+	 * Draws the background image. This image has a fixed position 
+	 * and does not move with the camera.
+	 */
 	public void drawBgImage(){
 		if(this.bgImage != null){
 			this.spriteBatch.begin();
@@ -104,30 +126,33 @@ public class InGameView {
 			this.bgSprite.draw(spriteBatch);
 			this.spriteBatch.end();
 		}
-
 	}
-	
+
+	/**
+	 * Draws the count down numbers at the start of a level.
+	 * 
+	 * @param delayTime the updated time during the count down
+	 */
 	public void drawCountDownNbr(float delayTime) {		
 		try {
-		if (delayTime <= 1.0) {
-			countDownImage = new Texture(Gdx.files.internal("ui/three.png"));
-		}else if (delayTime <= 2.0) {
-			countDownImage = new Texture(Gdx.files.internal("ui/two.png"));
-		}else {
-			countDownImage = new Texture(Gdx.files.internal("ui/one.png"));
-		}
+			if (delayTime <= 1.0) {
+				countDownImage = new Texture(Gdx.files.internal("ui/three.png"));
+			}else if (delayTime <= 2.0) {
+				countDownImage = new Texture(Gdx.files.internal("ui/two.png"));
+			}else {
+				countDownImage = new Texture(Gdx.files.internal("ui/one.png"));
+			}
 		}catch (Exception e) {
-			
+
 		}
-		
+
 		this.countDown = new Sprite(countDownImage);
-		
+
 		spriteBatch.begin();
 		countDown.setPosition(CoordinateConverter.getCameraWidth()/2 - 256/2, 
 				CoordinateConverter.getCameraHeight()/2 - 256/2);
 		countDown.draw(spriteBatch);
 		spriteBatch.end();
-		
+
 	}
-	
 }
