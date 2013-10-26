@@ -92,7 +92,7 @@ public class Player {
 	 * 
 	 * 
 	 * @param levelNbr the current level
-	 * @return true if
+	 * @return true if the list of high scores have a length grater then the levelNbr
 	 */
 	public boolean contains(int levelNbr) {
 		return highScores.size() > levelNbr;
